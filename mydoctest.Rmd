@@ -1,0 +1,363 @@
+---
+title: "WILe Project - DM ZG 612 - Advances in Materials, Composites and PlasticsTest Project"
+author: "2019HT56025 Gopal Kumar"
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  bookdown::pdf_document2:
+    keep_tex: yes
+    latex_engine: xelatex
+    toc: no
+  word_document:
+    reference_docx: gkdoctemplete.docx
+    toc: yes
+  html_document:
+    toc: true #yes
+    number_sections: TRUE
+    toc_depth: 2  #the default is 3
+    theme: readable
+    highlight: pygments
+#    code_folding: hide
+    keep_md: true
+params:
+  department: "RDSO QA(Mech), Lucknow"
+  reportype: "For internal use only"
+  signer: "Gopal Kumar, SrED/QA(Mech.)"
+  docdate: "25 Feb 2023"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r fig-nocap-margin-first, fig.margin=TRUE, fig.width=8, fig.height=4, cache=TRUE, echo=FALSE}
+library(ggplot2)
+
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point(size=3, aes(colour=factor(cyl))) + 
+  theme(legend.position="none")
+
+```
+
+
+
+# The Base data of the project
+
+BIRLA INSTITUTE OF TECHNOLOGY & SCIENCE, PILANI
+
+WORK INTEGRATED LEARNING PROGRAMMES
+
+M.Tech. Automotive Engineering
+
+
+```{r out.width=c('70%', '30%'), fig.show='hold'}
+boxplot(1:10)
+plot(rnorm(10))
+```
+
+II Semester 2019-20
+
+
+
+EC1- Work Integrated Learning Exercise (WILe)
+
+AE ZG 612/ DM ZG 612 - Advances in Materials, Composites and Plastics
+
+Date: 13/02/2020		Duration: 4 Weeks			Total marks: 20
+
+    1. Assumptions made if any, should be stated clearly at the beginning of your report.
+    2. This exercise can be attempted individually or in a group.
+    
+# The owl blessings
+
+the out.width and out.height arguments can be used with any type of graphic and conveniently can accept sizes in pixels or percentages as a string with % or px as a suffix.  fig.retina = 2, dpi= 300,
+
+```{r echo=FALSE, fig.align="center", fig.cap = "The owl blessings", fig.width=1.5, fig.height=1.5, out.width = '40%',  out.height = '40%', dpi= 300, cache=TRUE}
+library(bookdown)
+library(png)
+library(jpeg)
+knitr::include_graphics("flowery.png")
+```
+
+one option was 
+include graphics b y path,   auto_pdf = getOption("knitr.graphics.auto_pdf", FALSE),   dpi = NULL,   error = TRUE
+
+<center>
+
+![your image caption](flowery.png)
+
+</center>
+
+**For clickable link**
+ 
+[![your image caption](flowery.png)](www.google.com)
+
+
+## multiple images
+
+Add multiple images at a time
+
+The path argument in include_graphics will accept a vector of names. If you have a folder of images and want to add all them to your document at the same time simply point to the folder and voila!
+
+```{r, echo = TRUE, out.width="30%"}
+myimages<-list.files("./", pattern = ".png", full.names = TRUE)
+knitr::include_graphics(myimages)
+```
+
+
+
+```{r, echo = TRUE, out.width="5%"}
+myimages<-list.files("./", pattern = ".png", full.names = TRUE)
+knitr::include_graphics( rep((myimages), 4)  )
+
+knitr::include_graphics(rep("flowery.png", 10))
+
+
+#knitr::include_graphics(rep("flowery.png", 3))
+```
+
+Load an image from a URL
+
+Super easy – point to an image on the web.
+
+```{r, out.width = "50%"}
+#knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/MC_Drei-Finger-Faultier.jpg/330px-MC_Drei-Finger-Faultier.jpg")
+
+#knitr::include_graphics("http://pngimg.com/uploads/bouquet/bouquet_PNG62.png")
+```
+
+
+# fig caption
+useing package library(captioner) and use fig.caps = nameofcaptiongiven = "iris" hare
+
+Now you can create your first caption:
+ table_nums (name = "iris", caption = "Edgar Anderson's iris data.  All measurements are in centimetres.")
+
+Add an horizontal line by adding 3 stars:
+
+***
+
+## Problem Statement:
+
+> Select any one of the two problem statements from below.
+                1. Consider a large system consisting of 10 or more parts from your workplace or around and dissect it into its constituent components. Using various destructive and non-destructive techniques identify the material constituent each part is made of. Explore the reason for the specific material used for a part/component. Also identify the manufacturing process used for each part.
+
+>                 2. Select 5 different forged/cast components from your workplace or around that has failed/fractured during test or service and identify their application and possible failure mode (brittle/ductile/torsion/fatigue/creep etc.) for each component. Relate the observed failure mechanism to the possible cause of failure and list out possible mitigation method for each part/component.
+
+> Approach: 
+    • Observation
+    • Application of knowledge acquired
+    • Use of necessary and available tools
+    • Peer discussion
+
+## Report: 
+
+A 2-3  pages report shall be submitted that includes problem statement, methodology, identified system and analysis etc. All the necessary photographs/videos shall be shared in a presentable format preferably a video presentation (not more than 10 minutes).  
+
+## Due date for Submission: March 16, 2020
+
+
+
+Support _italic_ aka *em* and **strong**,  `code` snippets.
+
+
+# Introduction
+
+The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte's style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. 
+See footnote^[See Github repositories [tufte-latex](https://github.com/tufte-latex/tufte-latex) and [**mygithubrepository**](https://github.com/ggmtech].
+
+You may use `tufte_handout` format for handouts, and `tufte_book` for books, `tufte_html` for html. 
+See the book  @R-rmarkdown.
+
+```yaml
+---
+title: "An Example Using the Tufte Style"
+author: "John Smith"
+output:
+  tufte::tufte_handout: default
+  tufte::tufte_html: default
+---
+```
+
+There are two goals of this package:
+
+1. To produce both PDF and HTML output with similar styles from the same R Markdown document;
+1. To provide simple syntax to write elements of the Tufte style such as side notes and margin figures
+
+For margin figure use `fig.margin = TRUE` unlike `\begin{marginfigure} \end{marginfigure}` 
+or `<span class="marginfigure"> </span>`; .
+
+
+# Headings
+
+
+# Figures
+
+## Margin Figures
+
+chunk option `fig.margin = TRUE`. For example:
+
+```{r fig-margin, fig.margin = TRUE, fig.cap = "MPG vs hp, color by transmission.", fig.width=3.5, fig.height=3.5, cache=TRUE}
+library(ggplot2)
+mtcars2 <- mtcars
+mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+              geom_point() + geom_smooth() +
+              theme(legend.position = 'bottom')
+```
+
+The `fig.cap` chunk option to provide a figure caption. 
+
+## Arbitrary Margin Content
+
+In fact, you can include anything in the margin using the **knitr** engine named `marginfigure`. 
+Unlike R code chunks ```` ```{r} ````, you write a chunk starting with ```` ```{marginfigure} ```` instead, then put the content in the chunk. See an example on the right about the first fundamental theorem of calculus.
+
+{marginfigure}  This margin figure not recognised and other not compiled
+
+We know from _the first fundamental theorem of calculus_ that for $x$ in $[a, b]$:
+
+$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
+
+
+keep the margin content as simple as possible (syntax-wise) in the `marginefigure` blocks for html pdf interchang.  refrain from using footnotes, citations, or block-level elements (e.g. blockquotes and lists) there.
+
+## Full Width Figures
+
+chunk option `fig.fullwidth = TRUE`.
+
+```{r fig-fullwidth, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "A full width figure.", warning=FALSE, cache=TRUE}
+ggplot(diamonds, aes(carat, price)) + geom_smooth() +
+  facet_grid(~ cut)
+```
+
+Usually `fig.width` is large and `fig.height` is small. In the above example, the plot size is $10 \times 2$.
+
+## Main Column Figures
+
+Figures constrained to the main column is the default for LaTeX/HTML output.
+
+```{r fig-main, fig.cap = "A figure in the main column.", cache=TRUE}
+ggplot(diamonds, aes(cut, price)) + geom_boxplot()
+```
+
+# Sidenotes
+
+ Any  footnote will automatically converted to a sidenote^[Footnote on sidenote as default] 
+
+
+# References
+
+cite R here [@R-base]. To enable this feature, you must set `link-citations: yes` in the YAML metadata
+
+
+
+To check the version of `pandoc-citeproc` in your system, you may run this in R:
+
+```{r eval=FALSE}
+system2('pandoc-citeproc', '--version')
+```
+
+If your version of `pandoc-citeproc` is too low, or you did not set `link-citations: yes` in YAML, references in the HTML output will be placed at the end of the output document.
+
+# Tables
+
+Use with `kable()` . The table captions are placed in the margin like figures in the HTML output.
+
+```{r}
+knitr::kable( mtcars[1:6, 1:6], caption = 'A subset of mtcars.' )
+```
+
+# Block Quotes
+
+Start with `>` are converted to block quotes. 
+To right-aligned footer for the quote, you may use the function `quote_footer()` eg
+
+> "If it weren't for my lawyer, I'd still be in prison. It went a lot faster with two people digging."
+>
+> `r tint::quote_footer('--- Joe Martin')`
+
+
+
+# More Examples
+
+Two plots in one figure environment with the chunk option `fig.show = 'hold'`:
+
+```{r fig-two-together, fig.cap="Two plots in one figure environment.", fig.show='hold', cache=TRUE}
+p <- ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point()
+p
+p + geom_smooth()
+```
+
+Then two plots in separate figure environments (the code is identical but the chunk option is the default `fig.show = 'asis'` now):
+
+```{r fig-two-separate, ref.label='fig-two-together', fig.cap=sprintf("Two plots in separate figure environments (the %s plot).", c("first", "second")), cache=TRUE}
+```
+
+The two figures have different captions, and that is because we used a character vector of length 2 for the chunk option `fig.cap` (something like `fig.cap = c('first plot', 'second plot')`).
+
+Mltiple plots in margin figures with two plots in the same figure environment in the margin:
+
+```{r fig-margin-together, fig.margin=TRUE, fig.show='hold', fig.cap="Two plots in one figure environment in the margin.", fig.width=3.5, fig.height=2.5, cache=TRUE}
+p
+p + geom_smooth(method = 'lm')
+```
+
+Then two plots from the same code chunk placed in different figure environments:
+
+```{r fig-margin-separate, fig.margin=TRUE, fig.cap=sprintf("Two plots in separate figure environments in the margin (the %s plot).", c("first", "second")), fig.width=3.5, fig.height=2.5, cache=TRUE}
+knitr::kable(head(iris, 15))
+p
+knitr::kable(head(iris, 12))
+p + geom_smooth(method = 'lm')
+knitr::kable(head(iris, 5))
+```
+
+We blended some tables in the above code chunk only as _placeholders_ to make sure there is enough vertical space else they will be stacked tightly together. 
+
+figures with no captions below in the margin, in the main column, and in full width, respectively.
+
+```{r fig-nocap-margin, fig.margin=TRUE, fig.width=3.5, fig.height=2, cache=TRUE}
+# a boxplot of weight vs transmission; this figure
+# will be placed in the margin
+ggplot(mtcars2, aes(am, wt)) + geom_boxplot() +
+  coord_flip()
+```
+```{r fig-nocap-main, cache=TRUE}
+# a figure in the main column
+p <- ggplot(mtcars, aes(wt, hp)) + geom_point()
+p
+```
+```{r fig-nocap-fullwidth, fig.fullwidth=TRUE, fig.width=10, fig.height=3, cache=TRUE}
+# a fullwidth figure
+p + geom_smooth(method = 'lm') + facet_grid(~ gear)
+```
+
+# Some Notes on Tufte CSS
+
+
+For epigraphs,use a pair of underscores to make the paragraph italic in a block quote, e.g.
+
+> _I can win an argument on any topic, against any opponent. People know this, and steer clear of me at parties. Often, as a sign of their great respect, they don't even invite me._
+
+
+
+To see the R Markdown source  follow [this link to Github](https://github.com/eddelbuettel/tint/blob/master/inst/rmarkdown/templates/pdf/skeleton/skeleton.Rmd), use the wizard in RStudio IDE (`File -> New File -> R Markdown -> From Template`), or open the Rmd file in the package:
+
+```{r eval=FALSE}
+file.edit(
+  tint:::template_resources(
+    'tint', '..', 'skeleton', 'skeleton.Rmd'
+  )
+)
+```
+
+```{r bib, include=FALSE}
+# create a bib file for the R packages used in this document
+knitr::write_bib(c('base', 'rmarkdown'), file = 'skeleton.bib')
+```
+
