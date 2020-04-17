@@ -1,0 +1,233 @@
+---
+title: "Report on Spring Failures"
+subtitle: "Failures of Coil Springs and Air Springs : An Analysis"
+author: "Gopal Kumar"
+date: "`r Sys.Date()`"
+output: tint::tintBook
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tint)
+# invalidate cache when the package version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tint'))
+options(htmltools.dir.version = FALSE)
+```
+
+# The main figure now
+
+```{r fig-nocap-margin-first, fig.margin=FALSE, fig.width=8, fig.height=4, cache=TRUE, echo=FALSE}
+library(ggplot2)
+
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point(size=3, aes(colour=factor(cyl))) + 
+  theme(legend.position="none")
+
+```
+
+
+
+
+Support _italic_ aka *em* and **strong**,  `code` snippets.
+
+
+# Introduction
+
+The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte's style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. 
+See footnote^[See Github repositories [tufte-latex](https://github.com/tufte-latex/tufte-latex) and [**mygithubrepository**](https://github.com/ggmtech].
+
+You may use `tufte_handout` format for handouts, and `tufte_book` for books, `tufte_html` for html. 
+See the book  @R-rmarkdown.
+
+```yaml
+---
+title: "An Example Using the Tufte Style"
+author: "John Smith"
+output:
+  tufte::tufte_handout: default
+  tufte::tufte_html: default
+---
+```
+
+There are two goals of this package:
+
+1. To produce both PDF and HTML output with similar styles from the same R Markdown document;
+1. To provide simple syntax to write elements of the Tufte style such as side notes and margin figures
+
+For margin figure use `fig.margin = TRUE` unlike `\begin{marginfigure} \end{marginfigure}` 
+or `<span class="marginfigure"> </span>`; .
+
+
+# Headings
+
+
+`r newthought('In his later books')`^[[Beautiful Evidence](https://www.edwardtufte.com/tufte/books_be)], Tufte starts each section with a bit of vertical space, a non-indented paragraph, and sets the first few words of the sentence in small caps. 
+
+Use `newthought()` in an _inline R expression_ `` `r ` `` as demonstrated^[Note you should not assume **tufte** has been attached to your R session. You should either `library(tufte)` in your R Markdown document before you call `newthought()`, or use `tint::newthought()`.]
+
+# Figures
+
+## Margin Figures
+
+chunk option `fig.margin = TRUE`. For example:
+
+```{r fig-margin, fig.margin = TRUE, fig.cap = "MPG vs hp, color by transmission.", fig.width=3.5, fig.height=3.5, cache=TRUE}
+library(ggplot2)
+mtcars2 <- mtcars
+mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+              geom_point() + geom_smooth() +
+              theme(legend.position = 'bottom')
+```
+
+The `fig.cap` chunk option to provide a figure caption. 
+
+## Arbitrary Margin Content
+
+In fact, you can include anything in the margin using the **knitr** engine named `marginfigure`. 
+Unlike R code chunks ```` ```{r} ````, you write a chunk starting with ```` ```{marginfigure} ```` instead, then put the content in the chunk. See an example on the right about the first fundamental theorem of calculus.
+
+```{marginfigure}
+We know from _the first fundamental theorem of calculus_ that for $x$ in $[a, b]$:
+$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
+```
+
+keep the margin content as simple as possible (syntax-wise) in the `marginefigure` blocks for html pdf interchang.  refrain from using footnotes, citations, or block-level elements (e.g. blockquotes and lists) there.
+
+## Full Width Figures
+
+chunk option `fig.fullwidth = TRUE`.
+
+```{r fig-fullwidth, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "A full width figure.", warning=FALSE, cache=TRUE}
+ggplot(diamonds, aes(carat, price)) + geom_smooth() +
+  facet_grid(~ cut)
+```
+
+Usually `fig.width` is large and `fig.height` is small. In the above example, the plot size is $10 \times 2$.
+
+## Main Column Figures
+
+Figures constrained to the main column is the default for LaTeX/HTML output.
+
+```{r fig-main, fig.cap = "A figure in the main column.", cache=TRUE}
+ggplot(diamonds, aes(cut, price)) + geom_boxplot()
+```
+
+# Sidenotes
+
+ Any  footnote will automatically converted to a sidenote. ^[Footnote on sidenote as default] 
+
+For ancillary information in the margin without the sidenote mark use the `margin_note()`  inline R expression. `r margin_note("This is a margin note.  Notice that there is no number preceding the note.")` 
+but  Markdown syntax will not work here else use the `marginfigure` .
+
+# References
+
+cite R here [@R-base]. To enable this feature, you must set `link-citations: yes` in the YAML metadata
+To check the version of `pandoc-citeproc` in your system, you may run this in R:
+
+```{r eval=FALSE}
+system2('pandoc-citeproc', '--version')
+```
+
+If your version of `pandoc-citeproc` is too low, or you did not set `link-citations: yes` in YAML, references in the HTML output will be placed at the end of the output document.
+
+# Tables
+
+Use with `kable()` . The table captions are placed in the margin like figures in the HTML output.
+
+```{r}
+knitr::kable( mtcars[1:6, 1:6], caption = 'A subset of mtcars.' )
+```
+
+# Block Quotes
+
+Start with `>` are converted to block quotes. 
+To right-aligned footer for the quote, you may use the function `quote_footer()` eg
+
+> "If it weren't for my lawyer, I'd still be in prison. It went a lot faster with two people digging."
+>
+> `r tint::quote_footer('--- Joe Martin')`
+
+
+
+# More Examples
+
+Two plots in one figure environment with the chunk option `fig.show = 'hold'`:
+
+```{r fig-two-together, fig.cap="Two plots in one figure environment.", fig.show='hold', cache=TRUE}
+p <- ggplot(mtcars2, aes(hp, mpg, color = am)) +
+  geom_point()
+p
+p + geom_smooth()
+```
+
+Then two plots in separate figure environments (the code is identical but the chunk option is the default `fig.show = 'asis'` now):
+
+```{r fig-two-separate, ref.label='fig-two-together', fig.cap=sprintf("Two plots in separate figure environments (the %s plot).", c("first", "second")), cache=TRUE}
+```
+
+The two figures have different captions, and that is because we used a character vector of length 2 for the chunk option `fig.cap` (something like `fig.cap = c('first plot', 'second plot')`).
+
+Mltiple plots in margin figures with two plots in the same figure environment in the margin:
+
+```{r fig-margin-together, fig.margin=TRUE, fig.show='hold', fig.cap="Two plots in one figure environment in the margin.", fig.width=3.5, fig.height=2.5, cache=TRUE}
+p
+p + geom_smooth(method = 'lm')
+```
+
+Then two plots from the same code chunk placed in different figure environments:
+
+```{r fig-margin-separate, fig.margin=TRUE, fig.cap=sprintf("Two plots in separate figure environments in the margin (the %s plot).", c("first", "second")), fig.width=3.5, fig.height=2.5, cache=TRUE}
+knitr::kable(head(iris, 15))
+p
+knitr::kable(head(iris, 12))
+p + geom_smooth(method = 'lm')
+knitr::kable(head(iris, 5))
+```
+
+We blended some tables in the above code chunk only as _placeholders_ to make sure there is enough vertical space else they will be stacked tightly together. 
+
+figures with no captions below in the margin, in the main column, and in full width, respectively.
+
+```{r fig-nocap-margin, fig.margin=TRUE, fig.width=3.5, fig.height=2, cache=TRUE}
+# a boxplot of weight vs transmission; this figure
+# will be placed in the margin
+ggplot(mtcars2, aes(am, wt)) + geom_boxplot() +
+  coord_flip()
+```
+```{r fig-nocap-main, cache=TRUE}
+# a figure in the main column
+p <- ggplot(mtcars, aes(wt, hp)) + geom_point()
+p
+```
+```{r fig-nocap-fullwidth, fig.fullwidth=TRUE, fig.width=10, fig.height=3, cache=TRUE}
+# a fullwidth figure
+p + geom_smooth(method = 'lm') + facet_grid(~ gear)
+```
+
+# Some Notes on Tufte CSS
+
+Use `r sans_serif('sans-serif fonts')`, use  `sans_serif()` in **tufte**. 
+
+For epigraphs,use a pair of underscores to make the paragraph italic in a block quote, e.g.
+
+> _I can win an argument on any topic, against any opponent. People know this, and steer clear of me at parties. Often, as a sign of their great respect, they don't even invite me._
+>
+> `r quote_footer('--- Dave Barry')`
+
+
+To see the R Markdown source  follow [this link to Github](https://github.com/eddelbuettel/tint/blob/master/inst/rmarkdown/templates/pdf/skeleton/skeleton.Rmd), use the wizard in RStudio IDE (`File -> New File -> R Markdown -> From Template`), or open the Rmd file in the package:
+
+```{r eval=FALSE}
+file.edit(
+  tint:::template_resources(
+    'tint', '..', 'skeleton', 'skeleton.Rmd'
+  )
+)
+```
+
+```{r bib, include=FALSE}
+# create a bib file for the R packages used in this document
+knitr::write_bib(c('base', 'rmarkdown'), file = 'skeleton.bib')
+```
