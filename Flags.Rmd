@@ -1,0 +1,82 @@
+---
+title: "Flags"
+author: "Yihui Xie"
+date: "2014/08/03"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+    
+```{r results='asis'}
+
+dat <- data.frame(  country = c('Canada', 'United Kindom'),
+                    abbr = c('ca', 'gb'),
+                    var1 = c(1, 2),
+                    var2 = rnorm(2)    )
+
+dat$flag <- sprintf('![ ](http://flagpedia.net/data/flags/mini/%s.png)',  dat$abbr )
+
+library(knitr)
+kable(dat)
+
+```
+
+
+# GIS skils Python, JavaScript, SQL, VB.NET, C++, HTML, CSS… In that order, 
+
+# https://gisgeography.com/best-free-gis-data-sources-raster-vector/
+
+# Natural Earth Data is number 1 
+# key cultural and physical vector GIS datasets are at a global scale 
+# The raster datasets also provide beautiful hillshade relief for your map.
+
+
+# Esri Open Data  explore over 67,310 open data sets from 4,092 organizations worldwide
+# spreadsheet, KML, shapefile and API’s are OGC WMS, GeoJSON and GeoService.
+# Managed by the largest commercial GIS organization in the world.
+
+# USGS’s Earth Explorer largest databases of satellite and aerial imagery
+# Filter searches by time and sensors and set region of interests in map
+# Remote sensing data (Landsat, global land cover…)
+
+# OpenStreetMap (OSM) as a means to crowdsourced data from multiple users.
+# High spatial resolution  data. (buildings, land use, railroads, roads, waterways)
+# accuracy varies based on the creator
+
+# NASA’s Socioeconomic Data and Applications Center (SEDAC) - human  environment.
+# Socioeconomic data (agriculture, climate, conservation, governance, hazards, health, infrastructure, land use, marine and coastal, population, poverty, remote sensing, sustainability, urban and water)
+
+# NASA’s Earth Observations (NEO) focuses on global satellite imagery.
+# daily snapshots global environment from space.of Earth. NEO has 50 datasets.
+# JPEG, PNG, Google Earth and GeoTIFF formats.
+
+# Open Topography provides a portal to high spatial resolution topographic 
+#  LiDAR (90% United States, Canada, Australia, Brazil, Haiti, Mexico and Puerto Rico)
+#  free global Digital Elevation Models data sources 
+
+# Sentinels Scientific Data Hub.  
+# 10-meter resolution 11 spectral bands including red, green, blue, near-infrared
+# European Space Agency’s Sentinel satellite is now the highest spatial resolution 
+
+
+
+# United Nations Environmental Data Explorer’ over 500 different variables
+# Freshwater, population, forests, emissions, climate, disasters, health and GDP spatial and non-spatial data.
+
+
+# Terra Populus  incorporates and integrates both census data from over 160 countries
+# used to explore temporal and spatial changes
+
+# FAO GeoNetwork provides satellite imagery and spatial data to support sustainable development in agriculture, fisheries and food security.
+
+# Bhuvan Indian Geo-Platform. most of the data is for India only. 
+#  IMS-1 (Hyperspectral), Cartosat, OceanSat and ResourceSat –  Indian satellites.
+
+
+# DigitalGlobe is the THE largest commercial satellite data supplier in the world
+# 30cm spatial See DigitalGlobe’s product samples 
+
+# Geo Airbus Defense System ifor SPOT, Pleiades, RapidEye and TerraSAR data
+
+

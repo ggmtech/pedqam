@@ -1,0 +1,68 @@
+---
+title: "Recommendations for Using summarytools With Rmarkdown"
+author: "Dominic Comtois"
+date: "2019-04-11"
+output: 
+  rmarkdown::html_vignette: 
+   css: 
+ - !expr system.file("rmarkdown/templates/html_vignette/resources/vignette.css", package = "rmarkdown")
+vignette: >
+   %\VignetteIndexEntry{Recommendations for Rmarkdown}
+   %\VignetteEngine{knitr::rmarkdown}
+   %\VignetteEncoding{UTF-8}
+---
+
+# stting 
+
+```{r}
+st_options(bootstrap.css     = FALSE,       # Already part of the theme so no need for it
+           plain.ascii       = FALSE,       # One of the essential settings
+           style             = "rmarkdown", # Idem.
+           dfSummary.silent  = TRUE,        # Suppresses messages about temporary files
+           footnote          = NA,          # Keeping the results minimalistic
+           subtitle.emphasis = FALSE)       # For the vignette theme, this gives
+library(knitr)
+opts_chunk$set(comment=NA, prompt=FALSE, cache=FALSE, echo=TRUE, results='asis')
+
+```  
+
+
+
+#######  rmd chunkoptins
+opts_chunk$set() can change the default global options in a document (e.g. put this in a code chunk: knitr::opts_chunk$set(comment=NA, fig.width=6, fig.height=6))
+
+
+written in one line; no line breaks Avoid spaces and periods . in chunk labels, separated by - and avoid other characters
+All option values must be valid R expressions
+
+
+
+
+
+
+
+
+```{r, mychunk, cache=TRUE, eval=FALSE, dpi=100}
+```
+
+
+
+
+
+
+
+
+
+# my chart
+
+```{r}
+freq(tobacco$gender, style = 'rmarkdown')
+
+ctable(tobacco$gender, tobacco$smoker, style = 'rmarkdown')
+
+dfSummary(tobacco, style = 'grid', graph.magnif = 0.75, tmp.img.dir = "/tmp")
+
+```
+
+
+

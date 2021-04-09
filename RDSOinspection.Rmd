@@ -1,0 +1,71 @@
+---
+title: "Inspection by SSE"
+author: "PED/QA/Mech"
+date: "04/02/2020"
+output:
+  pdf_document: default
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Inspection system at Present:
+
+Prestly, the SSE download the specs and check sheets from the RDSO website for the item for which call has been placed by the vendor and visit the vendor specified factor premsis. The QA personel firm carry out test as per the STR check sheet and each of the items are witnessed by RDSO inspecting official.
+
+```{r }
+DiagrammeR::mermaid("
+graph TD
+A(Rounded)-->B[Rectangular]
+B-->C{A Rhombus}
+B-->F(branch)
+C-->D[Rectangle One]
+C-->E[Rectangle Two]
+")
+```
+
+If the RDSO SSE/Inspection is satisfied, he prepares a Dispach memo and also a draft inspection certificate. 
+
+The gazted officer assigned to the area, he varified in the office, the correctness of documentaions with refrerence to PO etc based on a check list. (Copy annexure ...)
+
+Based only on the documents, the gazzetted officer signs the IC.
+
+This process after the implementaiton of digital IC does not add any value.
+The data with regards to the firm, PO etc is directly captured from the eprocurement site and there is now no need to varify the same.
+
+The process for waiting for signuature of gazzeted officer simpy introduce a layer and now without out much value addtion.
+
+Since, all the technical paramaters are measuresed and witnessed by the inspecting official (SSE) directly, 
+
+For items involving , lab testing , the same can also be evaluated by the inspecting official. The inspecting official can always seek techicnal guidence for any issue from superior officials.
+
+
+For other departement , that have specific requirement of inspeciton by officer and who also does the physical inpseciton, the same may continue.
+
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -1,0 +1,440 @@
+---
+title: "**RDSO Vendor Directory Items**"
+subtitle: "As on `r format(Sys.time(), '%d %B, %Y')` "
+#author: ""  # "Compiled by QAM RDSO"
+date: "`r format(Sys.time(), '%d %B, %Y')`" # escape " but not `r format(Sys.time(), "%I:%M")`  or "`r Sys.Date()`"
+always_allow_html: true
+output: 
+  bookdown::pdf_document2:
+    keep_tex: yes
+    latex_engine: xelatex
+    toc: false
+#    geometry: margin=0.2in
+#    fontsize: 11pt
+#  word_document
+
+Comment: >
+      kable_styling(latex_options = c("striped", "scale_down"))  # scale down to fit to page
+      kable_styling(latex_options = c("repeat_header")) # with longtable = T options
+---
+
+<!--  was not required \usepackage{pdflscape} -->
+<!--  install.packages('tinytex')  -->
+<!--  tinytex::install_tinytex() # uninstall  tinytex::uninstall_tinytex() -->
+
+
+```{r setup, include=TRUE, eval=TRUE, message=FALSE, echo=FALSE, cache= TRUE}
+# Set up data connection with google
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+packages <- c("tidyverse", "lubridate", "cowplot", "ggpubr", "scales", "stringr",  
+              "summarytools",  "here", "googledrive" , "googlesheets", 
+              "knitr",  "kableExtra",  "readxl", "writexl", "alluvial", "ggalluvial")
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+
+lapply(packages, library, character.only = TRUE) %>% invisible()
+
+## options(kableExtra.auto_format = FALSE) # disable globle default
+options(knitr.table.format = "latex")
+#library(formattable)   
+
+library(googledrive)
+library(googlesheets4)
+#drive_user()  # user authorised
+# drive_auth()  # authorise user
+
+ss = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg"
+#sheet = "MasterListApril2020"  #"AllVendorRegister488"
+sheet = "oldList31march20"
+MasterList <- read_sheet(  ss,  sheet, skip = 2, na = "NA", col_names = TRUE,  
+                          trim_ws = TRUE, .name_repair = "unique" 
+                         )  #rowid_to_column()
+
+RDSOmarch31 <- MasterList
+
+```
+
+
+
+```{r error2, include=FALSE, eval=FALSE, message=FALSE, echo=FALSE}
+
+#mutate( DateApplication = parsedate::parse_date(DateApplication)) %>% 
+#    mutate(qtr = paste0( substring(year(DateApplication),1,4) ,   "/Q", 
+#                         quarter(DateApplication,  with_year = FALSE, fiscal_start = 4) )  )
+
+#parse_date(dates,  approx = TRUE, default_tz = "UTC")
+
+library(janitor)
+
+
+# Cross tabulation with tabyl
+
+RDSOmarch31 <- MasterList
+
+#RDSOmarch31%>%  
+   # mutate( DateApplication = parsedate::parse_date(DateApplication)) %>% 
+   #x mutate( DateApplication = excel_numeric_to_date(DateApplication, include_time = TRUE)  ) %>%
+   # mutate(qtr = paste0(substring(year(DateApplication),1,4),"/Q",quarter(DateApplication, with_year = FALSE))) %>%   #, fiscal_start = 4
+#    janitor::tabyl(Directorate) %>%
+#    adorn_totals(c("row", "col")) %>%    # Add totals row, column, or both.
+    #adorn_ns() %>%
+    #adorn_title("combined") %>%   #adorn_title(): add a title to a tabyl (or other data.frame).
+    #adorn_percentages(rounding = "half up", digits = 0) %>%  # % along either axis or over the entire tabyl
+    #adorn_pct_formatting(digits = 2) %>%   
+    #adorn_ns() %>%  #Adornments options to control axes, rounding, and relevant formatting choices 
+#    View()
+
+
+# also good for tibbles !! 
+# mtcars %>% adorn_totals(c("row", "col")) #%>% adorn_percentages("col")
+
+
+month_levels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+#y2 <- parse_factor(x2, levels = month_levels)    # gives waening but factor() does not
+# factor(x1)  # make factores in alphabatical order
+# f1 <- factor(x1, levels = unique(x1))
+# f2 <- x1 %>% factor() %>% fct_inorder()
+
+RDSOmarch31 %>% count()
+RDSOmarch31 %>% count(  Less3Vendor )
+RDSOmarch31 %>% count(  Less3Vendor & (as.numeric(`AA Value in Crores`) > 2) )
+
+RDSOmarch31
+
+RDSOmarch31 %>% filter(!is.na(`RlyBd Del List SN`) ) %>%   
+                 replace_na(  list(StatusMarch31 = "Under Process") )  %>%
+                  mutate( fct_infreq(`RlyBd Del List SN`) ) %>%
+              # mutate(    fct_infreq(StatusMarch31)   ) %>%
+                mutate(StatusMarch31 = fct_lump(StatusMarch31, n = 2)) %>%
+               count(StatusMarch31)
+              # mutate( Business = as.double(`AA Value in Crores`) ) %>% 
+             # filter(!is.na(Business)) %>%
+              #  group_by(Directorate) %>%
+
+
+RDSOmarch31 %>%  filter(!is.na(`RlyBd Del List SN`) ) %>%
+                 mutate(VDnow = if_else(StatusMarch31 ==  "Approved" , "Approved", "Awaited" ,  missing = NULL  ) ) %>% 
+                 mutate(VDnow = as_factor(VDnow, levels(c("Approved", "Not Approved" ) )))  %>% 
+                 View()
+    
+
+
+RDSOmarch31 %>%  filter(!is.na(`RlyBd Del List SN`) ) %>% 
+    mutate(VDnow = ifelse(StatusMarch31 == "Under Process", StatusMarch31, StatusMarch31 ) ) %>% 
+    mutate( StatusMarch31 = as.factor(StatusMarch31) ) %>%
+    group_by(Directorate, StatusMarch31) %>% count() %>%
+    spread(StatusMarch31, n)           
+    
+
+RDSOmarch31 %>% mutate( Business = as.double(`AA Value in Crores`)   )  %>%
+                mutate(  LessVendors = if_else(Vendors < 3 , "Less", "OK")   )  %>%
+                select( -SN, -UID, -Item, -`RlyBd Del List SN`, -`Remarks ( if critically required, else avoid)`,
+                        -`PL Number`, -Less3Vendor, -`Cat I-II-III`, -`AA Value in Crores`)  %>% 
+                mutate( Less2cr = if_else(Business < 2, "Less2Crores", "BusinessOver2Cr", missing = "Not Available")  ) ->  vlist
+
+
+vlist %>% count(LessVendors)
+
+```
+
+<!--- ############################################################ --->
+
+# The RDSO controlled items
+
+## Description of the items and purpose
+
+This summary analysis is based on the data provided by the respective directorates.
+In case of any difference, the concerned directorate is requested to update the Google sheet, by the nominated persona who have already been provided access to edit.
+This data used was accessed on  <!---`r Sys.Date()` and at time ---> `r format(Sys.time(), '%d %B, %Y')`
+
+
+# Matrix of RDSO controlled items - Deletion, Merging, Continuing RDSO items
+
+> The brakeup of the earstwhile 639 RDSO controlled items presented on the basis of items propossed for deletion by RDSO , Approved by, Board, Expected soon, under process etc.
+
+```{r RDSOfinalstatus, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+options(knitr.kable.NA = '')
+
+# Status on march 31 
+RDSOmarch31 %>% # mutate(VDnow = ifelse(StatusMarch31 == "Approved"|StatusMarch31 == "Merged" ,                            "Deleted", "RDSOitem"    ) ) %>%
+                    group_by(Directorate, StatusMarch31) %>% count() %>%
+                    spread(StatusMarch31, n)            %>% 
+                kable( "latex", longtable = F, booktabs = T, 
+                caption = "Items deleted, Merged, Continueing RDSO items, etc"   )   %>%
+                kable_styling("striped", "hold_position", full_width = F) %>%
+                kable_styling(latex_options = "striped")                  %>%
+                kable_styling(latex_options = c("scale_down"))            %>%
+                kable_styling(font_size = 10)   %>%
+                kable_styling(latex_options = c("repeat_header"))         %>%
+                    column_spec(1, width = "15em") %>%                    #SN
+                    column_spec(2, width = "8em") %>%                     # Directorate
+                    column_spec(3, width = "8em") %>%
+                    column_spec(4, width = "8em") %>%
+                    column_spec(5, width = "12em") %>%
+                    column_spec(6, width = "5em") %>%
+                    column_spec(7, width = "6em")  #%>%     column_spec(8, width = "12em") 
+```
+
+Total items after deletion of items approved by Railway Board :
+ `r  RDSOmarch31 %>% filter(!StatusMarch31 =="Approved" | is.na(StatusMarch31) ) %>% count() ` 
+ 
+Total items after deletion of items approved by Railway Board and Merging of similar items :
+ `r  RDSOmarch31 %>% filter(  !(StatusMarch31 =="Approved"|StatusMarch31 =="Merged" )| is.na(StatusMarch31)  )  %>% count() ` 
+
+
+<!--- ################################################################ --->
+&nbsp; 
+
+\pagebreak
+
+# Items with less than three vendors
+
+## After addition of vendors and deletions of items approved by board 
+
+The table of items with less than three vendors after ignoring the items already approved by Railway Board.
+
+
+```{r lessthan3vendor, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+
+# items break up of less than three items :
+RDSOmarch31 %>%     filter(Vendors  < 3)   %>%
+                    filter(!StatusMarch31 =="Approved" | is.na(StatusMarch31) )  %>% 
+                    group_by(Directorate,  Less3Vendor) %>%  
+                    count(Less3Vendor )  %>%
+                    spread(Less3Vendor, n)   %>%
+                kable( "latex",  booktabs = T, longtable = T,
+                caption = "Table of items with less than three vendors"  )   %>%
+                kable_styling(latex_options = "striped")                %>%
+                kable_styling(latex_options = c("scale_down")    )      %>%
+                kable_styling(latex_options = c("repeat_header") )      %>%
+                    column_spec(1, width = "12em") %>%              
+                    column_spec(2, width = "8em") %>%              
+                    column_spec(3, width = "8em") %>%
+                    column_spec(4, width = "8em") %>%
+                    column_spec(5, width = "12em") 
+```
+
+
+
+**Total item with less than three vendors:**  `r  RDSOmarch31 %>% filter(Vendors  < 3)   %>%
+                                               filter(!StatusMarch31 =="Approved" | is.na(StatusMarch31) )  %>%  count() ` 
+
+
+## RDSO rationalisation / Merging of items 
+
+RDSO has rationalised items based on the similiarity of specs/STR/industry.
+
+The list of items is as below:
+
+```{r RDSOmergedlist, eval=TRUE, include=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+RDSOmarch31 %>%     select(SN, Directorate, UID, Item, Vendors, StatusMarch31  )   %>% 
+                    mutate(Item = ifelse(str_length(Item) < 40, Item, 
+                               paste0( str_sub(Item, 1, 40)   , " ...." ) )  )   %>%
+                    filter(StatusMarch31 == "Merged"  )                         %>%
+                    mutate(tickno = 1, SN = cumsum(tickno)   )   %>% 
+                    select(-StatusMarch31, -tickno)                            %>%
+                    kable( "latex", longtable = T, booktabs = T, 
+                    caption = "Items Rationalised/Merged"   )                   %>%
+                    kable_styling(latex_options = c("scale_down"))              %>%
+                    kable_styling(latex_options = c("repeat_header"))           %>%
+             #   kable_styling(latex_options = "striped")                       %>%
+                    column_spec(1, width = "3em")  %>%              #SN
+                    column_spec(2, width = "5em") %>%              # Directorate
+                    column_spec(3, width = "5em") %>%
+                    column_spec(4, width = "25em") %>%
+                    column_spec(5, width = "3em") %>%
+                    column_spec(6, width = "5em") %>%
+                    column_spec(7, width = "6em") 
+       # collapse_rows(columns = 2, valign = "top", row_group_label_position = 'stack') 
+       # collapse_rows(1:2, row_group_label_position = 'stack') %>%
+                
+```
+
+ 
+## Final Table of items with less than three vendors 
+
+Final Table of items with less than three vendors after `deletion of items by Railway board`,  `rationalisation of items by RDSO` and `additon of new vendors by RDSO`.
+
+```{r finallessthan3vendor1, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+
+# items break up of less than three items :
+RDSOmarch31 %>%     filter(Vendors  < 3)   %>%
+                    filter(!(StatusMarch31 =="Approved" | StatusMarch31 =="Merged")| is.na(StatusMarch31) )  %>% 
+                   # filter(!StatusMarch31 =="Merged")  %>%
+                    group_by(Directorate,  Less3Vendor) %>%  
+                    count(Less3Vendor )  %>%
+                    spread(Less3Vendor, n)   %>%
+                kable( "latex",  booktabs = T, longtable = T,
+                caption = "Table of items with less than three vendors"  )   %>%
+                kable_styling(latex_options = "striped")                %>%
+                kable_styling(latex_options = c("scale_down")    )      %>%
+                kable_styling(latex_options = c("repeat_header") )      %>%
+                    column_spec(1, width = "12em") %>%              
+                    column_spec(2, width = "8em") %>%              
+                    column_spec(3, width = "8em") %>%
+                    column_spec(4, width = "8em") %>%
+                    column_spec(5, width = "12em") 
+```
+
+
+ 
+ 
+## The final list of items with less than three vendors
+
+The list of items with less than three vendors after deletion of item by Board and Rationalisation by RDSOO.
+
+```{r RDSOless3vendorprint1, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+
+## check up variables before print
+
+RDSOmarch31 %>%     filter(Vendors  < 3)   %>%
+                    filter(!(StatusMarch31 =="Approved" | StatusMarch31 =="Merged")| is.na(StatusMarch31)                              )  %>% 
+                    select(SN, Directorate, UID, Item, Vendors,`AA Value in Crores`, 
+                       `RlyBd Del List SN`, StatusMarch31  )                     %>% 
+                    mutate(Item = ifelse(str_length(Item) < 40, Item, 
+                                          paste0( str_sub(Item, 1, 40) , " ...." ) )  )   %>%
+                    mutate(tickno = 1, SN = cumsum(tickno)   )   %>% 
+                    mutate(`AA Value in Crores`= ifelse(is.na(`AA Value in Crores`), 
+                                                        "NAvl", `AA Value in Crores` ) )   %>% 
+                    select(-tickno, -StatusMarch31,  -`RlyBd Del List SN`)                   %>%
+                    kable( "latex", longtable = T, booktabs = T, 
+                    caption = "List of  items with less than 3 Vendors"   )     %>%
+                    kable_styling(latex_options = c("scale_down"))              %>%
+                    kable_styling(latex_options = c("repeat_header"))           %>%
+             #   kable_styling(latex_options = "striped")                       %>%
+                    column_spec(1, width = "3em")  %>%              #SN
+                    column_spec(2, width = "5em") %>%              # Directorate
+                    column_spec(3, width = "5em") %>%
+                    column_spec(4, width = "25em") %>%
+                    column_spec(5, width = "3em") %>%
+                    column_spec(6, width = "5em") %>%
+                    column_spec(7, width = "6em") %>%
+                    column_spec(8, width = "10em") 
+       # collapse_rows(columns = 2, valign = "top",row_group_label_position = 'stack') 
+       # collapse_rows(1:2, row_group_label_position = 'stack') %>%
+                
+
+
+```
+
+
+
+
+
+
+
+
+&nbsp; 
+
+\pagebreak
+
+# The complete Master data of 639 items 
+
+The data includes those item deleted or merged with other similar items
+
+```{r RDSOmasterprint, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+
+## check up variables before print
+
+RDSOmarch31 %>% select(SN, Directorate, UID, Item, Vendors,`AA Value in Crores`, 
+                       `RlyBd Del List SN`, StatusMarch31  )  %>% 
+                kable( "latex", longtable = T, booktabs = T, 
+                caption = "Table of RDSO Vendor Directory items"   )   %>%
+                kable_styling(latex_options = c("scale_down"))         %>%
+                kable_styling(latex_options = c("repeat_header"))      %>%
+             #   kable_styling(latex_options = "striped")               %>%
+                    column_spec(1, width = "3em") %>%              #SN
+                    column_spec(2, width = "5em") %>%              # Directorate
+                    column_spec(3, width = "5em") %>%
+                    column_spec(4, width = "25em") %>%
+                    column_spec(5, width = "3em") %>%
+                    column_spec(6, width = "5em") %>%
+                    column_spec(7, width = "6em") %>%
+                    column_spec(8, width = "10em")  %>% landscape()
+       # collapse_rows(columns = 2, valign = "top",row_group_label_position = 'stack') 
+       # collapse_rows(1:2, row_group_label_position = 'stack') %>%
+                
+
+
+```
+
+
+```{r venderlist, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+## check up variables before print
+RDSOvd <-  gs_read(ss = allvendorhandle, ws = 2 , skip = 2, col_names = FALSE,verbose = TRUE)    # %>% rowid_to_column()
+# suppressMessages(expr)
+RDSOvd %<>% rename(SN = X1)
+
+RDSOvd %>% filter(grepl("QA", X3))  -> RDSOvd2
+RDSOvd2  %>%   mutate( QAD = as_factor(X2) , SN = as.numeric(SN) )       %>%    
+               mutate( QA = fct_collapse(QAD, 
+                   QAM = c("Carriage", "MP", "M&C Dte", "wagon", "Wagon"),
+                   QAC = c("B&S", "Works", "QAC/Track Design-II", "TMM Dte.",  
+                           "Track Design", "Track Design I", "Track Design II", 
+                           "Track Design", "Track Design I", "QAC/Track Design-II"),
+                   QST = c("QA/S&T", "SIG" , "Telecom" ),  
+                   QElect = c("TI")  )                  )   %>% 
+    select( SN, QAD= X3, Item = X2, X3, Vendors = X4,X5,X6, X7,  X9)   %>%
+    arrange(SN) %>% filter( !is.na(SN) ) %>%
+    kable( "latex", longtable = T, booktabs = T, 
+    caption = "Table of RDSO Vendor Directory items"   )   %>%
+    kable_styling(latex_options = c("scale_down"))         %>%
+   # add_header_above(c(" ", "Group 1" = 5, "Group 2" = 6)) %>%
+    kable_styling(latex_options = c("repeat_header"))      %>%
+        column_spec(1, width = "3em") %>%
+        column_spec(2, width = "5em") %>%
+        column_spec(3, width = "20em") %>%
+        column_spec(4, width = "6em") %>%
+        column_spec(5, width = "4em") %>%
+        column_spec(6, width = "4em") %>%
+        column_spec(7, width = "4em") %>%
+        column_spec(8, width = "6em") %>%
+        column_spec(9, width = "4em") %>%
+        column_spec(10, width = "4em") %>%
+        column_spec(11, width = "4em") %>%
+        column_spec(12, width = "4em") %>%
+       # collapse_rows(columns = 2, valign = "top",row_group_label_position = 'stack') 
+       # collapse_rows(1:2, row_group_label_position = 'stack') %>%
+    landscape()
+```
+
+
+
+# Annexure 
+
+
+
+
+
+
+```{r RDSOeuler, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+library(eulerr)
+set.seed(1)
+
+#plot(venn(RDSOmarch31[, 4:6]))
+A = 1
+B = 2
+s2 <- c(A , B )
+# plot(s2) # do not plot
+
+
+#RDSOmarch31
+gkeuler <- c("A" = 15, "B" = 15, "C" = 3,
+                                "A&B" = 3, "A&C" = 0, "B&C" = 0,
+                                "A&B&C" = 3)
+completely_contained <- euler(gkeuler)
+plot(completely_contained,
+    # labels = list(col = c("white", "black", "black") ),
+     labels = c("To m  ggg", "Greg", "Albe \n rta" ),
+     edges = list(col = "white", lex = 2),
+     fills = c("magenta", "cyan", "yellow"))   # orange
+
+
+#plot(venn(s2))
+#plot(eulerr::euler(s2), quantities = TRUE)
+
+#plot(eulerr::euler(RDSOmarch31), quantities = TRUE)
+
+```
+

@@ -1,0 +1,42 @@
+---
+title: "Untitled"
+author: "Gopal Kumar, CMPE(Dsl)"
+date: "August 31, 2017"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Failures investigations
+
+M/S Vapour Bus International USA make flasher Light panel relay contact flashed /burnet frequently during service as arrested during out of course repair/ yearly schedule. It is a sealed unit; the life of this relay is not mentioned by the firm for warranty obligations.
+RDSO may intervene the matter.   
+VCD coil of Woodward make Governor internally short circuiting resulting which Engine RPM dropping. 
+M/S OTTO USA make slide GF switch is to be fitted in Locos where as M/S Trollix Co. Bangalore make GF. Switches have been fitted by DLW in Locos which are malfunctioning, resulting which load meter showing Zero. The repeated problem of malfunction was experienced on Loco No. 40252 WDP4. 
+M/S Knur /USA make Engine Run slide switch shaft broken in service due to plastic material in Loco No. 40081 WDP4, M/S Siemens make. The material to be used in these switches may be re-examined as used in in other Locos which is of steel. The breakage directly affect on starting/ priming of locos.    
+M/S BHEL make Control finger roller Jam due to GF not picking up on Loco 18988 WDM3A. 
+Exciter Generator type 2702 shaft broken due to over aged, these Exciter Generator may be replaced with 3101 AY exciter Generator.   
+Fuel Pump Motor inverter card burnt in Loco NO. 40256 WDP4. Five Locos are provided with these type of cards. These may be replaced with High Capacity imported DPG/ USA make.   
+Loco No. 40026 WDP4 failed due to premature failure of M/S HBL make Battery, which over heated & burnt internally. The life of battery used on WDP4 HHP locos may be advised by RDSO. 
+It observed that life of most of the components used on HHP locos are not mentioned by DLW/RDSO. 
+The failure rate of HHP traction motor on account of IR- zero & Bearing failure is nil.  However some failure cases have been experienced during phase difference (R-Y-B) due to joint burnt.    Sr. DME/DSL has adopted maintenance practices for overhauling of traction motor on Kilometre basis it completes approximate 9-10 laks kilometre service or after 5 years,   in addition to an intermediate cleaning of filter, End shield & bearing  After 03 years. 
+The lube oil supply pipe broken on HHP Loco No. 40472 resulting which the Loco seized due to lack of lubrication. 
+GE type liners are being used in place of EMD liner due to out of stock which have increased failure rate of Locomotives. Supply of EMD liners may be chased from EMD/DLW.
+Sr.DME/DSL TKD pointed out improper matching of Brake Block with wheel tyre resulting which improper wearing of brake block. The casting of these brake blocks are being done by KLK Workshop. The brake block needs to be casted as per M/S Ridhi Sidhi make. 
+Loco no 15011 WDP1 failed on 22.08.2017 due to ABB make TSC overheated compressor wheel & impellor broken due to design failure. Presently the BAP of ABB make turbo fitted Locos has been de-rated to 1.4 - 1.5 kg/cm² instead of BAP- 1.8- n 1.9 kg/cm². 
+ As per shed practices OST is being removed from locos during yearly schedule and being fitted after overhauling and testing on test bench before fitment to improve reliability of Locos. 
+ TKD Shed is also doing RDP test of RTTM body during overhauling and being fitted after checking on test bench to improve reliability. 
+TKD /DSL /Shed have also adopted the practice of vacuum test for Cylinder Head valve seat sealing. Such practices may also be done in other sheds.  
+A case of beam broken on Loco no 16018 has been experienced at DSL Shed TKD.  The other locos may also be checked. 
+ Seven cases of water pump failure were experienced in 16-17 & 5 cases have been experienced in 2017-18. The performance of material supplied by the firm may be looked by DMW/PTA. 
+Pressurised cap need to be provided on all the locos & testing record may be maintained as per practices at DSL Shed TKD. 
+ The clearances of CBC coupling Knuckle spring, screw coupling is being checked with gauge and defective pieces are being removed from service. Such practices may also be done in other sheds.  
+Record of clamping mansoon record ,Electrical  safety device  record & VCD safety device record register were maintained 
+Bogie frame strengthening on centre point frame of WDP4 by welding work at different point as per drawing is in progress to improve reliability.  
+M/s Elgi make compressor having a problem in discharge plate due to some time sticking now TKD  shed has been replaced spring. M/s GD type compressor valve plate performance is good there is no failure of GD make compressor. 
+All magnet valve  are  overhauled & tested on IRAB tested stand & CCB-1.5 test bench in air brake section .
+Lighting system of under frame in HHP mail section  defective.

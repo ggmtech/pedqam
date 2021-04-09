@@ -1,0 +1,290 @@
+---
+title: "RDSO Vendor Directory"
+subtitle: "Total items 638"
+author: "QAM/RDSO"
+date: "`r format(Sys.time(), '%d %B, %Y')`" # escape " but not `r format(Sys.time(), "%I:%M")`  or "`r Sys.Date()`"
+always_allow_html: true
+output: 
+  bookdown::pdf_document2:
+    keep_tex: yes
+    latex_engine: xelatex
+    toc: true
+#    geometry: margin=0.2in
+#    fontsize: 11pt
+  html_document:
+    toc: true
+    toc_depth: 2  #the default is 3
+    theme: readable
+    highlight: pygments
+    code_folding: hide
+    keep_md: true
+Comment: >
+    long  YAML comment
+    and newlines survive parsing!
+    theme  "default", "cerulean", "journal", "flatly", "readable", "spacelab", "united",      "cosmo", "lumen", "paper", "sandstone", "simplex", and "yeti".
+     highlight for  syntax style  "default", "tango", "pygments", "kate", "monochrome",        "espresso", "zenburn", "haddock", and "textmate".
+    All docs by rmarkdown::render("my-document.Rmd", output_format = "all"). learn ender
+    Better to do your initial work in an R script and do source("gun-deaths.R")
+     against rmarkdown::render() function 
+
+     run scripts directly from the shell using Rscript: "Rscript gun-deaths.R" 
+     and markdown shell for Rmd Rscript -e "rmarkdown::render('gun-deaths.Rmd')"
+     for tables compile may set  :options(knitr.table.format = "latex") 
+     but now automatically done options(kableExtra.auto_format = FALSE)
+     recommended to load this package entirely via library(kableExtra) in main doc 
+---
+
+# The RDSO controlled items
+
+## Description of the items and purpose
+
+This vendor director printed based on the data existing in th google sheet as on Date Time  `r Sys.time()` 
+
+<!---
+Date:  `r Sys.Date()` 
+Formated date: `r format(Sys.time(), '%d %B, %Y')`  --->
+
+<!--  was not required \usepackage{pdflscape} -->
+<!--  install.packages('tinytex')  -->
+<!--  tinytex::install_tinytex() # uninstall  tinytex::uninstall_tinytex() -->
+
+
+
+```{r setup, include=FALSE, eval=TRUE, message=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+## RDSO Vendor Analysis  #########################
+library(tidyverse)
+packages <- c("tidyverse", "lubridate", "cowplot", "ggpubr", "scales", "stringr",  
+              "summarytools",  "here", "googlesheets", 
+              "knitr",  "kableExtra")
+# if not Instaled 
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+
+lapply(packages, library, character.only = TRUE) %>% invisible()
+
+library(formattable) # for pretty html tables
+
+library(googlesheets)   
+allvendorhandle   <-   gs_title("RDSO MASTERLIST VENDOR DATA 26 Jan")      # gs by title
+
+# filter your data to use youth <- gun_deaths %>% filter(age <= 65)
+
+# kable(mtcars, "latex", booktabs = T) %>% kable_styling(latex_options = "striped")
+
+
+```
+
+
+
+```{r test2, include=FALSE, eval=FALSE, message=FALSE, echo=FALSE}
+collapse_rows_dt <- expand.grid(
+                        Country = sprintf('Country with a long name %s', c('A', 'B')),
+                        State = sprintf('State %s', c('a', 'b')),
+                        City = sprintf('City %s', c('1', '2')),
+                        District = sprintf('District %s', c('1', '2')) ) %>% 
+                    arrange(Country, State, City) %>%
+                    mutate_all(as.character) %>%
+                    mutate(C1 = rnorm(n()), C2 = rnorm(n()) )
+
+kable(collapse_rows_dt, "latex", longtable = T, booktabs = T, align = "c", linesep = '') # %>%          collapse_rows(1:3, row_group_label_position = 'stack')
+```
+
+
+
+```{r venders, include=FALSE, message=FALSE, echo=FALSE}
+
+#RDSOvd <-  gs_read(ss = allvendorhandle, ws = 2 , skip = 2, col_names = FALSE, verbose = TRUE)    # %>% rowid_to_column()
+# suppressMessages(expr)
+#RDSOvd %<>% rename(SN = X1)
+#RDSOvd %>% filter(grepl("QA", X3))  -> RDSOvd2
+#? RDSOvd3 <- RDSOvd %>% select(-X1)
+#RDSOvdlined <- RDSOvd %>% #           arrange(SN) %>%mutate_all(as.character) 
+
+#? kable(RDSOvd3, "latex", longtable = T, booktabs = T, align = "c", linesep = '') %>%  collapse_rows(1:12)
+
+
+```
+
+
+
+```{r venderlist, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+
+RDSOvd <-  gs_read(ss = allvendorhandle, ws = 2 , skip = 2, col_names = FALSE,verbose = TRUE)    # %>% rowid_to_column()
+# suppressMessages(expr)
+RDSOvd %<>% rename(SN = X1)
+
+RDSOvd %>% filter(grepl("QA", X3))  -> RDSOvd2
+RDSOvd2  %>%   mutate( QAD = as_factor(X2) , SN = as.numeric(SN) )       %>%    
+               mutate( QA = fct_collapse(QAD, 
+                   QAM = c("Carriage", "MP", "M&C Dte", "wagon", "Wagon"),
+                   QAC = c("B&S", "Works", "QAC/Track Design-II", "TMM Dte.",  
+                           "Track Design", "Track Design I", "Track Design II", 
+                           "Track Design", "Track Design I", "QAC/Track Design-II"),
+                   QST = c("QA/S&T", "SIG" , "Telecom" ),  
+                   QElect = c("TI")  )                  )   %>% 
+    select( SN, QAD= X3, Item = X2, X3, Vendors = X4,X5,X6, X7,  X9)   %>%
+    arrange(SN) %>% filter( !is.na(SN) ) %>%
+    kable( "latex", longtable = T, booktabs = T, 
+    caption = "Table of RDSO Vendor Directory items"   )   %>%
+    kable_styling(latex_options = c("scale_down"))         %>%
+   # add_header_above(c(" ", "Group 1" = 5, "Group 2" = 6)) %>%
+    kable_styling(latex_options = c("repeat_header"))      %>%
+        column_spec(1, width = "3em") %>%
+        column_spec(2, width = "5em") %>%
+        column_spec(3, width = "20em") %>%
+        column_spec(4, width = "6em") %>%
+        column_spec(5, width = "4em") %>%
+        column_spec(6, width = "4em") %>%
+        column_spec(7, width = "4em") %>%
+        column_spec(8, width = "6em") %>%
+        column_spec(9, width = "4em") %>%
+        column_spec(10, width = "4em") %>%
+        column_spec(11, width = "4em") %>%
+        column_spec(12, width = "4em") %>%
+       # collapse_rows(columns = 2, valign = "top",row_group_label_position = 'stack') 
+       # collapse_rows(1:2, row_group_label_position = 'stack') %>%
+    landscape()
+```
+
+
+
+
+
+<!---
+#plot(pressure)
+>    kable_styling(latex_options = c("striped", "scale_down")) %>%  
+>    kable_styling(latex_options = "striped", stripe_index = c(1,2, 5:6))     %>%
+# dat = dat %>% mutate(candy.flag = factor(ifelse(var == "Candy", "Candy", "Non-Candy")))
+# dat <- as_data_frame(c("Candy","Sanitizer","Candy","Water","Cake","Candy","IceCream","Gum","Candy","Coffee"))
+# colnames(dat) <- "var"
+# dat %>% mutate(var = replace(var, var != "Candy", "Not Candy"))  # faster
+# The code below will automatically include the image in the rmarkdown document
+--->
+
+<!---
+{r , eval=FALSE,  include=FALSE, warning=FALSE, message=FALSE, echo=TRUE }
+RDSOvd2 %>%    head()  %>%  
+kable( "latex", booktabs = T) %>%
+column_spec(1, bold = T)   %>% as_image()
+# kable_as_image()  # kable_as_image is deprecated instead save_kable or as_image .
+    - \usepackage{booktabs}
+    - \usepackage{longtable}
+    - \usepackage{array}
+    - \usepackage{multirow}
+    - \usepackage{wrapfig}
+    - \usepackage{float}
+    - \usepackage{colortbl}
+    - \usepackage{pdflscape}
+    - \usepackage{tabu}
+    - \usepackage{threeparttable}
+    - \usepackage{threeparttablex}
+    - \usepackage[normalem]{ulem}
+    - \usepackage{makecell}
+    - \usepackage{xcolor}
+
+   # header-includes:
+        - \usepackage{booktabs}
+        - \usepackage{longtable}
+        - \usepackage{array}
+        - \usepackage{multirow}
+        - \usepackage{wrapfig}
+        - \usepackage{float}
+        - \usepackage{colortbl}
+        - \usepackage{pdflscape}
+        - \usepackage{tabu}
+        - \usepackage{threeparttable}
+        - \usepackage{threeparttablex}
+        - \usepackage[normalem]{ulem}
+        - \usepackage{makecell}
+        - \usepackage{xcolor}
+
+
+--->
+
+<!--  comment : needs  latex_engine: xelatex and also output settings near knit button -->
+
+<!---
+see  <http://rmarkdown.rstudio.com>  click the **Knit** button 
+
+
+```{r,  echo=TRUE}
+
+library(knitr)
+library(kableExtra)
+library(formattable) # for pretty html tables
+
+dt <- mtcars[1:5, 1:6]
+kable(dt, "latex", booktabs = T) %>%
+kable_styling(latex_options = "striped")
+```
+
+
+# styling
+
+```{r,  echo=TRUE}
+dt <- mtcars[1:5, 1:6]
+kable(cbind(dt, dt, dt), "latex", booktabs = T) %>%
+kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+--->
+
+
+<!---
+# The chilld files joining
+
+```{r, child=c('one.Rmd', 'two.Rmd', 'three.Rmd' ) }
+
+```
+--->
+
+<!--- Remarks
+```{r, child=c('three.Rmd' )}
+```
+
+--->
+
+
+<!---
+```{r venderl, include=TRUE, message=FALSE, echo=TRUE}
+RDSOvd <-  gs_read(ss = allvendorhandle, ws = 2 , skip = 2, col_names = FALSE,verbose = TRUE)    # %>% rowid_to_column()
+# suppressMessages(expr)
+RDSOvd %<>% rename(SN = X1)
+
+RDSOvd %>% filter(grepl("QA", X3))  -> RDSOvd2
+
+RDSOvd2 %>% head() %>%
+    kable( "latex", longtable = T, booktabs = T, 
+           caption = "Longtable of Vendor Directory"         )           %>%
+    add_header_above(c(" ", "Group 1" = 5, "Group 2" = 6))                %>%
+    kable_styling(latex_options = c( "repeat_header"), full_width = F)      %>%
+    kable_styling(font_size = 7)      %>%
+        column_spec(1, width = "3em") %>%
+        column_spec(2, bold = T, color = "red", width = "12em") %>%
+        column_spec(3, width = "4em") %>%
+        column_spec(4, width = "4em") %>%
+        column_spec(5, width = "4em") %>%
+        column_spec(6, width = "4em") %>%
+        column_spec(7, width = "4em") %>%
+        column_spec(8, width = "6em") %>%
+        column_spec(9, width = "4em") %>%
+        column_spec(10, width = "4em") %>%
+        column_spec(11, width = "4em") %>%
+        column_spec(12, width = "4em") %>%
+        row_spec(0, angle = 45)  %>%
+        row_spec(1, strikeout = T)     %>%
+        row_spec(5:6, bold = T, color = "white", background = "black") %>%
+        # collapse_rows(1:3, row_group_label_position = 'stack')  %>%
+        landscape()
+
+```
+
+--->
+
+<!--- why comment errored ?  r nrow (gun_deaths) individuals killed by guns. 
+Only "`text nrow(gun_deaths) - nrow(youth)`" are older than 65.
+
+knit this programmatically from the console by : rmarkdown::render("example.Rmd")
+--->
+

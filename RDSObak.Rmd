@@ -1,0 +1,154 @@
+---
+title: "RDSO Vendor Directory"
+subtitle: "Total items 638"
+author: "PED/QAM/RDSO"
+date: "`r format(Sys.time(), '%d %B, %Y')`" # " needs escape but not `r format(Sys.time(), "%I:%M")`  or "`r Sys.Date()`"
+output: 
+  bookdown::pdf_document2:
+    keep_tex: yes
+    latex_engine: xelatex
+    toc: true
+Comment: >
+    This comment in YAML is also too long
+    and newlines survive from parsing!
+---
+
+# Initial setup of the book
+
+We can include details.
+
+<!--  comment : needs  latex_engine: xelatex and also output settings near knit button -->
+<!--  was not required \usepackage{pdflscape} -->
+<!--  install.packages('tinytex')  -->
+<!--  tinytex::install_tinytex() # uninstall  tinytex::uninstall_tinytex() -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+## RDSO Vendor Analysis  #########################
+library(tidyverse)
+packages <- c("tidyverse", "lubridate", "cowplot", "ggpubr", "scales", "stringr",  
+              "summarytools",  "here", "googlesheets", 
+              "knitr",  "kableExtra")
+# if not Instaled 
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+
+lapply(packages, library, character.only = TRUE) %>% invisible()
+library(googlesheets)   
+allvendorhandle   <-   gs_title("RDSO MASTERLIST VENDOR DATA 26 Jan")      # gs by title
+
+```
+
+## R Markdown
+
+see  <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+```{r,  echo=TRUE}
+
+library(knitr)
+library(kableExtra)
+dt <- mtcars[1:5, 1:6]
+kable(dt, "latex", booktabs = T) %>%
+kable_styling(latex_options = "striped")
+```
+
+
+# styling
+
+```{r,  echo=TRUE}
+dt <- mtcars[1:5, 1:6]
+kable(cbind(dt, dt, dt), "latex", booktabs = T) %>%
+kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+
+
+# The chilld files joining
+
+```{r, child=c('one.Rmd', 'two.Rmd', 'three.Rmd' )}
+```
+
+
+
+You can embed an R code chunk like this:
+
+```{r cars, include=TRUE, message=FALSE, echo=FALSE}
+RDSOvd <-  gs_read(ss = allvendorhandle, ws = 2 , skip = 2, col_names = FALSE,verbose = TRUE)    # %>% rowid_to_column()
+# suppressMessages(expr)
+RDSOvd %<>% rename(SN = X1)
+
+RDSOvd %>% filter(grepl("QA", X3))  -> RDSOvd2
+
+RDSOvd2 %>% 
+    kable( "latex", longtable = T, booktabs = T, 
+    caption = "Longtable of Vendor Directory")           %>%
+    add_header_above(c(" ", "Group 1" = 5, "Group 2" = 6)) %>%
+    kable_styling(latex_options = c( "repeat_header"), full_width = F)      %>%
+    kable_styling(font_size = 7)      %>%
+        column_spec(1, width = "3em") %>%
+        column_spec(2, bold = T, color = "red", width = "12em") %>%
+        column_spec(3, width = "4em") %>%
+        column_spec(4, width = "4em") %>%
+        column_spec(5, width = "4em") %>%
+        column_spec(6, width = "4em") %>%
+        column_spec(7, width = "4em") %>%
+        column_spec(8, width = "6em") %>%
+        column_spec(9, width = "4em") %>%
+        column_spec(10, width = "4em") %>%
+        column_spec(11, width = "4em") %>%
+        column_spec(12, width = "4em") %>%
+        row_spec(0, angle = 45)  %>%
+        row_spec(1, strikeout = T)     %>%
+        row_spec(5:6, bold = T, color = "white", background = "black") %>%
+        landscape()
+
+```
+
+## Including Plots
+
+
+
+
+>    kable_styling(latex_options = c("striped", "scale_down")) %>%
+>    kable_styling(latex_options = "striped", stripe_index = c(1,2, 5:6))     %>%
+
+
+
+```{r pressure, echo=FALSE}
+
+RDSOvd2 %>%  kable( "latex", longtable = T, booktabs = T, 
+    caption = "Table of Civil Vendor Directory items")     %>%
+    kable_styling(latex_options = c("scale_down")) %>%
+    add_header_above(c(" ", "Group 1" = 5, "Group 2" = 6)) %>%
+    kable_styling(latex_options = c("repeat_header"))      %>%
+        column_spec(1, width = "3em") %>%
+        column_spec(2, width = "12em") %>%
+        column_spec(3, width = "4em") %>%
+        column_spec(4, width = "4em") %>%
+        column_spec(5, width = "4em") %>%
+        column_spec(6, width = "4em") %>%
+        column_spec(7, width = "4em") %>%
+        column_spec(8, width = "6em") %>%
+        column_spec(9, width = "4em") %>%
+        column_spec(10, width = "4em") %>%
+        column_spec(11, width = "4em") %>%
+        column_spec(12, width = "4em") %>%
+
+    landscape()
+
+#plot(pressure)
+# dat = dat %>% mutate(candy.flag = factor(ifelse(var == "Candy", "Candy", "Non-Candy")))
+
+# dat <- as_data_frame(c("Candy","Sanitizer","Candy","Water","Cake","Candy","IceCream","Gum","Candy","Coffee"))
+# colnames(dat) <- "var"
+# dat %>% mutate(var = replace(var, var != "Candy", "Not Candy"))  # faster
+#
+
+```
+
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

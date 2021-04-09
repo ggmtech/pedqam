@@ -1,0 +1,123 @@
+---
+title: "**Items merged with similar item**"
+#subtitle: "( Complete current status of 639 items as existed on 26 Jan 2020 )"
+#author: ""  # "Compiled by QAM RDSO"
+#date: "`r format(Sys.time(), '%d %B, %Y')`" # escape " but not `r format(Sys.time(), "%I:%M")`  or "`r Sys.Date()`"
+always_allow_html: true
+output: 
+  bookdown::pdf_document2:
+    keep_tex: yes
+    latex_engine: xelatex
+    toc: false
+#    geometry: margin=0.2in
+#    fontsize: 11pt
+
+Comment: >
+      kable_styling(latex_options = c("striped", "scale_down"))  # scale down to fit to page
+      kable_styling(latex_options = c("repeat_header")) # with longtable = T options
+      &nbsp; \pagebreak
+---
+
+<!--  was not required \usepackage{pdflscape} -->
+<!--  install.packages('tinytex')  -->
+<!--  tinytex::install_tinytex() # uninstall  tinytex::uninstall_tinytex() -->
+
+
+```{r setup, include=FALSE, eval=TRUE, message=FALSE, echo=FALSE, cache=TRUE}
+# Set up data connection with google
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+packages <- c("tidyverse", "lubridate", "cowplot", "ggpubr", "scales", "stringr",  
+              "summarytools",  "here", "googledrive" , "googlesheets", 
+              "knitr",  "kableExtra",  "readxl", "writexl", "alluvial", "ggalluvial")
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+lapply(packages, library, character.only = TRUE) %>% invisible()
+
+## options(kableExtra.auto_format = FALSE) # disable globle default
+options(knitr.table.format = "latex")
+library(formattable)  
+
+library(googledrive)
+library(googlesheets4)
+drive_user()  # user authorised
+# drive_auth()  # authorise user
+
+ss = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg"
+sheet = "MasterListApril2020"  #"AllVendorRegister488"
+
+MasterList <- read_sheet(  ss,  sheet, skip = 2, na = "NA",
+                          col_names = TRUE,  
+                          # trim_ws = TRUE, .name_repair = "unique" 
+                        )  #rowid_to_column()   # verbose = TRUE? 
+MasterList -> RDSOmarch31
+```
+
+# SN Directorat	UID	Ite	Vendors	Less3Vendor	`AA Value in Crores`	`RlyBd Del List SN`	StatusApril30	`Remarks ( # if critically required, else avoid)`	PL Number	`Cat I-II-III`	Prospects
+
+<!--- ############################################################ --->
+
+As on  <!---`r Sys.Date()` and at time ---> `r format(Sys.time(), '%d %B, %Y')` 
+
+# Items merged with similar items
+
+
+```{r RDSOfinalstatus, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+#options(knitr.kable.NA = '')
+#str(RDSOmarch31)
+library(magrittr)
+RDSOmarch31  <- MasterList
+# Status on march 31 
+RDSOmarch31 %>%  filter(StatusApril30 == "Merged")  %>%
+                # replace_na(  list(StatusMarch31 = "Merged") )  %>%
+                # mutate( fct_infreq(`RlyBd Del List SN`) ) %>%
+                # mutate(VDnow = ifelse(StatusMarch31 == "Under Process", "Approved", StatusMarch31 ) ) %>%
+                group_by(Directorate) %>% count() %>%
+                # spread(StatusMarch31, n)            %>% 
+                kable( "latex", longtable = F, booktabs = T, 
+                caption = "Items Merged  with similar item"   )   %>%
+                kable_styling("striped", "hold_position", full_width = F) %>%
+                kable_styling(latex_options = "striped")                  %>%
+               # kable_styling(latex_options = c("scale_down"))            %>%
+                kable_styling(font_size = 10)   %>%
+                kable_styling(latex_options = c("repeat_header"))         %>%
+                    column_spec(1, width = "15em") %>%                    #SN
+                    column_spec(2, width = "8em") %>%                     # Directorate
+                    column_spec(3, width = "8em") %>%
+                    column_spec(4, width = "8em") %>%
+                    column_spec(5, width = "12em") %>%
+                    column_spec(6, width = "5em") %>%
+                    column_spec(7, width = "6em")  #%>%     column_spec(8, width = "12em") 
+```
+
+
+Items merged :  `r  RDSOmarch31 %>% filter(StatusMarch31 =="Merged"  ) %>% count() ` 
+ 
+The list of merged items is as below:
+
+```{r RDSOmergedlist, eval=TRUE, include=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+RDSOmarch31 %>%     select(SN, Directorate, UID, Item, Vendors, StatusMarch31  )   %>% 
+                    mutate(Item = ifelse(str_length(Item) < 40, Item, 
+                               paste0( str_sub(Item, 1, 40)   , " ...." ) )  )   %>%
+                    filter(StatusMarch31 == "Merged"  )                         %>%
+                    mutate(tickno = 1, SN = cumsum(tickno)   )   %>% 
+                    select(-StatusMarch31, -tickno)                            %>%
+                    kable( "latex", longtable = T, booktabs = T, 
+                    caption = "Items merged with similar items" )     %>%
+                    kable_styling(latex_options = c("scale_down"))              %>%
+                    kable_styling(latex_options = c("repeat_header"))           %>%
+             #   kable_styling(latex_options = "striped")                       %>%
+                    column_spec(1, width = "3em")  %>%              #SN
+                    column_spec(2, width = "5em") %>%              # Directorate
+                    column_spec(3, width = "5em") %>%
+                    column_spec(4, width = "25em") %>%
+                    column_spec(5, width = "3em") %>%
+                    column_spec(6, width = "5em") %>%
+                    column_spec(7, width = "6em") 
+       # collapse_rows(columns = 2, valign = "top", row_group_label_position = 'stack') 
+       # collapse_rows(1:2, row_group_label_position = 'stack') %>%
+                
+```
+
+
+

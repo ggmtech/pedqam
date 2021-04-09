@@ -1,0 +1,254 @@
+---
+title: "**RDSO Vendor Directory controlled items - Draft**"
+subtitle: "( Complete current status of all the RDSO vendor directory's 639 items as on 26 Jan 2020 )"
+author: "Compiled by QAM RDSO"
+date: "`r format(Sys.time(), '%d %B, %Y')`" # escape " but not `r format(Sys.time(), "%I:%M")`  or "`r Sys.Date()`"
+always_allow_html: true
+output: 
+  bookdown::pdf_document2:
+    keep_tex: yes
+    latex_engine: xelatex
+    toc: false
+#    geometry: margin=0.2in
+#    fontsize: 11pt
+  html_document:
+    toc: true
+    toc_depth: 2  #the default is 3
+    theme: readable
+    highlight: pygments
+    code_folding: hide
+    keep_md: true
+    
+Comment: >
+    long  YAML comment and newlines survive parsing!
+    theme  "default", "cerulean", "journal", "flatly", "readable", "spacelab", "united",      "cosmo", "lumen", "paper", "sandstone", "simplex", and "yeti".
+     highlight for  syntax style  "default", "tango", "pygments", "kate", "monochrome",        "espresso", "zenburn", "haddock", and "textmate".
+    All docs by rmarkdown::render("my-document.Rmd", output_format = "all"). learn ender
+    Better to do your initial work in an R script and do source("gun-deaths.R")
+     against rmarkdown::render() function 
+
+     run scripts directly from the shell using Rscript: "Rscript gun-deaths.R" 
+     and markdown shell for Rmd Rscript -e "rmarkdown::render('gun-deaths.Rmd')"
+     for tables compile may set  :options(knitr.table.format = "latex") 
+     but now automatically done options(kableExtra.auto_format = FALSE)
+     recommended to load this package entirely via library(kableExtra) in main doc 
+         header-includes:
+      - \usepackage{booktabs}
+      - \usepackage{longtable}
+      - \usepackage{array}
+      - \usepackage{multirow}
+      - \usepackage{wrapfig}
+      - \usepackage{float}
+      - \usepackage{colortbl}
+      - \usepackage{pdflscape}
+      - \usepackage{tabu}
+      - \usepackage{threeparttable}
+      - \usepackage{threeparttablex}
+      - \usepackage[normalem]{ulem}
+      - \usepackage{makecell}
+      - \usepackage{xcolor}
+      
+      kable_styling(latex_options = c("striped", "scale_down"))  # scale down to fit to page
+      kable_styling(latex_options = c("repeat_header")) # to repeat header in long table
+      # , longtable = T, in options of table
+      
+      
+---
+
+# The RDSO controlled items
+
+## Description of the items and purpose
+
+This vendor directory data is printed based on the Google sheet data provided by the respective directorates. In case of any difference noticed by any directorate, they are requested to verify and update the Google sheet, access to the same has already been given to the nominated persons of the respective directorates.
+
+
+<!---
+Date:  `r Sys.Date()` 
+Formated date: `r format(Sys.time(), '%d %B, %Y')`  --->
+
+<!--  was not required \usepackage{pdflscape} -->
+<!--  install.packages('tinytex')  -->
+<!--  tinytex::install_tinytex() # uninstall  tinytex::uninstall_tinytex() -->
+
+
+
+```{r setup, include=FALSE, eval=TRUE, message=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+## RDSO Vendor Analysis  #########################
+library(tidyverse)
+packages <- c("tidyverse", "lubridate", "cowplot", "ggpubr", "scales", "stringr",  
+              "summarytools",  "here", "googlesheets", 
+              "knitr",  "kableExtra",
+              "readxl", "writexl",
+              "alluvial", "ggalluvial")
+# if not Instaled 
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+
+lapply(packages, library, character.only = TRUE) %>% invisible()
+
+                                     ## options(kableExtra.auto_format = FALSE) # disable globle default
+options(knitr.table.format = "latex")
+
+library(formattable) # for pretty html tables
+
+library(googlesheets)  
+library(googledrive) # better  use  for files suggested by jenny bryon
+
+# works with direct correct file name
+allvendorhandle   <-   gs_title("MASTER VENDOR LIST March2020")      # gs by title
+
+allvendorhandle
+# range = "R1C1:R4C3" | "B3:F80" | cell_cols(1:4) | cell_limits(  c(1, 4), c(5, NA) | cell_rows(1:1000) )
+# locale, trim_ws, na, comment, n_max
+RDSOmarch31     <-   gs_read(ss = allvendorhandle,   ws = 1 , skip = 2, col_names = TRUE,verbose = TRUE) # %>% rowid_to_column()
+
+# filter your data to use youth <- gun_deaths %>% filter(age <= 65)
+
+# kable(mtcars, "latex", booktabs = T) %>% kable_styling(latex_options = "striped")
+
+
+```
+
+
+```{r RDSOfinallist, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+## check up variables before print
+RDSOmarch31 %>% select(SN, Directorate, UID, Item, Vendors,`AA Value in Crores`, `RlyBd Del List SN`, StatusMarch31, Prospects) 
+
+```
+
+
+# Details of RDSO controlled items - Deletion, Merging, Continuing RDSO items
+
+```{r RDSOfinalstatus, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+options(knitr.kable.NA = '')
+# Status on march 31 
+RDSOmarch31 %>%     #mutate(VDnow = ifelse(StatusMarch31 == "Approved"|StatusMarch31 == "Merged" ,  "Deleted", "RDSOitem"    ) ) %>%
+                    group_by(Directorate, StatusMarch31) %>% count() %>%
+                    spread(StatusMarch31, n)            %>% 
+                kable( "latex", longtable = F, booktabs = T, 
+                caption = "Items deleted, Merged, Continueing RDSO items, etc"   )   %>%
+                kable_styling("striped", "hold_position", full_width = F) %>%
+                kable_styling(latex_options = "striped")  %>%
+                kable_styling(latex_options = c("scale_down"))         %>%
+                kable_styling(latex_options = c("repeat_header"))      %>%
+                    column_spec(1, width = "8em") %>%              #SN
+                    column_spec(2, width = "8em") %>%              # Directorate
+                    column_spec(3, width = "8em") %>%
+                    column_spec(4, width = "8em") %>%
+                    column_spec(5, width = "8em") %>%
+                    column_spec(6, width = "5em") %>%
+                    column_spec(7, width = "6em") %>%
+                    column_spec(8, width = "12em") 
+
+
+```
+
+
+&nbsp; 
+
+\pagebreak
+
+# Items with less then three vendors
+
+```{r lessthen3vendor, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+
+# items break up of less then three items :
+RDSOmarch31 %>%     
+                    group_by(Directorate,  Less3Vendor) %>%  
+                    count(Less3Vendor )  %>%
+                    spread(Less3Vendor, n)   %>%
+                kable( "latex", longtable = T, booktabs = T, 
+                caption = "Table of RDSO Vendor Directory items with less then three vendors"   )   %>%
+                kable_styling(latex_options = "striped")  %>%
+                kable_styling(latex_options = c("scale_down"))         %>%
+                kable_styling(latex_options = c("repeat_header"))      %>%
+                    column_spec(1, width = "12em") %>%              
+                    column_spec(2, width = "8em") %>%              
+                    column_spec(3, width = "8em") %>%
+                    column_spec(4, width = "8em") %>%
+                    column_spec(5, width = "12em") 
+
+
+
+```
+
+
+&nbsp; 
+
+\pagebreak
+
+# The complete Master data of 639 items 
+
+The data includes those item deleted or merged with other similar items
+
+```{r RDSOmasterprint, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+
+## check up variables before print
+
+RDSOmarch31 %>% select(SN, Directorate, UID, Item, Vendors,`AA Value in Crores`, 
+                       `RlyBd Del List SN`, StatusMarch31  )  %>% 
+                kable( "latex", longtable = T, booktabs = T, 
+                caption = "Table of RDSO Vendor Directory items"   )   %>%
+                kable_styling(latex_options = c("scale_down"))         %>%
+                kable_styling(latex_options = c("repeat_header"))      %>%
+             #   kable_styling(latex_options = "striped")               %>%
+                    column_spec(1, width = "3em") %>%              #SN
+                    column_spec(2, width = "5em") %>%              # Directorate
+                    column_spec(3, width = "5em") %>%
+                    column_spec(4, width = "20em") %>%
+                    column_spec(5, width = "3em") %>%
+                    column_spec(6, width = "5em") %>%
+                    column_spec(7, width = "6em") %>%
+                    column_spec(8, width = "12em")  %>% landscape()
+       # collapse_rows(columns = 2, valign = "top",row_group_label_position = 'stack') 
+       # collapse_rows(1:2, row_group_label_position = 'stack') %>%
+                
+
+
+```
+
+
+```{r venderlist, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+## check up variables before print
+RDSOvd <-  gs_read(ss = allvendorhandle, ws = 2 , skip = 2, col_names = FALSE,verbose = TRUE)    # %>% rowid_to_column()
+# suppressMessages(expr)
+RDSOvd %<>% rename(SN = X1)
+
+RDSOvd %>% filter(grepl("QA", X3))  -> RDSOvd2
+RDSOvd2  %>%   mutate( QAD = as_factor(X2) , SN = as.numeric(SN) )       %>%    
+               mutate( QA = fct_collapse(QAD, 
+                   QAM = c("Carriage", "MP", "M&C Dte", "wagon", "Wagon"),
+                   QAC = c("B&S", "Works", "QAC/Track Design-II", "TMM Dte.",  
+                           "Track Design", "Track Design I", "Track Design II", 
+                           "Track Design", "Track Design I", "QAC/Track Design-II"),
+                   QST = c("QA/S&T", "SIG" , "Telecom" ),  
+                   QElect = c("TI")  )                  )   %>% 
+    select( SN, QAD= X3, Item = X2, X3, Vendors = X4,X5,X6, X7,  X9)   %>%
+    arrange(SN) %>% filter( !is.na(SN) ) %>%
+    kable( "latex", longtable = T, booktabs = T, 
+    caption = "Table of RDSO Vendor Directory items"   )   %>%
+    kable_styling(latex_options = c("scale_down"))         %>%
+   # add_header_above(c(" ", "Group 1" = 5, "Group 2" = 6)) %>%
+    kable_styling(latex_options = c("repeat_header"))      %>%
+        column_spec(1, width = "3em") %>%
+        column_spec(2, width = "5em") %>%
+        column_spec(3, width = "20em") %>%
+        column_spec(4, width = "6em") %>%
+        column_spec(5, width = "4em") %>%
+        column_spec(6, width = "4em") %>%
+        column_spec(7, width = "4em") %>%
+        column_spec(8, width = "6em") %>%
+        column_spec(9, width = "4em") %>%
+        column_spec(10, width = "4em") %>%
+        column_spec(11, width = "4em") %>%
+        column_spec(12, width = "4em") %>%
+       # collapse_rows(columns = 2, valign = "top",row_group_label_position = 'stack') 
+       # collapse_rows(1:2, row_group_label_position = 'stack') %>%
+    landscape()
+```
+
+
+
+
+

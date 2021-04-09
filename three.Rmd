@@ -1,0 +1,200 @@
+# Yuhi Rmd notes
+
+The slides from https://slides.yihui.org/2019-DahShu-rmarkdown.html#1
+
+# 1 Why use TinyTeX?
+
+They are all too big: TeX Live, MiKTeX, MacTeX (~5Gb). TinyTeX (yihui.org/tinytex) is ~150Mb when installed:
+
+tinytex::install_tinytex()
+With the R function tinytex::latexmk(), two common LaTeX problems are automatically solved:
+
+Missing LaTeX packages are automatically installed (doesn't require IT).
+The .tex document is compiled for the correct number of times to resolve cross-references (e.g., pdflatex + bibtex + makeidx + pdflatex + pdflatex).
+
+Demo: 01-tinytex.Rmd
+
+# 2. Generate a report from an R script
+
+' Write your narratives after #'.
+' Of course, you can use **Markdown**.
+' Write R code in the usualy way.
+
+1 + 1
+str(iris)
+
+#' Need chunk options? No problem.
+#' Write them after #+, e.g.,
+#+ fig.width=5
+
+plot(cars)
+The script is converted to Rmd through knitr::spin(); then rmarkdown::render() will render the Rmd
+
+Demo: 02-spin.R (either click the "Notebook" button in
+
+# 3. Convert Rmd to R script
+Demo: 03-purl.Rmd
+
+knitr::purl("03-purl.Rmd")  # output: 03-purl.R
+# no documentation, pure code
+knitr::purl("03-purl.Rmd", documentation = 0)
+# full documentation in #' comments
+knitr::purl("03-purl.Rmd", documentation = 2)
+
+# 4. Add citations
+
+BibTeX databases:
+
+knitr::write_bib("base", file = "")
+ @Manual{R-base,
+  title = {R: A Language and Environment for Statistical Computing},
+  author = {{R Core Team}},
+  organization = {R Foundation for Statistical Computing},
+  address = {Vienna, Austria},
+  year = {2019},
+  url = {https://www.R-project.org/},
+}
+
+
+Use @key to cite an entry (or [@key] if you need brackets, or cite multiple entries via [@key-1; @key-2])
+
+# 5. Cross-reference figures, tables, and sections
+With the bookdown package (even if you are not writing a book), you can cross-reference things via \@ref(key).
+
+A few possible bookdown output formats:
+
+output:
+  - bookdown::html_document2
+  - bookdown::pdf_document2
+  - bookdown::word_document2
+  
+Demo: 05-cross-reference.Rmd
+
+# 7 Line breaks (not paragraphs)
+Line break in the output? : two trailing spaces before you break a line in the source.
+In HTML <br/> and in LaTeX use \\ 
+
+If you want to preserve the line breaks as in poems or lyrics.
+
+# 8. Put all code in the appendix
+
+The key: the chunk option ref.label to reference other code chunks.
+
+More info: https://yihui.org/en/2018/09/code-appendix/
+
+Demo: 08-code-appendix.Rmd
+
+You can move your code freely in an Rmd document using ref.label, without cut-and-paste.
+
+# 9. Create an animation
+To create a GIF animation from all R plots in a code chunk, install the gifski package. Then use the chunk option animation.hook='gifski':
+
+```{r, animation.hook='gifski', eval=FALSE, echo=TRUE}
+for (i in 1:2) {
+  pie(c(i %% 2, 6), col = c('red', 'yellow'), labels = NA)
+}
+```
+
+
+# 10. Cache time-consuming code chunks
+Use the chunk option cache = TRUE if a code chunk is time-consuming and the code doesn't change often.
+
+# 11. Add logos to your R plots
+The key: the chunk option fig.process can be a function to post-process your plots.
+
+```{r, fig.process=function(x, options) { x }}
+# plot
+```
+Demo: 11-magick.Rmd
+
+# 12. Add real LaTeX math expressions to R plots
+You may know ?plotmath, but these tricks in base R graphics do not produce real LaTeX math expressions
+
+plot(cars, main = expression(hat(beta) == (X^t * X)^{-1} * X^t * y))
+The (perhaps only) R package that allows you to write LaTeX expressions in R plots is tikzDevice.
+
+How to use tikzDevice in R Markdown? Short answer: use the chunk option dev = "tikz". But...
+
+Demo: 12-tikz.Rmd
+
+
+# 13. Use other languages
+Python, Julia, SQL, C++, shell scripts, JavaScript, CSS, ...
+
+To know all languages supported in knitr (there are more than 40): names(knitr::knit_engines$get())
+
+```{python}
+x = 42
+```
+Demo: 13-lang.Rmd
+
+# 14. Child documents
+You can split your long documents into shorter ones, and include the shorter documents as child documents, e.g.,
+
+```{r, child='one.Rmd'}
+```
+
+```{r, child=c('one.Rmd', 'two.Rmd')}
+```
+
+
+# 15. Start bookdown and blogdown projects
+
+In RStudio: File -> New Project -> New Directory; select "Book" or "Website" projects.
+
+
+Demo: 04-citation.Rmd
+
+# Diagrammer
+
+## Does not work in pdf : explore workaround
+
+```{r}
+library(DiagrammeR)
+DiagrammeR::mermaid("
+graph TB
+  A-->B
+  A-->C(testing  this lable)
+  C-->E{A Rhombus}
+  B-->D
+  C-->D
+  D-->F[Rectangle One]
+  E-->F
+")
+```
+
+```{r  }
+library(DiagrammeR)
+DiagrammeR::mermaid("
+graph LR
+A(Total RDSO items = 661 )-->B[Less then 3 Vendors = 221]
+B-->C{ 1 Crores = 145 }
+B-->D( 1 Crores = 76)
+C-->E[Diminishing , No vendor interest = 118]
+C-->F(Increasing, Develop Vendor  = 27)
+D-->G[Obsolete, diminishing  = 35]
+D-->H[New tech, increasing  = 41]
+C-->G[Total for vendor development = 68]
+")
+```
+
+
+
+```{r}
+DiagrammeR::mermaid("
+sequenceDiagram
+  Vendor->>Web portal: ask appointment ticket
+  Software ->>officer: check up schedule
+  alt tickets available
+    database->>ticket seller: ok
+    ticket seller->>customer: confirm
+    customer->>ticket seller: ok
+    ticket seller->>database: book a seat
+    ticket seller->>printer: print ticket
+    feedback taker-->>formfilling:get feedback
+  else sold out
+    database->>ticket seller: none left
+    ticket seller->>customer: sorry
+  end
+")
+```

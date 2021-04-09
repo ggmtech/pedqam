@@ -1,0 +1,203 @@
+---
+title: "Untitled"
+date: "12/06/2019"
+output:
+  revealjs::revealjs_presentation:
+    background_transition: none
+    center: yes
+    css: gk_css.css
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 10
+    highlight: pygments
+    incremental: yes
+    reveal_options:
+      previewLinks: yes
+      slideNumber: yes
+    reveal_plugins:
+    - notes
+    - search
+    - chalkboard
+    self_contained: no
+    theme: sky
+    transition: none
+  prettydoc::html_pretty:
+    highlight: github
+    theme: cayman
+subtitle: ' Subytitle for my project'
+auther: ' Diesel Wing'
+---
+
+<!---
+theme specifies the theme to use for the presentation (available themes are "default", "simple", "sky", "beige", "serif", "solarized", "blood", "moon", "night", "black", "league" or "white").
+
+highlight specifies the syntax highlighting style. Supported styles include "default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn", and "haddock". Pass null to prevent syntax highlighting.
+
+center specifies whether you want to vertically center content on slides (this defaults to false).
+
+smart indicates whether to produce typographically correct output, converting straight quotes to curly quotes, --- to em-dashes, -- to en-dashes, and ... to ellipses. Note that smart is enabled by default.
+transition specifies the visual effect when moving between slides. Available transitions are "default", "fade", "slide", "convex", "concave", "zoom" or "none".
+
+background_transition specifies the background transition effect when moving between full page slides. Available transitions are "default", "fade", "slide", "convex", "concave", "zoom" or "none".
+You can override the global transition for a specific slide by using the data-transition attribute, for example:
+
+## Use a zoom transition {data-transition="zoom"}
+
+## Use a faster speed {data-transition-speed="fast"}
+You can also use different in and out transitions for the same slide, for example:
+
+## Fade in, Slide out {data-transition="slide-in fade-out"}
+
+## Slide in, Fade out {data-transition="fade-in slide-out"}
+
+
+## CSS color background {data-background=#ff0000}
+
+## Full size image background {data-background="background.jpeg"}
+
+## Video background {data-background-video="background.mp4"}
+
+## Embed a web page as a background {data-background-iframe="https://example.com"}
+
+
+--->
+
+# Reason for this presentation
+
+To make a draft reveal
+> - Eat eggs
+> - Drink coffee
+
+## R Markdown
+
+This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+---
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+## Slide with Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## CSS color background {data-background=#ff0000}
+
+## Full size image background {data-background="figure2b.png"}
+
+```{r, echo = FALSE}
+library(ggpubr)
+# Grouped Scatter plot with marginal density plots
+ggscatterhist(
+  iris, x = "Sepal.Length", y = "Sepal.Width",
+  color = "Species", size = 3, alpha = 0.6,
+  palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+  margin.params = list(fill = "Species", color = "black", size = 0.2)
+  ) + theme_transparent()
+```  
+
+## Video background {data-background-video="demo.mp4"}
+
+
+## Embed a web page as a background {data-background-iframe="https://example.com"}
+
+```{r, echo = FALSE}
+library(tidyverse)
+library("ggalt")
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point( aes(size = qsec , fill = cyl ), alpha = 0.5) +
+  scale_size(range = c( 0.5,  12 ))  # Adjust the range of points size
+```  
+
+
+## Slide with R Code and Output
+
+```{r, echo = FALSE}
+library(tidyverse)
+library("ggalt")
+circle.df <- iris %>% filter(Species == "setosa")
+ggplot(iris, aes(Petal.Length, Petal.Width)) +
+    geom_point(aes(colour = Species)) + 
+  geom_encircle(data = circle.df, linetype = 2)
+```
+
+## Slide with Plot
+
+```{r, echo=FALSE}
+library(ggforce)
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(x = Species == "versicolor")
+```
+
+# The top p head
+
+## Background Three {.SlideClass #SlideID3}
+
+Full screen background
+
+```{r results='asis',echo=FALSE}
+
+#makeBG(id='Slide3', 'figure2b.png')
+```
+
+```{r}
+Sys.setlocale("LC_CTYPE", "russian")
+#st_options(lang = 'ru')
+#Then, to go back to default settings:
+
+Sys.setlocale("LC_CTYPE", "")
+#st_options(lang = "en")
+```
+
+
+## fdfkladfhj
+
+## table
+
+```{r, echo= FALSE}
+library(knitr)
+library(kableExtra)
+dt <- mtcars[1:5, 1:6]
+
+iris[1:10, ] %>%
+  mutate_if(is.numeric, function(x) {
+    cell_spec(x, bold = T, 
+              color = spec_color(x, end = 0.9),
+              font_size = spec_font_size(x))
+  }) %>%
+  mutate(Species = cell_spec(
+    Species, color = "white", bold = T,
+    background = spec_color(1:10, end = 0.9, option = "A", direction = -1)
+  )) %>%
+  kable(escape = F, align = "c") %>%
+  kable_styling(c("striped", "condensed"), full_width = F)
+
+kable(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right", font_size = 7)
+
+
+```
+
+## combineing formatable with 
+
+```{r, echo= FALSE}
+library(formattable)
+mtcars[1:5, 1:4] %>%
+  mutate(
+    car = row.names(.),
+    mpg = color_tile("white", "orange")(mpg),
+    cyl = cell_spec(cyl, angle = (1:5)*60, 
+                    background = "red", color = "white", align = "center"),
+    disp = ifelse(disp > 200,
+                  cell_spec(disp, color = "red", bold = T),
+                  cell_spec(disp, color = "green", italic = T)),
+    hp = color_bar("lightgreen")(hp)
+  ) %>%
+  select(car, everything()) %>%
+  kable(escape = F) %>%
+  kable_styling("hover", full_width = F) %>%
+  column_spec(5, width = "3cm") %>%
+  add_header_above(c(" ", "Hello" = 2, "World" = 2))
+```

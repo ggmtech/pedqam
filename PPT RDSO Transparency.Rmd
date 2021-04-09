@@ -1,0 +1,57 @@
+---
+title: "Untitled"
+author: "PED/QA/Mech"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  beamer_presentation: default
+  powerpoint_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 	Background 
+
+RDSO controls vendor development for safety and critical items required for use on Indian Railways. In line with the directives of Hon’ble MR and instructions issued by Railway Board from time to time, RDSO has been making consistent efforts to deregulate control of items which are not considered safety critical, with the primary objective of taking advantage of open market sourcing and strengthening the IR supply chain. RDSO has succeeded in reducing the list of controlled items from 676 at the beginning of last financial year to 549 in June-2020 and efforts are underway to further reduce this list to around 450 by the end of July-2020. 
+
+While RDSO has been able to widen its vendor base with around 2500 vendors available for material sourcing by IR, there still are around 137 items which have less than 3 vendors for sourcing items. One of the main priorities of RDSO, therefore,  is to increase the vendors for such items. Business process reforms initiated by RDSO for improving ease-of-doing-business and making the whole process of vendor development transparent and efficient have been elaborated in this document. 
+
+# Important process reforms implemented by RDSO for improving Vendor Interface:
+
+# Paperless Working:
+100% online paperless working has been made functional from 1st July, 2020 to improve ease of doing business through a transparent vendor registration process. Vendors can apply and download/upload all relevant documents on the web portal without the need to visit RDSO or submit hard copies to RDSO.  
+
+# Complete vendor registrations process has been made online.
+
+# Issue of Digital Inspection Certificates:
+Since February 2020, RDSO has been issuing Dispatch Memos and Inspection Certificates online in digital form. The IC is transparently and instantly transmitted in digital form to all the stakeholders. This digitization effort of RDSO is resulting in saving of about 3-10 days in the whole process and is helping in fast tracking the payment to the suppliers. Since the information is getting transmitted on real-time basis to all the stakeholders, the need for interaction between Railway Units and  RDSO or any other stakeholder is minimized. 
+
+# The de-regulation of RDSO controlled items
+
+The efforts made by RDSO in deregulating the items from its control, with the primary objective of creating opportunities for open market sourcing of non-critical items and thereby taking advantage of competitive pricing available in open market, has yielded positive results. It is evident from the fact that  while RDSO controlled 676 items on 01-04-2019, the list of RDSO controlled items reduced to 639 by Jan 2020, 573 by 31st March and now to 400 in July 2020.  
+
+# Reduction in items with less than 3 vendors
+
+One of the main focus areas of RDSO has been to develop at least 3 vendors for all RDSO controlled items. Consistent efforts have been made by RDSO in this direction.  Improvement in this area can be appreciated from the fact that while RDSO had 242 items with less than 3 vendors on 01.04.2019, the number of such items reduced to 208 by Jan-2020, to 163 items by 31st March , and now to 102 in July 2020.  RDSO is making concerted efforts to decrease such items even further. Way forward, continued efforts shall be made to reach a level below 50 by the end of current year.
+ Process Reforms for Increasing Vendor Base: 
+
+# Approval of similar items
+
+RDSO has undertaken major process reform to approval process of many of the items having similar specifications and similar manufacturing processes, which can be manufactured by the same M&P, Testing facilities etc. Necessary changes have been made in the ISO process, enabling other vendors of similar group to easily register for remaining items in group. They will be directly registered as developmental vendor for limited quantity, subject to prototype approval/field trial if need be, against the PO that firm will be securing from Railway units in competitive bidding and considering their capability proven in development of similar items for which they are already registered, condition of field trial can be waived off. This process shall also encourage new vendors to register for all the sub-categories items of a group following a single application process.
+
+# Approving as Developmental Source with quantity restriction in items having Limited Vendors:
+
+The existing system requires vendor to get limited quantity order from nominated Railway/s for manufacturing of prototype and field trial, as applicable, before being considered for approval as developmental vendor, after scrutiny of application and Capability Assessment. This makes the whole process time consuming, as firm quite frequently finds it difficult to get developmental order, resulting in delay of prototype inspection and/or field trial. The registration process has now been rationalized and structurally changed for items having less than 5 vendors, such that after successful Capability assessment, the prospective vendor shall be straight away  placed in Vendor Directory as a development source with initial limits on supply quantity for manufacture of prototype and/or field trial as the case may be. It becomes easier for firm to get developmental vendor status because of easy visibility of name in vendor directory for all procurement agencies. This will facilitate attracting more vendors, expedite approval process and expand the vendor base.
+
+# Implementation of “Make-in-India Policy”:
+
+Towards effective implementation of Government of India’s “Make-in-India Policy”, requisite suitable conditions have been incorporated in RDSO’s ISO Apex Documents relating to vendor registration and approval.
+
+# Opening up of Technical Specification and STR
+
+To make the specifications and STR of RDSO controlled items, more aligned with current industrial technology and not putting Indian companies at disadvantageous position these are being reviewed phase wise to remove restrictive clauses in the specifications by hosting them on RDSO portal and inviting comments and suggestions from all the stockholders including vendors. After reasoned documents are prepared, the review of all Technical specifications/STRs will be undertaken and strict compliance of the instructions contained in Public Procurement (Preference to Make in India) order - 2017, will be ensured, while stipulating technical or performance requirements of vendor approval for items in specifications.
+
+# Assimilating innovative ideas in specifications
+
+As noted, the specifications and Schedule of Technical Requirement (STR) have been uploaded on RDSO portal for inviting suggestions and comments for incorporating innovative ideas and current technology and also to encourage “Make-in-India” program of the Government.  All technical specifications and STR shall be uploaded in a phased manner for getting inputs from all the stakeholders and the exercise will be completed by 31st August 2020. The suggestions so received shall be examined by the RDSO for review and modifications in the documents, as and where necessary . 

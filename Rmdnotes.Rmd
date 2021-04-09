@@ -1,0 +1,115 @@
+---
+title: "Untitled"
+author: "PED/QA/Mech"
+date: "16/02/2020"
+output:
+  beamer_presentation: default
+#??     engine:xelatex
+  slidy_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#library(tidyverse) # better idea is in RDSOvendordirectory.Rmd
+#youth <- gun_deaths %>% filter(age <= 65)
+#install.packages("rmarkdown")
+```
+
+## R Markdown
+
+
+
+check out Awesome Blogdown for a curated list of blogs built using blogdown.
+GitLab pages create websites for our GitLab projects, groups, or user account using static Hugo etc.
+ScreenToGif ios tool to record a selected area of your screen, edit and save it as a gif or video
+
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# insert chunks
+Cmd + Option + I 
+{r echo=TRUE}. By default, the code is not shown.
+
+More options:
+
+cache: cache results for future knits (default = FALSE)
+cache.path: directory to save cached results in (default = “cache/”)
+child: file(s) to knit and then include (default = NULL)
+collapse: collapse all output into single block (default = FALSE)
+comment: prefix for each line of results (default = ‘##’)
+dependson: chunk dependencies for caching (default = NULL)
+echo: Display code in output document (default = TRUE)
+engine: code language used in chunk (default = ‘R’)
+error: Display error messages in doc (TRUE) or stop render when errors occur (FALSE) (default = FALSE)
+eval: Run code in chunk (default = TRUE)
+message: display code messages in document (default = TRUE)
+results=asis: passthrough results
+results=hide: do not display results
+results=hold: put all results below all code
+tidy: tidy code for display (default = FALSE)
+warning: display code warnings in document (default = TRUE)
+fig.align: ‘lef’, ‘right’, or ‘center’ (default = ‘default’)
+fig.cap: figure caption as character string (default = NULL)
+fig.height, fig.width: Dimensions of plots in inches
+highlight: highlight source code (default = TRUE)
+include: Include chunk in doc after running (default = TRUE)
+
+
+# Tables 
+Colons can be used to align columns.
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+or the next ones, from R code with the libraries knitr, xtable, or stargazer.
+
+data <- faithful[1:4, ]
+knitr::kable(data, caption = 'Table with kable')
+
+print(xtable::xtable(data, caption = 'Table with xtable'), type = 'HTML', HTML.table.attributes = 'border=0')
+
+stargazer::stargazer(data, type = 'HTML', title = 'Table with stargazer')
+
+# Interactive grapgs
+```{r , eval=FALSE, echo=FALSE}
+library(highcharter)
+highchart() %>% 
+  hc_title(text = "SInteractive catter bubble chart with size and color") %>% 
+  hc_add_series(mtcars, "point", hcaes(wt, mpg, size=drat, color=hp)) %>%
+  widgetframe::frameWidget()
+```
+
+# On screen options
+
+f: enable fullscreen mode
+w: toggle widescreen mode
+o: enable overview mode
+h: enable code highlight mode
+p: show presenter notes
+
+
+
+# genome <- map_dfr(files, read_tsv)
+
+”r” in the name means adding the next data frame as rows. There is also a ”c” version (map_dfc) for adding as columns.
+

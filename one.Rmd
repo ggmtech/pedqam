@@ -1,0 +1,23 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+## some formulas for later us
+The texts 
+
+> gsub(pattern, replacement, x, ignore.case = FALSE, perl = FALSE,   fixed = FALSE, useBytes = FALSE)
+
+> str_length("abc")
+> x <- c("abcdef", "ghifjk")
+> str_sub(x, 3, 5) give #> [1] "cde" "ifj"
+> str_sub(x, 3, 3) <- "X" to modify/replace the string
+> str_pad(x, 10, "both")  pad with white space on both side
+> str_trim()  remove space on both side, or  str_trim(x, "left")
+> cat(str_wrap(jabberwocky, width = 40)) wrap width to 40 size
+
+> str_to_upper(x);  str_to_title(x)  ; str_to_lower(x)
+> str_order(x)  ; str_sort(x)
+
+
+

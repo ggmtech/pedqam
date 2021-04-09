@@ -208,7 +208,7 @@ p + geom_smooth(method = 'lm') + facet_grid(~ gear)
 
 # Some Notes on Tufte CSS
 
-Use `r sans_serif('sans-serif fonts')`, use  `sans_serif()` in **tufte**. 
+Use r sans_serif('sans-serif fonts'), use  `sans_serif()` in **tufte**. 
 
 For epigraphs,use a pair of underscores to make the paragraph italic in a block quote, e.g.
 

@@ -1,0 +1,189 @@
+---
+title: "Report of Committee on Expediting Vendor Registration Process"
+author:
+- affiliation: Get Shiz Done University
+  name: John, the Problem Solver
+- affiliation: Living Room Couch
+  name: Jack, the Supposed Contributor
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document:
+    toc: yes
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    number_sections: yes
+    theme: journal
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+abstract: "Our analysis shows that the main reason of global conflicts can be attributed
+  \nto the insufficient amounts of Nutella consumption in situation rooms. \n\nIt
+  turns out that the government officials across the globe are a bit grumpy\nwhen
+  they get hungry leading to bad decision-making. You are welcome...\n"
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#    1. Introduction:
+
+fhdhgdf khg j 
+
+ghf 1.1. COVID has created an unprecedented crisis, which has adversely impacted the Vendor Registration Process. Officials are apprehensive in going out on duty Capability Assessment or Prototype Inspection due to risk involved in getting infected in train journey, suitable trains not being available, lockdown restrictions and Quarantine requirement in various States/Cities.
+
+1.2. At the same time, there is lot of Stress on making the Vendor Registration process completely online, without any need of physically visiting the Firm’s premises.
+
+1.3. DG directed Spl DG VD to take necessary action for this purpose. 
+
+1.4. Spl DG VD has formed a committee of PED/SE, PED/QAM & ED/Wagon to deliberate and suggest methodology to be adopted for expediting the Vendor Registration Process, hampered by lack of suitable transport facilities, lockdown restrictions and Quarantine requirement in various States/Cities.
+
+1.5. The matter has been deliberated threadbare in various meetings of the Committee Members. Details of discussions and recommendations are as under:
+
+#    2. Discussions
+
+2.1. For the purpose of registration, visit to firm’s premises at Officer level is required, as per currently laid down procedure, for Capability Assessment. 
+
+2.2. Visit for Prototype Inspection, if applicable for the particular item, is also needed to be made at Officer/Inspecting official (SSE/JE) level.
+
+2.3. Also, for Periodic Quality Audit of the Vendor, visit to firm’s premise at Officer level is needed.
+
+2.4. Normally, such visits are made by Officers/Staff of directorate controlling the item. However, it has been hampered due to lack of suitable transport facilities, lockdown restrictions and Quarantine requirement in various States/Cities.
+
+2.5. Design directorate Officers/Staff are stationed only in HQ while some of the Quality Assurance (QA) dtes have got field offices in various cities. Hence, such QA dtes have got better access to Vendor premises and are subjected to less quarantine requirements (being in the same state as Vendor premises to be visitied), than the design dtes.
+
+2.6. RCF/Kapurthala has issued a JPO for Online Inspection/Verification for Technical Capability for registration and capacity cum capability for development order of firms. It has been studied by the Committee.
+
+2.7. Hence, if it is not possible depute officer from design dtes due to reasons already mentioned, deputing Officers (preferably)/Staff of field offices of QA dtes can be considered, who have more or less similar expertise. In case, design dte feels that guidance by design dtes during visit to the firm by QA dte officials is required, it can be given Online.
+
+2.8. However, in some cases it may not be possible for the QA dtes officials also to visit the firm’s premises, due to reasons already mentioned. In such a scenario, Online assessment can be undertaken by  the design dtes.
+
+2.9. However, if considered essential, assistance from PUs, Rites, Zonal Railways may be taken, as the case may be. In such cases, online guidance of design dtes shall be mandatory. Report of such visit shall be joint signed by the visiting officials and design dte officials.
+
+2.10. Decision in this regard shall be taken by Dte head, keeping in view the criticality of the item involved, expertise of the outside visiting official, etc.
+
+2.11. For Online Guidance/Inspection, firm should be asked to submit video recording, with photographs,  of requisite details be verified.
+
+2.12. Necessary facilities to be available in Firm’s premises for online viewing through a Conference App.
+
+2.13. An undertaking by the firm is necessary for truthfulness of the information submitted, readiness for subsequent verification by Official of Design dte and readiness to face the penal action, in case any discrepancy in such verification is noticed which cannot be justified.
+
+2.14. One of the main constraint in visit is lack of suitable transport linkages and accommodation. Already, provision of suitable logistic support for transport  to the RDSO official visiting the Vendor’s premises for inspection is there in RDSO ISO Doc No. QO-D-8.1-17 Ver. 1.1 w.e.f 19.06.2020. However, in this provision it is not clear whether logistic support for transport covers movement of the RDSO official from his HQ to the firm’s place or not. In view of the situation arising out of COVID pandemic, it is considered desirable that such transport facility covers movement of visiting official from his HQ to firm’s premises/city by road or by air also.
+
+2.15. Since, this procedure is being suggested to deal with the situation arising out of COVID pandemic, it is proposed for a period of six months and to be reviewed thereafter.
+
+#    3. Recommendations: 
+
+3.1. Capability Assessment:
+
+3.1.1. In case it is not possible to depute Officers from deign dtes, arising out of Covid Pandemic: lack of suitable transport facilities/lockdown restrictions/Quarantine requirements in various States/Cities and similar exigencies, assistance can be taken from following, in order of precedence:
+
+3.1.1.1. Officer of Field offices of Quality Assurance Directorates having similar expertise as the design dte, as available, 
+
+3.1.1.2. Other officials of Field offices of Quality Assurance Directorates having similar expertise as the design dte, as available
+
+3.1.2. Supervisor from concern design dtes may be deputed to accompany the Officers from unit mentioned in point 3.1.1.1 above, to the extent possible, keeping in view the importance and availability. Also, Online guidance can be given by the design dte, if need be, duly following the methodology given in para 4.0.Decision in this regard to be taken by head of the design dte.
+
+3.1.3. However, if visit is undertaken by other field officials of QA dtes, Online guidance by the design dte shall be mandory, duly following the methodology given in para 4.0. 
+
+3.1.4. If it is not feasible to depute Officers/Other officials of field offices of QA dte, online inspection solely can be undertaken by the design dte, duly following the methodology given in para 4.0. However, if considered essential to depute Railway Official, assistance from PUs/ZRs/Rites can be taken by the design dte, during such online assessments.
+
+3.1.5. Request for such visits to be made directly by the dte head to field in-charge of QA dtes/Rites; PHOD of PUs/ZRs.
+
+3.1.6. Expenditure incurred by RITES will need to be reimbursed.
+
+3.1.7. An undertaking to be taken from the firm regarding truthfulness of the information submitted, readiness for subsequent verification for the firm’s premises by the Official of Design dte and readiness to face the penal action, in case any discrepancy in such verification is noticed, which cannot be justified. Format for such an undertaking is enclosed as Annexure-B.
+
+3.1.8. For reporting of the assessment, formats as laid down in respective ISO documents to be followed.
+
+3.2. Prototype Inspection:
+
+3.2.1. In case Prototype Inspection has to be done at the officer level, procedure as mentioned in para 3.1 above to be followed. However, information required to be taken in advance from firm can be decided by the respective dte.
+
+3.2.2. In case, Prototype Inspection can be carried out at Staff level and it is not possible to depute the Staff of design dte, assistance of staff from units mentioned in point 3.1 above can be taken and same procedure followed.
+
+3.3. Procedure given in para 3.1 and 3.2 above can be followed by QA dtes also, if it does not have field offices or it is not possible to depute Officer/Staff from field offices of QA dtes. 
+
+3.4. The procedure outlined in para 3.1 and 3.2 can be followed for conducting Quality Audit also.
+
+3.5. If need be, Vendor can be requested to provide logistic support for transport of the visiting official from his HQ to firm’s premises/city, both by air and road, extending the provision contained in para 4.0 of RDSO ISO Doc No. QO-D-8.1-17 Ver. 1.1 w.e.f.19.06.2020, as a temporary measure to deal with situation arising out of COVID Pandemic.
+
+3.6. The procedure outlined in this JPO shall be applicable for six months, from the date of issue. However, this period can be decreased or increased by the Competent Authority, taking cognizance of  the prevailing situation.
+
+#    4. Methodology for Online Guidance/Assessment/Inspection
+
+4.1. Firm to be asked to submit willingness for Online Assessment/Inspection and confirmation about availability of following facilities for Online Assessment:
+
+4.1.1. IP based Video Camera with good resolution and having facility of date/time/GPS location stamping.
+
+4.1.2. Laptop (for video conferencing, duly connecting the Video Camera to it)
+
+4.1.3. Good Internet Connection for Video Conferencing
+
+4.1.4. Adequate lighting for clear viewing of the facilities
+
+4.2. After submitting confirmation, firm to be asked to nominate one Nodal Official, with name and contact details, for coordinating the  Online Assessment/Inspection and submit video recording, with photographs,  of requisite details to be verified/inspected, as mentioned in Annexure-A. Such Video recording/photographs to have clear visibility.
+
+4.3. Video Recording/photographs can be shared by the firm with Inspecting Authority & RDSO through any common large size file transfer app.
+
+4.4. After receipt and scrutiny of the video recording/photographs, date(s) shall be advised to the firm for visit of the Inspecting official and/ or Online Assessment.
+
+4.5. During online inspection, the entire process to be recorded and snaps shot of major facilities/documents to be taken, as feasible. 
+
+4.6. Entrance and neighborhood buildings/installations to be verified and snap shots taken.
+
+4.7. Adequate lighting during such online inspection to be ensured by the firm for clear viewing.
+
+4.8. After inspection, recording to be saved in a portable hard drive, with proper cataloguing.
+
+
+
+ED/Wagon 
+PED/QA/Mech
+PED/SE
+
+
+Annexure-A
+Information to be provided by the firm for Online Assessment/Inspection
+    1. Video recording of Virtual tour of the factory, proposed to be registered with RDSO, including neighborhood buildings/installations front, left and right, factory premises starting from entrance gate, showing sequence of manufacturing process, inspection and quality control of component etc, including lab, machines, factory premises of manufacturing plant.
+
+    2. Photographs of neighborhood buildings/installations (front, left and right), Entrance Gate, all main facilities/documents, which need to be verified, with proper tagging.
+
+3. Availability and details of following facilities for online inspection:
+
+3.1. IP based Video Camera with good resolution and having facility of date/time/GPS location stamping
+
+3.2. Laptop (for video conferencing, duly connecting the Video Camera with it)
+
+3.3. Good Internet Connection for Video Conferencing
+
+3.4. Adequate lighting for clear viewing of the facilities
+
+4. Details of Nodal Official for Coordinating the visit: 
+
+4.1. Name:
+
+4.2. Designation:
+
+4.3. Mobile Number:
+
+        4.4. Email ID:
+
+Annexure-B
+Format Undertaking by the Firm for Online Assessment/Inspection
+    1. I hereby give willingness for Online Assessment/Inspection of my firm’s premises located at ………………………………./ prototype inspection of the product manufactured by my firm…………….. (strike out whichever is not applicable)
+
+    2. I hereby certify and solemnly declare truthfulness of  all video recordings, photographs, documents, submitted by my firm.
+
+    3. If any discrepancy in the information provided by me in any form is found, RDSO reserves the right to take penal action, including de-registration, against my firm, in accordance with para 4.2.4 of RDSO’s ISO Document No:QO-D-8.1-11 Ver.1.3 of 01.07.2020.
+
+
+
+Signature:
+Name of Authorized Signatory:
+Designation:
+Name of Firm:
+Address of Firm’s premises proposed for registration:

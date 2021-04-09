@@ -1,0 +1,141 @@
+---
+title: "Fully Online Vendor Registration in RDSO"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+date: "26/04/2020"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(tidyverse)
+packages <- c("tidyverse", "lubridate", "cowplot", "ggpubr", "scales", "stringr",  
+              "janitor",
+              "summarytools",  "here", 
+              "googledrive" , "googlesheets", 
+              "knitr",  "kableExtra",  "readxl", "writexl", "alluvial", "ggalluvial")
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+lapply(packages, library, character.only = TRUE) %>% invisible()
+
+## options(kableExtra.auto_format = FALSE) # disable globle default
+#options(knitr.table.format = "latex")
+# library(formattable)  
+```
+
+# Changes required for fully on-line RDSO vendor registration
+
+Major activities of Vendor Approval process are already On-line on Vendor Registration Portal of RDSO. 
+
+## Present activities already on-line
+
+>    * Complete application for registration is on-line
+    * issue of invoice for registraton fees
+    * Payment of fees through SBI collect 
+    * Verification of the fees at RDSO end
+    * Uploading of all documents on portal by vendor
+    * RDSO letter communications with the Vendor 
+
+## Present activities not yet on-line
+
+These documents are required from vendor as physical signed documents record.
+
+>    * Firm or Company notarised authority to sign
+    * Firm or company details
+    * Affidavits mandatory for sister concern
+    * Physical copy of signed Quality Assurance Plan (QAP)
+
+The Physical Verification of the factory by Inspecting Official have to remain physical. 
+However, the following documents can be transmitted on-line.
+
+>    * The verification recorded on mobile software with photographs 
+    * Verification report from Inspector 
+    
+
+# Proposal for on-line activities
+
+For the entire activities to be on-line, excluding physical verification of facilities
+
+ * Firm needs to submit digitally signed copies of all the documents, including 
+    - Details of company/firm, authorities to sign. 
+    - Notarised affidavits ( To be checked from registrar? )
+    - All documents to be individually digitally signed by Vendor.
+    
+ * Initially for one year, option to submit physical document could be given to the vendor.
+
+
+# Internal processing of the Case by RDSO officials
+
+After diarisation of the documents from the vendor registration portal, RDSO official shall use  e-office for approvals of the officials as per Schedule of Power and Apex ISO documents.
+
+### Use of e-office
+
+All the internal existing procedure of Vendor Registration involving physical file movement shall be carried  as following:
+
+> - For each case of registration, a parallel e-office shall be opened where requisite approvals by the concerned officials shall be given digitally.
+  - All internal correspondence within RDSO and Field Units shall be done on e-office. Since, e-office is not available always, any email communicated on official gov.in domain shall also be taken cognizance for processing the case.
+  - Correspondence with Vendor is already uploaded on the Vendor Registration Portal, and shall continue to be done. Official gov.in domain email shall also be used with digitally signed letter.
+
+## Following documents from Vendors shall be accepted as legally received from the vendor:
+
+> - All Letters and documents from Vendor which have been Digitally Signed with class III digital key
+ - Else, after processing of the case based on normal documents submitted by the vendors, the vendor shall certify the genuinity of each of the document considered by RDSO for approval.
+
+ - Following documents can be accepted in this way, if digitally signed by the firm.
+    a) Annexures (I to V ) Legal Affidavits and Undertakings - ways for digital verification
+    b) Verified, Approved, Authenticated Copy of Firm’s QAP.
+    c) STR Verification (Clause by Clause) compliance and Capability Assessment Report. 
+
+
+
+# Following points needs to be deliberated for decision for Paperless Vendor approval
+ 
+> a) Sample Test Reports, Lab Reports ( if they are in physical form)
+  b) Ways for verification of statutory documents – directly from respective statutory agencies or their websites, if provided
+  c) Engaging third parties for verification and certifications of the documents / firms capacity.
+  d) Engaging third parties for process capabilities , machinery and plants.
+  e) Changes required to make the Vendor Registration portal secure with https protocol instead of http presently.
+
+    
+    
+\cleardoublepage
+
+Stepwise on-line Vendor Registration Process as per ISO Apex document is appended below:
+
+
+
+
+
+```{r loadfilemain, cache=TRUE, include=FALSE, echo=FALSE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, error=TRUE}
+# 
+allvendorhandle   <-   gs_title("MASTER VENDOR LIST March2020")      # gs by title
+# or better shift googesheet4
+allvendorhandle 
+text_tbl <- gs_read(ss = allvendorhandle, ws = "Sheet32", skip = 0, col_names = TRUE,verbose = TRUE) 
+
+```
+
+
+```{r printtableannex, include=TRUE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, error=TRUE}
+text_tbl %>% select("Reference ISO Apex doc no."   , 
+"Various Stages of Vendor Application Processing  \n (As per ISO Apex doc no. QO-D-8.1-6 (Ver.1.2)",
+"Hard Copy Requirement from Vendor") %>%
+    kable( "latex", longtable = T,  #booktabs = T, 
+                    caption = "Online processing of documents for Vendor Registration" )     %>%
+    # ?kable_styling(latex_options = repeat_header) %>%
+   #? kable_styling( latex_options = "striped") %>% 
+#kable_styling( latex_options = "striped") %>% 
+kable_styling( full_width = F) %>%  #,
+pack_rows("APPLICATION FOR VENDOR REGISTRATION", 1, 3 , latex_gap_space = "0.5em") %>%
+pack_rows("SCREENING, LEGAL & TECHNICAL SCRUTINY", 4, 6 , latex_gap_space = "0.5em") %>%
+column_spec(1, width = "6em", bold = T) %>%
+column_spec(2, width = "30em") %>%
+column_spec(3, width = "8em", color = "red")  
+
+```
+
+
