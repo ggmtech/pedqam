@@ -50,11 +50,52 @@ sheet_names(ss)  # see sheets names
 EMpadsupplies <-  googlesheets4::read_sheet(ss, sheet = "EMpadsupplied" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
 EMpadsupplies %>% tibble::glimpse() #View()
 
+WarrentyPosted <-  googlesheets4::read_sheet(ss, sheet = "WarrentyPosted" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
 
-##### Suppplies data cleaning #######
-EMpadsupplies    %>% mutate( Make = as_factor(Firm), Railway = as_factor(Railway)) %>%
-                      dplyr::select( Period, Railway, Firm, PO , DMdate, Qty, Value) %>%  #str() #   View()
-                      dplyr::mutate(  Make = fct_collapse( Firm, 
+WarrentyPosted %>% filter( FAILED > 0 ) %>% group_by(Rly) %>%
+                  tibble::glimpse() 
+                  View()
+                  count(Rly)
+                  dplyr::summarise( n= n()  ) 
+                    #  mean(), median() sd(), IQR(), mad() min(), max(), quantile() first(), last(), nth(), n(), n_distinct() any(), all()
+# Warrenty posted data FY wise
+WarrentyPosted %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED) ) %>%  filter( Qfailed > 0 ) %>%
+                   tidyr::pivot_wider( id_cols     = Rly, names_sort = FALSE, names_sep = "_",
+                                       names_from  = c( VENDOR , FY ) , 
+                                       values_from = Qfailed ,    values_fill = NULL,
+                                       values_fn   = sum    # NULL, mean
+                                       )       %>%
+                    View()
+# Now Vendor wise
+WarrentyPosted %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED) ) %>%  filter( Qfailed > 0 ) %>%
+                   tidyr::pivot_wider( id_cols     = VENDOR, names_sort = FALSE, names_sep = "_",
+                                       names_from  =  FY,   
+                                                     # c( Rly , FY ) , 
+                                       values_from = Qfailed ,    values_fill = NULL,
+                                       values_fn   = sum    # NULL, mean
+                                       )       %>%
+                    View()
+
+# Now Rly wise
+WarrentyPosted %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED) ) %>%  filter( Qfailed > 0 ) %>%
+                   tidyr::pivot_wider( id_cols     = Rly, names_sort = FALSE, names_sep = "_",
+                                       names_from  =  FY,   
+                                                      # c( Rly , FY ) , 
+                                       values_from = Qfailed ,    values_fill = NULL,
+                                       values_fn   = sum    # NULL, mean
+                                      )       %>%
+                 View()
+
+
+##### Supplies data cleaning #######
+EMpadsupplies    %>%  dplyr::select( Period, Railway, Firm, PO , POdate, DM, DMdate, Qty, Value) %>%    #str() #   View()
+                      dplyr::mutate(  Qty = as.numeric(Qty), 
+                                      Value = as.numeric(Value)    ) %>%
+                      dplyr::filter( !is.na(Qty) )   %>%  
+                    # View()  #1526 non na qty
+                    # Now First clean EM pads vendor names Make
+                      dplyr::mutate( Make = as_factor(Firm)  ) %>%
+                      dplyr::mutate( Make = fct_collapse(Make, 
                             VRC = c("VRC Continental (Unit of BESCO Ltd )",  "VRC"),
                             ARL = c( "Avadh Rail Infra Ltd.",  "ARL", "ARL"),
                             ARYAN = c( "Aryan Exporters Pvt Ltd" , "ARYAN", "Aryan Exporters" , "Aryan" , "ARYN", "ARIREN"), 
@@ -71,10 +112,12 @@ EMpadsupplies    %>% mutate( Make = as_factor(Firm), Railway = as_factor(Railway
                             CALCAST = c("Calcast Ferrous Ltd.", "CALCAST"),
                             MONDEEP = c("Mandeep Industries"),
                             #Other = c( "VKC", "NV", "1", "2"),
-                            other_level = "NA"                          ) )   %>%      # %>% View()
-                           #mutate(Rly = as_factor(Railway)  ) %>%
-#Rly = fct_inorder( ( "CR",  "ER", "ECR", "NR","NCR", "NWR", "NER", "WR", "WCR", "SR", "SCR", "SWR"),      values( "CR", "ER", "ECR", "NR","NCR", "NWR", "NER", "WR", "WCR", "SR", "SCR", "SWR" )  )
-# EMpadsupplies    %>%  
+                            other_level = "Others"                          ) )   %>%      
+                     # View()
+                     # Now clean the consignee railway         
+                        # mutate(Rly = as_factor(Railway)  ) %>%
+                        #Rly = fct_inorder( ( "CR",  "ER", "ECR", "NR","NCR", "NWR", "NER", "WR", "WCR", "SR", "SCR", "SWR"),      values( "CR", "ER", "ECR", "NR","NCR", "NWR", "NER", "WR", "WCR", "SR", "SCR", "SWR" )  )
+                     # EMpadsupplies    %>%    # Alternative directly from row data
                      # dplyr::select(  Railway, Firm, PO , DMdate, Qty, Value) %>%  # str() #  View()
                       dplyr::mutate( Rly = fct_collapse( Railway,  # values( "CR", "ER", "ECR", "NR","NCR", "NWR", "NER", "WR", "WCR", "SR", "SCR", "SWR", )
                                      #   CR = c("Central Railway", "CENTRAL RAILWAY" , "C.RLY", "CR"), 
@@ -96,28 +139,34 @@ EMpadsupplies    %>% mutate( Make = as_factor(Firm), Railway = as_factor(Railway
                                         SECR = c("S.E.C.RLY"),
                                         SCR = c("South Central Railway", "SOUTH CENTRAL RAILWAY", "S.C.RLY", "SCR"),
                                         SWR = c("South Western Railway",  "S.W.RLY", "SWR"),
-                 Jupitor = c("JUPITER WAGONS LIMITED,Kolkata", "M/S JUPITER ALLOYS & STEEL (INDIA) LTD."),
-                 Oriental = c("Oriental Foundry Pvt. Ltd., Kutch, Gujarat", "Oriental Foundry Pvt. Ltd.",
-                              "ORIENTAL FOUNDRY PVT. LTD. Kutch, Gujarat"),
-                 BrandAlloy = c("BRAND ALLOYS PVT. LTD., Hooghly (W.B.)"),
-                 Siena    =      c("Siena Engineering Pvt. Ltd., Pithampur", "SIENA Engg. Pvt. Ltd."),
-                 Braithwaith = c("BRAITHWAITE & CO. LIMITED,Kolkata"),
-                 Texmeco = c("Texmaco Rail & Engineering Limited, Raipur"),
-                 Besco = c("BESCO LIMITED (FOUNDRY DIVISION) , Kolkata"),
-                other_level = "OEM"                          ) )     %>%
-                dplyr::mutate( DMdatedt =  dmy(DMdate)  ,
-                           # DMdated2 = round_date( DMdatedt, unit = "month" ) 
-                             DMdated2 = floor_date( DMdatedt, unit = "month" )  )  %>% 
-               dplyr::filter(!is.na(Qty) )   %>%  #View()
-               select( Rly, Make, DMdated2, Qty, Value )  -> EMPadQAM  
+                                #Jupitor = c("JUPITER WAGONS LIMITED,Kolkata", "M/S JUPITER ALLOYS & STEEL (INDIA) LTD."),
+                                #Oriental = c("Oriental Foundry Pvt. Ltd., Kutch, Gujarat", "Oriental Foundry Pvt. Ltd.", "ORIENTAL FOUNDRY PVT. LTD. Kutch, Gujarat"),
+                                #BrandAlloy = c("BRAND ALLOYS PVT. LTD., Hooghly (W.B.)"),
+                                #Siena    =      c("Siena Engineering Pvt. Ltd., Pithampur", "SIENA Engg. Pvt. Ltd."),
+                                #Braithwaith = c("BRAITHWAITE & CO. LIMITED,Kolkata"),
+                                #Texmeco = c("Texmaco Rail & Engineering Limited, Raipur"),
+                                #Besco = c("BESCO LIMITED (FOUNDRY DIVISION) , Kolkata"),
+                            other_level = "OEM"   )
+                                 )      %>%
+                         # View()  # all ok so far
+                     dplyr::mutate( DMdate =  lubridate::dmy(DMdate)  ,
+                             # DMdated2 = round_date( DMdatedt, unit = "month" ) 
+                               Qtr    = lubridate::quarter(DMdate, with_year = TRUE, fiscal_start = 4),
+                               FY = "FY",
+                               DMdatefloor = lubridate::floor_date( DMdate, unit = "month" )  , 
+                         )  %>% 
+                    # View()
+             select( Rly, Make, Period, POdate, DM, DMdate,  Qtr, PO, Qty, Value )  -> EMPadQAM  
 
-EMPadQAM  %>%  View()
+
 
 sslife <- "https://docs.google.com/spreadsheets/d/1elSHjPakhrMHJsyGuP74FPm0NirIYPnT-DyQome48Lo" ## EMPads failure google sheet  "EMPadFailureZonalRailways"
 EMPadQAM  %>%  googlesheets4::sheet_write( ss = sslife , sheet = "EMpadDM")
 
+########### Get curated supply data now from google sheet     ########################################
 EMPadQAM2  <-  googlesheets4::read_sheet( ss = sslife , sheet = "EMpadDM", col_names = TRUE, trim_ws = TRUE,
-                                          col_types = "ccDdd"  , skip = 0,  na = "") # col_types = "cDDcccildd" 
+                                          col_types = "cccDcDccdd"  , skip = 0,  na = "") # col_types = "cDDcccildd" 
+# Rly	Make	Period	POdate	DM	DMdate	Qtr	PO	Qty	Value
 EMPadQAM2 %>% View()
 
 
@@ -156,6 +205,11 @@ installed.packages() %>% View()
 # with_variable_blur(); with_drop_shadow() etc
 # with_blend(), with_custom_blend(), with_mask(), with_interpolate() 
 # with_raster()
+
+# also plot # geom_line()
+EMPadQAM %>% ggplot() + geom_jitter(aes(x = DMdatedt, y = Qty),  color = "#09557f", alpha = 0.6, size = 0.6) +
+    scale_x_date(limits = as.Date(c("2016-01-01","2021-04-01"))) +
+    labs(x = "Date",   y = "US Unemployed in Thousands",  title = "Base Plot") +  theme_minimal()
 
 
 #####################
@@ -237,6 +291,24 @@ y2 <- parse_factor(x2, levels = month_levels)
 # levels = unique(x1), fct_inorder()
 temp <- lubridate::parse_date_time(date, c('mdY IMp', 'mdY HMS'))
 temp[is.na(temp)] <- as.Date(as.numeric(date[is.na(temp)]), origin = "1899-12-30") # mix dates
+
+# h + geom_ribbon(aes(ymin = unemploy-900, ymax = unemploy+900), fill = "steelblue") + geom_path(size = 0.8) 
+# h + geom_rect(aes(xmin = as.Date('1980-01-01'), xmax = as.Date('1985-01-01'), ymin = -Inf,  ymax = Inf), fill = "steelblue") + geom_path(size = 0.8) 
+# i + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15)) 
+# p+ geom_boxplot()
+# P +scale_color_gradient(low="blue", high="red")
+# sp2+scale_color_gradient2(midpoint=mid, low="blue", mid="white", high="red", space = "Lab" )
+# geom_line(linetype = "dashed")
+# p + coord_cartesian(xlim =c(5, 20), ylim = c(0, 50)) 
+# p + expand_limits(x = c(5, 50), y = c(0, 150))
+# p + scale_x_continuous(trans='log2') # 'log2', 'log10','sqrt'
+# Format axis tick mark labels  : require(scales)
+# # Reverse coordinates p + scale_y_reverse() 
+# sp + geom_hline(yintercept=20, linetype="dashed", color = "red") 
+# sp + geom_vline(xintercept = 3, color = "blue", size=1.5) 
+#   coord_quickmap()  #   coord_sf()
+
+
 #######################################################  
 
 
@@ -317,8 +389,8 @@ EMpadlife %>% DataExplorer::plot_intro()
 EMpadlife %>% DataExplorer::introduce()
 EMpadlife %>% DataExplorer::plot_bar()
 EMpadlife %>% DataExplorer::plot_boxplot( by = fy) # error?
-EMpadlife %>% DataExplorer::plot_density()
-EMpadlife %>% DataExplorer::plot_histogram()
+EMpadlife %>% filter( FailDate < dmy("01/04/2020") | MakeDate < dmy("31/03/2017"))      %>% DataExplorer::plot_density()
+EMpadlife %>% filter( FailDate < dmy("01/04/2020") | MakeDate < dmy("31/03/2017"))     %>% DataExplorer::plot_histogram()
 EMpadlife %>% DataExplorer::profile_missing()
 EMpadlife %>% DataExplorer::group_category()  # error?
 ?EMpadlife %>% DataExplorer::plot_scatterplot() # error?
@@ -456,33 +528,40 @@ EMpadlife3 %>%  group_by(Rly, Make, MakeDate) %>% summarise(   n = n() ) %>%   #
 
        
 ##########################  failures
-EMpadlife3 %>% filter( MakeDate < as_date("2021-04-01"), MakeDate > as_date("2017-04-01") ) %>% #View()
-               group_by(MakeDate) %>% summarise( Qty = n() ) %>%   #View()
-               ggplot() + aes(x=MakeDate, Qty) + geom_point() +
-               
-               geom_smooth()
+EMpadlife3 %>% View()
+EMpadlife3 %>%  filter( MakeDate < as_date("2021-04-01"), MakeDate > as_date("2017-04-01") ,
+                       FailDate < as_date("2021-04-01"), FailDate > as_date("2017-04-01")  ) %>% # View()
+              group_by(MakeDate, Rly) %>% summarise( Rly, Qty = n() ) %>%                         #   View()
+               ggplot(aes(x=MakeDate, Qty))  + geom_point() + #geom_bar(stat = ?? ) +
+             scale_y_continuous(breaks = scales::pretty_breaks(n = 12),  
+                      # minor_breaks = scales::pretty_breaks(n = 10), 
+                       limit=c(0, 110) , position = "right" ) +  
+               geom_col()  + facet_grid(Rly~1) # +  geom_smooth()
 
 ####  good !! 
 EMpadlife3 %>% 
     filter(  FailDate < as_date("2020-11-01"), FailDate > as_date("2017-04-01") ) %>% #View()
-    group_by(FailDate) %>% summarise( Rly,   Qty = n() ) %>%      # View()
+    group_by(FailDate) %>% summarise( Rly,   Qty = n() ) %>%    #   View()
     
-    ggplot() + aes(x=FailDate, y= Qty) + geom_point( ) +
-    geom_col() +
+    ggplot() +  aes(x=FailDate, y= Qty) +  
+    #geom_point( ) +
+    geom_col(aes(x=FailDate, y= Qty))  +
     
     scale_x_date(breaks= scales::pretty_breaks(n = 20),  
                  date_minor_breaks = "7 days",
                  date_labels = "%Y %m ", 
                  limit=c(as.Date("2017-04-01"), as.Date("2021-03-31")) , 
-                 position = "bottom" ) + 
+                 position = "bottom" 
+                 ) + 
     
     scale_y_continuous(breaks = scales::pretty_breaks(n = 12),  
                        minor_breaks = scales::pretty_breaks(n = 10), 
-                       limit=c(0, 110) , position = "right" ) + 
+                       limit=c(0, 110) , position = "right" ) +  
+                     geom_col() + theme_bw()
     
     # ylim(0, 240)  +  # covered in scale
  #   scale_x_continuous(n.breaks = 10) +
-    geom_smooth()  + theme_bw()
+    geom_smooth(aes(x=FailDate, y= Qty, fill= Rly))   +   theme_bw()
 
 ## Excellent graph above makedate and fail date
 
@@ -500,6 +579,7 @@ df3 %>% left_join(EMpadlife3 , by = c( "DMdated2"  = "MakeDatef"  ) ) %>% View()
 
 
 ###################
+EMpadlife3 %>% View()
 #Kaplen Meier survival 
 lifefit0 <- survfit( Surv( lifedays, dcencer) ~ 1 , data = EMpadlife3 )
 lifefit1 <- survfit( Surv( lifedays, dcencer) ~ Make , data = EMpadlife3 )
