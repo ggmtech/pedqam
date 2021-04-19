@@ -1,3 +1,103 @@
+# for final presentation of EM pads ##########################
+# git config --list  #  git config --global user.email "ggmtech@yahoo.co.in" # git help fn
+# git init  or git clone url/ remotedir.git ./gk/dr2/ # rm -rf .git # git status #  .gitignore #git  add -A or file # git reset #
+# git commit -m "ttttt"
+# git remote -v # git branch -a (all branches all loc) 
+# git diff
+# git pull origin master
+# git push origin master
+# git branch nme # git checkout nme  # git push -u nmed
+
+
+#################
+#  d[rep(seq_len(nrow(d )),     n   ), ]
+# df[rep(seq_len(nrow(df)), each = 2), ]
+# df %>% slice(  rep(1:n(), each = 2))
+# df <- as.data.frame(lapply(df, rep, df$ntimes))
+
+# df <-  t1  %>%   lapply( rep,  t1$Qty ) %>%  as.data.frame( )  # good
+# df %>%   mutate( DMdated2 = floor_date( DMdated, "month") )   %>%       View()
+
+#?devtools::source_url("https://github.com/tonybreyal/Blog-Reference-Functions/blob/master/R/bingSearchXScraper/bingSearchXScraper.R?raw=TRUE")
+#?tmp <- devtools::source_url("https://github.com/ggmtech/pedqam/raw/master/Shenkey.R")
+#?tmp <- devtools::source_url("https:://raw.githubusercontent.com/ggmtech/pedqam/master/EDAstage.R")
+
+#      merge(x = df1, y = df2, by = "StudentId",     all = TRUE)  # by = c("a" = "b") or NULL
+# full_join(x, y,              by = NULL, copy = FALSE,  suffix = c(".x", ".y"),   ...)
+# nest_join(x, y,              by = NULL, copy = FALSE, keep = FALSE, name = NULL,     ...)
+
+# df %>% rowwise() %>% mutate(m = mean(c(x, y, z)))
+# df %>% rowwise(name) %>%     summarise(m = mean(c(x, y, z)))
+
+# df %>% rowwise() %>% mutate( sum = sum(  c_across(w:z) ), sd = sd(c_across(w:z) )  )
+
+# parse_number(number), parse_date_time()
+# select with ends_with("hour"), contains("hour")
+# mutate(origin = case_when( (origin == "EWR") & dep_delay > 20 ~ "DELAYED",
+#                            (origin == "EWR") & dep_delay <= 20 ~ "DEPARTURED",) )
+# mutate(origin = str_replace_all(origin, c( "^EWR$" = "Newark International",    "^JFK$" = "John F. Kennedy International"))) 
+# group_by(carrier) %>%  filter(n() >= 10000) %>% ungroup()
+# mutate(name = fct_reorder(name, n)) %>%
+# expendgrid, crossing()
+# r function
+# na_if(eye_color, "unknown")  #  mutate(across(where(is.character), ~na_if(., "unknown")))
+# cumall(x): all cases until the first FALSE. # cumany(x): all cases after the first TRUE.
+# "previous" (lag()) or "next" (lead()) values in a vector, order_by	
+# lag(x, n = 1L, default = NA, order_by = NULL, ...) # Override default ordering
+
+# expand(df, nesting(school_id, student_id), date) would produce a row for each present school-student combination for all possible dates.    
+# nesting for combinations already present, add outside, for full expend.
+# fruits %>% expand(type, size, full_seq(year, 1))
+# all %>% dplyr::anti_join(fruits)  to see missing
+# fruits %>% dplyr::right_join(all) to fill missing
+# complete(data, ..., fill = list())
+# df %>% complete(group, nesting(item_id, item_name))
+# df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0)) # fill missing from list
+# .. expand(df, nesting(school_id, student_id), date)   would produce a row for each present school-student combination for all possible dates.
+
+
+
+
+
+#   scale_x_continuous(breaks = round(seq(min(dat$x), max(dat$x), by = 0.5),1)) +
+#   scale_x_continuous(breaks = scales::pretty_breaks(n = 10) ) +
+#  scales::pretty_breaks(n = 10)
+# or zoom by xlim() and ylim()  , max-min/30 is a pretty common "bucket" size
+# scale_x_date(date_breaks = "5 months",                date_minor_breaks = "1 months") 
+# best       scale_x_continuous(n.breaks = 5)
+# df %>% rowwise() %>% mutate(m = mean(c_across(x:z)))
+# Rows:filter() , starwars %>% slice(5:10), desc(), %>% slice_sample(n = 5), slice_sample(prop = 0.1)
+# Columns:  select() , rename() , mutate() , relocate(sex:homeworld, .before = height) changes the order of the columns.
+# Groups of rows:  summarise() : collapses a group into a single row but ueful with group_by()
+# SN <- seq(1, nrow(df))  and then mutate(df, newsn = SN)
+
+# union_all(), inner_join() left_join() right_join() full_join(), nest_join()
+# across() if_any() if_all()
+
+#installed.packages() %>% View()
+#ggplot(mpg) +   ggfx::with_blur( geom_point(aes(x = hwy, y = displ)), sigma = 3 ) +
+# with_variable_blur(); with_drop_shadow() etc
+# with_blend(), with_custom_blend(), with_mask(), with_interpolate() 
+# with_raster()
+
+
+# h + geom_ribbon(aes(ymin = unemploy-900, ymax = unemploy+900), fill = "steelblue") + geom_path(size = 0.8) 
+# h + geom_rect(aes(xmin = as.Date('1980-01-01'), xmax = as.Date('1985-01-01'), ymin = -Inf,  ymax = Inf), fill = "steelblue") + geom_path(size = 0.8) 
+# i + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15)) 
+# p + geom_boxplot()
+# P + scale_color_gradient(low="blue", high="red")
+# p + scale_color_gradient2(midpoint=mid, low="blue", mid="white", high="red", space = "Lab" )
+#     geom_line(linetype = "dashed")
+# p + coord_cartesian(xlim =c(5, 20), ylim = c(0, 50)) 
+# p + expand_limits(x = c(5, 50), y = c(0, 150))
+# p + scale_x_continuous(trans='log2') # 'log2', 'log10','sqrt'
+# Format axis tick mark labels  : require(scales)
+# # Reverse coordinates p + scale_y_reverse() 
+# sp + geom_hline(yintercept=20, linetype="dashed",  color = "red" ) 
+# sp + geom_vline(xintercept = 3,          size=1.5, color = "blue") 
+#   coord_quickmap()  #   coord_sf()
+
+
 ######
 grep('stringtomatch', strlist, ignore.case ="True")   # grepl() for logical
 # regexpr() no of patterns found. 

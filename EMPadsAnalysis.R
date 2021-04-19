@@ -1,15 +1,26 @@
+# curated file 
+# EMPadDM  # Supply Inspection DM Data
+# WarrentyPosted  # Warrenty portal data
+# EMpadFD  # Failure reported by Rly
+WarrentyPosted %>% kbl()
 # Main analysis file
 rm(list = ls())
 if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
-packages <- c("tidyverse",  "lubridate", "anytime", "magrittr",  "here",
+
+packages <- c("tidyverse",   "magrittr",  "here",
+              
+              "lubridate", "anytime",
               "googlesheets4", "readxl",
               "DataExplorer", "inspectdf", "summarytools", "skimr",
-              "survival", "survminer", "ggfortify",
               "broom", "coefplot", "cowplot", "drat",
+              
+              "survival", "survminer", "ggfortify",
               "ggfortify", "DT", "knitr",
               "gridExtra","plotly", "timetk", "ggforce", "ggraph", 
-              "ggpubr","scales", "GGally", "ggrepel", "ggridges",
               #"ggplot2", "dplyr", "tidyr", "magrittr", "stringr","forcats","reshape2",
+              
+              "ggpubr","scales", "GGally", "ggrepel", "ggridges",
+              
               "ggthemes", #"themr",
               "viridis", "viridisLite",  
               "magick",
@@ -44,7 +55,10 @@ ls()  # global env values in memory ;
 # googlesheets4::read_sheet( ss, sheet = NULL, range = NULL, col_names = TRUE, col_types = NULL, or "cidDl"
 #         skip = 0, na = "", trim_ws = TRUE , n_max = Inf  ,  guess_max = min(1000, n_max),  .name_repair = "unique" )
 
-########## EM pads supplies data tidy ########### 
+########## EM pads supplies data tidy ######################### 
+myfile = "https://raw.githubusercontent.com/ggmtech/pedqam/master/EMPadsAnalysis.R"
+myfile = read_file(myfile)
+
 ss = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" ## EM Pads supplies data Google Sheet
 sheet_names(ss)  # see sheets names
 EMpadsupplies <-  googlesheets4::read_sheet(ss, sheet = "EMpadsupplied" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
@@ -87,7 +101,9 @@ WarrentyPosted %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED) ) %>%  filter( 
                  View()
 
 
-##### Supplies data cleaning #######
+WarrentyPosted %>% View()
+
+##### Supplies data cleaning ##################################################
 EMpadsupplies    %>%  dplyr::select( Period, Railway, Firm, PO , POdate, DM, DMdate, Qty, Value) %>%    #str() #   View()
                       dplyr::mutate(  Qty = as.numeric(Qty), 
                                       Value = as.numeric(Value)    ) %>%
@@ -150,6 +166,7 @@ EMpadsupplies    %>%  dplyr::select( Period, Railway, Firm, PO , POdate, DM, DMd
                                  )      %>%
                          # View()  # all ok so far
                      dplyr::mutate( DMdate =  lubridate::dmy(DMdate)  ,
+                                    POdate =  lubridate::dmy(POdate)  ,
                              # DMdated2 = round_date( DMdatedt, unit = "month" ) 
                                Qtr    = lubridate::quarter(DMdate, with_year = TRUE, fiscal_start = 4),
                                FY = "FY",
@@ -158,67 +175,41 @@ EMpadsupplies    %>%  dplyr::select( Period, Railway, Firm, PO , POdate, DM, DMd
                     # View()
              select( Rly, Make, Period, POdate, DM, DMdate,  Qtr, PO, Qty, Value )  -> EMPadQAM  
 
-
+EMPadQAM %>% glimpse()
 
 sslife <- "https://docs.google.com/spreadsheets/d/1elSHjPakhrMHJsyGuP74FPm0NirIYPnT-DyQome48Lo" ## EMPads failure google sheet  "EMPadFailureZonalRailways"
 EMPadQAM  %>%  googlesheets4::sheet_write( ss = sslife , sheet = "EMpadDM")
 
 ########### Get curated supply data now from google sheet     ########################################
-EMPadQAM2  <-  googlesheets4::read_sheet( ss = sslife , sheet = "EMpadDM", col_names = TRUE, trim_ws = TRUE,
+EMPadDM  <-  googlesheets4::read_sheet( ss = sslife , sheet = "EMpadDM", col_names = TRUE, trim_ws = TRUE,
                                           col_types = "cccDcDccdd"  , skip = 0,  na = "") # col_types = "cDDcccildd" 
 # Rly	Make	Period	POdate	DM	DMdate	Qtr	PO	Qty	Value
-EMPadQAM2 %>% View()
+EMPadDM  %>% glimpse()
 
 
-#################
-#  d[rep(seq_len(nrow(d )),     n   ), ]
-# df[rep(seq_len(nrow(df)), each = 2), ]
-# df %>% slice(  rep(1:n(), each = 2))
-# df <- as.data.frame(lapply(df, rep, df$ntimes))
-
-# df <-  t1  %>%   lapply( rep,  t1$Qty ) %>%  as.data.frame( )  # good
-# df %>%   mutate( DMdated2 = floor_date( DMdated, "month") )   %>%       View()
-
-devtools::source_url("https://github.com/tonybreyal/Blog-Reference-Functions/blob/master/R/bingSearchXScraper/bingSearchXScraper.R?raw=TRUE")
-devtools::source_url("https://github.com/ggmtech/pedqam/raw/master/Shenkey.R")
-
-
-#      merge(x = df1, y = df2, by = "StudentId",     all = TRUE)  # by = c("a" = "b") or NULL
-# full_join(x, y,              by = NULL, copy = FALSE,  suffix = c(".x", ".y"),   ...)
-# nest_join(x, y,              by = NULL, copy = FALSE, keep = FALSE, name = NULL,     ...)
-
-# df %>% rowwise() %>% mutate(m = mean(c(x, y, z)))
-# df %>% rowwise(name) %>%     summarise(m = mean(c(x, y, z)))
-
-# parse_number(number), parse_date_time()
-# select with ends_with("hour"), contains("hour")
-# mutate(origin = case_when( (origin == "EWR") & dep_delay > 20 ~ "DELAYED",
-#                            (origin == "EWR") & dep_delay <= 20 ~ "DEPARTURED",) )
-# mutate(origin = str_replace_all(origin, c( "^EWR$" = "Newark International",    "^JFK$" = "John F. Kennedy International"))) 
-# group_by(carrier) %>%  filter(n() >= 10000) %>% ungroup()
-# mutate(name = fct_reorder(name, n)) %>%
-# expendgrid, crossing()
-# r function
-#
-installed.packages() %>% View()
-#ggplot(mpg) +   ggfx::with_blur( geom_point(aes(x = hwy, y = displ)), sigma = 3 ) +
-# with_variable_blur(); with_drop_shadow() etc
-# with_blend(), with_custom_blend(), with_mask(), with_interpolate() 
-# with_raster()
-
+##### Supply details plot
 # also plot # geom_line()
-EMPadQAM %>% ggplot() + geom_jitter(aes(x = DMdatedt, y = Qty),  color = "#09557f", alpha = 0.6, size = 0.6) +
-    scale_x_date(limits = as.Date(c("2016-01-01","2021-04-01"))) +
-    labs(x = "Date",   y = "US Unemployed in Thousands",  title = "Base Plot") +  theme_minimal()
+EMPadDM %>%   #filter(  year(DMdate ) == "2019" ) %>%   # less supplies in 2019 check data
+    ggplot() + 
+    geom_point(aes(x = DMdate, y = Qty, size = Qty),  color = "darkblue", alpha = 0.2) +
+    #geom_col(aes(x = DMdate, y = Qty), width = 0.15,  color = "#09557f", alpha = 0.6, size = 0.6) +
+    #geom_jitter(aes(x = DMdate, y = Qty), width = 0.15,  color = "#09557f", alpha = 0.6, size = 0.6) +
+    scale_x_date(limits = as.Date(c("2016-01-01","2021-04-01"))  ) +
+    
+    labs(x = "Date",   y = "EM Pad Supplies ",  title = "Base Plot") +  theme_minimal()
 
 
-#####################
+
+
+
+
 
 ####### EM pads failure data tidy #########
 sslife <- "https://docs.google.com/spreadsheets/d/1elSHjPakhrMHJsyGuP74FPm0NirIYPnT-DyQome48Lo" ## EMPads failure google sheet  "EMPadFailureZonalRailways"
 
 EMPadfailuresWR   <-  googlesheets4::read_sheet(sslife, sheet = "WR"       , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
 #EMPadfailuresWR   <-  googlesheets4::read_sheet(sslife, sheet = "WRtidy"       , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
+
 EMPadfailuresNR   <-  googlesheets4::read_sheet(sslife, sheet = "NRgktest" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
 EMPadfailuresSECR <-  googlesheets4::read_sheet(sslife, sheet = "SECR_Failure" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
 EMPadfailuresCR   <-  googlesheets4::read_sheet(sslife, sheet = "CR" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
@@ -226,7 +217,8 @@ EMPadfailuresECR  <-  googlesheets4::read_sheet(sslife, sheet = "ECR_Failure" , 
 EMPadfailuresSR   <-  googlesheets4::read_sheet(sslife, sheet = "SR" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
 # #  , , ER_Failure_qty, ",
 EMPadfailuresWR %>% View()
-EMPadfailuresWR$Rly <- "WR"
+EMPadfailuresWR$Rly <- "WR"  
+# or EMPadfailuresWR <- googlesheets4::read_sheet(sslife, sheet = "WR", col_names = TRUE) %>% mutate(Rly = "WR")
 EMPadfailuresNR$Rly <- "NR"
 EMPadfailuresSECR$Rly <- "SECR"
 EMPadfailuresCR$Rly <- "CR"
@@ -269,7 +261,9 @@ tmp %>% mutate (MakeDate =  lubridate::parse_date_time(paste( "01-", str_squish(
 # base:: quarter(with_year = TRUE); quarter(fiscal_start = 4)	Fiscal starts in April; semester()	Get semester
 # transact %>% mutate(  quarter_due = quarter(Due) ) %>% count(quarter_due)
 # seq.Date(from = as.Date("2010-01-01"), to = as.Date("2019-12-31"), by = "year") #by = "quarter") #, length.out = 10)
-seq.Date(from = as.Date("2010-01-01"), by = "-2 year", length.out = 10) # or , along.with = 1:10)
+seq.Date(from = as.Date("2010-01-01") , by = "-2 year", length.out = 10) # or , along.with = 1:10)
+seq.Date(from = as.Date("2010-01-01") , by = "-1 quarter", to = as.Date("2000-01-01")) 
+
 unlist(release_date); 
 course_start + weeks(3)
 
@@ -277,12 +271,12 @@ interval(course_start, course_end)  # 2017-04-12 UTC--2017-04-21 UTC
 int_overlaps(interval1 , interval2) # to check if two intervals overlap Logical
 duration(second = 50) # or duration(50, "seconds") # also dseconds()
 duration(week = 56)
-# period is a timespan defined in units such as years, months, and days
-period(5, "second")
+period(5, "second") # period is a timespan defined in units such as years, months, and days
 floor_date() # ceiling_date()   # also rollback(release_date) to last month-end or rollback(release_date, roll_to_first = TRUE)
 # round_date(release_date, unit = "hour")  # second, hour, day,week, month,bimonth,quarter,season, halfyear
 
 parse_date_time(c("2016", "2016-04"), orders = c("Y", "Ym"))
+
 ymd(parse_date_time(c("2016.2", "2016-04"), orders = "Yq") )
 # make_datetime_100 <- function(year, month, day, time) {make_datetime(year, month, day, time %/% 100, time %% 100) }
 # as_date(), 
@@ -292,40 +286,27 @@ y2 <- parse_factor(x2, levels = month_levels)
 temp <- lubridate::parse_date_time(date, c('mdY IMp', 'mdY HMS'))
 temp[is.na(temp)] <- as.Date(as.numeric(date[is.na(temp)]), origin = "1899-12-30") # mix dates
 
-# h + geom_ribbon(aes(ymin = unemploy-900, ymax = unemploy+900), fill = "steelblue") + geom_path(size = 0.8) 
-# h + geom_rect(aes(xmin = as.Date('1980-01-01'), xmax = as.Date('1985-01-01'), ymin = -Inf,  ymax = Inf), fill = "steelblue") + geom_path(size = 0.8) 
-# i + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15)) 
-# p+ geom_boxplot()
-# P +scale_color_gradient(low="blue", high="red")
-# sp2+scale_color_gradient2(midpoint=mid, low="blue", mid="white", high="red", space = "Lab" )
-# geom_line(linetype = "dashed")
-# p + coord_cartesian(xlim =c(5, 20), ylim = c(0, 50)) 
-# p + expand_limits(x = c(5, 50), y = c(0, 150))
-# p + scale_x_continuous(trans='log2') # 'log2', 'log10','sqrt'
-# Format axis tick mark labels  : require(scales)
-# # Reverse coordinates p + scale_y_reverse() 
-# sp + geom_hline(yintercept=20, linetype="dashed", color = "red") 
-# sp + geom_vline(xintercept = 3, color = "blue", size=1.5) 
-#   coord_quickmap()  #   coord_sf()
 
 
 #######################################################  
 
 
 MPadfailure0 %>% glimpse() #View()
-MPadfailure0 %>% separate_rows( "Date of manufacturing", sep = ",", convert = FALSE) %>%
-                dplyr::mutate( Make = fct_infreq(`Make of EM pad`),
-                        MakeDate = as_date( parse_date_time(  paste( '01-', str_trim( (`Date of manufacturing`) , side = "both") ), orders = c("dmy", "mdy" ,"ymd"  ) ) ),
-                        FailDate = as_date( parse_date_time( `Date of replacement` , orders = c("mdy", "dmy", "ymd" ,"Ymd"  ),  tz= "UTC", locale = Sys.getlocale("LC_TIME") ) ),
-                        lifedays =  as.numeric( (FailDate - MakeDate) ) , # 
+MPadfailure0 %>% 
+                 separate_rows( "Date of manufacturing", sep = ",", convert = FALSE) %>%
+    
+                 dplyr::mutate( Make = fct_infreq(`Make of EM pad`),
+                                MakeDate = as_date( parse_date_time(  paste( '01-', str_trim( (`Date of manufacturing`) , side = "both") ), orders = c("dmy", "mdy" ,"ymd"  ) ) ),
+                                FailDate = as_date( parse_date_time( `Date of replacement` , orders = c("mdy", "dmy", "ymd" ,"Ymd"  ),  tz= "UTC", locale = Sys.getlocale("LC_TIME") ) ),
+                                lifedays =  as.numeric( (FailDate - MakeDate) ) , # 
                                    # as.numeric( difftime(Datefail, MakeDate, days ) ),
-                        Reason   = 'Type of failure',
-                        dcencer = if_else( lifedays > 1460, 0, 1  )                   )  %>%     # View()   
-                   #     filter( !is.na(MakeDate )  )      %>%
-                   #     filter( FailDate < dmy("01/04/2021")  )   %>%
-                   #     filter( MakeDate > dmy("31/03/2015")  )   %>%
-                 dplyr::select( Rly, Make, MakeDate,  FailDate, Reason, lifedays, dcencer ) %>%      
-                        mutate( #Make = fct_infreq(`Make of EM pad`), 
+                                Reason   = as_factor(`Type of failure`) ,
+                                dcencer = if_else( lifedays > 1460, 0, 1  )                   )  %>%     # View()   
+                   # dplyr::filter( !is.na(MakeDate )  )      %>%
+                   # dplyr::filter( FailDate < dmy("01/04/2021")  )   %>%
+                   # dplyr::filter( MakeDate > dmy("31/03/2015")  )   %>%
+               #  dplyr::select( Rly, Make, MakeDate,  FailDate, Reason, lifedays, dcencer ) %>%      
+                 dplyr::mutate( #Make = fct_infreq(`Make of EM pad`), 
                                Make = fct_collapse(Make, 
                                 VRC = c("VRC"),
                                 ARL = c("ARL", "ARL"),
@@ -342,19 +323,60 @@ MPadfailure0 %>% separate_rows( "Date of manufacturing", sep = ",", convert = FA
                                 other_level = NULL  
                                    ) )   %>%  
                 dplyr::mutate(Make = fct_lump(Make, 15))     %>% 
-                dplyr::select(  everything()  )      ->  EMpadlife
-EMpadlife  %>%  View()
-EMpadlife  %>%     filter( !is.na(MakeDate )  )      %>%
+                dplyr::mutate(   Reason = fct_collapse( Reason ,
+                                          Rubber_Cracked = c("RUBBER CRACK", "RUBBER CRACK", "Rubber cracked",
+                                                             "RUBBER CRACKED", "Rubber Cracked", "Rubber Crack"),
+                                          Rubber_Crushed = c("CRUSHED", "Rubber crushed", "Crushed", "crushed"),
+                                          Rubber_Perished = c("Rubberperished", "Perished", "Rubber Perished",
+                                                              "EM PAD PERISHED", "prished", "RUBBER Perished",
+                                                               "Rubber perished", "perished" , "PERISHED",
+                                                              "01 EM pad perished"),
+                                          Bond_Failure = c("1 EM pad bond failure", "01 EM pad bond failure",
+                                                           "EM pad bond failure",
+                                                           "Bond failure", "Bond Failure", "BOND FAILURE",
+                                                           "R/Bonding failure", "bonf fail", "Rubber Bonding Fail",
+                                                           "1 EM pad bond failure", "Rubber bond failure",
+                                                           "bond failure","Bonding givenup", "Bond falilure",
+                                                           "bond fail", "Bonding Failure ", "Bonding Failure",
+                                                           "RUBBER BOND FAILURE & RUBBER BKN.", 
+                                                           "METAL BOND REMOVED", "Rubber Bound Fail",
+                                                           "Rubber Peeled"  , "BOND FAILIURE", "RUBBER BINDING",
+                                                           "METAL RUBBER BOND REMOVED", "METAL RUBBER BONDREMOVED",
+                                                           "Bond Crack", "Rabber bond failure", "Rubber Bond", "RUbber bond failure",
+                                                           "Rubber seal open", "r seal open", "SEAL OPEN", "seal open",
+                                                           "Sheared"),
+                                          #  Rubber_Sheared = c("Sheared"),  # only SR Reported
+                
+                                          Plate_Cracked = c("PlateCracked", "Plate Cracked", "Metal Plate Broken",
+                                                            "PLATE CRACK", "METAL PLATE CRACK", "Plate Broken",
+                                                            "TOP PLATE BROKEN", "Top Plate Broken", "TOP PLATE CRACK",
+                                                            "TOP PLATE BKN",
+                                                            "Rubber Bound Fail Top Plate Broken" ),
+                                          Broken =     c("Broken" , "broken", "bkn", "Bkn", "BNK", "EM PAD BROKEN", 
+                                                      "BKN",    "EM PAD BKN", "Top plate broken"),
+                                          Burnout = c("RUBBER BURNOUT", "Burnout", "Burnout"),
+                                          other_level = "Other"          )
+                              )    %>%
+
+                dplyr::select(  everything()  )               ->  EMpadlife
+
+# Cause Vs Rly Reporting  
+EMpadlife %>% count(Rly, Reason) %>% arrange(desc(n))  %>% pivot_wider( names_from = Rly, values_from = n)  %>% View()
+
+EMpadlife  %>%     filter( !is.na(MakeDate )  )              %>%
                    filter( FailDate < dmy("01/04/2021")  )   %>%
-                   filter( MakeDate > dmy("31/03/2015")  )   %>%   #  count()
-                   count(Rly, Make) %>% pivot_wider( values_from = n , names_from = Rly) %>% 
+                   filter( MakeDate > dmy("31/03/2013")  )   %>%   # count() #16426 #19230 >2013
+                   count(Rly, Make)                          %>%   #  View()
+                   pivot_wider( values_from = n , names_from = Rly) %>% 
                    View()
-# Tresh data
-EMpadlife  %>%     filter( is.na(MakeDate ) | FailDate > dmy("01/04/2021") | MakeDate < dmy("31/03/2015")  )   %>%   
+# Tresh data # Discarded data as too old 2013 etc
+EMpadlife  %>%     filter( is.na(MakeDate ) | FailDate > dmy("01/04/2021") | MakeDate < dmy("31/03/2013")  )   %>%   
                    count(Rly, Make) %>% pivot_wider( values_from = n , names_from = c(Rly) ) %>% 
                    View()                   
-                   
-EMpadlife  %>%     count(Rly, Make) %>% pivot_wider( values_from = n , names_from = Rly) %>% View()
+EMpadlife  %>%     filter(  FailDate > dmy("01/04/2021") | MakeDate < dmy("31/03/2015")  )  %>% View()  
+
+EMpadlife  %>%     count(Rly, Make, Reason) %>% pivot_wider( values_from = n , names_from = Rly) %>% View()
+
 
 # filter(%in%, is.na() ! & |, ==, <=, != , <)
 ####################################################
@@ -401,47 +423,23 @@ inspectdf::inspect_cat(EMpadlife)
 inspect_imb(EMpadlife)
 inspect_na(EMpadlife)
 inspect_types(EMpadlife)
-####################################################
 
-
-# EMpadlife   %>% mutate( Make = fct_collapse(Make, 
-#                             VRC = c("VRC"),
-#                             ARL = c("ARL", "ARL"),
-#                             ARYAN = c( "ARYAN"), 
-#                             TAYAL = c("TC"),
-#                             BASANT = c("BASANT", "BASAANT", "BRC"),
-#                             FAS = c("FAS"),
-#                             HFL = c("HFL"),
-#                             VRC = c("VRC"),
-#                             MGM = c("MGM", "MGM Rubber, Kolkata"),
-#                             PRAG = c("PRAG"),
-#                             TC = c("TAYAL", "TC"),
-#                             Other = c( "VKC", "NV", "1", "2"),
-#                             other_level = NULL  
-#                             ) )   %>%  
-#                  mutate( Make = fct_lump(Make, 13) )       %>%   #-> EMpadlife2 #%>% View()
-#                  mutate( SCY = as.factor( year(MakeDate ) ),
-#                          FCY = as.factor( year(MakeDate ) )    
-#                                                           ) %>%
-#                   filter( as.numeric( year(Datefail) ) > 2015, 
-#                           as.numeric( year(Datefail) ) < 2021) -> EMpadlife1 # %>% View()
-# 
-# EMpadlife1 %>% count( Make) %>% View()  
-# EMpadlife1 %>% str()  
 
 ###### Write gSheet  sheet_write(data, ss = NULL, sheet = NULL) ######
 # already def 
 sslife <- "https://docs.google.com/spreadsheets/d/1elSHjPakhrMHJsyGuP74FPm0NirIYPnT-DyQome48Lo/edit#gid=1349265385"
-EMpadlife %>% googlesheets4::sheet_write( ss = sslife, sheet = "EMpadFail")
+EMpadlife  %>% googlesheets4::sheet_write( ss = sslife, sheet = "EMpadFail")
 
-EMpadlife2 <-  googlesheets4::read_sheet(  ss = sslife, sheet =  "EMpadFail", skip = 0, trim_ws = TRUE,
+########################################################################
+
+
+
+###### Read curated EM pad failure data from google sheet ##############
+EMpadFDread <-  googlesheets4::read_sheet(  ss = sslife, sheet =  "EMpadFail", skip = 0, trim_ws = TRUE,
                                            col_names = TRUE,  col_types = "c" ,  na = "NA")  # col_types = "cDDcccildd" 
-EMpadlife2 %>% View()
-EMpadlife2 %>% glimpse()
-EMpadlife2 %>% str() #MakeDate: POSIXct[1:19746],  lifedays:
 
-
-EMpadlife2 %>% mutate( Rly      = as_factor(Rly),
+EMpadFDread %>%     #glimpse()   # All chr  # MakeDate: POSIXct[1:19746],  lifedays:
+                mutate(Rly      = as_factor(Rly),
                        Make     = as_factor(Make),
                        Reason   = as_factor(Reason),
                        MakeDate = lubridate::ymd(MakeDate )  , #as_date(MakeDate),
@@ -450,17 +448,27 @@ EMpadlife2 %>% mutate( Rly      = as_factor(Rly),
                        dcencer  = as.logical(dcencer),
                        YearFail = as_factor(  lubridate::year(FailDate) ), # , levels()
                        YearMade = as_factor(  lubridate::year(MakeDate) ), 
-)  -> EMpadlife3
+                    )  -> EMpadFD
+
+EMpadFD %>% glimpse()
 
 
-EMpadlife3 %>% glimpse()
+##############################################################
+# Warrenty Reporting from Railways
+
+
+
 
 
 
 
 ##################### Combine supply and failures ########
-EMPadQAM2 %>% str()
-EMpadlife3 %>% str()
+EMPadDM  # Supply Inspection DM Data
+WarrentyPosted  # Warrenty portal data
+EMpadFD  # Failure reported by Rly
+
+
+
 
 # id_cols uniquly identifies, values_fn = sum,   c(  )
 EMPadQAM2
