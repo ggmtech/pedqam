@@ -283,18 +283,12 @@ empadscrlife %>% na.omit(life) %>% select(count(make_of_em_pad) > 100) -> empads
 empadlifefit <- survfit( Surv(life) ~ make_of_em_pad , data = empadscrlife )
 empadlifefit
 
-ggsurvplot(empadlifefit, data = empadscrlife, xlim = c(0,1500) )
+ggsurvplot(empadlifefit, data = empadscrlife)
 
-ggsurvplot(empadlifefit, 
-           data = NULL, 
-           fun = NULL, 
-           color = NULL, palette = NULL,
-           linetype = 1, conf.int = FALSE, 
-           pval = FALSE, pval.method = FALSE,
-           xlim = c(0,2000), 
-           test.for.trend = FALSE, 
-           surv.median.line = "none", 
-           risk.table = FALSE,
+ggsurvplot(empadlifefit, data = NULL, fun = NULL, color = NULL, palette = NULL,
+           linetype = 1, conf.int = FALSE, pval = FALSE, pval.method = FALSE,
+           xlim = c(0,1000), 
+           test.for.trend = FALSE, surv.median.line = "none", risk.table = FALSE,
            cumevents = FALSE, cumcensor = FALSE, tables.height = 0.25,
            group.by = NULL, facet.by = NULL, add.all = FALSE, combine = FALSE,
            ggtheme = theme_survminer() #, tables.theme = ggtheme
@@ -306,7 +300,7 @@ ggsurvplot(
     # fun = "cumhaz",       # fun = function(y) y*100 ,
     # linetype = "strata",     # change line type by groups
 #    size = 2,                # change line size
-    data = empadscrlife,             # data used to fit survival curves.
+ #   data = empadscrlife,             # data used to fit survival curves.
     
     #conf.int = TRUE,         # show confidence intervals for  point estimates of survival curves.
     
@@ -325,11 +319,11 @@ ggsurvplot(
     # ?conf.int.fill = "blue",
     # palette = c("#E7B800", "#2E9FDF"), # custom color palette, match varibles
     palette = "Dark2",
-    xlim = c(0,1000),         # present narrower X axis, but not affect survival estimates.
+    xlim = c(0,2000),         # present narrower X axis, but not affect survival estimates.
     xlab = "Failure Time in Days",   # customize X axis label.
     break.time.by = 30,     # break X axis in time intervals by 500.
     #ggtheme = theme_light(), # customize plot and risk table with a theme.
-    ggtheme = theme_bw() #,
+    ggtheme = theme_bw() ,
     
     #censor.shape="|", 
     #censor.size = 4,
@@ -350,11 +344,11 @@ ggsurvplot(
     # legend = "bottom" , 
     # legend.labs =      c("Male", "Female"),    # change legend labels.
     
- #   risk.table = TRUE,       # show risk table.
+    risk.table = TRUE,       # show risk table.
     # tables.theme = theme_cleantable(),
-#    risk.table.col = "strata" , 
- #   risk.table.y.text.col = T,# colour risk table text annotations.
- #   risk.table.height = 0.25 #, # the height of the risk table
+    risk.table.col = "strata" , 
+    risk.table.y.text.col = T,# colour risk table text annotations.
+    risk.table.height = 0.25 #, # the height of the risk table
     #risk.table.y.text = FALSE # show bars instead of names in text annotations in legend of risk table.
 )    -> ggsurv
 

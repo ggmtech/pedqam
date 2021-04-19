@@ -1,0 +1,18 @@
+# Files to ignore by git
+
+
+*.img
+*.png
+*.jpg
+*.jpeg
+
+# document files
+*.doc
+*.xlsx
+*.xls
+*.pdf
+
+# log files
+
+*.bak
+*.log

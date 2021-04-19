@@ -1,8 +1,5 @@
-# curated file 
-# EMPadDM  # Supply Inspection DM Data
-# WarrentyPosted  # Warrenty portal data
-# EMpadFD  # Failure reported by Rly
-WarrentyPosted %>% kbl()
+# curated file # EMPadDM  , # WarrentyPosted  # EMpadFD  # # WarrentyPosted %>% kbl()
+
 # Main analysis file
 rm(list = ls())
 if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
@@ -42,7 +39,7 @@ packages <- c("tidyverse",   "magrittr",  "here",
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
 lapply(packages, library, character.only = TRUE) #%>% invisible()
-?library(lubridate)
+
 ##################################################################################
 #raw_img <- magick::image_read("http:link") ; magick::image_ggplot(raw_img)
 here::here()  # getwd() and list.files()
@@ -57,7 +54,12 @@ ls()  # global env values in memory ;
 
 ########## EM pads supplies data tidy ######################### 
 myfile = "https://raw.githubusercontent.com/ggmtech/pedqam/master/EMPadsAnalysis.R"
-myfile = read_file(myfile)
+myfile = read_file(myfile) 
+myfile %>% cat()  # also print("$a !! my name is $b and my number is $c")
+knitr::read_chunk('external.R')
+# code chunks:  ``` {r,  code = readLines("external.R")  } 
+# knitr::opts_chunk$set(echo = TRUE, comment=NA )
+
 
 ss = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" ## EM Pads supplies data Google Sheet
 sheet_names(ss)  # see sheets names
