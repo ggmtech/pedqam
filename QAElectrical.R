@@ -39,12 +39,27 @@ AllQAE %>% janitor::clean_names() %>%      #glimpse()
            #View()
            dplyr::mutate(  ApplyDate     =  parse_date_time(date_of_application , orders =  c("dmy") ) ,
                            DisposalDate  =  parse_date_time(date_of_approval, orders =  c("dmy") ),
-                           days_taken    =  ( DisposalDate - ApplyDate ) ,
+                           days_taken    =  as.numeric( DisposalDate - ApplyDate ) ,
                            FY_Disposal   =  year( DisposalDate)  ,
-                           Qtr_disposal  =  quarter( DisposalDate , with_year = TRUE, fiscal_start = 4   )
-                          )                %>%  
-           filter( !is.na(DisposalDate) ) %>%    View()
+                           monthdisposed = lubridate::month( DisposalDate, label = TRUE, abbr = TRUE),
+                           Qtr_disposal  =  lubridate::quarter( DisposalDate , with_year = TRUE, fiscal_start = 4   )
+                          )                %>%     #View()
+          # filter( status == "Approved"  ) %>% #          !is.na(DisposalDate) ) %>%  
+            
+           arrange(FY_Disposal,monthdisposed ) %>%  
+           group_by( status, FY_Disposal,monthdisposed) %>% 
+           summarise( n = n(), avgtime =  mean(days_taken)     )       -> QAelectSummary
+ # %>%   # DataExplorer::create_report()
+          #? complete( expand(FY_Disposal,monthdisposed)  )  %>%   kableExtra::kbl()
+QAelectSummary %>%          View() 
+           
+QAelectSummary %>% 
+           googlesheets4::sheet_write(ss , sheet = "QAElecSummary" )
 
+QAelectSummary %>% filter( status == "Approved" | status == "Closed") %>%   #str() #View()
+               ggplot2::ggplot( ) + 
+               aes( y = avgtime,  x = FY_Disposal, fill = FY_Disposal)  + 
+               geom_col( )
 
 ##############################################################################################
 
