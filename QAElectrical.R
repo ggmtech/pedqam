@@ -1,90 +1,65 @@
 # QA Electrical avearge time
-packages <- c("tidyverse",   "magrittr",  "here",
-              "lubridate", "anytime",
-              "googlesheets4", "readxl",
-              "DataExplorer", "inspectdf", "summarytools", "skimr",
-              "broom", 
-              "knitr",
+packages <- c("tidyverse",   "magrittr",  "here", "devtools",
+              "lubridate", "anytime", "googlesheets4", "readxl", "DT", "knitr",
+              "DataExplorer", "inspectdf", "summarytools", "skimr",  "broom", "naniar", 
               
-              "coefplot", "cowplot", "drat",
-              
-              "survival", "survminer", "ggfortify",
-              "ggfortify", "DT", 
+              #"ggplot2", "dplyr", "tidyr", "magrittr", "stringr","forcats", "reshape2",
+              "ggrepel", "scales", "ggpubr", "ggridges","GGally",  "ggthemes", #"themr",
               "gridExtra","plotly", "timetk", "ggforce", "ggraph", 
-              #"ggplot2", "dplyr", "tidyr", "magrittr", "stringr","forcats","reshape2",
-              
-              "scales", "ggpubr","GGally", "ggrepel", "ggridges",
-              
-              "ggthemes", #"themr",
-              "viridis", "viridisLite",  
-              "magick",
-              "here", "devtools",
-              "naniar", "prismatic"
-)
+              "cowplot", "drat", "coefplot",
+              "viridis", "viridisLite",    
+              #"sf",
+              "survival", "survminer", "ggfortify",
+              "magick"  # #"gfx" ,   "prismatic"              
+               )
 installed_packages <- packages %in% rownames(installed.packages())
-if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+if ( any( !installed_packages ) ) { install.packages(packages[!installed_packages]) }
 lapply(packages, library, character.only = TRUE) #%>% invisible()
 
-# Get Data raw of QA Elecrical  ###################################################################
 
+
+##############################################################################################
+# Get raw Data from google sheet VR Portal Status ##########################################
 ss = "https://docs.google.com/spreadsheets/d/1VD_908SBM7j8pp7siBN-egvibSgSctpjpnf8lAzkuCU" #
 sheet_names(ss)  # see sheets names
 
-AllQAE <-  googlesheets4::read_sheet(ss, sheet = "AllQAECases" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-AllQAE %>% #tibble::glimpse() 
-           View()
 
 
-AllQAE %>% janitor::clean_names() %>%      #glimpse()      
-           #View()
-           dplyr::mutate(  ApplyDate     =  parse_date_time(date_of_application , orders =  c("dmy") ) ,
-                           DisposalDate  =  parse_date_time(date_of_approval, orders =  c("dmy") ),
-                           days_taken    =  as.numeric( DisposalDate - ApplyDate ) ,
-                           FY_Disposal   =  year( DisposalDate)  ,
-                           monthdisposed = lubridate::month( DisposalDate, label = TRUE, abbr = TRUE),
-                           Qtr_disposal  =  lubridate::quarter( DisposalDate , with_year = TRUE, fiscal_start = 4   )
-                          )                %>%     #View()
-          # filter( status == "Approved"  ) %>% #          !is.na(DisposalDate) ) %>%  
-            
-           arrange(FY_Disposal,monthdisposed ) %>%  
-           group_by( status, FY_Disposal,monthdisposed) %>% 
-           summarise( n = n(), avgtime =  mean(days_taken)     )       -> QAelectSummary
- # %>%   # DataExplorer::create_report()
-          #? complete( expand(FY_Disposal,monthdisposed)  )  %>%   kableExtra::kbl()
-QAelectSummary %>%          View() 
-           
-QAelectSummary %>% 
-           googlesheets4::sheet_write(ss , sheet = "QAElecSummary" )
-
-QAelectSummary %>% filter( status == "Approved" | status == "Closed") %>%   #str() #View()
-               ggplot2::ggplot( ) + 
-               aes( y = avgtime,  x = FY_Disposal, fill = FY_Disposal)  + 
-               geom_col( )
-
-##############################################################################################
 
 # Data of all directorate for 17, 18, 19, 20.4 using "AllCases"
 Allrdsocases <-  googlesheets4::read_sheet(ss, sheet = "edited1" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-Allrdsocases %>% View()
+Allrdsocases %>% janitor::clean_names() %>%    View() #  glimpse()   
+
+Allpre2019 <-  googlesheets4::read_sheet(ss, sheet = "Allpre2019" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "") 
+
+Allpre2019  %>% janitor::clean_names() %>% filter( !is.na(supplier_name) ) %>%     View()
+               mutate(   )     # col_types = "ccilDD"
 
 
-Allrdsocases %>% janitor::clean_names() %>%      glimpse()   
 
-Allrdsocases %>% janitor::clean_names() %>%  
-             dplyr::mutate(  ApplyDate     =  ymd(parse_date_time(date_applied , orders =  c("dmy", "dmY") ) ) ,
+Allrdsocases %>% janitor::clean_names() %>%  #glimpse() 
+  dplyr::mutate(  ApplyDate     =  ymd( parse_date_time(date_applied , orders =  c("dmy") ) ) ,
                   #DisposalDate  =  parse_date_time(date_of_approval, orders =  c("dmy") ),
                   #days_taken    =  ( DisposalDate - ApplyDate ) ,
                   #FY_Disposal   =  year( DisposalDate)  ,
                   Qtr_Applied  =  quarter( ApplyDate , with_year = TRUE, fiscal_start = 4   ),
                   Qtr  =         quarter( ApplyDate   ),
-                  year =   year(ApplyDate )
+                  year =   year(ApplyDate ) #,
+                  #ApplyDate     =  parse_date_time(date_of_application , orders =  c("dmy") ) ,
+                  #DisposalDate  =  parse_date_time(date_of_approval, orders =  c("dmy") ),
+                  #days_taken    =  as.numeric( DisposalDate - ApplyDate ) ,
+                  #FY_Disposal   =  year( DisposalDate)  ,
+                  #monthdisposed = lubridate::month( DisposalDate, label = TRUE, abbr = TRUE),
+                  #Qtr_disposal  =  lubridate::quarter( DisposalDate , with_year = TRUE, fiscal_start = 4   )
                 #  txtdate = str_extract( ApplyDate , ".dd.dd.dddd"   )  
                   
                       )                %>%       
            #filter( !is.na(DisposalDate) ) %>%   
-          #  View()
-           filter( ApplyDate < as.Date("2020-04-01") ) %>% 
-           googlesheets4::sheet_write(   ss = ss, sheet =  "edited3" )  
+           # glimpse() #View()
+           # filter( ApplyDate < as.Date("2020-04-01") ) %>% 
+            select( directorate, vendor_name, item_for_which_applied, ApplyDate, current_status, reasons_for_delay ) %>% 
+           # View()
+            googlesheets4::sheet_write(   ss = ss, sheet =  "Curated435" )  
 
 
 
@@ -96,7 +71,43 @@ Allrdsocases %>% janitor::clean_names() %>%
 
 
 
+########################################################################################
+### Elect
+AllQAE <-  googlesheets4::read_sheet(ss, sheet = "AllQAECases" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+AllQAE %>% janitor::clean_names() %>%      View #glimpse()      
+dplyr::mutate(  ApplyDate     =  parse_date_time(date_of_application , orders =  c("dmy") ) ,
+                DisposalDate  =  parse_date_time(date_of_approval, orders =  c("dmy") ),
+                days_taken    =  as.numeric( DisposalDate - ApplyDate ) ,
+                FY_Disposal   =  year( DisposalDate)  ,
+                monthdisposed = lubridate::month( DisposalDate, label = TRUE, abbr = TRUE),
+                Qtr_disposal  =  lubridate::quarter( DisposalDate , with_year = TRUE, fiscal_start = 4   )
+)                %>%     
+  # filter( status == "Approved"  ) %>% #          !is.na(DisposalDate) ) %>%  
+  
+  arrange(FY_Disposal,monthdisposed ) %>%  
+  group_by( status, FY_Disposal,monthdisposed) %>% 
+  summarise(DisposalDate , n = n(), avgtime =  mean(days_taken)     )       -> QAelectSummary
+QAelectSummary %>%  #glimpse() #str()  
+  View() 
 
+#QAelectSummary %>%   googlesheets4::sheet_write(ss , sheet = "QAElecSummary" )
+QAelectSummary %>% filter( status == "Approved" | status == "Closed") %>%   #str() #View()
+  ggplot2::ggplot( ) +  aes( y = avgtime,  x = FY_Disposal, fill = FY_Disposal)  + 
+  #scale_x_date()     + 
+  geom_col( ) +
+  facet_grid(~FY_Disposal )
+
+
+QAelectSummary %>%
+  group_by(FY_Disposal) %>%
+  plot_time_series(DisposalDate, 
+                   n, 
+                   .facet_ncol = 2, 
+                   .facet_scales = FY_Disposal,
+                   .interactive = interactive )
+
+
+#########################################################
 
 
 
