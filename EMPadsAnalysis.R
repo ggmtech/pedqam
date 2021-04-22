@@ -40,10 +40,12 @@ installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
 lapply(packages, library, character.only = TRUE) #%>% invisible()
 
+
+#devtools::install_github("alastairrushworth/inspectdf")# library(inspectdf)
 ##################################################################################
 #raw_img <- magick::image_read("http:link") ; magick::image_ggplot(raw_img)
 here::here()  # getwd() and list.files()
-ls()  # global env values in memory ;
+ls()  # global env variables / values in memory ;
 ##################################################################################
 
 
@@ -422,10 +424,22 @@ EMpadlife %>% DataExplorer::group_category()  # error?
 
 
 inspectdf::inspect_cat(EMpadlife)
+
 inspect_imb(EMpadlife)
 inspect_na(EMpadlife)
 inspect_types(EMpadlife)
 
+# inspect with single data youngGrades or with both with oldGrades
+inspect_mem(youngGrades, oldGrades, show_plot = TRUE)
+inspect_types(youngGrades, oldGrades, show_plot = TRUE) # inspect_types(allGrades, show_plot = TRUE)
+inspect_na(youngGrades, oldGrades, show_plot = TRUE)
+inspect_num(youngGrades, oldGrades, show_plot = TRUE)
+inspect_imb(youngGrades, oldGrades, show_plot = TRUE)  # value distribution for categorical values.
+inspect_cat(youngGrades, oldGrades, show_plot = TRUE)  # ** visualize the full distribution of our categorical values.
+inspect_cor(allGrades, show_plot = TRUE)
+inspect_cor(youngGrades, oldGrades, show_plot = TRUE) # pearson coreletion -1 to +1
+# to clone #install.packages("usethis") #library(usethis) #use_course("https://github.com/lgellis/MiscTutorial/archive/master.zip")
+# show_plot = TRUE is deprecated and will be removed in a future version. The show_plot()
 
 ###### Write gSheet  sheet_write(data, ss = NULL, sheet = NULL) ######
 # already def 
