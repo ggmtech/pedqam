@@ -306,6 +306,125 @@ municipality_seveso %>%
 ## 1 70455290    136289905 0.5169516
 
 
+################################### tidygeocoder
+
+#https://www.r-bloggers.com/2021/04/tidygeocoder-1-0-3/
+
+
+library(tidyverse, warn.conflicts = FALSE)
+library(tidygeocoder)
+library(knitr)
+library(leaflet)
+library(glue)
+library(htmltools)
+
+num_coords <- 25 # number of coordinates
+set.seed(103) # for reproducibility
+
+# latitude and longitude bounds
+lat_limits <- c(40.40857, 40.42585)
+long_limits <- c(-3.72472, -3.66983)
+
+# randomly sample latitudes and longitude values
+random_lats  <- runif( num_coords,   min = lat_limits[1],  max = lat_limits[2] )
+random_longs <- runif( num_coords,   min = long_limits[1], max = long_limits[2] )
+
+# Reverse geocode the coordinates
+# the speed of the query is limited to 1 coordinate per second to comply
+# with Nominatim's usage policies
+madrid <- reverse_geo( 
+  lat = random_lats, random_longs, 
+  method = 'osm', full_results = TRUE,
+  custom_query = list(extratags = 1, addressdetails = 1, namedetails = 1)
+)
+
+
+
+# Create html labels
+# https://rstudio.github.io/leaflet/popups.html
+madrid_labelled <- madrid %>%
+  transmute(
+    lat, 
+    long, 
+    label = str_c(
+      ifelse(is.na(name), "", glue("<b>Name</b>: {name}<br>")),
+      ifelse(is.na(suburb), "", glue("<b>Suburb</b>: {suburb}<br>")),
+      ifelse(is.na(quarter), "", glue("<b>Quarter</b>: {quarter}")),
+      sep = ''
+    ) %>% lapply(htmltools::HTML)
+  )
+
+# Make the leaflet map
+madrid_labelled %>% 
+  leaflet(width = "100%", options = leafletOptions(attributionControl = FALSE)) %>%
+  setView(lng = mean(madrid$long), lat = mean(madrid$lat), zoom = 14) %>%
+  # Map Backgrounds
+  # https://leaflet-extras.github.io/leaflet-providers/preview/
+  addProviderTiles(providers$Stamen.Terrain, group = "Terrain") %>%
+  addProviderTiles(providers$OpenRailwayMap, group = "Rail") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+  addTiles(group = "OSM") %>%
+  # Add Markers
+  addMarkers(
+    labelOptions = labelOptions(noHide = F), lng = ~long, lat = ~lat,
+    label = ~label,
+    group = "Random Locations"
+  ) %>%
+  # Map Control Options
+  addLayersControl(
+    baseGroups = c("OSM", "Terrain", "Satellite", "Rail"),
+    overlayGroups = c("Random Locations"),
+    options = layersControlOptions(collapsed = TRUE)
+  )
+
+
+
+
+#limits
+tie_addresses <- tibble::tribble(
+  ~res_street_address, ~res_city_desc, ~state_cd, ~zip_code,
+  "624 W DAVIS ST   #1D",   "BURLINGTON", "NC",  27215,
+  "201 E CENTER ST   #268", "MEBANE",     "NC",  27302,
+  "7833  WOLFE LN",         "SNOW CAMP",  "NC",  27349,
+)
+
+tg_batch <- tie_addresses %>%
+  geocode(
+    street = res_street_address,
+    city = res_city_desc,
+    state = state_cd,
+    postalcode = zip_code,
+    method = 'census', 
+    full_results = TRUE
+  )
+
+tg_single <- tie_addresses %>%
+  geocode(
+    street = res_street_address,
+    city = res_city_desc,
+    state = state_cd,
+    postalcode = zip_code,
+    limit = 100,
+    return_input = FALSE,
+    method = 'census', 
+    mode = 'single',
+    full_results = TRUE
+  )
+
+tg_single
+
+paris <- geo('Paris', method = 'opencage', full_results = TRUE, limit = 10)
+
+
+usethis::edit_r_environ()
+
+
+
+
+
+
+
+
 
 
 

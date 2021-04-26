@@ -2,6 +2,7 @@
 
 # Main analysis file
 rm(list = ls())
+if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
 
 packages <- c("tidyverse",   "magrittr",  "here",
               
@@ -39,6 +40,8 @@ installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
 lapply(packages, library, character.only = TRUE) #%>% invisible()
 
+
+#devtools::install_github("alastairrushworth/inspectdf")# library(inspectdf)
 ##################################################################################
 #raw_img <- magick::image_read("http:link") ; magick::image_ggplot(raw_img)
 here::here()  # getwd() and list.files()
@@ -56,7 +59,8 @@ myfile = "https://raw.githubusercontent.com/ggmtech/pedqam/master/EMPadsAnalysis
 myfile = read_file(myfile) 
 myfile %>% cat()  # also print("$a !! my name is $b and my number is $c")
 knitr::read_chunk('external.R')
-# code chunks:  ``` {r,  code = readLines(myfile)  } knitr::opts_chunk$set(echo = TRUE, comment=NA ) ```
+# code chunks:  ``` {r,  code = readLines("external.R")  } 
+# knitr::opts_chunk$set(echo = TRUE, comment=NA )
 
 
 ss = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" ## EM Pads supplies data Google Sheet
@@ -64,19 +68,15 @@ sheet_names(ss)  # see sheets names
 EMpadsupplies <-  googlesheets4::read_sheet(ss, sheet = "EMpadsupplied" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
 EMpadsupplies %>% tibble::glimpse() #View()
 
-
-
 WarrentyPosted <-  googlesheets4::read_sheet(ss, sheet = "WarrentyPosted" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
 
-
-# WarrentyPosted %>% filter( FAILED > 0 ) %>% group_by(Rly) %>%
-#                   tibble::glimpse() 
-#                   View()
+WarrentyPosted %>% filter( FAILED > 0 ) %>% group_by(Rly) %>%
+                  tibble::glimpse() 
+                  View()
                   count(Rly)
                   dplyr::summarise( n= n()  ) 
                     #  mean(), median() sd(), IQR(), mad() min(), max(), quantile() first(), last(), nth(), n(), n_distinct() any(), all()
-
-                  # Warrenty posted data FY wise
+# Warrenty posted data FY wise
 WarrentyPosted %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED) ) %>%  filter( Qfailed > 0 ) %>%
                    tidyr::pivot_wider( id_cols     = Rly, names_sort = FALSE, names_sep = "_",
                                        names_from  = c( VENDOR , FY ) , 
@@ -84,25 +84,11 @@ WarrentyPosted %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED) ) %>%  filter( 
                                        values_fn   = sum    # NULL, mean
                                        )       %>%
                     View()
-
-# 
-WarrentyPosted %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED) ) %>%  filter( Qfailed > 0 ) %>%
-    tidyr::pivot_wider( id_cols     = VENDOR, names_sort = FALSE, names_sep = "_",
-                        names_from  = c( Rly , FY ) , 
-                        values_from = Qfailed ,    values_fill = NULL,
-                        values_fn   = sum    # NULL, mean
-                            )       %>%
-                     # View()
-                    googlesheets4::sheet_write(ss, sheet = "warrentyposted2")
-    
-
-
-
 # Now Vendor wise
 WarrentyPosted %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED) ) %>%  filter( Qfailed > 0 ) %>%
                    tidyr::pivot_wider( id_cols     = VENDOR, names_sort = FALSE, names_sep = "_",
                                        names_from  =  FY,   
-                                                      # c( FY, Rly  ) , 
+                                                     # c( Rly , FY ) , 
                                        values_from = Qfailed ,    values_fill = NULL,
                                        values_fn   = sum    # NULL, mean
                                        )       %>%
@@ -191,13 +177,12 @@ EMpadsupplies    %>%  dplyr::select( Period, Railway, Firm, PO , POdate, DM, DMd
                                DMdatefloor = lubridate::floor_date( DMdate, unit = "month" )  , 
                          )  %>% 
                     # View()
-             dplyr::select( Rly, Make, Period, POdate, DM, DMdate,  Qtr, PO, Qty, Value )  -> EMPadQAM  
+             select( Rly, Make, Period, POdate, DM, DMdate,  Qtr, PO, Qty, Value )  -> EMPadQAM  
 
 EMPadQAM %>% glimpse()
 
 sslife <- "https://docs.google.com/spreadsheets/d/1elSHjPakhrMHJsyGuP74FPm0NirIYPnT-DyQome48Lo" ## EMPads failure google sheet  "EMPadFailureZonalRailways"
-ss = sslife
-EMPadQAM  %>%  googlesheets4::sheet_write( ss = ss , sheet = "EMpadDM")
+EMPadQAM  %>%  googlesheets4::sheet_write( ss = sslife , sheet = "EMpadDM")
 
 ########### Get curated supply data now from google sheet     ########################################
 EMPadDM  <-  googlesheets4::read_sheet( ss = sslife , sheet = "EMpadDM", col_names = TRUE, trim_ws = TRUE,
@@ -422,8 +407,6 @@ EMpadlife %>% View()
 
 EMpadlife %>% summarytools::dfSummary() %>% summarytools::view()   #summarytools::view(dfSummary(iris))
 
-
-#if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
 DataExplorer::create_report( EMpadlife )
 
 EMpadlife %>% DataExplorer::plot_str()
@@ -439,8 +422,6 @@ EMpadlife %>% DataExplorer::group_category()  # error?
 ?EMpadlife %>% DataExplorer::plot_scatterplot() # error?
 ?EMpadlife %>% DataExplorer::update_columns() # error?
 
-
-#devtools::install_github("alastairrushworth/inspectdf")# library(inspectdf)
 
 inspectdf::inspect_cat(EMpadlife)
 
@@ -458,7 +439,7 @@ inspect_cat(youngGrades, oldGrades, show_plot = TRUE)  # ** visualize the full d
 inspect_cor(allGrades, show_plot = TRUE)
 inspect_cor(youngGrades, oldGrades, show_plot = TRUE) # pearson coreletion -1 to +1
 # to clone #install.packages("usethis") #library(usethis) #use_course("https://github.com/lgellis/MiscTutorial/archive/master.zip")
-# show_plot = TRUE is deprecated and will be removed in a future version. The show_plot()
+# show_plot = TRUE is deprecated and will be removed in a future version. The show_plot()q
 
 ###### Write gSheet  sheet_write(data, ss = NULL, sheet = NULL) ######
 # already def 
