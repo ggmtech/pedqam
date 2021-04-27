@@ -50,7 +50,7 @@ yearwiseDM <-  yearwiseDM        %>% full_join( EMpadsupplies1920  )
 yearwiseDM <-  yearwiseDM        %>% full_join( EMpadsupplies2021  )
 #yearwiseDM <-  yearwiseDM        %>% full_join( EMpadsupplies2122  )
 
-yearwiseDM %>% View()
+yearwiseDM %>% count(Railway) %>% View()
 
 ##### Supplies data cleaning ##################################################
 yearwiseDM       %>%  
@@ -146,10 +146,12 @@ EMPadDM  %>% filter(!is.na(Rly)  ) %>% group_by(Rly) %>% summarise( supp = sum( 
 
 # Now write to  googlesheet  "EMpadsmaster" ss1 
 ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
+
 EMPadDM  %>%  googlesheets4::sheet_write( ss = ss1 , sheet = "EMpadDM")
 
 
-########### Get curated supply data now from google sheet     ########################################
+
+########### visualise what you posted : Get curated supply data now from google sheet     ########################################
 EMPadDM  <-  googlesheets4::read_sheet( ss = ss1 ,  sheet = "EMpadDM", col_names = TRUE, trim_ws = TRUE,
                                         col_types = "cccDdd"  ,  #"cccDcDccdd"  , 
                                         skip = 0,  na = "") # col_types = "cDDcccildd" 
@@ -158,7 +160,7 @@ EMPadDM  <-  googlesheets4::read_sheet( ss = ss1 ,  sheet = "EMpadDM", col_names
 # Railwaysie make wise supply DM xtable
 
 EMPadDM  %>%  # View() 
-                glimpse()
+              #  glimpse()
                dplyr::mutate(  Qty =  as.numeric(Qty) ) %>%  
                tidyr::pivot_wider( id_cols     = c(Rly ), 
                       names_sort = FALSE, 
@@ -177,13 +179,17 @@ EMPadDM  %>%  # View()
               summarise(total = sum(Qty) , n= n() )
 
 
-##### Supply details plot 1
+####### Supply details plot 1
 EMPadDM  %>%  ggplot( aes(x=DMdate, y=Qty)) + 
-  geom_point(aes(col=Make)) + 
-  geom_smooth(method="loess", se=F) + 
-  #xscale()
- # xlim(c(0, 0.1)) + 
-  ylim(c(0, 5000)) 
+              geom_point(aes(size = Qty,  color = Make ,  alpha = Qty)) + 
+              geom_smooth(method="loess", se=F) + 
+              scale_x_date(  limits = as.Date(  c("2016-01-01", "2021-04-01")  )  ) +
+             # xscale()
+             # xlim(c(0, 0.1)) + 
+             ylim(c(0, 5000))  +
+             labs(x = "Date",   y = "EM Pad Supplies ",  title = "EM Pad supplies", subtitle = "as per DM" , 
+                    caption = " (Source) RDSO IC and Warrenty portal Year 2016-21 " ) +  theme_minimal()
+
 
 ##### Supply details plot 2
 # also plot # geom_line()
@@ -194,51 +200,94 @@ EMPadDM %>%   #filter(  year(DMdate ) == "2019" ) %>%   # less supplies in 2019 
   #geom_jitter(aes(x = DMdate, y = Qty), width = 0.15,  color = "#09557f", alpha = 0.6, size = 0.6) +
   scale_x_date(  limits = as.Date(  c("2016-01-01", "2021-04-01")  )  ) +
    #scale_y_continuous( limits = c( 0, 10000)  ) +
-  labs(x = "Date",   y = "EM Pad Supplies ",  title = "EM Pad supplies", subtitle = "as per DM" , caption = "(c) RDSO data Year 2016-21" ) +  theme_minimal()
+  labs(x = "Date",   y = "EM Pad Supplies ",  title = "EM Pad supplies", subtitle = "as per DM" , 
+       caption = " (Source) RDSO IC and Warrenty portal Year 2016-21 " ) +  theme_minimal()
 
 
 
 
-##################### Data of warranty posting ###################
-ss01 = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" #
-sheet_names(ss01)  # see sheets names
+#################################################################################################
+#################################################################################################
+#################################################################################################
+########################## Data of warranty posting #############################################
 
+#ss01 = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" # GS = "EM pads supply 2017to2021"
+#sheet_names(ss01)  # see sheets names
 
-WarrentyPosted01 <-  googlesheets4::read_sheet(ss01, sheet = "WarrentyPosted" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-WarrentyPosted01 %>% View()
-WarrentyPosted01 %>% filter( FAILED > 0 ) %>% group_by(Rly) %>%  View() #tibble::glimpse()  # 896 
-
-
-WarrentyPosted01 %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED),
-                                     Qfrom = ymd(parse_date_time(Qfrom, orders = c("dmy") ) ),
-                                     
-                                     QtrFloor = lubridate::quarter( Qfrom, with_year = TRUE, fiscal_start = 1  ) ,
-                                     Qtrmonth = month(Qfrom),
-                                     Qyear = year(Qfrom )   ) %>%  
-                        filter( Qfailed > 0 ) %>%
-                    select(Rly,Qfrom,  QtrFloor, VENDOR, Qfailed , Qyear, Qtrmonth)  %>%
-                   #View() 
-                   #glimpse()
-                   # ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
-                   googlesheets4::sheet_write(ss1, sheet =  "postedyearmakerly")
+# WarrentyPosted01 <-  googlesheets4::read_sheet(ss01, sheet = "WarrentyPosted" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+# WarrentyPosted01 %>% filter( FAILED > 0 ) %>% group_by(Rly) %>%  View() #tibble::glimpse()  # 896 
+# WarrentyPosted01 %>% dplyr::mutate(  Qfailed =  as.numeric(FAILED),
+#                                      Qfrom = ymd(parse_date_time(Qfrom, orders = c("dmy") ) ),
+#                                      
+#                                      QtrFloor = lubridate::quarter( Qfrom, with_year = TRUE, fiscal_start = 1  ) ,
+#                                      Qtrmonth = month(Qfrom),
+#                                      Qyear = year(Qfrom )   ) %>%  
+#                         filter( Qfailed > 0 ) %>%
+#                     select(Rly,Qfrom,  QtrFloor, VENDOR, Qfailed , Qyear, Qtrmonth)  %>%
+#                    #View() 
+#                    #glimpse()
+#                    # ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
+#                    googlesheets4::sheet_write(ss1, sheet =  "postedyearmakerly")
 
 # Now write to  googlesheet  "EMpadsmaster" ss1 
-ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
+# ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
+# WarrentyPosted01 <-  googlesheets4::read_sheet(ss01, sheet = "WarrentyPosted" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+########## Read warrenty posted from EMpadmaster sheet ####################################################
 
-########## Read warrenty posted from EMpadmaster sheet #######
+################## Raw year wise Data of warranty posting #############################################
+ss01 = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" # GS = "EM pads supply 2017to2021"
+sheet_names(ss01)  # see sheets names
+# # Rly	Period From	Period To	F/C Year	Item	Vendor	EQUIPMENT IN SERVICER	Equipment Failed	Status	Entry Date	Post Date
 
-WarrentyPosted1 <-  googlesheets4::read_sheet(ss1, sheet = "postedyearmakerly" , col_names = TRUE,  col_types = "cDDcddd"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
 
-WarrentyPosted1 %>%
-                  #View()
-                   tidyr::pivot_wider( id_cols     = Rly, names_sort = FALSE, names_sep = "_",
+WarrentyPost2021 <-  googlesheets4::read_sheet(ss01, sheet = "warranty 20-21" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+WarrentyPost1920 <-  googlesheets4::read_sheet(ss01, sheet = "warranty 19-20" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+WarrentyPost1819 <-  googlesheets4::read_sheet(ss01, sheet = "warranty 18-19" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+WarrentyPost1718 <-  googlesheets4::read_sheet(ss01, sheet = "warranty 17-18" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+#WarrentyPost1617 <-  googlesheets4::read_sheet(ss01, sheet = "warranty 16-17" , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+
+
+WarrentyPost2021 %>% count() #413
+WarrentyPost1920 %>% count() #268
+WarrentyPost1819 %>% count() #178
+WarrentyPost1718 %>% count() #167
+
+WarrentyPostedAll <- NULL
+WarrentyPostedAll <- WarrentyPost1718  
+WarrentyPostedAll <- WarrentyPostedAll   %>%   full_join( WarrentyPost1819  ) #var
+WarrentyPostedAll <- WarrentyPostedAll   %>%   full_join( WarrentyPost1920  )
+WarrentyPostedAll <- WarrentyPostedAll   %>%   full_join( WarrentyPost2021  )
+#WarrentyPostedAll <- WarrentyPostedAll   %>%   full_join( WarrentyPost1819  )
+
+
+WarrentyPostedAll %>% #filter(!is.na(zone)) %>% 
+                      #count()
+                      #View()
+                      # str()
+                   mutate( qtywarrenty = as.numeric( `EQUIPMENT FAILED`)  ) %>%
+                   tidyr::pivot_wider( id_cols     = zone , names_sort = FALSE, names_sep = "_",
                                        names_from  = c( VENDOR ) , 
-                                       values_from = Qfailed ,    values_fill = NULL,
+                                       values_from = qtywarrenty ,    values_fill = NULL,
                                        values_fn   = sum    # NULL, mean
                                        )       %>%
-         #View()
-         googlesheets4::sheet_write(ss1, sheet =  "Rlywarrenty")
+         View()
+         googlesheets4::sheet_write(ss1, sheet =  "Rlywarrenty")  # EMpadsmaster2021
 
+
+# ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
+
+
+
+
+
+
+
+
+         
+         
+         
+         
+         
 #############
 # NOW
 # Rlyreported in make/qtr  = supplies
@@ -312,7 +361,9 @@ FailFraction %>% group_by(Make, DMqtr) %>%
 
 tmp  %>%
   ggplot( aes(x=  Make, y = qf)  ) + 
-  geom_boxplot(  aes(colour = Make ,   fill = after_scale(   alpha( colour , 0.4)  )  )  ) +
+  geom_boxplot(  aes(   colour = Make ,   
+                        fill = after_scale(   alpha( colour , 0.4)  ) 
+                     )    ) +
   theme_bw()
 
 
