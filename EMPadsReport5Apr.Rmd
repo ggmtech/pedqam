@@ -151,7 +151,7 @@ Sr. No   |  Firm Name   | Total supply  | Total Failure  | Percentage
 
 ```{r echo=FALSE, include=TRUE, message=FALSE, warning=FALSE, error=FALSE, fig.align="center", fig.cap = "The surface treatment for Spring", fig.width=1.5, fig.height=1.5, out.width = '40%',  dpi= 300, cache=TRUE}
 
-knitr::include_graphics("honeybee.png") 
+knitr::include_graphics("flowery.png") #honeybee.png") 
 
 ```
 

@@ -12,6 +12,10 @@
 *.xls
 *.pdf
 
+*.ppt
+*.pptx
+
+
 # log files
 
 *.bak

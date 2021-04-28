@@ -3,14 +3,14 @@
 rm(list = ls())
 if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
 
-packages <- c("tidyverse",   "magrittr",  "here", "lubridate", "anytime",  "googlesheets4", "readxl", "janitor",
-              "DT", "DataExplorer", "inspectdf", "summarytools", "skimr", "here", "devtools", "naniar",
+packages <- c("tidyverse",   "magrittr",  "here", "lubridate", "anytime",  "googlesheets4", "readxl", #"Rtools",
+               "DT", "DataExplorer", "inspectdf", "summarytools", "skimr", "here", "devtools", "naniar",
               "scales",    "coefplot", "cowplot", "drat",
              "knitr", "gridExtra","plotly", "timetk", "ggforce", "ggraph", 
              "survival" , "survminer", "ggpubr","GGally", "ggrepel", "ggridges",
               "viridis", "viridisLite",  "ggthemes", #"themr",  #  "ggfortify",  "ggfortify", 
-             "magick", "gfx" ,  "prismatic"
-            )
+             "magick", "ggfx" ,  "prismatic"
+             )
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
 lapply(packages, library, character.only = TRUE) #%>% invisible()
@@ -23,47 +23,36 @@ lapply(packages, library, character.only = TRUE) #%>% invisible()
 
 
 ########## EM pads supplies data tidy ######################### 
-ss01  = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" # "EM pads supply 2017to2021"
+# EM Pads supplies data Google Sheet "EM pads supply 2017to2021"
+ss01  = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" #
 sheet_names(ss01)  # see sheets names
 
-# x EMpadsupplies01 <-  googlesheets4::read_sheet(ss01, sheet = "EMpadsupplied" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-# EMpadsupplies01 %>% distinct() %>% group_by(Period ) %>%  summarise( supp = sum(as.numeric(Qty) ), n = n() )
+EMpadsupplies01 <-  googlesheets4::read_sheet(ss01, sheet = "EMpadsupplied" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+EMpadsupplies01 %>% #tibble::glimpse() 
+                    # View()
+                     group_by(Period ) %>%  str()
+                     summarise( supp = sum(as.numeric(Qty) ), n = n() )
 
 #supply 17-18
 EMpadsupplies1718 <-  googlesheets4::read_sheet(ss01, sheet = "supply 17-18" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-EMpadsupplies1718
 EMpadsupplies1819 <-  googlesheets4::read_sheet(ss01, sheet = "supply 18-19" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-EMpadsupplies1819
 EMpadsupplies1920 <-  googlesheets4::read_sheet(ss01, sheet = "supply 19-20" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-EMpadsupplies1920
-EMpadsupplies2021 <-  googlesheets4::read_sheet(ss01, sheet = "supply 20-21" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-EMpadsupplies2021
-
-#EMpadsupplies2021j <-  googlesheets4::read_sheet(ss01, sheet = "supply 20-21jan" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-#EMpadsupplies2021m <-  googlesheets4::read_sheet(ss01, sheet = "supply 20-21mar" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-
-EMpadsupplies2021 
-
+EMpadsupplies2021 <-  googlesheets4::read_sheet(ss01, sheet = "supply 20-21jan" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
 #EMpadsupplies2122 <-  googlesheets4::read_sheet(ss01, sheet = "supply 21-22" , col_names = TRUE,  col_types = "c"  , skip = 1, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
-
-#
-#EMpadsupplies2122 %>%   summarise( supp = sum( as.numeric(.$'Qty. Delivered') , na.rm = TRUE ),  n = n() )
-
-# Combile all year data of supplies to yearwiseDM
+# Combine all year data of supplies to yearwiseDM
 yearwiseDM <-  NULL
 yearwiseDM <-  EMpadsupplies1718
 yearwiseDM <-  yearwiseDM        %>% full_join( EMpadsupplies1819  )
 yearwiseDM <-  yearwiseDM        %>% full_join( EMpadsupplies1920  )
 yearwiseDM <-  yearwiseDM        %>% full_join( EMpadsupplies2021  )
-
-
 #yearwiseDM <-  yearwiseDM        %>% full_join( EMpadsupplies2122  )
 
-yearwiseDM %>% distinct() %>%  count(Railway) %>% View()  # n = 158
+yearwiseDM %>% # count(Railway) %>% View()
+                 count
 
 ##### Supplies data cleaning ##################################################
 yearwiseDM       %>%  
-                      janitor::clean_names()  %>%   janitor::remove_empty()  %>% 
+                      janitor::clean_names() %>%   
                       #glimpse()
                      # dplyr::select(  railway, firm_name,  dm_no, date_of_issue_of_dm, qty_delivered, value_of_goods_inspected ) %>% 
                       dplyr::mutate(  Qty =  as.numeric(qty_delivered) ,
@@ -78,7 +67,7 @@ yearwiseDM       %>%
                                       DMdatefloor = lubridate::floor_date( DMdate, unit = "month" )  , 
                                       
                                       )  %>% 
-                      dplyr::filter( !is.na(Qty))   %>%           # View() # glimpse()  #1801
+                      dplyr::filter( !is.na(Qty))   %>%        #View() # glimpse()  #1801
                  # Now First clean  vendor names as Make
                      dplyr::mutate( Make = fct_collapse(Make, 
                                      VRC = c("VRC Continental (Unit of BESCO Ltd )",  "VRC"),
@@ -146,42 +135,22 @@ yearwiseDM       %>%
                                      other_level = "OEM"  
                                      )
                                                   )              %>%
-                  filter(!is.na(Rly), !is.na(Make))           %>%           #distinct( .keep_all = TRUE) %>%
+                  filter(!is.na(Rly), !is.na(Make)) %>%
                  # View()  # all ok so far
                   #glimpse()
-                  dplyr::distinct(  ) %>%
                   select( Rly, Make,  dm_no, DMdate,  Qty, ValueDM )  -> EMPadDM  
 
-
-EMPadDM %>% glimpse()
-EMPadDM  %>%  filter(!is.na(Rly)   )  %>% group_by(Rly) %>% summarise( supp = sum( Qty ), n = n() )
-EMPadDM  %>%  filter(!is.na(DMdate))  %>% group_by(DMdate) %>% summarise( supp = sum( Qty ), n = n() )
-EMPadDM  %>%  janitor::tabyl(Make)   %>%  janitor::adorn_pct_formatting(digits = 2, affix_sign = TRUE)
-
-# cross tab
-EMPadDM  %>%  janitor::tabyl(Rly, Make   ) %>%   janitor::adorn_totals(where = "row") %>%   
-              janitor::adorn_totals(where = "col")   # %>% adorn_title( "totals of row and col", placement = top)
-
-EMPadDM %>%  dplyr::distinct( .keep_all = TRUE )  %>% janitor::get_dupes()  %>% View()
-EMPadDM %>%  dplyr::distinct( .keep_all = TRUE )   # %>%   janitor::get_dupes()  %>% View()
-
-dplyr::distinct()  # %>% distinct(Sepal.Length, .keep_all = TRUE)
-janitor::excel_numeric_to_date(41103)
-janitor::remove_empty()
-janitor::adorn_title()
-
-
-
+EMPadDM  %>% filter(!is.na(Rly)  ) %>% group_by(Rly) %>% summarise( supp = sum( Qty ), n = n() )
+EMPadDM %>% count(!is.na(Qty) )
 # Now write to  googlesheet  "EMpadsmaster" ss1 
 ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
-EMPadDM   %>%  dplyr::distinct( .keep_all = TRUE ) %>% 
-               #View()
-               googlesheets4::sheet_write( ss = ss1 , sheet = "EMpadDM")
+
+EMPadDM  %>%  googlesheets4::sheet_write( ss = ss1 , sheet = "EMpadDM")
 
 
-
-########### visualise what you posted : Get curated supply data now from google sheet     ########################################
-ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
+########################################################################################################################
+########################################################################################################################
+########### visualise what you posted : Get curated supply data now from google sheet     ##############################
 EMPadDM  <-  googlesheets4::read_sheet( ss = ss1 ,  sheet = "EMpadDM", col_names = TRUE, trim_ws = TRUE,
                                         col_types = "cccDdd"  ,  #"cccDcDccdd"  , 
                                         skip = 0,  na = "") # col_types = "cDDcccildd" 
@@ -189,8 +158,8 @@ EMPadDM  <-  googlesheets4::read_sheet( ss = ss1 ,  sheet = "EMpadDM", col_names
 
 # Railwaysie make wise supply DM xtable
 
-EMPadDM  %>%   #View() 
-               #glimpse()
+EMPadDM  %>%  # View() 
+              #  glimpse()
                dplyr::mutate(  Qty =  as.numeric(Qty) ) %>%  
                tidyr::pivot_wider( id_cols     = c(Rly ), 
                       names_sort = FALSE, 
@@ -201,26 +170,20 @@ EMPadDM  %>%   #View()
                       values_fn   = sum    # NULL, mean
                )       %>%
              View()
-             googlesheets4::sheet_write(ss1, sheet = "RlyMakeDateDM")     
+             #googlesheets4::sheet_write(ss1, sheet = "RlyMakeDateDM")     
 
 EMPadDM  %>%  # View() 
               # glimpse() 
-              mutate( qtr = lubridate::quarter(DMdate , with_year = TRUE )  ,
-                     cyear = year(DMdate)   )  %>%
-              group_by( cyear, qtr, Make) %>%      #, Rly removed to agrigate over Rly
-              summarise(total = sum(Qty) , n= n() ) %>%
-              tibble()   %>%     
-              mutate(cqtr = as.character(qtr) ) %>%  
-              select(cqtr, Make,  total )  -> dmqtrwise  #%>%  
-              View()
-              googlesheets4::sheet_write(ss1, sheet =  "dmqtrwise")
-             
+              group_by( Make) %>%
+              summarise(total = sum(Qty) , n= n() )
+
 
 ####### Supply details plot 1
 EMPadDM  %>%  ggplot( aes(x=DMdate, y=Qty)) + 
               geom_point(aes(size = Qty,  color = Make ,  alpha = Qty)) + 
               geom_smooth(method="loess", se=F) + 
               scale_x_date(  limits = as.Date(  c("2016-01-01", "2021-04-01")  )  ) +
+              #scale_y_continuous( limits = c( 0, 10000)  ) +
              # xscale()
              # xlim(c(0, 0.1)) + 
              ylim(c(0, 5000))  +
@@ -232,9 +195,10 @@ EMPadDM  %>%  ggplot( aes(x=DMdate, y=Qty)) +
 # also plot # geom_line()
 EMPadDM %>%   #filter(  year(DMdate ) == "2019" ) %>%   # less supplies in 2019 check data
   ggplot() + 
-  geom_point(  aes(x = DMdate, y = Qty,  size = Qty,  color = Make ,  alpha = Qty         )       ) +
-  #geom_col(aes(x = DMdate, y = Qty), width = 0.15,  color = "#09557f", alpha = 0.6, size = 0.6   ) +
-  #geom_jitter(aes(x = DMdate, y = Qty), width = 0.15,  color = "#09557f", alpha = 0.6, size = 0.6) +
+  geom_point( aes(x = DMdate, y = Qty,  size = Qty,  color = Make ,  alpha = Qty         )       ) +
+ # geom_smooth(method="loess", se=F) + 
+  geom_col(   aes(x = DMdate, y = Qty,   color = Make, fill = Make, alpha = 0.6), size = 0.6   ) +        #"#09557f" ,width = 0.15,
+  #geom_jitter(aes(x = DMdate, y = Qty), width = 0.15,  color = "#09557f", alpha = 0.6, size = 0.2) +
   scale_x_date(  limits = as.Date(  c("2016-01-01", "2021-04-01")  )  ) +
    #scale_y_continuous( limits = c( 0, 10000)  ) +
   labs(x = "Date",   y = "EM Pad Supplies ",  title = "EM Pad supplies", subtitle = "as per DM" , 
@@ -299,30 +263,20 @@ WarrentyPostedAll <- WarrentyPostedAll   %>%   full_join( WarrentyPost2021  )
 
 WarrentyPostedAll %>% #filter(!is.na(zone)) %>% 
                       #count()
-                      # View()
+                      #View()
                       # str()
-                   dplyr::distinct() %>%
                    mutate( qtywarrenty = as.numeric( `EQUIPMENT FAILED`) ,
-                           qtr_from = parse_date_time(`Period from`, orders = c("dmy") ),
-                           dqtr = lubridate::quarter( qtr_from, with_year = TRUE) ,
-                           cqtr = as.character(dqtr)
-                           ) %>% 
-                    select(cqtr,VENDOR, qtywarrenty)    -> wclaim # %>% 
-                    #View()
-                    googlesheets4::write_sheet(ss1, sheet = "wclaim")
-  
-                    
-               
-
-
-
-
+                           Datefloor  = parse_date_time(`Period from` , orders = c("dmy")  ),
+                           Qtr   = quarter(Datefloor, with_year = FALSE, fiscal_start = 1 ) ,
+                           wcyear = year( Datefloor ),
+                           wyeartext  = as.character(wcyear)
+                           ) %>%
                    tidyr::pivot_wider( id_cols     = zone , names_sort = FALSE, names_sep = "_",
-                                       names_from  = c( VENDOR ) , 
+                                       names_from  = c(wyeartext, Qtr, VENDOR ) , 
                                        values_from = qtywarrenty ,    values_fill = NULL,
                                        values_fn   = sum    # NULL, mean
                                        )       %>%
-         View()
+        # View()
          googlesheets4::sheet_write(ss1, sheet =  "Rlywarrenty")  # EMpadsmaster2021
 
 
@@ -339,39 +293,11 @@ WarrentyPostedAll %>% #filter(!is.na(zone)) %>%
          
          
          
-################################### Dm data vs Failure data in warranty ###############################      
-##########################################################################################################
-##########################################################################################################
-##########################################################################################################
-
-# IR clubbed Data only
-dmqtrwise   %>% glimpse()
-
-wclaim      %>%  # glimpse() 
-                  dplyr::group_by( cqtr,  VENDOR)    %>% 
-                  summarise(  wqty = sum(qtywarrenty))  -> wqty
-                  #%>% View() # glimpse()
-wqty
-
-# left_join(x,y,by = NULL,copy = FALSE,suffix = c(".x", ".y"),...,keep = FALSE) #by = c("a" = "b")
-
-dmqtrwise %>% left_join(wqty, by = c( "cqtr" = "cqtr" , "Make" = "VENDOR" ) )   %>% 
-              select(cqtr, Make, total, wqty)              %>%          # -> DM_vs_Wclaims      
-              googlesheets4::sheet_write(ss1, sheet = "DM_vs_Wclaims")
-
-DM_vs_Wclaims  %>%  # glimpse()
-              ggplot() + 
-              geom_col(  aes( x = cqtr, y = total, fill = Make) ) + 
-              
-              geom_col(  aes( x = cqtr, y = wqty), fill = "black" )
-
-
-##########################################################################################################
-##########################################################################################################
-##########################################################################################################
-
+         
+#############
 # NOW
 # Rlyreported in make/qtr  = supplies
+
 # Qtr V   Make->       # from 
 
 EMPadDM %>% # glimpse()
@@ -387,27 +313,20 @@ DMdata    %>% View()
 WarrentyPosted1 %>%  # View()
                    mutate( FailQtr = lubridate::quarter( Qfrom , with_year = TRUE, fiscal_start = 1  ) ,
                            FailQtr = as.character(FailQtr)    ) %>%
-                   select( Rly,  FailQtr,  Qfailed,  VENDOR  )    #-> RlyWrnty
-                   glimpse()
+                  select( Rly,  FailQtr,  Qfailed, VENDOR  )  -> RlyWrnty
+                  glimpse()
 RlyWrnty %>% View()
 
-
-
-
-
-
-
-
-FailFractionlj <- left_join(DMdata, RlyWrnty,  by = c( "DMqtr" = "FailQtr", 
-                                                        "Rly" = "Rly", 
-                                                        "Make" = "VENDOR")   )  # , suffix = c(".x", ".y") , na_matches = c("na", "never") )
+left_join(DMdata, RlyWrnty,  by = c( "DMqtr" = "FailQtr", 
+                                     "Rly" = "Rly", 
+                                      "Make" = "VENDOR") )  # , suffix = c(".x", ".y") , na_matches = c("na", "never") )
        
-FailFraction  <-  full_join(DMdata, RlyWrnty,  by = c( "DMqtr" = "FailQtr", 
+FailFraction <- full_join(DMdata, RlyWrnty,  by = c( "DMqtr" = "FailQtr", 
                                               "Rly" = "Rly", 
                                               "Make" = "VENDOR") )  # , suffix = c(".x", ".y") , na_matches = c("na", "never") )
-FailFraction %>% count()
 
-FailFractionlj %>% # mutate( rel = Qfailed/Qtyq*100 )  %>%
+
+FailFraction %>% # mutate( rel = Qfailed/Qtyq*100 )  %>%
                summarise()
                View()
   
@@ -435,7 +354,6 @@ ggplot(mpg, aes(displ)) +  geom_histogram(aes(y = after_stat(count / max(count))
 mpg
 mpg %>% ggplot( aes(class, hwy)) + 
      geom_boxplot(  aes(colour = class,  fill = after_scale(   alpha(colour, 0.4)  )  )   )
-
 
 
 
