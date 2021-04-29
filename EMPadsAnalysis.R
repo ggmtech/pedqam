@@ -216,7 +216,10 @@ EMPadfailuresWR   <-  googlesheets4::read_sheet(sslife, sheet = "WR"       , col
 
 EMPadfailuresNR   <-  googlesheets4::read_sheet(sslife, sheet = "NRgktest" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
 EMPadfailuresSECR <-  googlesheets4::read_sheet(sslife, sheet = "SECR_Failure" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
-EMPadfailuresCR   <-  googlesheets4::read_sheet(sslife, sheet = "CR" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
+
+sscrlife = "https://docs.google.com/spreadsheets/d/11A5lwOWa-G9SyCCgpkkxC4FFoUzD7Hc3yoYlPEohd0c"
+EMPadfailuresCR   <-  googlesheets4::read_sheet(sscrlife, sheet = "CR" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
+EMPadfailuresCR %>% View()
 EMPadfailuresECR  <-  googlesheets4::read_sheet(sslife, sheet = "ECR_Failure" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
 EMPadfailuresSR   <-  googlesheets4::read_sheet(sslife, sheet = "SR" , col_names = TRUE,  col_types = "c"  , skip = 2, trim_ws = TRUE, na = "")  # col_types = "cDDcccildd" 
 # #  , , ER_Failure_qty, ",
@@ -291,13 +294,14 @@ temp <- lubridate::parse_date_time(date, c('mdY IMp', 'mdY HMS'))
 temp[is.na(temp)] <- as.Date(as.numeric(date[is.na(temp)]), origin = "1899-12-30") # mix dates
 
 
+##############################################################################################################  
+##############################################################################################################   
+EMPadfailuresCR
 
-#######################################################  
-
-
+MPadfailure0 <- EMPadfailuresCR
 MPadfailure0 %>% glimpse() #View()
 MPadfailure0 %>% 
-                 separate_rows( "Date of manufacturing", sep = ",", convert = FALSE) %>%
+                 separate_rows( "Date of manufacturing", sep = ",", convert = FALSE) %>% 
     
                  dplyr::mutate( Make = fct_infreq(`Make of EM pad`),
                                 MakeDate = as_date( parse_date_time(  paste( '01-', str_trim( (`Date of manufacturing`) , side = "both") ), orders = c("dmy", "mdy" ,"ymd"  ) ) ),

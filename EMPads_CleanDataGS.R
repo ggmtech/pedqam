@@ -82,6 +82,7 @@ yearwiseDM       %>%
                                       )  %>% 
                       dplyr::filter( !is.na(Qty))   %>%           # View() # glimpse()  #1801
                  # Now First clean  vendor names as Make
+                 # Make ARL ARYAN BASANT BONY CALCAST FAS HFL MGM MONDEEP Others PRAG TAYAL VRC
                      dplyr::mutate( Make = fct_collapse(Make, 
                                      VRC = c("VRC Continental (Unit of BESCO Ltd )",  "VRC"),
                                      ARL = c( "Avadh Rail Infra Ltd.",  "ARL", "ARL"),
@@ -91,7 +92,6 @@ yearwiseDM       %>%
                                                 "BRC", "Basant", "BASAN", "BASNT", "BASAT"  ),
                                      FAS = c( "Frontier Alloy Steels Ltd.", "FAS", "fas", "FASL"),
                                      HFL = c("Howrah Forgings Ltd",   "HFL", "Howrah Forgings, Ltd"),
-                                     VRC = c("VRC"),
                                      MGM = c( "MGM Rubber Company", "MGM", "MGM Rubber, Kolkata"),
                                      PRAG = c("Prag Industries (India) Pvt Ltd",   "PRAG", "PARAG"), 
                                      TC = c("TAYAL", "TC", "T.C"),
@@ -297,32 +297,53 @@ WarrentyPostedAll <- WarrentyPostedAll   %>%   full_join( WarrentyPost2021  )
 
 
 WarrentyPostedAll %>% #filter(!is.na(zone)) %>% 
-                      #count()
+                      #glimpse()
+                     # count(VENDOR)
                       # View()
                       # str()
-                   dplyr::distinct() %>%
-                   mutate( qtywarrenty = as.numeric( `EQUIPMENT FAILED`) ,
+                    dplyr::distinct() %>%
+                     # glimpse() #View()
+
+                   mutate( wqty = as.numeric( `EQUIPMENT FAILED`) ,
                            qtr_from = parse_date_time(`Period from`, orders = c("dmy") ),
                            dqtr = lubridate::quarter( qtr_from, with_year = TRUE) ,
-                           cqtr = as.character(dqtr)
-                           ) %>% 
-                    select(cqtr,VENDOR, qtywarrenty)    -> wclaim # %>% 
+                           cqtr = as.character(dqtr) ,
+                           Make = as_factor( VENDOR  )
+                           ) %>%   
+                    # glimpse()
+                    mutate(Make = fct_collapse(Make,
+                               # Make ARL ARYAN BASANT BONY CALCAST FAS HFL MGM MONDEEP Others PRAG TAYAL VRC
+                               ARL =c("ARL"),
+                               ARYAN = c("ARYAN") ,
+                               BASANT  = c("BASANT"),
+                               BONY   = c("BONY", "BPL"),
+                               CALCAST = c("CALCAST", "CFL"),
+                               FAS    = c("FAS"),
+                               HFL  = c("HFL"),
+                               MGM   = c("MGM"),
+                               MONDEEP   = c("MONDEEP"),
+                               Others  = c("Others"),
+                               PRAG  = c("PRAG"),
+                               TAYAL   = c("TAYAL", "TC"),
+                               VRC  = c("VRC")
+                                                )
+                           ) %>%
+                  
+                    #glimpse()
+                    #View()
+                    select(cqtr,Make, wqty)  %>%  #  -> wclaim # %>% 
                     #View()
                     googlesheets4::write_sheet(ss1, sheet = "wclaim")
-  
-                    
-               
 
-
-
-
-                   tidyr::pivot_wider( id_cols     = zone , names_sort = FALSE, names_sep = "_",
-                                       names_from  = c( VENDOR ) , 
-                                       values_from = qtywarrenty ,    values_fill = NULL,
-                                       values_fn   = sum    # NULL, mean
-                                       )       %>%
-         View()
-         googlesheets4::sheet_write(ss1, sheet =  "Rlywarrenty")  # EMpadsmaster2021
+wclaim
+    
+         #       tidyr::pivot_wider( id_cols     = zone , names_sort = FALSE, names_sep = "_",
+         #                               names_from  = c( VENDOR ) , 
+         #                               values_from = qtywarrenty ,    values_fill = NULL,
+         #                               values_fn   = sum    # NULL, mean
+         #                               )       %>%
+         # View()
+         # googlesheets4::sheet_write(ss1, sheet =  "Rlywarrenty")  # EMpadsmaster2021
 
 
 # ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
@@ -346,24 +367,49 @@ WarrentyPostedAll %>% #filter(!is.na(zone)) %>%
 # IR clubbed Data only
 dmqtrwise   %>% glimpse()
 
-wclaim      %>%  # glimpse() 
-                  dplyr::group_by( cqtr,  VENDOR)    %>% 
-                  summarise(  wqty = sum(qtywarrenty))  -> wqty
+wclaim      %>%   #glimpse() 
+                  dplyr::group_by( cqtr,  Make)    %>% 
+                  summarise(  wqty = sum(wqty) )  -> wqty
                   #%>% View() # glimpse()
-wqty
+
+wqty %>% ungroup() %>% glimpse()
 
 # left_join(x,y,by = NULL,copy = FALSE,suffix = c(".x", ".y"),...,keep = FALSE) #by = c("a" = "b")
 
-dmqtrwise %>% left_join(wqty, by = c( "cqtr" = "cqtr" , "Make" = "VENDOR" ) )   %>% 
-              select(cqtr, Make, total, wqty)              %>%          # -> DM_vs_Wclaims      
-              googlesheets4::sheet_write(ss1, sheet = "DM_vs_Wclaims")
+dmqtrwise %>% #glimpse()
+              left_join(wqty, by = c( "cqtr" = "cqtr" , "Make" = "Make" ) )   %>% 
+              #count(Make)
+              #glimpse()
+              #select(cqtr, Make, total, wqty)               -> DM_vs_Wclaims      
+              googlesheets4::sheet_write( ss1, sheet = "DM_vs_Wclaims" )
 
-DM_vs_Wclaims  %>%  # glimpse()
-              ggplot() + 
-              geom_col(  aes( x = cqtr, y = total, fill = Make) ) + 
               
-              geom_col(  aes( x = cqtr, y = wqty), fill = "black" )
+DM_vs_Wclaims %>% View()
+DM_vs_Wclaims  %>%  
+              # glimpse()
+              # View()
+              ggplot() + theme_bw() +
+              geom_col(  aes( x = cqtr, y = total, fill = Make) ) + 
+              geom_col(  aes( x = cqtr, y = wqty), fill = "black" ) +
+              facet_wrap(~Make, ncol = 3)  +
+              theme( axis.text.x = element_text(angle = 90) ) +
+              labs(x= "Quarter of Year of supply and warrenty", 
+                   y = "EM Pads",
+                   title = "EM Pads Quarterwise Supply and Warrenty Claims",
+                   subtitle = "Since 2016-17 - Based on Inspections by RDSO and Warrenty Reported in RDSO Portal",
+                    caption =  " Source RDSO Portal Data 2016-2021"
+                   ) 
+          #  (The above data  ) 
 
+
+
+DM_vs_Wclaims %>% pivot_wider( id_cols = cqtr, names_from = c(Make), values_from = c(total, wqty), values_fn = sum ) %>%
+  #View()
+  ggplot(  x= cqtr, y = ) + theme_bw() +
+    geom_bar(position="dodge", stat="identity")
+  #geom_col(  aes( x = cqtr, y = total, fill = Make) ) 
+
+DM_vs_Wclaims %>% pivot_longer(         )
 
 ##########################################################################################################
 ##########################################################################################################
