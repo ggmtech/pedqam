@@ -484,6 +484,29 @@ mpg %>% ggplot( aes(class, hwy)) +
 
 
 
+# Dodge ar Note we convert the cyl variable to a factor here in order to fill by cylinder
+ggplot(mpg) + 
+             geom_bar( aes(x = class, fill = factor(cyl)   ),
+           
+                       position = position_dodge(preserve = 'single')        )
+
+# geom_bar(position="stack", stat="identity")
+# geom_bar(stat = “identity”, position = position_dodge(), alpha = 0.75) gives the side by side bar graphs
+#   geom_bar(stat = "identity", position = position_dodge(), alpha = 0.75)  
+
+# geom_text(  aes(label = Freq), fontface = "bold", vjust = 1.5, position = position_dodge(.9), size = 4) +
+
+# position="fill" fraction
+
+mpg %>% group_by(class) %>% summarise(hwy_mpg = mean(hwy)) %>% 
+     ggplot() + geom_bar(  aes(x = class, y = hwy_mpg),  stat = 'identity'  )
+# else stat = 'count' is default and ggplot automatically populate the y-axis with a count of our data
+# else use geom_col Instead of using geom_bar with stat = 'identity', you can simply use the geom_col 
+mpg %>% group_by(class) %>% summarise(hwy_mpg = mean(hwy)) %>%  ggplot() + 
+        # same below geom_bar(  aes(x = class, y = hwy_mpg),  stat = 'identity'  )
+        geom_col(aes(x = class, y = hwy_mpg))
+
+# facet_grid(. ~Player) 
 
 ######## boxplot to correct
 FailFraction %>% group_by(Make, DMqtr) %>%

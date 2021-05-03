@@ -98,6 +98,16 @@
 #   coord_quickmap()  #   coord_sf()
 
 
+iris %>% rgl::plot3d(Sepal.Length, Sepal.Width, Petal.Length, 
+       type="s", col=as.numeric(Species))
+# Function	Description
+# points3d:	adds points
+# lines3d:	adds lines
+# segments3d:	adds line segments
+# triangles3d:	adds triangles
+# quads3d:	adds quadrilaterals
+
+
 ######
 grep('stringtomatch', strlist, ignore.case ="True")   # grepl() for logical
 # regexpr() no of patterns found. 
