@@ -1,9 +1,7 @@
 # curated file # EMPadDM  , # WarrentyPosted  # EMpadFD  # # WarrentyPosted %>% kbl()
-
 # Main analysis file
 rm(list = ls())
 if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
-
 packages <- c("tidyverse",   "magrittr",  "here",
               
               "lubridate", "anytime",
@@ -41,13 +39,16 @@ if (any(installed_packages == FALSE)) { install.packages(packages[!installed_pac
 lapply(packages, library, character.only = TRUE) #%>% invisible()
 
 
+##################################################################################
+##################################################################################
+##################################################################################
+
 #devtools::install_github("alastairrushworth/inspectdf")# library(inspectdf)
 ##################################################################################
 #raw_img <- magick::image_read("http:link") ; magick::image_ggplot(raw_img)
-here::here()  # getwd() and list.files()
-ls()  # global env variables / values in memory ;
+# here::here()  # getwd() and list.files()
+# ls()  # global env variables / values in memory ;
 ##################################################################################
-
 
 # Get Data raw ###################################################################
 # googlesheets4::sheet_add() sheet_append() sheet_copy() sheet_delete() sheet_write() sheet_properties() sheet_rename()
@@ -55,12 +56,204 @@ ls()  # global env variables / values in memory ;
 #         skip = 0, na = "", trim_ws = TRUE , n_max = Inf  ,  guess_max = min(1000, n_max),  .name_repair = "unique" )
 
 ########## EM pads supplies data tidy ######################### 
-myfile = "https://raw.githubusercontent.com/ggmtech/pedqam/master/EMPadsAnalysis.R"
-myfile = read_file(myfile) 
-myfile %>% cat()  # also print("$a !! my name is $b and my number is $c")
-knitr::read_chunk('external.R')
+# myfile = "https://raw.githubusercontent.com/ggmtech/pedqam/master/EMPadsAnalysis.R"
+# myfile = read_file(myfile) 
+# myfile %>% cat()  # also print("$a !! my name is $b and my number is $c")
+# knitr::read_chunk('external.R')
 # code chunks:  ``` {r,  code = readLines("external.R")  } 
 # knitr::opts_chunk$set(echo = TRUE, comment=NA )
+
+
+
+
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+# Read EM pads supplies data from curated googlesheets
+
+ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
+EMPadDM  <-  googlesheets4::read_sheet( ss = ss1 ,  sheet = "EMpadDM", col_names = TRUE, trim_ws = TRUE,
+                                        col_types = "cccDdd"  ,  #"cccDcDccdd"  , 
+                                        skip = 0,  na = "") # col_types = "cDDcccildd" 
+                                        # ( Rly	Make	dm_no	DMdate	Qty ValueDM)
+
+
+# Railwaysie make wise supply DM xtable
+EMPadDM  %>%   #View() 
+    #glimpse()
+    dplyr::mutate(  Qty =  as.numeric(Qty) ) %>%  
+    tidyr::pivot_wider( id_cols     = c(Rly ), 
+                        names_sort = FALSE,   names_sep = "_",
+                        names_from  =  Make,   # c( Period ) , 
+                        values_from = Qty ,    values_fill = NULL,
+                        values_fn   = sum    # NULL, mean
+    )       %>%
+    #View()
+    #googlesheets4::sheet_write(ss1, sheet = "RlyMakeDateDM")  
+    kableExtra::kbl( caption = "Railway Make wise supplies", booktabs = T)   %>% 
+    kableExtra::kable_styling(latex_options = c("striped", "hold_position") )
+
+
+###########################
+# Table rough
+
+EMPadDM  %>%  filter(!is.na(Rly)   )  %>% 
+    group_by(Make) %>% 
+    summarise( supp = sum( Qty ), n = n() ) %>% 
+    arrange(desc(supp) ) %>%
+    kableExtra::kbl( caption = "Demo table", booktabs = T) %>% 
+    kableExtra::kable_styling(latex_options = c("striped", "hold_position") )
+
+
+# cross tab
+EMPadDM  %>%  janitor::tabyl(Rly, Make   ) %>%   janitor::adorn_totals(where = "row") %>%   
+    janitor::adorn_totals(where = "col")   %>% 
+    janitor::adorn_title( "total", placement = "top") %>%
+    kableExtra::kbl( caption = "Railway Make wise supplies", booktabs = T) %>% 
+    kableExtra::kable_styling(latex_options = c("striped", "hold_position") )
+
+
+EMPadDM  %>%  filter(!is.na(DMdate))  %>% group_by(DMdate) %>% summarise( supp = sum( Qty ), n = n() )
+
+EMPadDM  %>%  janitor::tabyl(Make)  %>% janitor::adorn_pct_formatting(digits = 2, affix_sign = TRUE)
+
+
+###
+Thistable = "Railway supplies"
+
+EMPadDM  %>%  # View() 
+    # glimpse() 
+    mutate( qtr = lubridate::quarter(DMdate , with_year = TRUE )  ,
+            cyear = year(DMdate)   )  %>%
+    group_by( cyear, qtr, Make) %>%      #, Rly removed to agrigate over Rly
+    summarise(total = sum(Qty) , n= n() ) %>%
+    tibble()   %>%     
+    mutate(cqtr = as.character(qtr) ) %>%  
+    select(cqtr, Make,  total )  %>%   # -> dmqtrwise  # %>%  
+    #View()
+    #googlesheets4::sheet_write(ss1, sheet =  "dmqtrwise")
+    kableExtra::kbl( caption = "Thistable", booktabs = T)   %>% 
+    kableExtra::kable_styling(latex_options = c("striped", "hold_position") )
+
+
+####### Supply details plot 1
+Thisgraph = "EM Pad supplies"
+EMPadDM  %>%  ggplot( aes(x=DMdate, y=Qty)) + 
+    geom_point(aes(size = Qty,  color = Make ,  alpha = Qty)) + 
+    geom_smooth(method="loess", se=F) + 
+    scale_x_date(  limits = as.Date(  c("2016-01-01", "2021-04-01")  )  ) +
+    # xscale()
+    # xlim(c(0, 0.1)) + 
+    ylim(c(0, 5000))  +
+    labs(x = "Date",   y = "EM Pad Supplies ",  title = Thisgraph , subtitle = "as per DM" , 
+         caption = " (Source) RDSO IC and Warrenty portal Year 2016-21 " ) +  theme_minimal()
+
+
+#################################
+options(scipen = 999)
+
+Thisgraph = "Railway wise supplies"
+Thiscaption = "Based on DM issued by RDSO"
+
+options(scipen = 999)
+EMPadDM  %>%  filter(!is.na(Rly)   )  %>% group_by(Rly) %>% summarise( supp = sum( Qty ), n = n() ) %>%
+    #ungroup() %>%
+    arrange( desc(supp) )  %>%
+    ggplot(  ) +   geom_col( aes( x=  fct_inorder( Rly, supp) , y = supp) ) +
+    #facet_wrap(~Rly, rows = 2)  %>%
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+    #facet_grid(cols = vars(Rly) )  +
+    #facet_grid(vars(Rly), vars(Make) )  +
+    coord_flip() + # str_wrap( diamonds$cut, width = 15 )      
+    ylab("Supplies as per DM" ) +
+    xlab("") +
+    labs( title = Thisgraph, caption = Thiscaption          ) +
+    theme_bw() 
+
+
+##### Supply details plot 2
+# also plot # geom_line()
+Thisgraph = "EM Pad supplies2"
+EMPadDM %>%   #filter(  year(DMdate ) == "2019" ) %>%   # less supplies in 2019 check data
+    ggplot() + 
+    geom_point(  aes(x = DMdate, y = Qty,  size = Qty,  color = Make ,  alpha = Qty         )       ) +
+    #geom_col(aes(x = DMdate, y = Qty), width = 0.15,  color = "#09557f", alpha = 0.6, size = 0.6   ) +
+    #geom_jitter(aes(x = DMdate, y = Qty), width = 0.15,  color = "#09557f", alpha = 0.6, size = 0.6) +
+    scale_x_date(  limits = as.Date(  c("2016-01-01", "2021-04-01")  )  ) +
+    #scale_y_continuous( limits = c( 0, 10000)  ) +
+    labs(x = "Date",   y = "EM Pad Supplies ",  title = Thisgraph, subtitle = "as per DM" , 
+         caption = " (Source) RDSO IC and Warrenty portal Year 2016-21 " ) +  theme_minimal()
+
+
+
+
+
+
+
+
+
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+
+# IR clubbed Data only 
+
+# ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
+
+wclaim <- googlesheets4::read_sheet(ss1, sheet = "wclaim" ,  col_names = TRUE,  col_types = "ccd"  , skip = 0, trim_ws = TRUE, na = "")
+wclaim
+wclaim      %>%   #glimpse() 
+    dplyr::group_by( cqtr,  Make)    %>% 
+    summarise(  wqty = sum(wqty) )  -> wqty
+#%>% View() # glimpse()
+
+wqty %>% ungroup() %>% glimpse()
+
+# left_join(x,y,by = NULL,copy = FALSE,suffix = c(".x", ".y"),...,keep = FALSE) #by = c("a" = "b")
+
+dmqtrwise %>% #glimpse()
+    left_join(wqty, by = c( "cqtr" = "cqtr" , "Make" = "Make" ) )   %>% 
+    #count(Make)
+    #glimpse()
+    select(cqtr, Make, total, wqty)               -> DM_vs_Wclaims      
+#    googlesheets4::sheet_write( ss1, sheet = "DM_vs_Wclaims" )
+#DM_vs_Wclaims %>% View()
+DM_vs_Wclaims  %>%  
+    # glimpse()
+    # View()
+    ggplot() + theme_bw() +
+    geom_col(  aes( x = cqtr, y = total, fill = Make) ) + 
+    geom_col(  aes( x = cqtr, y = wqty), fill = "black" ) +
+    facet_wrap(~Make, ncol = 3)  +
+    theme( axis.text.x = element_text(angle = 90) ) +
+    labs(x= "Quarter of Year of supply and warrenty", 
+         y = "EM Pads",
+         title = "EM Pads Quarterwise Supply and Warrenty Claims",
+         subtitle = "Since 2016-17 - Based on Inspections by RDSO and Warrenty Reported in RDSO Portal",
+         caption =  " Source RDSO Portal Data 2016-2021"
+    ) 
+#  (The above data  ) 
+
+
+
+DM_vs_Wclaims %>% pivot_wider( id_cols = cqtr, names_from = c(Make), values_from = c(total, wqty), values_fn = sum ) %>%
+    #View()
+    ggplot(  x= cqtr, y = ) + theme_bw() +
+    geom_bar(position="dodge", stat="identity")
+#geom_col(  aes( x = cqtr, y = total, fill = Make) ) 
+
+DM_vs_Wclaims %>% pivot_longer(         )
+
+
+
+
+
+
+
+
+
 
 
 ss = "https://docs.google.com/spreadsheets/d/1lshFtdQf87ONyGdMHbwDRvRtWPM8B_bRPtuuq67P6xE" ## EM Pads supplies data Google Sheet
