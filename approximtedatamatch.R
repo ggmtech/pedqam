@@ -1,4 +1,29 @@
 
+rm(list = ls())
+if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
+
+packages <- c("tidyverse",   "magrittr",  "here", "lubridate", "anytime",  "googlesheets4", "readxl", "janitor",
+              "DT", "DataExplorer", "inspectdf", "summarytools", "skimr", "here", "devtools", "naniar",
+              "scales",    "coefplot", "cowplot", "drat",
+              "fuzzyjoin",
+              "knitr", "gridExtra","plotly", "timetk", "ggforce", "ggraph", 
+              "survival" , "survminer", "ggpubr","GGally", "ggrepel", "ggridges",
+              "viridis", "viridisLite",  "ggthemes", #"themr",  #  "ggfortify",  "ggfortify", 
+              "magick", "gfx" ,  "prismatic"
+)
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+lapply(packages, library, character.only = TRUE) #%>% invisible()
+
+# Get Data raw ###################################################################
+# googlesheets4::sheet_add() sheet_append() sheet_copy() sheet_delete() sheet_write() sheet_properties() sheet_rename()
+# googlesheets4::read_sheet(ss, sheet = NULL, range = NULL, col_names = TRUE, col_types = NULL, or "cidDl"
+#                          skip = 0, na = "", trim_ws = TRUE, n_max = Inf, guess_max = min(1000, n_max),.name_repair = "unique" )
+# myfile = read_file(myuri) 
+
+library(fuzzyjoin); 
+library(dplyr);
+
 library(googlesheets4)
 
 # using fuzzy join
@@ -8,19 +33,79 @@ a <- data.frame(name = c('Ace Co', 'Bayes', 'asd', 'Bcy', 'Baes', 'Bays'),
 b <- data.frame(name = c('Ace Co.', 'Bayes Inc.', 'asdf'),
                 qty = c(9, 99, 10))
 
-ss1 = "https://docs.google.com/spreadsheets/d/1byFykdwzExDUs5npEygtmd2q3P_KR2o7ZZ0xEkai75k/edit#gid=1869317471"
-sheet1 = "QAMvendors"
-ss2 = " "
-sheet2 = " "
+ss01 = "https://docs.google.com/spreadsheets/d/1byFykdwzExDUs5npEygtmd2q3P_KR2o7ZZ0xEkai75k/edit#gid=1869317471"
 
-QAMallvendors <- googlesheets4::read_sheet(ss1, sheet1, skip = 2, col_names = TRUE, col_types = NULL, trim_ws = TRUE)
-QAMallvendors %>% View()
+ss01 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg" # MASTER VENDOR LIST 2021
+
+sheet_names(ss01)  # see sheets names
+
+sheet1 = "LT3 UVAM"
+sheet2 = "LT3PCDOapr21"
 
 
-library(fuzzyjoin); 
-library(dplyr);
+googlesheets4::read_sheet(ss1, sheet1, skip = 0, col_names = TRUE, col_types = NULL, trim_ws = TRUE) %>%
+janitor::clean_names() -> LT3UVAM
 
-stringdist_join(a, b, 
+LT3UVAM %>% names() #View() "aa_name"  "dept_name"  "sub_directorate_name" "item_id" "item_description""sub_item_id" "vendors" "sub_item_desc""remarks"                         "SUB_ITEM_DESC"        "Remarks"
+
+
+googlesheets4::read_sheet(ss1, sheet2, skip = 0, col_names = TRUE, col_types = NULL, trim_ws = TRUE) %>%
+janitor::clean_names() -> LT3PCDO
+
+LT3PCDO  %>% names() # View()  "sn"   "item_description" "dte"   "vendors"   "reasons"  "remarks"         
+
+
+
+fuzzyjoin::stringdist_join(LT3UVAM,  LT3PCDO, 
+                           by = NULL , #c( item_description = item_description    ),
+                           mode = "left",
+                           ignore_case = FALSE, 
+                           method = "jw", 
+                           max_dist = 99, 
+                           distance_col = "dist") %>%
+ # group_by(`SUB_DIRECTORATE_NAME`) %>%
+  View()
+
+
+LT3UVAM %>% 
+          fuzzyjoin::stringdist_join( LT3PCDO, 
+                           by = c( item_description = "item_description" ),
+                           mode = "left",
+                           ignore_case = FALSE, 
+                           method = "jw", 
+                           max_dist = 99, 
+                           distance_col = "dist") %>%
+   group_by(sub_directorate_name) %>% #View()
+   select(item_description.x, item_description.y, dist ) %>%
+  View()
+
+
+LT3UVAM %>%
+      # inner_join(LT3PCDO, by = c(item_description = item_description)   )
+       stringdist_inner_join(LT3PCDO, by = c(item_description = item_description))
+
+  group_by(name.x) %>%
+  slice_min(order_by = dist, n = 1)
+
+
+
+
+
+fuzzyjoin::stringdist_join(a, b, 
+                           by = "name",
+                           mode = "left",
+                           ignore_case = FALSE, 
+                           method = "jw", 
+                           max_dist = 99, 
+                           distance_col = "dist") %>%
+  group_by(name.x) %>%
+  slice_min(order_by = dist, n = 1)
+
+
+
+
+
+fuzzyjoin::stringdist_join(a, b, 
                 by = "name",
                 mode = "left",
                 ignore_case = FALSE, 
@@ -29,6 +114,9 @@ stringdist_join(a, b,
                 distance_col = "dist") %>%
   group_by(name.x) %>%
   slice_min(order_by = dist, n = 1)
+
+
+
 
 
 
@@ -44,6 +132,8 @@ fuzzy_join(
   mode = "inner",  #  "inner", "left", "right", "full" "semi", or "anti"
   ...
 )
+
+
 
 # or like fuzzy_inner_join(x, y, by = NULL, match_fun, ...)
 
