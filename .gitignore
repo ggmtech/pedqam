@@ -20,3 +20,12 @@
 
 *.bak
 *.log
+
+# system files
+*.pyc
+*.sqlite
+
+
+# Git to not ignore this file by prefixing the file name with a ! i
+!*.R
+!*.Rmd

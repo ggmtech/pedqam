@@ -26,13 +26,13 @@ library(tidyverse)
 
 
 ```{r xaringan-themer, include = FALSE}
-library(xaringanthemer)
-mono_light(
-  base_color = "#1c5253",
-  header_font_google = google_font("Josefin Sans"),
-  text_font_google   = google_font("Montserrat", "300", "300i"),
-  code_font_google   = google_font("Droid Mono")
-)
+# library(xaringanthemer)
+# mono_light(
+#   base_color = "#1c5253",
+#   header_font_google = google_font("Josefin Sans"),
+#   text_font_google   = google_font("Montserrat", "300", "300i"),
+#   code_font_google   = google_font("Droid Mono")
+# )
 ```
 
 background-image: url(https://akm-img-a-in.tosshub.com/indiatoday/images/story/201810/indian-railway_650_020315033408.jpeg?Fuh6JGGRTy0dVPl8FfSKjGMuKgPUzZaK)
