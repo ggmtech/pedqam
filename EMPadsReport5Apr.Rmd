@@ -21,6 +21,7 @@ output:
 
 ```{r setup, include=FALSE, cache=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 #library(rgl)
 #knitr::knit_hooks$set(webgl = hook_webgl)
 ```

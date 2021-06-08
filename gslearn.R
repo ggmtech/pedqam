@@ -1,7 +1,7 @@
-#learn  gs  google sheets in R 
+#learn  gs  google sheets in R
 #https://cran.r-project.org/web/packages/googlesheets/vignettes/basic-usage.html
 ####################################################
-library(googlesheets)
+library(googlesheets4)
 library(tidyverse)
 library(lubridate)
 library(forcats)
@@ -22,86 +22,9 @@ set_values(search, hl = "fr")
 
 
 ###################################################
-gs_auth()                   # authoride googlesheets to access your spreadsheets and google drive
-gs_auth(new_user = TRUE)    # force authorisation anew. else credentials left behind used to refresh.
-gs_user()                   # print and return some information about the current authenticated user and session.
-gs_ls()                     # list the worksheets                                    
-gs_ls("locofail1617")       # list specific file
-gs_ls("locofail1718") 
-
-gs_ls("TKDmaster")
-gstkdh <- gs_ls(ss = "TKDmaster")
-lsd <- gs_read(gstkdh, sheet =1)
-
-
-gs_key()    # Existing gs, First register and store handle with gs_title(), gs_key(), gs_url(), gs_gs()
-
-gs_new()    # Create a new spreadsheet in your Google Drive.
-#      gs_new(title = "my_sheet", ws_title = NULL,          row_extent = NULL, col_extent = NULL, ..., verbose = TRUE)
-foo <- gs_new(        "foo"     , ws = "I know my ABCs"   , input = letters, trim = TRUE)
-boring_ss <- gs_new("boring"    , ws_title = "iris-gs_new", input = head(iris), trim = TRUE, verbose = FALSE)
-boring_ss
-# note better store the gs_key to always refer to the same regisered file, else registration details change with each edit.
-gs_read(foo)
-gs_read(boring_ss)
-gs_delete(foo)
-gs_delete(boring_ss)
-
-#You can copy an entire Sheet with gs_copy() and rename one with gs_rename().
-#gs_copy(from, to = NULL, verbose = TRUE)  #from ss  registered Google spreadsheet
-gap_ss <- gs_copy( gs_gap(),  to = "Gapminder_copy")
-gs_gap()
-?gs_rename()  #gs_rename(ss, to, verbose = TRUE) #ss a registered ss, i.e. a googlesheet object
-gs_ls("foo")
-
-#Use gs_upload() to create a new Sheet de novo from a suitable local file. 
-#converted to gs support: .xls, .xlsx, .csv, .tsv, .txt, .tab, .xlsm, .xlt, .xltx, .xltm, .ods.
-write.csv( head(iris, 5), "iris.csv", row.names = FALSE)
-read.csv(file = "iris.csv", row.names = 1)
-#          gs_upload(file, sheet_title = NULL, verbose = TRUE, overwrite = FALSE)
-iris_ss <- gs_upload("iris.csv")  #sheet_title if not specified, then filename used
-gs_ls()
-iris_ss
-gs_read(iris_ss)
-file.remove("iris.csv")
-gs_delete(iris_ss)
-#Now we’ll upload a multi-sheet Excel workbook. Slowly.
-gap_xlsx <- gs_upload( system.file("mini-gap", "mini-gap.xlsx", package = "googlesheets") )
-
 
 
 ###############################################
-# gs_auth()  gs_auth(new_user = TRUE),
-
-#registration functions gs_title(), gs_key(), gs_url(), and gs_gs() return a registered sheet as a googlesheet object,
-# extract_key_from_url(),
-# gs_browse(ws = "Europe")
-# gs_ws_ls(gap)
-# gap %>% gs_read(ws = "Europe", range = cell_rows(100:103), col_names = FALSE)
-#                               range = cell_limits(  c(1, 4), c(5, NA)  )  # range = cell_cols(1:4))
-
-# New googleshets
-boring_ss <- gs_new("boring", ws_title = "iris-gs_new", input = head(iris), trim = TRUE, verbose = FALSE)
-
-#Add a new worksheet to an existing Google Sheet
-boring_ss <- boring_ss %>% 
-         gs_ws_new(     ws_title = "mtcars-gs_ws_new", input = head(mtcars),  trim = TRUE, verbose = FALSE)
-
-# check with
-boring_ss %>% gs_read(ws = 2)
-# now clean up
-gs_delete(ss)
-
-
-# rename and delete ws
-boring_ss <- boring_ss %>% 
-  gs_ws_delete(ws = 2) %>% 
-  gs_ws_rename(to = "iris")
-
-# add data, create new ws add_row
-foo <- gs_new("foo") %>% 
-  gs_ws_rename(from = "Sheet1", to = "edit_cells") %>% 
-  gs_ws_new("add_row")
 
 ## add first six rows of iris data (and var names) into a blank sheet
 foo <- foo %>%
@@ -109,7 +32,7 @@ foo <- foo %>%
 
 ## initialize sheet with column headers and one row of data
 ## the list feed is picky about this
-foo <- foo %>% 
+foo <- foo %>%
   gs_edit_cells(ws = "add_row", input = head(iris, 1), trim = TRUE)
 
 ## add the next 5 rows of data ... careful not to go too fast, add Sys.sleep(0.3)
@@ -119,10 +42,10 @@ for (i in 2:6) {
 }
 
 ## gs_add_row() can atually handle multiple rows at once
-foo <- foo %>% 
+foo <- foo %>%
   gs_add_row(ws = "add_row", input = tail(iris))
 
-# delete 
+# delete
 gs_delete(foo)
 
 
@@ -165,11 +88,11 @@ file.remove(c("gapminder.xlsx", "gapminder-africa.csv"))
 oceania_csv <- gap %>% gs_read_csv(ws = "Oceania")
 
 # Get the data for worksheet "Oceania": the less-fast tabular way ("list feed")
-oceania_list_feed <- gap %>% gs_read_listfeed(ws = "Oceania") 
+oceania_list_feed <- gap %>% gs_read_listfeed(ws = "Oceania")
 
 
 # Get the data for worksheet "Oceania": the slow cell-by-cell way ("cell feed")
-oceania_cell_feed <- gap %>% gs_read_cellfeed(ws = "Oceania") 
+oceania_cell_feed <- gap %>% gs_read_cellfeed(ws = "Oceania")
 
 # gs_reshape_cellfeed(), makes a 2D thing, i.e. a data frame
 # gs_simplify_cellfeed() makes a 1D thing, i.e. a vector
@@ -198,13 +121,13 @@ df$thing2[1] <- "*"
 
 #new sheet for data ingest practice, with input df
 
-ss <- gs_new("data-ingest-practice", ws_title = "simple",   input = df, trim = TRUE) %>% 
-  gs_ws_new("one-blank-row", input = df, trim = TRUE, anchor = "A2") %>% 
+ss <- gs_new("data-ingest-practice", ws_title = "simple",   input = df, trim = TRUE) %>%
+  gs_ws_new("one-blank-row", input = df, trim = TRUE, anchor = "A2") %>%
   gs_ws_new("two-blank-rows", input = df, trim = TRUE, anchor = "A3")
 
 # ss is google handle
 
-# the above made the new sheet with 3 ws 
+# the above made the new sheet with 3 ws
 # check to read with assigned col names
 ss %>% gs_read(col_names = letters[1:3], skip = 1)
 ss     ## ss is google handle
@@ -263,7 +186,7 @@ ss %>% gs_read_listfeed(ws = "two-blank-rows", skip = 2)
 inner_join(superheroes, publishers)    # All colums of x, y   but of rows of x having matchings in Y
 inner_join(publishers, superheroes)
 
-semi_join(superheroes, publishers)     # Only columns from x,  and filtred x  also in y, and unrepeated 
+semi_join(superheroes, publishers)     # Only columns from x,  and filtred x  also in y, and unrepeated
 semi_join(publishers, superheroes)
 
 anti_join(superheroes, publishers)     # Only columns from x,  and rows data which are not in y
@@ -277,17 +200,17 @@ full_join(superheroes, publishers)     # all combinaitons
 
 
 #Its common to want to know if one data set is the same as another dataset
-# dplyr’s setequal ; 
+# dplyr’s setequal ;
 # base R’s identical true if the datasets  exact same rows in the exact same order
 
 #  Mutating Joins:   left_join, right_join, inner_join, full_join
 # Filtering Joins:   semi_join, anti_join
 
-#Set Operations:   
-union() 
-intersect() 
+#Set Operations:
+union()
+intersect()
 setdiff()   # miinus sets
-setequal()  #Comparisions: 
+setequal()  #Comparisions:
 
 #If the datasets have the same columns and all are used in the key, then intersect is analagous to semi_join
 #In the same scenario setdiff is similar to anti_join
@@ -296,35 +219,35 @@ setequal()  #Comparisions:
 # Check if any order: definitive and union of complete and soundtrack
 union(complete, soundtrack) %>%    setequal(definitive)   # true
 
-#Assembling data  : # Binds   
+#Assembling data  : # Binds
 # Base R binds:  rbind, cbind
 # dplyr  binds:  bind_rows, bind_cols       # faster, tibble , handle lists of dataframes
 
 
 
-##################################################### 
+#####################################################
 # Read existing ss files
 lf16link <- gs_title("locofail1617")      # register it and store gs as locofail1718
 lf17link <- gs_title("locofail1718")      # register it and store gs as locofail1718
 
-# registration  gs_title(), gs_key(), gs_url(), and gs_gs()  registers 
+# registration  gs_title(), gs_key(), gs_url(), and gs_gs()  registers
 # extract_key_from_url(URL), gs_key(URL),  gs_url(),  gs_url(GAP_URL)
 
-gs_ws_ls(lf16link)      # ls  worksheets names with handle 
-gs_ws_ls(lf17link)      # ls  worksheets names with handle  
+gs_ws_ls(lf16link)      # ls  worksheets names with handle
+gs_ws_ls(lf17link)      # ls  worksheets names with handle
 # Visit a Google Sheet in the browser
 gs_browse(ss = lf16link, ws = "setout1617" )  # or  gs_browse(ws = 1)
-#browse the worksheet as 
+#browse the worksheet as
 lf17  %>% gs_browse(ws = "locodata")    # or locos %>% gs_browse(ws = 1)
-lf17  %>% gs_browse(ws =     2     )    # default is ws = 1 
+lf17  %>% gs_browse(ws =     2     )    # default is ws = 1
 
 data() # preexisting datas in the various packages
 # gs_download gs to xlsx, csv or pdf to your computer folder
 # gs_download(from, ws = NULL, to = NULL, overwrite = FALSE, verbose = TRUE)
 # from = gs object, ws = int or wsname, to = path to write with ext = xlsx[default], csv, pdf
 
-gs_title("locofail1617") %>%  
-  gs_download(ws = "setout1617", to = "testupload.csv",  overwrite = FALSE, verbose = TRUE) 
+gs_title("locofail1617") %>%
+  gs_download(ws = "setout1617", to = "testupload.csv",  overwrite = FALSE, verbose = TRUE)
 
 read.csv("testupload.csv") %>% glimpse()   # check from your folder
 
@@ -343,7 +266,7 @@ lf17link <- gs_title("locofail1718")      # register it and store gs as locofail
 #gs_read() reads actual data of worksheet and returns a data frame
 lf16 <-  gs_read(ss = lf16link,  ws = "setout1617" , skip = 1, col_names = TRUE)
 lf17 <-  gs_read(ss = lf17link, ws = "Setouts 2017-18",  skip = 1, col_names = TRUE)
-# range =  "A1:D8" or range = cell_rows(1:1000), or cell_cols(1:4) or cell_limits(  c(1, 4),  c(5, NA)  ) 
+# range =  "A1:D8" or range = cell_rows(1:1000), or cell_cols(1:4) or cell_limits(  c(1, 4),  c(5, NA)  )
 
 
 lf16
@@ -387,20 +310,20 @@ boring_ss <- gs_new("boring", ws_title = "iris-gs_new", input = head(iris), trim
 boring_ss
 boring_ss %>% gs_read()
 
-#Add a new worksheet to an existing Google Sheet with  gs_ws_new() 
+#Add a new worksheet to an existing Google Sheet with  gs_ws_new()
 
 #Use gs_ws_new() to add some mtcars data as a second worksheet to boring_ss.
 boring_ss <- boring_ss %>% gs_ws_new(ws_title = "mtcars-gs_ws_new", input = head(mtcars), trim = TRUE, verbose = FALSE)
 boring_ss %>% gs_read(ws = 2)
 
-#Rename or delete worksheets We use gs_ws_delete() and gs_ws_rename() 
+#Rename or delete worksheets We use gs_ws_delete() and gs_ws_rename()
 boring_ss <- boring_ss %>%  gs_ws_delete(ws = 2) %>%  gs_ws_rename(to = "iris")
 
 #Edit cells : There are two ways to edit cells within an existing worksheet of an existing spreadsheet:
 gs_edit_cells()     #can write into an arbitrary cell rectangle
 gs_add_row()        #can add a new row to the bottom of an existing cell rectangle
 
-# gs_upload() 
+# gs_upload()
 gs_add_row()    #is faster,
 
 
@@ -440,7 +363,7 @@ gs_browse(foo, ws = "edit_cells")
 gs_browse(foo, ws = "add_row")
 
 
-#Read the function documentation for gs_edit_cells() for how to specify where the data goes, 
+#Read the function documentation for gs_edit_cells() for how to specify where the data goes,
 # via an anchor cell, and in which direction, via the shape of the input or the byrow = argument.
 
 gs_delete(foo)             # gs_grepdel() and gs_vecdel() deletion of multiple sheets.
@@ -448,7 +371,7 @@ gs_delete(boring_ss)
 gs_ls()
 
 # make gs from local excel file
-#Use gs_upload() to create a new Sheet de novo from a suitable local file. 
+#Use gs_upload() to create a new Sheet de novo from a suitable local file.
 #First, we’ll write then upload a comma-delimited excerpt from the iris data.
 
 iris %>%  head(5) %>%  write.csv("iris.csv", row.names = FALSE)
@@ -479,8 +402,8 @@ file.remove(c("gapminder.xlsx", "gapminder-africa.csv"))
 
 # using data from google sheets
 # gs_read_csv(), gs_read_listfee(), gs_read_cellfeed() all works , fast to slow, less to more versitile
-gs_read_csv()       
-gs_read_listfeed()  #Gets data  “list feed” row-by-row, slow but supports filtering and sorting. 
+gs_read_csv()
+gs_read_listfeed()  #Gets data  “list feed” row-by-row, slow but supports filtering and sorting.
 gs_read_cellfeed()  #filter arbitrary cells, rows, columns, and regions of the sheet
 #  gs_read() invokes gs_read_cellfeed() whenever the range = non-NULL or literal = FALSE
 # all are same but speed gets slower
@@ -513,8 +436,8 @@ gap_1col <- gap %>% gs_read_cellfeed("Europe", range = cell_cols(3))
 # drop the `year` variable name, convert to integer, return un-named vector
 yr <- gap_1col %>% gs_simplify_cellfeed(notation = "none")
 
-#googlesheets provides control of data ingest in the style of readr. 
-#Some arguments are passed straight through to readr::read_csv() or readr::type_convert() 
+#googlesheets provides control of data ingest in the style of readr.
+#Some arguments are passed straight through to readr::read_csv() or readr::type_convert()
 # and others are used internally by googlesheets
 #Which cells?  gs_read(), which calls gs_read_cellfeed(), which can also be called directly.
 #skip skips rows, from the top only -  Available in all read functions.
@@ -558,8 +481,8 @@ ss %>% gs_read_listfeed(ws = "two-blank-rows", skip = 2)
 
 
 ss <- gs_new("data-ingest-practice", ws_title = "simple",
-             input = df, trim = TRUE) %>% 
-gs_ws_new("one-blank-row", input = df, trim = TRUE, anchor = "A2") %>% 
+             input = df, trim = TRUE) %>%
+gs_ws_new("one-blank-row", input = df, trim = TRUE, anchor = "A2") %>%
 gs_ws_new("two-blank-rows", input = df, trim = TRUE, anchor = "A3")
 
 ## will use gs_read_csv
@@ -610,7 +533,7 @@ ss %>% gs_read_listfeed(ws = "two-blank-rows", skip = 2)
 
 gs_delete(ss)
 
-gs_auth() 
+gs_auth()
 gs_auth(new_user = TRUE)  # to force the process to begin anew
 
 user_session_info <- gs_user()
@@ -656,11 +579,11 @@ msleep %>%
 msleep %>%
   select(name:vore) %>%
   add_count(vore)
-#If you just want to know the number of observations count() does the job, 
+#If you just want to know the number of observations count() does the job,
 # but to produce summaries of the average, sum, standard deviation, minimum, maximum of the data, we need summarise()
 
 #To use the function you just add your new column name, and after the equal sign the mathematics
-# of what needs to happen: column_name = function(variable). 
+# of what needs to happen: column_name = function(variable).
 #You can add multiple summary functions behind each other.
 
 msleep %>%
@@ -676,7 +599,7 @@ n_distinct(var) #- gives the numbers of unique values of var
 
 msleep %>%  group_by(vore) %>%   summarise(avg_sleep_day = mean(sleep_total)/24)
 
-#like filter, select and mutate functions, summarise() comes with three additional functions 
+#like filter, select and mutate functions, summarise() comes with three additional functions
 #for doing things to multiple columns in one go:
 #  summarise_all() will summarise all columns based on your further instructions
 # summarise_if() requires a function that returns a boolean. If that is true, the summary instructions will be followed
@@ -690,7 +613,7 @@ msleep %>%
 
 #you can either make a function upfront, or make a function on the fly.
 #The sample code will add 5 to the mean of each column.
-#The function on the fly can be made by either using funs(mean(., na.rm = TRUE) + 5), 
+#The function on the fly can be made by either using funs(mean(., na.rm = TRUE) + 5),
 #or via a tilde: ~mean(., na.rm = TRUE) + 5.
 
 msleep %>%
@@ -711,13 +634,13 @@ msleep %>%
   rename_if(is.numeric, ~paste0("avg_", .))
 
 
-#The sample code below will return the average of all columns which contain the word ‘sleep’, 
+#The sample code below will return the average of all columns which contain the word ‘sleep’,
 #and also rename them to “avg_var” for clarity.
 msleep %>%
   group_by(vore) %>%
   summarise_at(vars(contains("sleep")), mean, na.rm=TRUE) %>%
   rename_at(vars(contains("sleep")), ~paste0("avg_", .))
-  
+
   arrange(desc(avg_sleep))
 
 # for grouped
@@ -760,12 +683,12 @@ boring_ss   %>%   gs_read()
 
 # Add a new worksheet to an existing Google Sheet : gs_ws_new() to add some mtcars data as a second worksheet to boring_ss.
 
-boring_ss <- boring_ss %>% 
+boring_ss <- boring_ss %>%
   gs_ws_new(ws_title = "mtcars-gs_ws_new", input = head(mtcars), trim = TRUE, verbose = FALSE)
 
 boring_ss %>% gs_read(ws = 2)
 
-# Rename  gs_ws_rename()   or delete worksheets  gs_ws_delete() 
+# Rename  gs_ws_rename()   or delete worksheets  gs_ws_delete()
 
 boring_ss <- boring_ss %>%  gs_ws_delete(ws = 2)  %>%  gs_ws_rename(to = "iris")
 
@@ -773,12 +696,12 @@ boring_ss
 
 # gs_edit_cells() can write into an arbitrary cell rectangle
 # gs_add_row() can add a new row to the bottom of an existing cell rectangle
-# both are slow  better use gs_upload() 
+# both are slow  better use gs_upload()
 
 #We create a new Sheet, foo, and set up some well-named empty worksheets to practice with.
 
-foo <- gs_new("foo") %>% 
-  gs_ws_rename(from = "Sheet1", to = "edit_cells") %>% 
+foo <- gs_new("foo") %>%
+  gs_ws_rename(from = "Sheet1", to = "edit_cells") %>%
   gs_ws_new("add_row")
 
 foo
@@ -790,7 +713,7 @@ foo <-  gs_edit_cells(ss = foo, ws = "edit_cells", input = head(iris), trim = TR
 
 ## initialize sheet with column headers and one row of data
 ## the list feed is picky about this
-foo <- foo %>% 
+foo <- foo %>%
   gs_edit_cells(ws = "add_row", input = head(iris, 1), trim = TRUE)
 
 
@@ -860,7 +783,7 @@ gs_vecdel(c("iris", "mini-gap"))
 ## gs_delete(gap_xlsx)
 
 #Use gs_download() to download a Google Sheet as a csv, pdf, or xlsx file.
-# gs_download() to download a Google Sheet as a csv, pdf, or xlsx file. 
+# gs_download() to download a Google Sheet as a csv, pdf, or xlsx file.
 # Downloading the spreadsheet as a csv file has default first worksheet  unless another worksheet is specified.
 
 gs_ws_ls(locofail1718)
@@ -886,12 +809,12 @@ file.remove(c("gapminder.xlsx", "gapminder-africa.csv"))   # remove files from y
 gs_read_csv()          # faster, when data ractanguler and gets tbl_df / data.frame. Also gs_read_listfeed()
 gs_read_listfeed()     # Gets data via the “list feed”, when you work data row-by-row.
 # for ractanguler data but supports some query parameters for sorting and filtering
-gs_read_cellfeed()     # Get data via “cell feed” when you work data cell-by-cell. 
-# you need arbitrary cells, rows, columns, and regions  
-# or when you want to get formulas or cell contents without numeric formatting applied, e.g. rounding. 
+gs_read_cellfeed()     # Get data via “cell feed” when you work data cell-by-cell.
+# you need arbitrary cells, rows, columns, and regions
+# or when you want to get formulas or cell contents without numeric formatting applied, e.g. rounding.
 # invoked by gs_read() whenever range = argument is non-NULL or literal = FALSE.
-# returns tbl_df with one row per cell. 
-# You can target specific cells via the range argument. 
+# returns tbl_df with one row per cell.
+# You can target specific cells via the range argument.
 # see demos for gs_reshape_cellfeed() and gs_simplify_cellfeed() which help with post-processing.
 
 
@@ -901,16 +824,16 @@ HHPsyscsv
 
 
 # using list feed
-HHPsyscsv2 <- gs_title("locofail1718") %>% gs_read_listfeed(ws = "HHP system wise") 
+HHPsyscsv2 <- gs_title("locofail1718") %>% gs_read_listfeed(ws = "HHP system wise")
 
 lf17gslink <- gs_title("locofail1718")    # better
 
-HHPsyscsv2 <- lf17gslink %>% gs_read_listfeed(ws = "HHP system wise") 
+HHPsyscsv2 <- lf17gslink %>% gs_read_listfeed(ws = "HHP system wise")
 HHPsyscsv2
 
 # using cell feed
 
-HHPsys_cell_feed <-lf17gslink %>% gs_read_cellfeed(ws = "HHP system wise") 
+HHPsys_cell_feed <-lf17gslink %>% gs_read_cellfeed(ws = "HHP system wise")
 
 HHPsys_cell_feed        # A tibble: 1,665 x 7
 
@@ -948,8 +871,8 @@ lf2simply
 
 # learning from http://www.rpubs.com/williamsurles/293454
 
-#inner_join(x, y): 
-#Return all rows from x where there are matching values in y, and all columns from x and y. 
+#inner_join(x, y):
+#Return all rows from x where there are matching values in y, and all columns from x and y.
 #If there are multiple matches between x and y, all combination of the matches are returned. This is a mutating join.
 
 #semi_join(x, y): Return all rows from x where there are matching values in y, keeping just columns from x.
@@ -963,15 +886,15 @@ lf2simply
 
 #anti_join(x, y): Return all rows from x where there are not matching values in y, keeping just columns from x. This is a filtering join.
 
-#inner_join(x, y): Return all rows from x where there are matching values in y, and all columns from x and y. 
+#inner_join(x, y): Return all rows from x where there are matching values in y, and all columns from x and y.
 # If there are multiple matches between x and y, all combination of the matches are returned. This is a mutating join.
 
 
-# semi_join(x, y): Return all rows from x where there are matching values in y, keeping just columns from x. 
-#A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, 
+# semi_join(x, y): Return all rows from x where there are matching values in y, keeping just columns from x.
+#A semi join differs from an inner join because an inner join will return one row of x for each matching row of y,
 #where a semi join will never duplicate rows of x. This is a filtering join.
 
-#left_join(x, y): Return all rows from x, and all columns from x and y. 
+#left_join(x, y): Return all rows from x, and all columns from x and y.
 #If there are multiple matches between x and y, all combination of the matches are returned. This is a mutating join.
 
 
@@ -990,15 +913,15 @@ lf2simply
 flights2 %>% left_join(weather)
 
 
-#A character vector, by = "x". Like a natural join, but uses only some of the common variables. 
+#A character vector, by = "x". Like a natural join, but uses only some of the common variables.
 #For example, flights and planes have year columns, but they mean different things so we only want to join by tailnum.
 
 flights2 %>% left_join(planes, by = "tailnum")
 
-#A named character vector: by = c("x" = "a"). This will match variable x in table x to variable a in table b. 
+#A named character vector: by = c("x" = "a"). This will match variable x in table x to variable a in table b.
 #The variables from use will be used in the output.
 #Each flight has an origin and destination airport, so we need to specify which one we want to join to:
-  
+
 flights2 %>% left_join(airports, c("dest" = "faa"))
 
 
@@ -1061,12 +984,12 @@ wday(datetime)  #> [1] 6
 
 #month() and wday() ,  set label = TRUE for abbreviated name. Set abbr = FALSE to return the full name.
 
-flights_dt %>%  mutate(minute = minute(dep_time)) %>% 
-  group_by(minute) %>%  summarise(avg_delay = mean(arr_delay, na.rm = TRUE),n = n()) %>% 
+flights_dt %>%  mutate(minute = minute(dep_time)) %>%
+  group_by(minute) %>%  summarise(avg_delay = mean(arr_delay, na.rm = TRUE),n = n()) %>%
   ggplot(aes(minute, avg_delay)) + geom_line()
 
 summarise(  avg_delay = mean(  arr_delay, na.rm = TRUE ),   n = n()   )
-  
+
 # floor_date(), round_date(), and ceiling_date()  #floor_date(dep_time, "week")
 
 (datetime <- ymd_hms("2016-07-08 12:34:56"))
@@ -1143,24 +1066,24 @@ artists %>%   semi_join(songs, by = c("first", "last"))
 
 
 # Create the same result
-artists %>% 
-  right_join(songs, by = c("first", "last")) %>% 
-  filter(!is.na(instrument)) %>% 
+artists %>%
+  right_join(songs, by = c("first", "last")) %>%
+  filter(!is.na(instrument)) %>%
   select(first, last, instrument)
 
 #Exploring with semi-joins
 # Collect the albums made by a band
-albums %>%     
-  semi_join(bands, by = "band") %>% 
+albums %>%
+  semi_join(bands, by = "band") %>%
   nrow()  # Count the albums made by a band
 
 ## With semi-join
-tracks %>% 
+tracks %>%
   semi_join(matches,by = c("band", "year", "first"))
 
 
 # With dply filter statement
-tracks %>% 
+tracks %>%
   filter( (band == "The Beatles" & year == 1964 & first == "Paul") |
           (band == "The Beatles" & year == 1965 & first == "John") |
           (band == "Simon and Garfunkel" & year == 1966 & first == "Paul")      )
@@ -1171,22 +1094,22 @@ tracks %>%
 artists %>% anti_join(bands, by = c("first","last"))
 
 
-labels %>% 
+labels %>%
   anti_join(albums, by = c("album"))
 
 
 # Check your understanding
-songs %>% 
+songs %>%
   # Find the rows of songs that match a row in labels
-  semi_join(labels, by = c("album")) %>% 
+  semi_join(labels, by = c("album")) %>%
   # Number of matches between labels and songs
   nrow()
 
 ## set operations
 
-aerosmith %>% 
+aerosmith %>%
   # Create the new dataset using a set operation
-  union(greatest_hits) %>% 
+  union(greatest_hits) %>%
   # Count the total number of songs
   nrow()
 
@@ -1195,7 +1118,7 @@ aerosmith %>%
 aerosmith %>%   intersect(greatest_hits)
 
 
-#Live! Bootleg songs Which songs are on Live! Bootleg but not on Greatest Hits? 
+#Live! Bootleg songs Which songs are on Live! Bootleg but not on Greatest Hits?
 # Notice that the length of songs may be different when they are performed live.
 # Select the song names from live
 live_songs <- live %>%   select(song)
@@ -1209,7 +1132,7 @@ live_songs %>%   setdiff(greatest_songs)
 
 #Multiple operations: Which songs appear on one of Live! Bootleg or Greatest Hits, but not both?
 # Select songs from live and greatest_hits
-live_songs <- live %>% select(song) 
+live_songs <- live %>% select(song)
 greatest_songs <- greatest_hits %>% select(song)
 
 # Return the songs that only exist in one dataset
@@ -1225,7 +1148,7 @@ one_songs
 #Recap:
 #  Mutating Joins:
 # left_join, right_join, inner_join, full_join
-# Filtering Joins:    semi_join, anti_join, 
+# Filtering Joins:    semi_join, anti_join,
 
 #Set Operations:    union, intersect, setdiff, Comparisions
 # setequal
@@ -1264,7 +1187,7 @@ union(complete, soundtrack) %>%   setequal(definitive)
 # dplyr binds  : bind_rows, bind_cols
 
 
-#Advantages of dplyr versions : faster, return a tibble 
+#Advantages of dplyr versions : faster, return a tibble
 # .id argument in bind_rows allows you to pass in a name for each source dataframe
 # rbind return an error if the column names do not match exactly.
 # bind_rows will create a column for each unique column and distribute NAs appropriately
@@ -1276,15 +1199,15 @@ union(complete, soundtrack) %>%   setequal(definitive)
 two_songs %>% filter(!is.na(movie)) %>% inner_join(singers, by = "movie")
 
 
-#elvis_movies %>% 
+#elvis_movies %>%
 # Left join elvis_songs to elvis_movies by this column
-left_join(elvis_songs, by = c("name" = "movie")) %>% 
+left_join(elvis_songs, by = c("name" = "movie")) %>%
   # Rename columns
   rename(movie = name, song = name.y)
 
-#movie_years %>% 
+#movie_years %>%
 # Left join movie_directors to movie_years
-left_join(movie_directors, by = c("movie" = "name")) %>% 
+left_join(movie_directors, by = c("movie" = "name")) %>%
   # Arrange the columns using select()
   select(year, movie, artist = name, director, studio)
 
@@ -1299,7 +1222,7 @@ left_join(movie_directors, by = c("movie" = "name")) %>%
 library(purrr)
 
 # Place supergroups, more_bands, and more_artists into a list
-list(supergroups, more_bands, more_artists) %>% 
+list(supergroups, more_bands, more_artists) %>%
   # Use reduce to join together the contents of the list
   reduce(left_join, by = c("first" = "first","last" = "last"))
 
@@ -1320,7 +1243,7 @@ discount_data_df %>%
 #This is actually easy to address, again, thanks to complete function.
 
 # Add Product, it fill all combinations of prodect
-complete(Date = seq.Date(min(Date), max(Date), by="day"), Product) 
+complete(Date = seq.Date(min(Date), max(Date), by="day"), Product)
 # use fill function
 discount_data_df %>%
   mutate(Date = as.Date(Date)) %>%
@@ -1336,7 +1259,7 @@ discount_data_df %>%
   group_by(Product) %>%
   fill(`Discount Rate`)
 
-#forcats::fct_reorder(). It will basically sort the factors specified in the 1st arg, according to the values in the 2nd arg after applying a specified function 
+#forcats::fct_reorder(). It will basically sort the factors specified in the 1st arg, according to the values in the 2nd arg after applying a specified function
 
 theTable <- data.frame(
   Position = c("Zoalkeeper", "Zoalkeeper", "Defense", "Defense", "Defense", "Striker"),
@@ -1346,4 +1269,4 @@ p1 <- ggplot(theTable, aes(x = Position)) + geom_bar()
 p2 <- ggplot(theTable, aes(x = fct_infreq(Position))) + geom_bar()
 p3 <- ggplot(theTable, aes(x = fct_rev(fct_infreq(Position)))) + geom_bar()
 
-gridExtra::grid.arrange(p1, p2, p3, nrow=3) 
+gridExtra::grid.arrange(p1, p2, p3, nrow=3)

@@ -30,6 +30,23 @@ library(tidyverse)
 library(officedown)
 library(ggplot2)
 library(rvg)
+
+knitr::opts_chunk$set(echo = FALSE, 
+                      collapse = TRUE,
+                      comment = "#>",
+                      fig.path = "graphics/knitr-",
+                      fig.retina = 2, # Control using dpi
+                      fig.width = 6,  # generated images
+                      #fig.asp=0.7
+                      fig.pos = "t",  # pdf mode
+                      fig.align = "center",
+                      dpi = if (knitr::is_latex_output()) 72 else 300, 
+                      out.width = "100%",
+                      dev = "svg",
+                      dev.args = list(png = list(type = "cairo-png")),
+                      optipng = "-o1 -quiet")
+# collapse = TRUE, collapse all source/output blocks from multiple chunk into a single block
+# comment = "#>": pre-pend result with #>. Default is ##
 #r setup, include=FALSE,  echo=FALSE, message = FALSE, warning=TRUE, error= TRUE, tidy=FALSE, cache=TRUE}
 #knitr::opts_chunk$set(echo = FALSE) #verbose = TRUE
 #knitr::opts_chunk$set(echo = FALSE, comment = '', fig.width = 6, fig.height = 6,  fig.cap = TRUE, message=FALSE, warning=FALSE, cache=TRUE, dev.args=list(bg=grey(0.9), pointsize=11))

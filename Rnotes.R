@@ -1,3 +1,138 @@
+tinytex::reinstall_tinytex()
+
+rmarkdown::draft("gkpaper.Rmd", template = "arxiv", package = "rticles")
+tar_load(something) # if something is a ggplot object, then this plot will appear on that spot in the paper
+
+install.packages("comparator")
+# install.packages("devtools")
+devtools::install_github("ngmarchant/comparator")
+
+# Levenshtein(): Levenshtein distance/similarity
+# DamerauLevenshtein() Damerau-Levenshtein distance/similarity
+# Hamming(): Hamming distance/similarity
+# OSA(): Optimal String Alignment distance/similarity
+# LCS(): Longest Common Subsequence distance/similarity
+# Jaro(): Jaro distance/similarity
+# JaroWinkler(): Jaro-Winkler distance/similarity
+
+# InVocabulary(): Compares strings using a reference vocabulary. Useful for comparing names.
+# Lookup(): Retrieves distances/similarities from a lookup table
+# BinaryComp(): Compares strings based on whether they agree/disagree exactly.
+# Numeric comparators:
+# Euclidean(): Euclidean (L-2) distance
+# Manhattan(): Manhattan (L-1) distance
+# Chebyshev(): Chebyshev (L-∞) distance
+# Minkowski(): Minkowski (L-p) distance
+
+library(ggraph)
+library(tidyquant)
+library(shiny)
+
+library(caret)
+
+#install.packages("e1071")
+library(e1071) # clustering, Fourier Transform, Naive Bayes, SVM, and other types of modeling 
+library(plotly)
+
+library(mlr3)
+
+library(xgboost)
+
+library(xml) 
+
+# RMySQL, RPostgresSQL, RSQLite
+#car# – For making type II and type III ANOVA tables.
+#httr# – For working with HTTP connections
+
+
+
+
+data6<-msleep %>% select(name, sleep_total) %>%  filter(name %in% c("Cow","Dog","Goat"))
+data7<-msleep %>%
+  select(name, sleep_total) %>%
+  filter(between(sleep_total,16,18))
+
+#KNN Algorithm Machine Learning » Classification & Regression »
+
+data8<-msleep %>%
+  select(name, sleep_total) %>%
+  filter(near(sleep_total,17, tol=0.5))
+
+
+###### 
+# sqldf
+library(dplyr)
+library(sqldf)
+
+iris <- iris
+# In base R:
+iris[iris$Sepal.Width >= 3.0,]$Sepal.Width
+# using dplyr:
+  iris %>%
+  select(Sepal.Width) %>%
+  filter(Sepal.Width>=3.0)
+
+# using sqldf:
+  
+sqldf("select [Sepal.Width] from iris
+       where
+      [Sepal.Width]  >= 3.0"  )  # no \n space?
+
+
+# 𝜇 $\mu$    𝛼$\alpha$    𝛽 $\beta$  𝛾$\gamma$    𝜏 $\tau$    𝜎 $\sigma$   
+
+𝐻0 $H_0$    𝑌𝑖𝑗 $Y_{ij}$ 
+𝜎2 $\sigma^2$ 
+𝑌̂$\hat{Y}$ $\bar{Y}$ $\hat{f}_i$ 
+≥ $\ge$    ≤ $\le$    ≠  $\neq$   ∑ $\sum{}$     △ $\triangle{}$   9‾√  $\sqrt{9}$
+$\frac{3}{4}$
+
+install.packages("rmarkdown") # version 2.7 is on CRAN.
+# Files with .sass or .scss extension provided to html_document’s css parameter are now compiled to CSS using the sass package (thanks, [@cpsievert]
+# Pandoc’s bracketed Spans:  This is a [color]{.my-color} word.
+# To apply CSS to longer text, you can create divs using Pandoc’s fenced Div blocks:
+::: {.my-color}
+All of these words are colored.
+:::
+  
+## Using Sass to style an html_document: use the SCSS syntax. 
+---
+  output:
+  html_document:
+  css: custom.scss # update this css to scss !
+---
+  
+#Just like CSS, SCSS uses semi-colons and curly braces. The main difference is that we’ll use the $ symbol to make something a variable:
+$green: #212D2C;
+$sky: #A9FDFF;
+.my-color {
+    background-color: $green;
+    color: $sky;
+    padding: 1em;
+}
+
+#We apply the style in the exact same way as before:
+This is a [color]{.my-color} word.
+
+# Also for LaTeX environments by adding a special attribute.
+::: {.verbatim latex=true}
+We show some _verbatim_ text here.
+:::
+
+
+
+
+  
+install.packages("pagedown")   # paginate HTML output with CSS print and paged.js.
+
+/* reset page numbering for main content */
+  .main .level1:first-child h1 {
+    counter-reset: page 1;
+  }
+
+
+
+
 # for final presentation of EM pads ##########################
 # git config --list  #  git config --global user.email "ggmtech@yahoo.co.in" # git help fn
 # git init  or git clone url/ remotedir.git ./gk/dr2/ # rm -rf .git # git status #  .gitignore #git  add -A or file # git reset #
@@ -9,6 +144,57 @@
 # git branch nme # git checkout nme  # git push -u nmed
 
 
+###############
+# XLConnect allows for reading, writing and manipulating Microsoft Excel files from within R.
+# Reading & writing of named ranges (via data.frames)
+# • Creating, removing, renaming and cloning worksheets
+# • Adding graphics
+# • Specifying cellstyles: data formats, borders, back- and foreground fill color, fill pattern, text
+# wrapping
+# • Controlling sheet visibility
+# • Defining column width and row height
+# • Merging/unmerging cells
+# • Setting/getting cell formulas
+# • Defining formula recalculation behavior (when workbooks are opened)
+# • Setting auto-filters
+# • Style actions: controlling application of cell styles when writing (e.g. when using templates)
+# • Defining behavior when error cells are encountered
+# install.packages("XLConnect")
+library(XLConnect)
+help(functionName)
+data <- readWorksheetFromFile(file, sheet, ...)
+writeWorksheetToFile(file, data, sheet, ...)
+# Reading/writing named regions
+data <- readNamedRegionFromFile(file, name, ...)
+writeNamedRegionToFile(file, data, name, ...)
+#Reading/writing workbooks  multiple times
+wb <- loadWorkbook(file)
+data1 <- readWorksheet(wb, sheet1, ...)
+data2 <- readWorksheet(wb, sheet2, ...)
+wb <- loadWorkbook(file)
+createSheet(wb, sheet1)
+writeWorksheet(wb, data1, sheet1, ...)
+saveWorkbook(wb)
+wb <- loadWorkbook(file)
+data1 <- readNamedRegion(wb, name1, ...)
+data2 <- readNamedRegion(wb, name2, ...)
+wb <- loadWorkbook(file)
+createName(wb, name1, ...)
+writeNamedRegion(wb, data1, name1, ...)
+saveWorkbook(wb)
+# https://mirai-solutions.ch, https://github.com/miraisolutions/xlconnect
+
+
+
+#######33
+# Function and pipe
+triple <- function(x) x * 3 
+triple <- \(x) x * 3    # in R 4.1.0 you can use the more concise syntax
+# Pipes
+triple(4)
+4 %>% triple
+4 ->.; triple(.)  # base R
+4 |> triple()  
 #################
 #  d[rep(seq_len(nrow(d )),     n   ), ]
 # df[rep(seq_len(nrow(df)), each = 2), ]

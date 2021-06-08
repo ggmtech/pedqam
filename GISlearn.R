@@ -44,6 +44,29 @@ library(naniar)
 gg_miss_var(task$data(), show_pct = TRUE)
 
 #########
+# Installing spatial R packages on Ubuntu Robin Lovelace 30 March 2020
+# installing gis in ubuntu
+
+# sudo add-apt-repository ppa:marutter/rrutter3.5 # add a repository that ships the latest version of R:
+# sudo apt update  # update the repositories so the software can be found:
+# sudo apt install libudunits2-dev libgdal-dev libgeos-dev libproj-dev libfontconfig1-dev # install system dependencies:
+# sudo apt install r-base-dev r-cran-sf r-cran-raster r-cran-rjava # binary versions of key R packages:
+
+library(sf)
+#> Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
+install.packages("tmap")
+update.packages()
+
+#sudo apt-get update # see if things have changed
+# sudo apt upgrade # install changes
+# sudo docker run -it robinlovelace/geocompr:ubuntu-bionic
+R
+library(sf)
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
+
+##############
+
+
 # The script below checks, if the package exists, and if not, then it installs it and finally it loads it to R
 mypackages<-c("readxl", "dplyr", "multcomp")
 for (p in mypackages){
