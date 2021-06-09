@@ -177,6 +177,18 @@ janitor::remove_empty()
 janitor::adorn_title()
 
 
+add the quarter and year detaisl column
+
+Further get the filter for total failures and warrenty reporting data
+
+Get year wise failures & warrenty failires percentage of total supplies of that period
+
+
+Get all data from NR by deputing officer 
+
+Analise CR data
+
+
 # Now write to  googlesheet  "EMpadsmaster" ss1 
 ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
 EMPadDM   %>%  dplyr::distinct( .keep_all = TRUE ) %>% 
