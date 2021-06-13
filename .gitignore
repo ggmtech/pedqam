@@ -1,31 +1,159 @@
 # Files to ignore by git
+# All subdirectories
+*/*
+*/*/*
 
+# document files
+*.doc
+*.docx
+*.odt
+*.ods
+*.xlsx
+*.xls
+
+*.pdf
+
+# PPT , impress, keynote etc
+*.key
+*.odp
+*.pps
+*.ppt
+*.pptx
+
+# Data and database file extensions
+#*.csv
+#*.dat
+*.db
+*.dbf
+*.log
+*.mdb
+*.sav
+#*.sql
+*.tar
+#*.xml
+
+
+# image files 
 
 *.img
 *.png
 *.jpg
 *.jpeg
+*.ai
+*.bmp
+*.gif
+*.ico
+*.ps
+*.psd
+*.svg
+*.tif
+*.tiff
 
-# document files
-*.doc
-*.xlsx
-*.xls
-*.pdf
+# Multimedia Movies files 
+*.mpg
+*.mpeg
+*.vcd
+*.wma
+*.cda
+*.mp3
+*.mp4
+*.wav
+*.ogg
 
-*.ppt
-*.pptx
+# Archive files 
+*.zip
+*.rar
+*.z
+*.tar.gz
 
+#  Binary files 
+*.bin
+*.dmg
+*.iso
+
+
+# excecutible
+*.apk
+*.bat
+*.bin
+*.cgi
+#*.pl
+*.com
+*.exe
+*.gadget
+*.jar
+*.msi
+#*.py - Python file
+*.wsf
+
+
+# Internet files
+*.asp
+*.aspx
+*.cer
+*.cfm
+*.cgi
+#*.css
+*.htm
+*.html
+*.js
+*.jsp
+*.part
+*.php
+#*.py
+*.rss
+*.xhtml
 
 # log files
-
 *.bak
 *.log
+*.tmp 
+*.dmp
+*.ini
+*.lnk
+*.cab
+*.cfg
+*.cpl
+*.cur
+*.dll
+
+*.drv
+*.icns
+*.msi
+*.sys
+
+
+#*.ico - Icon file
 
 # system files
 *.pyc
-*.sqlite
+
+
+# program files
+*.c
+*.cgi
+*pl
+# Perl script file.
+*.class
+*.cpp
+*.cs
+*.h
+*.java
+*.php
+*.swift
+*.vb
+
 
 
 # Git to not ignore this file by prefixing the file name with a ! i
 !*.R
 !*.Rmd
+!*.tex
+!*.txt
+!*.rtf
+!*.sh
+!*.py
+!*.csv
+!*.sqlite
+
+
