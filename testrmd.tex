@@ -1,0 +1,347 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Awesome Rmarkdown Word report with programmatically inserted headings, outputs and cross-references},
+  pdfauthor={Thomas de Marchin},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{colortbl}
+\usepackage{hhline}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Awesome Rmarkdown Word report with programmatically inserted
+headings, outputs and cross-references}
+\author{Thomas de Marchin}
+\date{17MAR2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+The aim of this document is to introduce a way to generate word reports
+from R using Rmarkdown with programmatically inserted headings, outputs
+and Word cross-references. See
+\url{https://towardsdatascience.com/awesome-r-markdown-word-report-with-programmatically-inserted-headings-outputs-and-19ad0de29a22}
+to understand the context of this example.
+
+\hypertarget{data}{%
+\section{Data}\label{data}}
+
+We will use the built-in iris dataset as an example. This dataset
+consists in Petal and Sepal width and length measurements for three iris
+species. Table shows summary statistics.
+
+\providecommand{\docline}[3]{\noalign{\global\setlength{\arrayrulewidth}{#1}}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+\begin{longtable}[c]{ccccccc}
+
+
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{Attribute}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{Species}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{n}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{mean}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{sd}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{min}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{max}}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+\endfirsthead
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{Attribute}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{Species}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{n}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{mean}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{sd}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{min}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{max}}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}\endhead
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{setosa}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.46}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.17}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.0}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.9}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{2-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{versicolor}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{4.26}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.47}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{3.0}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{5.1}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{2-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\multirow[c]{-3}{*}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{Petal.Length}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{virginica}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{5.55}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.55}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{4.5}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{6.9}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{setosa}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.25}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.11}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.1}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.6}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{2-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{versicolor}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.33}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.20}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.0}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.8}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{2-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\multirow[c]{-3}{*}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{Petal.Width}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{virginica}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.03}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.27}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.4}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.5}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{setosa}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{5.01}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.35}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{4.3}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{5.8}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{2-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{versicolor}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{5.94}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.52}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{4.9}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{7.0}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{2-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\multirow[c]{-3}{*}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{Sepal.Length}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{virginica}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{6.59}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.64}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{4.9}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{7.9}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{setosa}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{3.43}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.38}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.3}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{4.4}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{2-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{versicolor}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.77}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.31}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.0}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{3.4}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{2-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\multirow[c]{-3}{*}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{Sepal.Width}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{virginica}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{50}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.97}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.32}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.2}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{3.8}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+\end{longtable}
+
+\hypertarget{analysis}{%
+\section{Analysis}\label{analysis}}
+
+\hypertarget{setosa}{%
+\subsection{setosa}\label{setosa}}
+
+~\\
+Figure shows the relation between Sepal width and
+length.\includegraphics{testrmd_files/figure-latex/analysis-1.pdf} A
+linear regression was performed using Sepal.Length as the response and
+Sepal.Width as the explanatory variable. Table shows the parameters
+estimates and 95\% Confidence intervals.
+
+\providecommand{\docline}[3]{\noalign{\global\setlength{\arrayrulewidth}{#1}}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+\begin{longtable}[c]{ccccccc}
+
+
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{term}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{estimate}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{std.error}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{statistic}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{p.value}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{2.5\ \%}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{97.5\ \%}}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+\endfirsthead
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{term}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{estimate}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{std.error}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{statistic}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{p.value}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{2.5\ \%}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{97.5\ \%}}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}\endhead
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{(Intercept)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.6390012}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.31001431}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{8.512514}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.00000000003742438}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.0156757}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{3.2623268}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{Sepal.Width}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.6904897}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.08989888}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{7.680738}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.00000000067098430}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.5097359}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.8712435}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+\end{longtable}
+
+\hypertarget{versicolor}{%
+\subsection{versicolor}\label{versicolor}}
+
+~\\
+Figure shows the relation between Sepal width and
+length.\includegraphics{testrmd_files/figure-latex/analysis-2.pdf} A
+linear regression was performed using Sepal.Length as the response and
+Sepal.Width as the explanatory variable. Table shows the parameters
+estimates and 95\% Confidence intervals.
+
+\providecommand{\docline}[3]{\noalign{\global\setlength{\arrayrulewidth}{#1}}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+\begin{longtable}[c]{ccccccc}
+
+
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{term}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{estimate}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{std.error}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{statistic}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{p.value}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{2.5\ \%}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{97.5\ \%}}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+\endfirsthead
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{term}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{estimate}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{std.error}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{statistic}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{p.value}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{2.5\ \%}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{97.5\ \%}}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}\endhead
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{(Intercept)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{3.5397347}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.5628736}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{6.288685}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.00000009069049}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.408002}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{4.671468}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{Sepal.Width}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.8650777}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.2019376}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{4.283887}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.00008771860012}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.459055}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.271100}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+\end{longtable}
+
+\hypertarget{virginica}{%
+\subsection{virginica}\label{virginica}}
+
+~\\
+Figure shows the relation between Sepal width and
+length.\includegraphics{testrmd_files/figure-latex/analysis-3.pdf} A
+linear regression was performed using Sepal.Length as the response and
+Sepal.Width as the explanatory variable. Table shows the parameters
+estimates and 95\% Confidence intervals.
+
+\providecommand{\docline}[3]{\noalign{\global\setlength{\arrayrulewidth}{#1}}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+\begin{longtable}[c]{ccccccc}
+
+
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{term}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{estimate}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{std.error}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{statistic}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{p.value}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{2.5\ \%}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{97.5\ \%}}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+\endfirsthead
+
+\hhline{>{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}->{\arrayrulecolor[HTML]{666666}\global\arrayrulewidth=2pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{term}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{estimate}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{std.error}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{statistic}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{p.value}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{2.5\ \%}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{\textbf{97.5\ \%}}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}\endhead
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{(Intercept)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{3.9068365}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.7570605}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{5.160534}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.000004656345}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{2.3846642}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{5.429009}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{0.5pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}l}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{Sepal.Width}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.9015345}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.2531055}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{3.561892}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.000843462472}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{0.3926317}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{}r!{\color[HTML]{000000}\vrule width 0pt}}{\fontsize{9}{9}\selectfont{\textcolor[HTML]{000000}{1.410437}}} \\
+
+\noalign{\global\setlength{\arrayrulewidth}{2pt}}\arrayrulecolor[HTML]{666666}\cline{1-7}
+
+\end{longtable}
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+\includegraphics{cheers.jpg}
+
+\end{document}
