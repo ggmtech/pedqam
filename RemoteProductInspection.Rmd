@@ -1,0 +1,429 @@
+---
+title: "Remote Product Inspection of RDSO controlled Items"
+subtitle: "'Ref.: DG/VD Note dated 19/01/2021 '"
+date: "`r format(Sys.time(), '%d %B, %Y')`" 
+output:
+  word_document: default
+  pdf_document:
+    keep_tex: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+<!-- 
+1   SOP      Booklet  Attached
+2   Item identification list with Check sheet revision
+3.  Consent and commitment and responsibility for overall quality without demur and forego caveat emptor protection.
+4.  Visit / practices of other organisation HAL assemblies division, HAL, RITES, Ordinance , jabalpur, DDN, CPAT ,Procedure of LLyods
+5.  Item unique identity hologram, sampling plan, hologram number visible phone
+6.  Review after six months with feedback from field ,   Transfer to RITES
+7.  Pitfalls: scrap and site inspection leads, image paradoxes,
+8.  Development of check sheets to adopt to remote inspection
+9.  Hardware needs for each inspector and review at HQ projection.
+10. Storage of video and digital data in secure replicating server HDFS form RailTel or CRIS.
+11. Camera GPS coordinates, and exterior photos / videos and time authentication
+12. Digital signing of documents and images
+13. Internal test reports of the product
+14. Responsibilities of the inspecting officials
+--->
+
+
+
+
+
+
+# 1. Introduction
+
+1.1. As per the directions contained in the letter dated 19 Jan 2021 , possibility of usage of remote product inspection has been examined. RDSO specifically deals with Safety and critical  items and this calls for high quality of inspection. The committee has tried to make an initial Standard Operating Procedure (SOP) for remote product inspection to facilitate ease of remote inspection and also to cover the quality and reliability of the products inspected and attested for quality by RDSO inspectors. Initially 20 items have been identified and based on on the experience and feedback from the Railways, the system shall again be reviewed after six months for assessing continuance or extending the system to cover more items.
+
+
+During the unprecedented COVID19 lockdown extraordinary situation, RDSO has devised a remote vendor registration capability assessment, remote audit and remote product inspection. This process was actually utilised in 9 cases in RDSO during the peak of covid19 and remote quality audit has now been extended in normal time vide Spl. DG /VD directions in letter date ....
+
+1.2. Spl DG VD has formed a committee of PED/PS, PED/QAM & PED/S&T to propose a Standard Operating Procedure for remote inspection of Products and also identify the RDSO inspected items which could be taken up during the first phase and based on the field experience the same could be reviewed or extended to other items.
+
+1.3. The matter has been deliberated in various meetings of the Committee Members. Details of discussions and recommendations are as under:
+
+# 2.	Discussions
+
+2.1 Presently the process of the RDSO inspection involves the following process. ( ISO Document ... )
+
+2.2.1 The RDSO approved vendor based on the Railway PO, places an online call in the RDSO product inspection module. The system automatically assignees the Quality inspector for the inspection. The inspector  physically schedule the visit to the manufactures approved units and carries out the inspection as per the Check list downloaded from the RDSO website.
+
+2.2.2. The Inspector after the inspection also identifies the items with the unique serialised holographic stickers.
+
+2.2.3 Visit for Inspection , if applicable for the particular item, is also needed to be made at Officer/Inspecting official (SSE/JE) level.  ( ISO Document No. ....)
+
+2.2.3  The inspecting official, based upon the result of the inspection , issues the dispatch memo on the spot digitally signed. Based on the dispatch memo verification, the inspection official of RDSO at gazetted level issues the Inspection Certificate digitally signed in the online ireps portal in transparent manner and which is immediately available to all concerned parties for acceptance and accountal and associated payments.
+
+2.11 The above process needs to be modified with a suitable SOP for handling RDSO inspections done via online mode.
+
+# 3. Study of similar practices
+
+The committee explored the practices practices of other organisation like  HAL accessories Divisions,  RITES Inspection unit, Ordinance Factory Board, jabalpur, DDN, CPAT - Jaipur , and also the websites of leading inspection agencies like DNV and LLyods. 
+
+### HAL Accessories Division Lucknow
+
+The HAL accessories division , Lucknow is a premier inspection agency handling the critical inspections for aerospace industries. The division has lot of facilities for manufacturing and Repair/ Overhaul of accessories for different platforms of aerospace equipments.  Summary of these facilities is given below:
+ - Manufacturing Capabilities
+    + Machining of components ranging from 0.29 to 450 mm dia with accuracy up to one micron.
+    + Manufacturing of Bellows & Diaphragms 
+    + Vibro Strengthening of Wheels
+    + Super Finishing Process ,,  Orifice Lapping/Ball Lapping , honing,  Spherical lapping to achieve sphericity within 2 light bands
+
+ - Assembly and Test
+    + Clean/Air-conditioned rooms for Assembly & Test of Instruments, Mechanical and Fuel accessories.
+    + Dedicated Test Equipments and Test rigs, Full Environmental testing facilities, Balancing Machines and
+    + Hot and Cold Chambers to meet the aeronautical acceptance standards.
+    + Vibration Test rigs, Centrifugal test rigs,
+    + Humidity/ Hot & Cold chambers and other testing capabilities to cater to the testing requirements.
+
+ - Inspection facilities
+   + NABL approved Physical and Chemical Labs for inspection of manufactured components and
+   + NDT Lab for Non-Destructive Testing of the components.
+   + Range of Meteorological equipments like Coordinate Measuring Machines (CMM), Profile Projectors, Surface measuring Equipments, Height Gauges etc. 
+
+ - Heat and Surface Treatment and Painting
+   + Centralized Heat Treatment facilities for all types of steels, Aluminium alloys, Copper, Nickel & Titanium alloys 
+
+The details are mentioned in the website < https://hal-india.co.in/Accessories%20Division%20Lucknow/M__121 >
+
+The head of the quality assurance of the Division , Shri ....?? Phone ....,  , was contacted who informed that due to criticality of the component, no remote inspection is done. He however informed that they did few remote capabilities inspection and got some sample picked up and inspected in their facilities. They have no program for going for remote inspection.
+
+### RTIES Limited
+
+The ED/QA of RITES was contacted who informed that they have not done remote inspection and are also not aware of any satisfactory remote inspection procedure.
+
+### Ordinance Factory Board, Jablapur and Dehradun
+
+No remote inspection of the Product is understood to be carried out by them.
+
+### BV NA
+Bureau Varitas North America claims on its website of doing the remote inspection using advance technologies , which appears impracticable for RDSO.
+The details are at website : 
+
+### LLyods Inspection
+
+The online website has claimed capabilities in remote inspection.
+
+
+
+
+\newpage
+
+## 4. Prerequsites for remote inspection:
+
+
+### Defination of Remote means
+
+- includes Online Video streaming made available to the inspecting official has per his technical satisfaction.
+- The firm must agree to submit video streaming and recording, with photographs,  of requisite details to be verified.
+- Necessary facilities to be available in Firm’s premises for online viewing through a Conference App.
+- A legally acceptable undertaking by the firm is necessary regarding genuineness of the information submitted, readiness for subsequent verification by Official of Design/item controlling dte and readiness to face consequential actions  in case any discrepancy in such verification is noticed which cannot be justified.
+
+## The Identified list of items and revision of Checksheets.
+
+### Item identification list with Check sheet revision (Annexure:List of Items)
+
+The Design Directorate shall identify or ratify the items and also make out a revised check sheet of critical parameters of the product that needs to be verified by remote means.
+
+The  Item identification list is placed in annexure.
+The existing Check sheet needs revision for remote inspection.
+
+
+### Hardware and Software requirements
+
+The committee deliberated and concluded that no effective remote inspection can be done with the following supporting infrastructure.
+
+ 1. An Inspection Digital Kit of :
+ 
++ A suitable laptop with memory and speed commensurate with remote measurement process frame rate capture at requisite  video resolution. Laptop should have sufficient resolution to allow for lag free and FHD play back of two video streams - ( the panoramic video for the location and the close up by mobile camera)
++ At least 6" screen FHD high contrast mobile phone with 4 or preferably 5G data speed capability.
++ High Speed mobile Data connection service dongle
++ Digital Signature are already available with each Inspector
+
+ 
+ 2. A video projection system for each of the QA wing is also suggested for review of the process in finer granularity on sample / test cases is suggested.
+ 
+ 3. The laptop should have sufficient memory to quickly shift to another camera stream and run with lag free video of at least 30 fps at FHD resolution.
+needs for each inspector and review at HQ projection.
+
+ 4. Facility to Store the data permanently for at least five years on preferably cloud storage from Railway PSU like RailTel Servers running HDFS network storage with at least industry standard 3 tier replication of data. A compressed recording storage space of about 5-6 hours may be required for each inspector for per day of inspection. This needs to be operated through a secure portal to store and access the digitally stored inspection data on need to know basis.
+ 
+ 5. GPS and Time stamping of the images / Videos and automatic generation of strong secure hashes for data integrity.
+ 
+ 6. In future to keep RDSO in the forefront of technology, image analytic could be developed by RailTel to analyse to process the images to extract the dimensions and features of the images.
+ 
+ 
+# 5. Proposed action plan for Online Remote Inspection by RDSO
+
+Initially, few RDSO controlled items , which are least critical items and also amenable for remote inspection shall be selected and based on the experience gained and the feedback from the Railway, the system shall be reviewed after say six months.
+
+
+# 6. Recommendations:
+
+## Roll out of Inspeciton
+The committee deliberated various issues related to commercial/legal aspects and the technical process capabilities of the Remote Inspection Protocol and also informally gathered information from the similar government agencies.
+
+In view of the mandated directive, and also considering the fact that RDSO controlled items by definition are "Safety and Critical items" and therefore it is proposed that initially the RDSO shall decide few prima facie amenable items ( Annexure:List of Items) and proceed for the remote inspection based on the initial draft "Standard Operating Procedure (SOP)" as attached as annexure (Annexure:SOP).
+
+Based on experience gained for a period of about 6 months and based on the feed back from various stockholders  including the Vendors and Field Railways, this procedure shall needs to be reviewed again to extend to other items.
+
+
+Committee also notes that unlike RDSO , agencies like RITES etc are more amenable and can be mandated by Board to adopt online Inspections only so that trier experience can be extended to RDSO safety items also.
+
+
+
+
+### initial draft "Standard Operating Procedure (SOP) (Annexure:SOP)
+
+
+
+## Vendor preparedness and Capability Assessment for Remote Product Inspection:
+
+### The field official:
+RDSO official can seek assistance of staff from the Railways or depute an authorised representative at sole discretion of RDSO or even may decide to depend entirely the employees of the firm.
+
+However, the official has to take Online guidance and directions of the inspecting official and the same shall be mandatory.
+
+### Request for Online Inspection
+The firm has to place online inspection request in PIMS and in addition, submit the advance internal test reports and willingness and the undertakings
+
+### Undertaking by the Firm
+
+An undertaking to be taken from the firm regarding genuineness of the information submitted, readiness for subsequent verification for the firm’s premises by the Official of Design/item controlling dte and readiness to face the penal action, in case any discrepancy in such verification is noticed, which cannot be justified. Format for such an undertaking is enclosed as Annexure-B.
+
+### Inspection Report
+
+For reporting of the assessment, formats as laid down in respective ISO documents to be followed.
+
+
+### Sampling Plan 
+
+Wherever there is requirement for the sample drawl, existing procedure for sample selection in ISO to be followed and the sample shall be picked up by RDSO official or at his direction by the authorized person deputed for the same and the sample shall be sealed and sent to the testing agency as specified or  decided by the director in charge.
+( ISO Document No. QO-D-8.1-6, ver-3.0/para 4.2 and ISO Document No. QO-D-8.1-13, ver-1.2/para 4.2 )
+
+### Methodology for Online Guidance/ Assessment/ Inspection
+
+1. Firm to be asked to submit willingness for Online Assessment/Inspection and confirmation about availability of following facilities for Online Assessment:
+
+2.  Internet connected standard High definition or full High definition Video Camera with good resolution, or similar, and having facility of date/time/GPS location stamping. If the geo location facility is not available, then few photos with mobile phone geo tagged photos can be sent at the time of sending video recording
+
+3. Laptop (for video conferencing, duly connecting the Video Camera to it)
+
+4.  Good Internet Connection for Video Conferencing.
+
+5. Adequate lighting for clear viewing of the facilities.
+
+6. After submitting confirmation, firm to be asked to nominate one Nodal Official, with name and contact details, for coordinating the Online Assessment/Inspection and submit video recording, with photographs,  of requisite details to be verified/inspected, as mentioned in Annexure-A. Such Video recording/photographs to have clear visibility.
+
+7. Video Recording/photographs can be shared by the firm with Inspecting Authority & RDSO through any common large size file transfer app.
+
+8. After receipt and scrutiny of the video recording/photographs, date(s) shall be advised to the firm for visit of the Inspecting official and/ or Online Assessment.
+
+9. During online inspection, the entire process to be recorded and snap shot of major facilities/documents to be taken, as feasible.
+
+
+10. Entrance and neighbourhood buildings/installations to be verified and snap shots taken.
+
+11. Adequate lighting during such online inspection to be ensured by the firm for clear viewing through video camera.
+
+
+12. After inspection, recording to be saved in a portable hard drive, with proper cataloguing. However, such recordings need to be saved in a secure server of Railtel/CRIS, for which necessary arrangements shall be made by Telecom dte.
+
+13. The sample shall be identified and sealed jointly and to be securely sent to the testing lab as specified or decided by the director incharge.
+
+14. The committee therefore proposes to also adopt the above procedure for next six months, as an alternative to existing procedure laid down in Apex ISO document, for the purpose of expediting the Vendor registration /Prototype Inspection/Quality Audit process,  which can be reviewed based on the COVID19 situation and experience gained in the process.
+
+15. The proposal requires addition of the following line in the Apex ISO document for implementation:
+Para: 
+ 1. ISO Document No......  
+ 2. ISO Document No.   .. etc
+
+
+\newpage 
+#  Recommendations
+
+The committee recommends that initially RDSO may take up few items for remote digital inspection and based on the experienced gained in the inspection of items affecting the train operations safety, the process can be reviwed to extend or retract or modify the process.
+Meanwhile the list of initially identified item is placed at Annexure and approval for the same along with the enabling provisions for the same may be approved, if agreed by the Special DG. 
+
+Committee also recommends that the proposed procedural changes may also be put for kind  perusal of DG considering the major policy changes involving the quality assurance of the RDSO inspected items for the Railways.
+
+
+(  PED/PS   ) --------------------- (  PED/QA/Mech  ) -----------------------------  (  PED/S&T  )
+
+
+ 
+No. :   QAM/ISO/Misc  Dated: -------------------------   05 /02/2021   
+
+
+
+
+
+Special DG
+
+
+
+
+
+DG 
+
+
+
+
+
+MR/ISO cell 
+
+
+
+
+\pagebreak
+
+
+# SOP 
+
+This SOP describes the Standard Procedure for implementation of Remote Product Inspection
+
+
+## The Items must be pre identified by RDSO with Remote Inspection Check sheet
+
+
+
+## Format for Willingness of the Firm to accept the Remote Inspection protocol
+
+### Format attached
+
+### Foramt fr 
+
+
+\newpage
+# Annexure-A
+## Information to be provided by the firm for Online Inspection
+
+1.    An unqualified undertaking to participate in the remote inspection as uploaded on RDSO site and be responsible for all authenticity of the test data and the measurement and inspections on behalf of RDSO inspectors
+
+
+2.    Make available all data to the RDSO remote inspectors by means of Video stream, high resolution photographs and internal QA test data and physical check up measurement at the time on remote inspection in most transparent way to establish the genuinity of the procedure.
+
+
+3.    To establish genunity of the OEM manufacturing unit, the Video recording of Virtual tour of the factory, proposed to be registered with RDSO, including neighbourhood buildings/installations front, left and right, factory premises starting from entrance gate, showing sequence of manufacturing process, inspection and quality control of components etc, including lab, machines, factory premises of manufacturing plant.
+
+2.	Photographs of neighbourhood buildings/installations (front, left and right), Entrance Gate, all main facilities/documents, which need to be verified, with proper tagging.
+
+
+\newpage
+### Availability and details of following facilities for online inspection:
+
+1. Internet connected standard High definition or full High definition Video Camera with good resolution, or similar, and having facility of date/time/GPS location stamping (If the geo location facility is not available, then few photos with mobile phone geo tagged photos can be sent at the time of sending video recording)
+
+2. Laptop (for video conferencing, duly connecting the Video Camera with it)
+
+3. Good Internet Connection for Video Conferencing
+
+4. Adequate lighting for clear viewing of the facilities
+
+5.	Details of Nodal Official for Coordinating the visit:
+
+ - Name:
+ - Designation:
+ - Mobile Number:
+ - Email ID:
+ - Alternate contact no:
+
+ 
+
+
+
+
+\newpage
+# Annexure-B
+Proposed Format for Undertaking by the Firm for Online Inspection
+
+To
+Director General , RDSO, 
+Lucknow 226011, UP.
+
+Sub: Affidavit for participating in Online Inspection of the Product for RDSO controlled items
+
+1.    I hereby give willingness for Online Inspection against my Inspection Request (PIMS reference  ID:.....) of the product manufactured by my firm …………….. (strike out whichever is not applicable)
+
+2.	I hereby certify and solemnly declare genuineness of  all video recordings, photographs, documents, submitted by my firm.
+
+3.  I further declare the product which has been offered for Remote Inspection, have already been tested  and declared pass and the details of internal checks are sent in advance.
+
+4. I further understand that notwithstanding the RDSO inspection , I am fully responsible for the quality and relaiblilty, warranties and the product is accepted by the Railways on my guarantee 
+
+3.	If any discrepancy in the information provided by me in any form is found, RDSO reserves the right to take penal action, including de-registration, against my firm, in accordance with para 4.2.4 of RDSO’s ISO Document No:QO-D-8.1-11 Ver.1.3 of 01.07.2020.
+
+4.	I also understand and agree that Online  Inspection can be accompanied by presence of any personnel authorized by RDSO.
+
+5.  I further indemnify the RDSO  
+
+6.  I agree to destroy the item declared failed by RDSO official so that the material cannot even be inadvertently supplied to Railways, as per the extent procedures.
+
+5.  I further understand that all the procedures of placement of call onto the existing RDSO platform and using existing procedure shall be followed and Digital Dispatch Memo and Inspection certificate in Digital form shall be issued on the IREPS platform.
+  
+ 
+Signature:  
+Name of Authorized Signatory:  
+Designation:  
+Name of Firm:  
+Address of Firm’s premises proposed for registration:  
+
+
+\newpage
+# Remote Product Inspection by RDSO Check Sheets
+
+The following checklist points should be confirmed.
+
+ - Signed Standard Form for acceptance of remote inspection procedure for product inspection by the vendors : 
+ 
+ - For every inspection , and undertaking for taking  responsilbites for the data and inspection and the product reliability performance
+ - The vendor is willing to take all the responsibilities for the failure and rejection of the item at the consignee end.  Yes No
+ - Item should be part of the list approved and with remote inspection check list :
+ - The Internal Test Report duly authenticated received and examined in advance by the inspecting official:
+ - The process constraints:
+   + Unique identification of the item to be inspected for its identity - by engraved Serial Number or Unique holograms
+   + Unique ID with serial number for easy identification and for enforcing QA statistical sampling  plan
+   + Calibration certificates of each equipments and instruments must be sealed with calibration stickers which should be clearly visible in remote inspection
+   + Setting of the zero error and scale check before start of the inspection
+   + A secondary camera capturing the panoramic vision of the inspection place should be installed and both mobile camera and panoramic FHD PTZ camera must be streamed together.
+   + The data feed of Video and Camera should be saved in the row format and no editing should be later allowed and the video file and image files along with the hash value of the files should then be securely sent to RDSO and one copy should be uploaded by the vendor to the RDSO Remote Inspection Portal data warehouse on Railtel Servers. The access will be allowed by the inspecting official of the RDSO.
+   +
+
+
+\newpage
+# Pitfalls in Digital inspection
+
+## The disadvantage of remote inspection
+
+ 1. The calibration and zero error and range setting of the testing equipments
+ 2. The apparent distortion in image due to camera lens and  achromatic aberrations and CCD/CMOS sensor non - linearity with actual images. The picture and video appears perceptibly different
+ 3. The background of the process psychologically mislead the reality. This is a proven pitfall and Inspection will be affected with his `Recognition Primed Descesion` making abilities. A few example photos are included in the annexure.
+ 4. The vendor will have tendency to set up biased measurement /recording workstations.
+ 5. An important ability of locating the faults and system shortcomings on a quick glance of rejections and scrap would be lost.
+ 
+ The committee also highlights that the process of getting material on Internal Test Report and vendors certificate is better then attesting the claims of the vendor quality by remote procedure.
+ 
+ However the advantage is that all the data on which inspection was based exists in the records and the vendor continues to be responsible for the quality at least till his warranty period. In case of digital inspection, it is proposed that warranty period could be increased suitably. Further, in future digital analytic can be used for completely automating the inspections.
+
+
+## Responsibilities of the inspecting officials
+
+ 1. The inspecting official is responsible to follow the laid down protocol
+ 2. Any error beyond reasonable precaution, shall be attributable to the system limitations.
+ 
+
+## Not an alterntive for full physical inspection
+
+ - Better for inspecting official that decision on  recorded remote data: scrap and site inspection leads, image paradoxes,
+ - The process needs through review by a Directors level committee with suitable time for say three months to visit and study the practices of leading organisations who are following the remote inspection process.
+ 
+ 
+# The Standard Operating Procedure (SOP)
+
+The committee has proposed the Standard Operating Procedure and the same is attached as annexure. : (Draft stage)
+ 

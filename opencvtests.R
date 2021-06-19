@@ -1,5 +1,7 @@
 #install.packages("opencv")
 library("opencv")
+library("psych")
+
 unconf <- ocv_read('https://jeroen.github.io/images/unconf18.jpg')
 faces <- ocv_face(unconf)
 faces
@@ -137,4 +139,15 @@ test
 
 ocv_video(filter)
 
+##### 
+ocv_video(ocv_face)
+ocv_video(ocv_edges)
+ocv_video(ocv_knn)
+ocv_video(ocv_facemask)
+
+
+
+
+##
+test <- opencv::ocv_camera()
 

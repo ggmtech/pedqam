@@ -1,0 +1,31 @@
+# Files to ignore by git
+
+
+*.img
+*.png
+*.jpg
+*.jpeg
+
+# document files
+*.doc
+*.xlsx
+*.xls
+*.pdf
+
+*.ppt
+*.pptx
+
+
+# log files
+
+*.bak
+*.log
+
+# system files
+*.pyc
+*.sqlite
+
+
+# Git to not ignore this file by prefixing the file name with a ! i
+!*.R
+!*.Rmd

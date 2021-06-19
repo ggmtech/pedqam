@@ -1,4 +1,6 @@
 
+# https://cran.r-project.org/web/packages/RecordLinkage/vignettes/BigData.pdf
+
 rm(list = ls())
 if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
 
@@ -9,7 +11,7 @@ packages <- c("tidyverse",   "magrittr",  "here", "lubridate", "anytime",  "goog
               "knitr", "gridExtra","plotly", "timetk", "ggforce", "ggraph", 
               "survival" , "survminer", "ggpubr","GGally", "ggrepel", "ggridges",
               "viridis", "viridisLite",  "ggthemes", #"themr",  #  "ggfortify",  "ggfortify", 
-              "magick", "gfx" ,  "prismatic"
+              "magick", "ggfx" ,  "prismatic"
 )
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
@@ -239,7 +241,7 @@ fuzzy_join(
   multi_match_fun = NULL,
   index_match_fun = NULL,
   mode = "inner",  #  "inner", "left", "right", "full" "semi", or "anti"
-  ...
+  # ...
 )
 
 
@@ -257,6 +259,17 @@ fuzzy_join(
 # regex_anti_join	Join two tables based on a regular expression in one column matching the other
 # stringdist_anti_join	Join two tables based on fuzzy string matching of their columns
 
+
+
+
+
+
+
+
+
+
+##############################################
+########## another
 
 
 
@@ -298,5 +311,123 @@ do.call(  rbind,
 
 #use method="jw" to produce desired results. See help("stringdist-package")
 
+#######################################
 
+# text mining
+library(tm)
+
+vignette(tm)
+
+
+
+
+pres <- c(" Obama, B.","Bush, G.W.","Obama, B.H.","Clinton, W.J.")
+# agrep is what you want? It searches for approximate matches using the Levenshtein edit distance.
+
+sapply(pres,agrep,pres)
+
+
+lapply(pres, agrep, pres, value = TRUE)
+
+
+
+#########################
+library(RecordLinkage)
+showClass("RLBigData")
+showClass("RLBigDataDedup")
+showClass("RLBigDataLinkage")
+
+# deduplicate with two blocking iterations and string comparison
+data(RLdata500)
+data(RLdata10000)
+rpairs1 <- RLBigDataDedup(RLdata500,
+                          identity = identity.RLdata500,
+                          blockfld = list(1,3), strcmp = 1:4)
+# link two datasets with phonetic code
+s1 <- 471:500
+s2 <- sample(1:10000, 300)
+identity2 <- c(identity.RLdata500[s1], rep(NaN, length(s2)))
+dataset <- rbind(RLdata500[s1,], RLdata10000[s2,])
+rpairs2 <- RLBigDataLinkage(RLdata500, dataset,
+                            identity1 = identity.RLdata500,
+                            identity2 = identity2, phonetic = 1:4,
+                            exclude = "lname_c2")
+
+# supervised classificaiton
+train <- getMinimalTrain(compare.dedup(RLdata500,
+                                       identity = identity.RLdata500,
+                                       blockfld = list(1,3)))
+rpairs1 <- RLBigDataDedup(RLdata500,  identity = identity.RLdata500)
+classif <- trainSupv(train, "rpart", minsplit=2)
+result <- classifySupv(classif, rpairs1)
+
+showClass("RLResult")
+
+getTable(result)
+## < table of extent 0 x 0 >
+getErrorMeasures(result)
+
+# weight based
+rpairs1 <- epiWeights(rpairs1)
+result <- epiClassify(rpairs1, 0.5)
+getTable(result)
+
+
+getPairs(result, min.weight=0.7, filter.link="link")
+
+
+getFalsePos(result)
+
+getFalseNeg(result)
+
+
+### RecordLinkage package was removed from CRAN, use stringdist instead:
+  
+library(stringdist)
+
+ClosestMatch2 = function(string, stringVector){   stringVector[   amatch(string,    stringVector,   maxDist=Inf )    ]    }
+
+
+
+## RecordLinkage again
+library(RecordLinkage)
+
+ClosestMatch2 = function(string, stringVector){ 
+                                                distance = levenshteinSim(string, stringVector);
+                                                stringVector[distance == max(distance)]
+  
+}
+
+
+
+
+
+
+
+############
+#devtools::install_github("ColinFay/tidystringdist")
+# install.packages("tidystringdist")
+library(tidystringdist)   
+library(dplyr)
+companies <- tibble(comp = c("3M",
+                             "3M Company",
+                             "3M Co",
+                             "A & R LOGISTICS INC",
+                             "AR LOGISTICS INC",
+                             "A & R LOGISTICS LTD",
+                             "ABB GROUP",
+                             "ABB LTD",
+                             "ABB INC"))
+# Setup so that each company is compared to every other company
+compare <- tidy_comb_all(companies, comp)
+
+# Have a quick look at the data to show the company  ; # 3M being compared to all other companies
+# excludes the the comparison being made with itself
+head(compare, 9)
+
+companies_translation <- expand.grid( companies$comp,  companies$comp ) %>% 
+                         rename(V1 = Var1,   V2 = Var2 )                %>%
+                         tidy_stringdist( . )
+
+companies_translation  %>% View()
 

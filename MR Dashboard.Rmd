@@ -1,0 +1,294 @@
+---
+title: "MR Dashboard"
+author: "QA MECH"
+date: "10/01/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Para-wise remarks on Items Serials
+
+## 372
+
+Develop a mechanism for 100% digitisation of all RDSO processes.
+Examine the prospect of online inspection by RDSO with the exception of physical inspection in very urgent cases only
+
+
+### No update needed
+
+Online vendor assessment and prototype inspection has already been adopted in RDSO as an alternative procedure for Capability Assessment , Prototype Inspection and Quality Audits.
+
+CRIS has already commissioned inspection module on IREPS for issuing digital dispatch memo and inspection certificates.
+**All Inspection Certificates are issued online in Digitally signed format on CRIS IREPS portal already**
+
+RDSO is *also* studying good practices of virtual inspection for evaluating impact of switching over to
+online inspection for items having safety critical applications. 
+
+RDSO has 100% online  Vendor Registration System *now*.
+CVP (Common Vendor Approval Portal) is under preparation and is being regularly
+monitored at the highest level. CRIS has now committed to Board that they would be launching
+Beta Version by 12 Jan 2021.
+
+
+
+## 366  
+
+Efforts be made to manufacture all items in India with detailed indigeniation plan
+
+
+###  Old Remarks ok, No update required
+Active efforts for indigenisation of RDSO items are being pursued for items with
+foreign sources. List of such items have been identified for focussed action.
+Specifications have been reviewed and some are under review for removing all
+restrictive conditions that restrict Indian vendors to participate in the product
+development process. 
+Linkages to foreign standards and protocols are being removed (to the extent possible) from RDSO specifcations.
+
+### Input required on item No. 4 : 
+Total imported items out of 377 RDSO controlled items (alongwith approx. Annual procurement value).. Action plan for indigenization
+
+
+1. No Indian Source and single foreign source
+    1. Technology of  in-situ Reconditioning of CMS Crossings using ‘Translamatic Robotic Welder’ of M/s CTF, France (The services are being provided through 8 Indian service providers authorized by M/s CTF, France) Business volume 25 Cr
+    2. Axle box Bearing for WAP-5 Locomotive Rs 2.91 Cr
+
+2. No Indian Source and two or more foreign source
+
+
+
+Add
+
+
+
+
+
+
+
+
+
+
+## 3664
+
+Create a user friendly single step vendor interface for all its activities and Helpline number managed by a responsible officer
+
+### Old remarks ok , no change required
+
+Common  Vendor Approval portal (CVP) is being developed by CRIS as a single interface for handling all the activities related
+with Vendor Regsitration. All units will be linked through this portal. Trial version is likely to be launched by 12 Feb 2021 and portal is targeted for launching on 15 Feb. 2021.
+
+The RDSO helpline number .... 0522-2465743 ..........
+
+
+## 3663
+Large and prominent advertisements should be issued in major national newspapers welcoming new vendors in Railways 
+
+### Update
+
+1)RDSO Large and Prominet (25 cm 16 cm) advertisements in  6 newspapers for virtual vendor meets in different  zones of
+India. 
+
+2)Seventeen  virtual vendor meets have already been conducted since August 2020 up till 21.10.2020. 
+
+3)About 1500 vendor representatives participated.  Further, 
+
+4)A quarter page advertisement in ten leading National ewspapers on 18.08.2020 inviting new vendors.
+
+5)This is a continuing process and for future vendor meets to be held regularly during the year, again prominent advertisement will be given in National Newspapers. 
+
+6) rom Board, advertisement published on 31.10.2020.
+
+RDSO -> Professionally designed Prominent Quarter page advertisement (25cm X 16 cm) have been published Pan India, by RDSO in leading National  Newspapers
+
+
+Dec DG PCDO : To encourage industry participation for expanding the Vendor base, RDSO organized Eight Virtual Vendor Meets through webex covering Vendors of Vapi, Daman, Silvassa area on 1st December, Pune area on 4th December, Nagpur area on 7th December , Ahmedabad, Rajkot, Bhavnagar area on 11th December, Aurangabad, Sangli, Kolhapur area on 14th December, Baddi-Mohali- Chandigarh area on 18th December, Delhi area on 21st December, Ahmedabad-Gujrat area on 28th December and Faridabad-Ludhiana area on 31st December 2020. With this RDSO has organized 34 Virtual Vendor Meets out of the 60 proposed by RDSO to Hon’ble MR. Vendor directory items having less than three vendors have further been reduced to 71 (as on 31.12.2020). Also the total number of items controlled by RDSO has come down to 360.
+
+
+
+## 3462
+
+Identify opportunities for vendor development. Review all complaints wrt carteliation of small  items that are singly
+sourced. A list of all such items have been prepared.
+
+### Update
+
+The list of items having less than 3 vendors is continuously being reviewed by RDSO.
+Items with less than 3 Vendors has come down from 242 to **71** only. 
+
+Out of these 71, 8 ?? are obsolete and ??? 40 have low business volume.  Number of items controlled by RDSO is also being
+regularly reviewed to deregulate maximum number of items from RDSO control.
+Total items have reduced from 652 to 360. RDSO is actively approaching vendors through web conferences. 
+RDSO has conducted ??????? 30 online conferences since 11 Aug 2020.
+Applications for registration have doubled from 225 in 2017/18 to 587 in 201 /20. 
+?????????? upt0 2020????
+
+?????????455 new vendors have been approved during April 1 to  December 2020.
+
+
+## 3407
+Send automated emails to all
+registered vendors regarding the listed
+items in the circular
+dated  November
+201 . Come out with
+a press release and
+follow it up with
+advertisements on
+IREPS for wider
+publicity.
+
+### comments
+Member
+
+1.  Emails sent to all (Traction
+vendors on IREPS 
+
+2. Rolling Stock)
+Display on the home
+page of IREPS done
+with link to circular
+for awareness of the
+vendors. 
+3. Advertisement in the
+press media has been given for
+publicity 
+
+DG RDSO -> Common vendor approval portal is
+being developed by
+CRIS and the trial
+version of the same
+will be lounched by
+CRIS on 12.01.2021. It
+will be a single window
+portal for RDSO, BLW,
+CLW, RC , IC , MC
+CORE. System
+generated mails will be
+sent to  endors at
+every stage of
+registration
+processing.
+
+
+## 332
+
+E pedite the process
+of broadbasing of
+approved vendors.
+Take necessary
+steps to e pand the
+e isting network of
+vendors. List of
+items having less
+than 4 vendors to be
+published.
+
+
+### Note
+List of items with
+less than 5 vendors
+has been uploaded
+on RDSO website for
+information of
+Industry and
+endors. Process
+has been simplifed
+and details have
+been uploaded on
+RDSO website for
+wide publicity.
+Application fee
+(registration fee) has
+been reduced for
+items with less than
+5 vendors. More than
+30 virtual vendor
+meets have been
+conducted by RDSO
+to encourgae
+vendors . List of High
+alue Items have
+been published in
+widely circulated
+news papers for
+wider publicity. List
+of selected items
+have been
+communicated to
+DRMs/ onal
+Railways on
+13.10.2020 for
+displaying them in
+DRM Offces to
+facilitate  endors to
+understand the
+design and technical
+aspects involved in
+development of the
+Items. .
+
+
+
+
+## 3082
+List of items where
+less than 2 approved
+vendors e ist is to be
+prepared by all P s,
+onal Railways and
+
+RDSO. Time bound
+action plan to be
+prepared to increase
+the number of
+approved vendor of
+such items.
+
+### old
+The list has been
+compiled and sent to
+all vendor approving
+agencies vi  RDSO,
+CLW, IC , MC , RC 
+and CORE for taking
+action to develop
+more vendors for
+such items.
+1)Continuous review
+of vendor directory is
+undertaken to reduce
+the number of items.
+2)RDSO and
+Production  nits
+have decontrolled
+many items. 3)RDSO
+reduced from 676
+items in  an201  to
+380 items on 1st
+October, 2020.
+4)Efforts are also
+being made to
+increase the number
+of vendors in items
+having less vendors.
+RDSO has 1)reduced
+items with less than
+3 vendors from 242
+to 100. 2)
+Continuous vendor
+development efforts
+are being made.
+3)Conducted over 17
+virtual vendor meets
+to encourage
+registration. 4)
+ploaded the new
+policy initiatives by
+RDSO for enhancing
+Ease of Doing
+Business.  ull
+comments attached
+as 3082 ullComments
+

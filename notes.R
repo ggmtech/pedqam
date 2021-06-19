@@ -1,5 +1,66 @@
 #notes
 
+library(ggplot2)
+ggplot(mtcars, aes(sample=mpg))+stat_qq()+theme_bw()
+# The result you got from Q-Q plot you can verify the same based on shapiro test.
+shapiro.test(mtcars$mpg)
+# car::qqPlot() provides the best option for routine visualization.
+
+# generate data for this post
+set.seed(20200825)
+x <- sort(rnorm(20, 10, 3))
+q <- (rank(x) - .5) / length(x)
+
+
+band <- tibble(  z       = seq(-2.2, 2.2, length.out = 300),  n = length(d$x_sample),
+               sample_sd = sd(d$x_sample),
+               se = sample_sd * se_z(z, n),
+               line = mean(d$x_sample) + sample_sd * z,
+               upper = line + 2 * se,
+               lower = line - 2 * se,
+    
+               robust_sd = IQR(d$x_sample) / 1.349,
+               robust_line = median(d$x_sample) + z * robust_sd,
+               robust_se =  robust_sd * se_z(z, n),
+               robust_upper = robust_line + 2 * robust_se,
+               robust_lower = robust_line - 2 * robust_se,
+             )
+
+
+ggplot(d) +  geom_point(aes(x = z_theoretical, y = x_sample)) + 
+            geom_abline( aes(intercept = mean, slope = sd, color = "Naive"),
+                         data = tibble(sd = sd(d$x_sample), mean = mean(d$x_sample))  ) +
+             geom_ribbon(  aes(x = z, ymax = upper, ymin = lower, color = "Naive"), 
+                          data = band, 
+                          fill = NA, show.legend = FALSE  ) +
+             labs(  color = "Q-Q line", x = "theoretical quantiles",   y = "sample quantiles"  ) + 
+             guides(color = guide_legend(nrow = 1)) +
+              theme(legend.position = "top", legend.justification =  "left")
+
+# using CAR
+
+par(mar = c(4, 2, 1, 2))# Set margins on Q-Q plots
+library(patchwork)# Use patchwork to capture the plots and combine them 
+p1 <- wrap_elements(~ car::qqPlot(x))
+p1
+# p2 <- wrap_elements(~ {
+#     car::qqPlot(x)
+#     lines(band$z, band$robust_line, col = "black", lwd = 2)
+#     lines(band$z, band$robust_upper, col = "black", lwd = 2)
+#     lines(band$z, band$robust_lower, col = "black", lwd = 2)
+# })
+# p1 + p2   # into a side by side display.
+
+
+# alternative to Q-Q plot: the worm plot “detrended” Q-Q plots 
+
+par(mar = c(4.5, 4.5, 1, 2))
+# I don't know what's up with that error message.
+# use scale() to transform in to z-score
+gamlss::wp(
+    resid = scale(d$x_sample), 
+    xlim.all = 2.5, 
+    line = FALSE )
 
 
 ###### cleaning janitor
@@ -24,6 +85,10 @@ clean %>% get_dupes(first_name,certification)
 
 excel_numeric_to_date(41103)
 
+
+
+
+ggpubr::show_line_types()  # library(ggpubr)
 
 
 library(tidyverse)

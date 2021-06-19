@@ -1,0 +1,124 @@
+\documentclass[11 pt, a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[survey]{automultiplechoice}
+%\usepackage{automultiplechoice}
+\AMCtext{draft}{}
+%\AMCtext{message}{Worker’s Inquiry}
+
+\begin{document}
+\begin{Questionnaires}{1}
+my first questionnaire
+\end{Questionnaires}
+
+\begin{Questionnaires}{1}
+Question 1: Does the shop in which you work belong to a capitalist or to a limited company?
+\begin{variable-single}{shop}{99}
+\answer{capitalist}{0,3}{vallab-sc}{checkbox-sc}\scoring{b=3}
+\answer{limited company}{0,2}{vallab-sc}{checkbox-sc}\scoring{b=2}
+\answer{don’t know}{0,1}{vallab-sc}{checkbox-sc}\scoring{b=1}
+\end{variable-single}
+\end{Questionnaires}
+
+
+\begin{Questionnaires}{1}
+Question 2: What is the youngest age at which children are taken on?
+\begin{variable-single}{childage}{99}
+\answer{< 13 \\ years}{0,0}{vallab-sc, align=center}{checkbox-sc, below=of lab\thecsvrow}\scoring{b=1}
+\answer{13 \\ years}{2,0}{vallab-sc, align=center}{checkbox-sc, below=of lab\thecsvrow}\scoring{b=2}
+\answer{14 \\years}{4,0}{vallab-sc, align=center}{checkbox-sc, below=of lab\thecsvrow}\scoring{b=3}
+\answer{15 \\years}{6,0}{vallab-sc, align=center}{checkbox-sc, below=of lab\thecsvrow}\scoring{b=4}
+\answer{16 \\years}{8,0}{vallab-sc, align=center}{checkbox-sc, below=of lab\thecsvrow}\scoring{b=5}
+\answer{> 16 \\years}{10,0}{vallab-sc, align=center}{checkbox-sc, below=of lab\thecsvrow}\scoring{b=6}
+\answer{don’t \\know}{13,0}{vallab-sc, align=center}{checkbox-sc, below=of lab\thecsvrow}\scoring{b=7}
+\end{variable-single}
+\end{Questionnaires}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\documentclass{article}
+\usepackage{textcomp,amsmath,longtable}
+\usepackage{latexsym}
+
+
+\begin{document}
+
+\subsection*{About you}
+\label{sec:about-you-rest2}
+
+\begin{itemize}    
+\item \textbf{Your Email} 
+\\
+  \small{(The email field is required to keep track
+  of the answers. All results will be anonymised when used.)}
+
+\item \textbf{Your Age}
+\item \textbf{Your Gender} $\Box$ F $\Box$ M
+\end{itemize}
+
+\subsection*{About the Conversation}
+\label{sec:about-conversation-rest2}
+
+The following questions are given in the form of statements regarding
+the computer during its interaction. We would like you to give your
+level of agreement with each statement on a scale going from "Strongly
+Disagree" to "Strongly Agree".    
+
+\begin{itemize}
+
+\item \textbf{I found the fact that the computer acted as if it knew me was irritating.}\\$\Box$ Strongly disagree $\Box$ Disagree $\Box$
+  Neither agree nor disagree $\Box$ Agree $\Box$ Strongly Agree
+
+\item \textbf{In this conversation, the computer interacted with you
+    in a natural way. }\\$\Box$ Strongly disagree $\Box$ Disagree
+  $\Box$ Neither agree nor disagree $\Box$ Agree $\Box$ Strongly Agree
+
+\item ....
+\end{itemize}
+
+%% Set up counters for questions
+\newcounter{qnumber}
+\setcounter{qnumber}{0}
+\stepcounter{qnumber}
+\newcommand{\yesno}{\textsf{Yes}~~\textsf{No} {\Large ~$\Box$}~~~~   {\Large $\Box$}}
+
+%% we now define the questions
+\newcommand{\question}[1]{
+  \hfill \relax1.\theqnumber\hfill\hfill &\textsf{#1} &{\small\yesno} & {\small\yesno} &{\small\yesno}\stepcounter{qnumber}\\ \hline
+  }
+  
+%% we now define the questions
+\newcommand{\heading}[1]{
+    1.0 &\multicolumn{4}{|l|}{\bf\textsf{#1}}\\ \hline %
+    }
+      \newcommand{\divider}{\hline}
+      \begin{longtable}{|c| p{5.61cm}|p{1.5cm}|p{1.5cm}|  p{1.55cm} |}
+      \divider
+      Sl.     &Quality Checks & A     & B     &C\\
+      \divider\divider
+\heading{Installation}
+      \question{Are the fans installed as per the drawings and specifications?}
+      \question{Are all safety rules understood by personnel repsonsible for operating the equipment?}
+      \heading{Electrical}
+      \question{Proper motor and fan rotation verified?}
+      \question{Verify that proper disconnect is located within sight of the unit it controls.}
+      \question{does your name starts with G}
+\heading{Electrical}
+      \question{Proper motor and fan rotation verified?}
+      \question{Verify that proper disconnect is located within sight of the unit it controls.}
+      \end{longtable}
+      
+      \end{document}

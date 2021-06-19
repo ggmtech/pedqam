@@ -1,0 +1,837 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Remote Product Inspection of RDSO controlled Items},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Remote Product Inspection of RDSO controlled Items}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{`Ref.: DG/VD Note dated 19/01/2021'}
+\author{}
+\date{\vspace{-2.5em}08 February, 2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{1. Introduction}\label{introduction}}
+
+1.1. As per the directions contained in the letter dated 19 Jan 2021 ,
+possibility of usage of remote product inspection has been examined.
+RDSO specifically deals with Safety and critical items and this calls
+for high quality of inspection. The committee has tried to make an
+initial Standard Operating Procedure (SOP) for remote product inspection
+to facilitate ease of remote inspection and also to cover the quality
+and reliability of the products inspected and attested for quality by
+RDSO inspectors. Initially 20 items have been identified and based on on
+the experience and feedback from the Railways, the system shall again be
+reviewed after six months for assessing continuance or extending the
+system to cover more items.
+
+During the unprecedented COVID19 lockdown extraordinary situation, RDSO
+has devised a remote vendor registration capability assessment, remote
+audit and remote product inspection. This process was actually utilised
+in 9 cases in RDSO during the peak of covid19 and remote quality audit
+has now been extended in normal time vide Spl. DG /VD directions in
+letter date \ldots.
+
+1.2. Spl DG VD has formed a committee of PED/PS, PED/QAM \& PED/S\&T to
+propose a Standard Operating Procedure for remote inspection of Products
+and also identify the RDSO inspected items which could be taken up
+during the first phase and based on the field experience the same could
+be reviewed or extended to other items.
+
+1.3. The matter has been deliberated in various meetings of the
+Committee Members. Details of discussions and recommendations are as
+under:
+
+\hypertarget{discussions}{%
+\section{2. Discussions}\label{discussions}}
+
+2.1 Presently the process of the RDSO inspection involves the following
+process. ( ISO Document \ldots{} )
+
+2.2.1 The RDSO approved vendor based on the Railway PO, places an online
+call in the RDSO product inspection module. The system automatically
+assignees the Quality inspector for the inspection. The inspector
+physically schedule the visit to the manufactures approved units and
+carries out the inspection as per the Check list downloaded from the
+RDSO website.
+
+2.2.2. The Inspector after the inspection also identifies the items with
+the unique serialised holographic stickers.
+
+2.2.3 Visit for Inspection , if applicable for the particular item, is
+also needed to be made at Officer/Inspecting official (SSE/JE) level. (
+ISO Document No.~\ldots.)
+
+2.2.3 The inspecting official, based upon the result of the inspection ,
+issues the dispatch memo on the spot digitally signed. Based on the
+dispatch memo verification, the inspection official of RDSO at gazetted
+level issues the Inspection Certificate digitally signed in the online
+ireps portal in transparent manner and which is immediately available to
+all concerned parties for acceptance and accountal and associated
+payments.
+
+2.11 The above process needs to be modified with a suitable SOP for
+handling RDSO inspections done via online mode.
+
+\hypertarget{study-of-similar-practices}{%
+\section{3. Study of similar
+practices}\label{study-of-similar-practices}}
+
+The committee explored the practices practices of other organisation
+like HAL accessories Divisions, RITES Inspection unit, Ordinance Factory
+Board, jabalpur, DDN, CPAT - Jaipur , and also the websites of leading
+inspection agencies like DNV and LLyods.
+
+\hypertarget{hal-accessories-division-lucknow}{%
+\subsubsection{HAL Accessories Division
+Lucknow}\label{hal-accessories-division-lucknow}}
+
+The HAL accessories division , Lucknow is a premier inspection agency
+handling the critical inspections for aerospace industries. The division
+has lot of facilities for manufacturing and Repair/ Overhaul of
+accessories for different platforms of aerospace equipments. Summary of
+these facilities is given below: - Manufacturing Capabilities +
+Machining of components ranging from 0.29 to 450 mm dia with accuracy up
+to one micron. + Manufacturing of Bellows \& Diaphragms + Vibro
+Strengthening of Wheels + Super Finishing Process ,, Orifice
+Lapping/Ball Lapping , honing, Spherical lapping to achieve sphericity
+within 2 light bands
+
+\begin{itemize}
+\tightlist
+\item
+  Assembly and Test
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Clean/Air-conditioned rooms for Assembly \& Test of Instruments,
+    Mechanical and Fuel accessories.
+  \item
+    Dedicated Test Equipments and Test rigs, Full Environmental testing
+    facilities, Balancing Machines and
+  \item
+    Hot and Cold Chambers to meet the aeronautical acceptance standards.
+  \item
+    Vibration Test rigs, Centrifugal test rigs,
+  \item
+    Humidity/ Hot \& Cold chambers and other testing capabilities to
+    cater to the testing requirements.
+  \end{itemize}
+\item
+  Inspection facilities
+
+  \begin{itemize}
+  \tightlist
+  \item
+    NABL approved Physical and Chemical Labs for inspection of
+    manufactured components and
+  \item
+    NDT Lab for Non-Destructive Testing of the components.
+  \item
+    Range of Meteorological equipments like Coordinate Measuring
+    Machines (CMM), Profile Projectors, Surface measuring Equipments,
+    Height Gauges etc.
+  \end{itemize}
+\item
+  Heat and Surface Treatment and Painting
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Centralized Heat Treatment facilities for all types of steels,
+    Aluminium alloys, Copper, Nickel \& Titanium alloys
+  \end{itemize}
+\end{itemize}
+
+The details are mentioned in the website \textless{}
+\url{https://hal-india.co.in/Accessories\%20Division\%20Lucknow/M__121}
+\textgreater{}
+
+The head of the quality assurance of the Division , Shri \ldots.?? Phone
+\ldots., , was contacted who informed that due to criticality of the
+component, no remote inspection is done. He however informed that they
+did few remote capabilities inspection and got some sample picked up and
+inspected in their facilities. They have no program for going for remote
+inspection.
+
+\hypertarget{rties-limited}{%
+\subsubsection{RTIES Limited}\label{rties-limited}}
+
+The ED/QA of RITES was contacted who informed that they have not done
+remote inspection and are also not aware of any satisfactory remote
+inspection procedure.
+
+\hypertarget{ordinance-factory-board-jablapur-and-dehradun}{%
+\subsubsection{Ordinance Factory Board, Jablapur and
+Dehradun}\label{ordinance-factory-board-jablapur-and-dehradun}}
+
+No remote inspection of the Product is understood to be carried out by
+them.
+
+\hypertarget{bv-na}{%
+\subsubsection{BV NA}\label{bv-na}}
+
+Bureau Varitas North America claims on its website of doing the remote
+inspection using advance technologies , which appears impracticable for
+RDSO. The details are at website :
+
+\hypertarget{llyods-inspection}{%
+\subsubsection{LLyods Inspection}\label{llyods-inspection}}
+
+The online website has claimed capabilities in remote inspection.
+
+\newpage
+
+\hypertarget{prerequsites-for-remote-inspection}{%
+\subsection{4. Prerequsites for remote
+inspection:}\label{prerequsites-for-remote-inspection}}
+
+\hypertarget{defination-of-remote-means}{%
+\subsubsection{Defination of Remote
+means}\label{defination-of-remote-means}}
+
+\begin{itemize}
+\tightlist
+\item
+  includes Online Video streaming made available to the inspecting
+  official has per his technical satisfaction.
+\item
+  The firm must agree to submit video streaming and recording, with
+  photographs, of requisite details to be verified.
+\item
+  Necessary facilities to be available in Firm's premises for online
+  viewing through a Conference App.
+\item
+  A legally acceptable undertaking by the firm is necessary regarding
+  genuineness of the information submitted, readiness for subsequent
+  verification by Official of Design/item controlling dte and readiness
+  to face consequential actions in case any discrepancy in such
+  verification is noticed which cannot be justified.
+\end{itemize}
+
+\hypertarget{the-identified-list-of-items-and-revision-of-checksheets.}{%
+\subsection{The Identified list of items and revision of
+Checksheets.}\label{the-identified-list-of-items-and-revision-of-checksheets.}}
+
+\hypertarget{item-identification-list-with-check-sheet-revision-annexurelist-of-items}{%
+\subsubsection{Item identification list with Check sheet revision
+(Annexure:List of
+Items)}\label{item-identification-list-with-check-sheet-revision-annexurelist-of-items}}
+
+The Design Directorate shall identify or ratify the items and also make
+out a revised check sheet of critical parameters of the product that
+needs to be verified by remote means.
+
+The Item identification list is placed in annexure. The existing Check
+sheet needs revision for remote inspection.
+
+\hypertarget{hardware-and-software-requirements}{%
+\subsubsection{Hardware and Software
+requirements}\label{hardware-and-software-requirements}}
+
+The committee deliberated and concluded that no effective remote
+inspection can be done with the following supporting infrastructure.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  An Inspection Digital Kit of :
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  A suitable laptop with memory and speed commensurate with remote
+  measurement process frame rate capture at requisite video resolution.
+  Laptop should have sufficient resolution to allow for lag free and FHD
+  play back of two video streams - ( the panoramic video for the
+  location and the close up by mobile camera)
+\item
+  At least 6" screen FHD high contrast mobile phone with 4 or preferably
+  5G data speed capability.
+\item
+  High Speed mobile Data connection service dongle
+\item
+  Digital Signature are already available with each Inspector
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  A video projection system for each of the QA wing is also suggested
+  for review of the process in finer granularity on sample / test cases
+  is suggested.
+\item
+  The laptop should have sufficient memory to quickly shift to another
+  camera stream and run with lag free video of at least 30 fps at FHD
+  resolution. needs for each inspector and review at HQ projection.
+\item
+  Facility to Store the data permanently for at least five years on
+  preferably cloud storage from Railway PSU like RailTel Servers running
+  HDFS network storage with at least industry standard 3 tier
+  replication of data. A compressed recording storage space of about 5-6
+  hours may be required for each inspector for per day of inspection.
+  This needs to be operated through a secure portal to store and access
+  the digitally stored inspection data on need to know basis.
+\item
+  GPS and Time stamping of the images / Videos and automatic generation
+  of strong secure hashes for data integrity.
+\item
+  In future to keep RDSO in the forefront of technology, image analytic
+  could be developed by RailTel to analyse to process the images to
+  extract the dimensions and features of the images.
+\end{enumerate}
+
+\hypertarget{proposed-action-plan-for-online-remote-inspection-by-rdso}{%
+\section{5. Proposed action plan for Online Remote Inspection by
+RDSO}\label{proposed-action-plan-for-online-remote-inspection-by-rdso}}
+
+Initially, few RDSO controlled items , which are least critical items
+and also amenable for remote inspection shall be selected and based on
+the experience gained and the feedback from the Railway, the system
+shall be reviewed after say six months.
+
+\hypertarget{recommendations}{%
+\section{6. Recommendations:}\label{recommendations}}
+
+\hypertarget{roll-out-of-inspeciton}{%
+\subsection{Roll out of Inspeciton}\label{roll-out-of-inspeciton}}
+
+The committee deliberated various issues related to commercial/legal
+aspects and the technical process capabilities of the Remote Inspection
+Protocol and also informally gathered information from the similar
+government agencies.
+
+In view of the mandated directive, and also considering the fact that
+RDSO controlled items by definition are ``Safety and Critical items''
+and therefore it is proposed that initially the RDSO shall decide few
+prima facie amenable items ( Annexure:List of Items) and proceed for the
+remote inspection based on the initial draft ``Standard Operating
+Procedure (SOP)'' as attached as annexure (Annexure:SOP).
+
+Based on experience gained for a period of about 6 months and based on
+the feed back from various stockholders including the Vendors and Field
+Railways, this procedure shall needs to be reviewed again to extend to
+other items.
+
+Committee also notes that unlike RDSO , agencies like RITES etc are more
+amenable and can be mandated by Board to adopt online Inspections only
+so that trier experience can be extended to RDSO safety items also.
+
+\hypertarget{initial-draft-standard-operating-procedure-sop-annexuresop}{%
+\subsubsection{initial draft "Standard Operating Procedure (SOP)
+(Annexure:SOP)}\label{initial-draft-standard-operating-procedure-sop-annexuresop}}
+
+\hypertarget{vendor-preparedness-and-capability-assessment-for-remote-product-inspection}{%
+\subsection{Vendor preparedness and Capability Assessment for Remote
+Product
+Inspection:}\label{vendor-preparedness-and-capability-assessment-for-remote-product-inspection}}
+
+\hypertarget{the-field-official}{%
+\subsubsection{The field official:}\label{the-field-official}}
+
+RDSO official can seek assistance of staff from the Railways or depute
+an authorised representative at sole discretion of RDSO or even may
+decide to depend entirely the employees of the firm.
+
+However, the official has to take Online guidance and directions of the
+inspecting official and the same shall be mandatory.
+
+\hypertarget{request-for-online-inspection}{%
+\subsubsection{Request for Online
+Inspection}\label{request-for-online-inspection}}
+
+The firm has to place online inspection request in PIMS and in addition,
+submit the advance internal test reports and willingness and the
+undertakings
+
+\hypertarget{undertaking-by-the-firm}{%
+\subsubsection{Undertaking by the Firm}\label{undertaking-by-the-firm}}
+
+An undertaking to be taken from the firm regarding genuineness of the
+information submitted, readiness for subsequent verification for the
+firm's premises by the Official of Design/item controlling dte and
+readiness to face the penal action, in case any discrepancy in such
+verification is noticed, which cannot be justified. Format for such an
+undertaking is enclosed as Annexure-B.
+
+\hypertarget{inspection-report}{%
+\subsubsection{Inspection Report}\label{inspection-report}}
+
+For reporting of the assessment, formats as laid down in respective ISO
+documents to be followed.
+
+\hypertarget{sampling-plan}{%
+\subsubsection{Sampling Plan}\label{sampling-plan}}
+
+Wherever there is requirement for the sample drawl, existing procedure
+for sample selection in ISO to be followed and the sample shall be
+picked up by RDSO official or at his direction by the authorized person
+deputed for the same and the sample shall be sealed and sent to the
+testing agency as specified or decided by the director in charge. ( ISO
+Document No.~QO-D-8.1-6, ver-3.0/para 4.2 and ISO Document
+No.~QO-D-8.1-13, ver-1.2/para 4.2 )
+
+\hypertarget{methodology-for-online-guidance-assessment-inspection}{%
+\subsubsection{Methodology for Online Guidance/ Assessment/
+Inspection}\label{methodology-for-online-guidance-assessment-inspection}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Firm to be asked to submit willingness for Online
+  Assessment/Inspection and confirmation about availability of following
+  facilities for Online Assessment:
+\item
+  Internet connected standard High definition or full High definition
+  Video Camera with good resolution, or similar, and having facility of
+  date/time/GPS location stamping. If the geo location facility is not
+  available, then few photos with mobile phone geo tagged photos can be
+  sent at the time of sending video recording
+\item
+  Laptop (for video conferencing, duly connecting the Video Camera to
+  it)
+\item
+  Good Internet Connection for Video Conferencing.
+\item
+  Adequate lighting for clear viewing of the facilities.
+\item
+  After submitting confirmation, firm to be asked to nominate one Nodal
+  Official, with name and contact details, for coordinating the Online
+  Assessment/Inspection and submit video recording, with photographs, of
+  requisite details to be verified/inspected, as mentioned in
+  Annexure-A. Such Video recording/photographs to have clear visibility.
+\item
+  Video Recording/photographs can be shared by the firm with Inspecting
+  Authority \& RDSO through any common large size file transfer app.
+\item
+  After receipt and scrutiny of the video recording/photographs, date(s)
+  shall be advised to the firm for visit of the Inspecting official and/
+  or Online Assessment.
+\item
+  During online inspection, the entire process to be recorded and snap
+  shot of major facilities/documents to be taken, as feasible.
+\item
+  Entrance and neighbourhood buildings/installations to be verified and
+  snap shots taken.
+\item
+  Adequate lighting during such online inspection to be ensured by the
+  firm for clear viewing through video camera.
+\item
+  After inspection, recording to be saved in a portable hard drive, with
+  proper cataloguing. However, such recordings need to be saved in a
+  secure server of Railtel/CRIS, for which necessary arrangements shall
+  be made by Telecom dte.
+\item
+  The sample shall be identified and sealed jointly and to be securely
+  sent to the testing lab as specified or decided by the director
+  incharge.
+\item
+  The committee therefore proposes to also adopt the above procedure for
+  next six months, as an alternative to existing procedure laid down in
+  Apex ISO document, for the purpose of expediting the Vendor
+  registration /Prototype Inspection/Quality Audit process, which can be
+  reviewed based on the COVID19 situation and experience gained in the
+  process.
+\item
+  The proposal requires addition of the following line in the Apex ISO
+  document for implementation: Para:
+\item
+  ISO Document No\ldots\ldots{}\\
+\item
+  ISO Document No.~.. etc
+\end{enumerate}
+
+\newpage
+
+\hypertarget{recommendations-1}{%
+\section{Recommendations}\label{recommendations-1}}
+
+The committee recommends that initially RDSO may take up few items for
+remote digital inspection and based on the experienced gained in the
+inspection of items affecting the train operations safety, the process
+can be reviwed to extend or retract or modify the process. Meanwhile the
+list of initially identified item is placed at Annexure and approval for
+the same along with the enabling provisions for the same may be
+approved, if agreed by the Special DG.
+
+Committee also recommends that the proposed procedural changes may also
+be put for kind perusal of DG considering the major policy changes
+involving the quality assurance of the RDSO inspected items for the
+Railways.
+
+( PED/PS ) --------------------- ( PED/QA/Mech )
+----------------------------- ( PED/S\&T )
+
+No.~: QAM/ISO/Misc Dated: ------------------------- 05 /02/2021
+
+Special DG
+
+DG
+
+MR/ISO cell
+
+\pagebreak
+
+\hypertarget{sop}{%
+\section{SOP}\label{sop}}
+
+This SOP describes the Standard Procedure for implementation of Remote
+Product Inspection
+
+\hypertarget{the-items-must-be-pre-identified-by-rdso-with-remote-inspection-check-sheet}{%
+\subsection{The Items must be pre identified by RDSO with Remote
+Inspection Check
+sheet}\label{the-items-must-be-pre-identified-by-rdso-with-remote-inspection-check-sheet}}
+
+\hypertarget{format-for-willingness-of-the-firm-to-accept-the-remote-inspection-protocol}{%
+\subsection{Format for Willingness of the Firm to accept the Remote
+Inspection
+protocol}\label{format-for-willingness-of-the-firm-to-accept-the-remote-inspection-protocol}}
+
+\hypertarget{format-attached}{%
+\subsubsection{Format attached}\label{format-attached}}
+
+\hypertarget{foramt-fr}{%
+\subsubsection{Foramt fr}\label{foramt-fr}}
+
+\newpage
+
+\hypertarget{annexure-a}{%
+\section{Annexure-A}\label{annexure-a}}
+
+\hypertarget{information-to-be-provided-by-the-firm-for-online-inspection}{%
+\subsection{Information to be provided by the firm for Online
+Inspection}\label{information-to-be-provided-by-the-firm-for-online-inspection}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  An unqualified undertaking to participate in the remote inspection as
+  uploaded on RDSO site and be responsible for all authenticity of the
+  test data and the measurement and inspections on behalf of RDSO
+  inspectors
+\item
+  Make available all data to the RDSO remote inspectors by means of
+  Video stream, high resolution photographs and internal QA test data
+  and physical check up measurement at the time on remote inspection in
+  most transparent way to establish the genuinity of the procedure.
+\item
+  To establish genunity of the OEM manufacturing unit, the Video
+  recording of Virtual tour of the factory, proposed to be registered
+  with RDSO, including neighbourhood buildings/installations front, left
+  and right, factory premises starting from entrance gate, showing
+  sequence of manufacturing process, inspection and quality control of
+  components etc, including lab, machines, factory premises of
+  manufacturing plant.
+\item
+  Photographs of neighbourhood buildings/installations (front, left and
+  right), Entrance Gate, all main facilities/documents, which need to be
+  verified, with proper tagging.
+\end{enumerate}
+
+\newpage
+
+\hypertarget{availability-and-details-of-following-facilities-for-online-inspection}{%
+\subsubsection{Availability and details of following facilities for
+online
+inspection:}\label{availability-and-details-of-following-facilities-for-online-inspection}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Internet connected standard High definition or full High definition
+  Video Camera with good resolution, or similar, and having facility of
+  date/time/GPS location stamping (If the geo location facility is not
+  available, then few photos with mobile phone geo tagged photos can be
+  sent at the time of sending video recording)
+\item
+  Laptop (for video conferencing, duly connecting the Video Camera with
+  it)
+\item
+  Good Internet Connection for Video Conferencing
+\item
+  Adequate lighting for clear viewing of the facilities
+\item
+  Details of Nodal Official for Coordinating the visit:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Name:
+\item
+  Designation:
+\item
+  Mobile Number:
+\item
+  Email ID:
+\item
+  Alternate contact no:
+\end{itemize}
+
+\newpage
+
+\hypertarget{annexure-b}{%
+\section{Annexure-B}\label{annexure-b}}
+
+Proposed Format for Undertaking by the Firm for Online Inspection
+
+To Director General , RDSO, Lucknow 226011, UP.
+
+Sub: Affidavit for participating in Online Inspection of the Product for
+RDSO controlled items
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  I hereby give willingness for Online Inspection against my Inspection
+  Request (PIMS reference ID:\ldots..) of the product manufactured by my
+  firm \ldots\ldots\ldots\ldots\ldots.. (strike out whichever is not
+  applicable)
+\item
+  I hereby certify and solemnly declare genuineness of all video
+  recordings, photographs, documents, submitted by my firm.
+\item
+  I further declare the product which has been offered for Remote
+  Inspection, have already been tested and declared pass and the details
+  of internal checks are sent in advance.
+\item
+  I further understand that notwithstanding the RDSO inspection , I am
+  fully responsible for the quality and relaiblilty, warranties and the
+  product is accepted by the Railways on my guarantee
+\item
+  If any discrepancy in the information provided by me in any form is
+  found, RDSO reserves the right to take penal action, including
+  de-registration, against my firm, in accordance with para 4.2.4 of
+  RDSO's ISO Document No:QO-D-8.1-11 Ver.1.3 of 01.07.2020.
+\item
+  I also understand and agree that Online Inspection can be accompanied
+  by presence of any personnel authorized by RDSO.
+\item
+  I further indemnify the RDSO
+\item
+  I agree to destroy the item declared failed by RDSO official so that
+  the material cannot even be inadvertently supplied to Railways, as per
+  the extent procedures.
+\item
+  I further understand that all the procedures of placement of call onto
+  the existing RDSO platform and using existing procedure shall be
+  followed and Digital Dispatch Memo and Inspection certificate in
+  Digital form shall be issued on the IREPS platform.
+\end{enumerate}
+
+Signature:\\
+Name of Authorized Signatory:\\
+Designation:\\
+Name of Firm:\\
+Address of Firm's premises proposed for registration:
+
+\newpage
+
+\hypertarget{remote-product-inspection-by-rdso-check-sheets}{%
+\section{Remote Product Inspection by RDSO Check
+Sheets}\label{remote-product-inspection-by-rdso-check-sheets}}
+
+The following checklist points should be confirmed.
+
+\begin{itemize}
+\item
+  Signed Standard Form for acceptance of remote inspection procedure for
+  product inspection by the vendors :
+\item
+  For every inspection , and undertaking for taking responsilbites for
+  the data and inspection and the product reliability performance
+\item
+  The vendor is willing to take all the responsibilities for the failure
+  and rejection of the item at the consignee end. Yes No
+\item
+  Item should be part of the list approved and with remote inspection
+  check list :
+\item
+  The Internal Test Report duly authenticated received and examined in
+  advance by the inspecting official:
+\item
+  The process constraints:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Unique identification of the item to be inspected for its identity -
+    by engraved Serial Number or Unique holograms
+  \item
+    Unique ID with serial number for easy identification and for
+    enforcing QA statistical sampling plan
+  \item
+    Calibration certificates of each equipments and instruments must be
+    sealed with calibration stickers which should be clearly visible in
+    remote inspection
+  \item
+    Setting of the zero error and scale check before start of the
+    inspection
+  \item
+    A secondary camera capturing the panoramic vision of the inspection
+    place should be installed and both mobile camera and panoramic FHD
+    PTZ camera must be streamed together.
+  \item
+    The data feed of Video and Camera should be saved in the row format
+    and no editing should be later allowed and the video file and image
+    files along with the hash value of the files should then be securely
+    sent to RDSO and one copy should be uploaded by the vendor to the
+    RDSO Remote Inspection Portal data warehouse on Railtel Servers. The
+    access will be allowed by the inspecting official of the RDSO.
+  \item
+  \end{itemize}
+\end{itemize}
+
+\newpage
+
+\hypertarget{pitfalls-in-digital-inspection}{%
+\section{Pitfalls in Digital
+inspection}\label{pitfalls-in-digital-inspection}}
+
+\hypertarget{the-disadvantage-of-remote-inspection}{%
+\subsection{The disadvantage of remote
+inspection}\label{the-disadvantage-of-remote-inspection}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The calibration and zero error and range setting of the testing
+  equipments
+\item
+  The apparent distortion in image due to camera lens and achromatic
+  aberrations and CCD/CMOS sensor non - linearity with actual images.
+  The picture and video appears perceptibly different
+\item
+  The background of the process psychologically mislead the reality.
+  This is a proven pitfall and Inspection will be affected with his
+  \texttt{Recognition\ Primed\ Descesion} making abilities. A few
+  example photos are included in the annexure.
+\item
+  The vendor will have tendency to set up biased measurement /recording
+  workstations.
+\item
+  An important ability of locating the faults and system shortcomings on
+  a quick glance of rejections and scrap would be lost.
+\end{enumerate}
+
+The committee also highlights that the process of getting material on
+Internal Test Report and vendors certificate is better then attesting
+the claims of the vendor quality by remote procedure.
+
+However the advantage is that all the data on which inspection was based
+exists in the records and the vendor continues to be responsible for the
+quality at least till his warranty period. In case of digital
+inspection, it is proposed that warranty period could be increased
+suitably. Further, in future digital analytic can be used for completely
+automating the inspections.
+
+\hypertarget{responsibilities-of-the-inspecting-officials}{%
+\subsection{Responsibilities of the inspecting
+officials}\label{responsibilities-of-the-inspecting-officials}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The inspecting official is responsible to follow the laid down
+  protocol
+\item
+  Any error beyond reasonable precaution, shall be attributable to the
+  system limitations.
+\end{enumerate}
+
+\hypertarget{not-an-alterntive-for-full-physical-inspection}{%
+\subsection{Not an alterntive for full physical
+inspection}\label{not-an-alterntive-for-full-physical-inspection}}
+
+\begin{itemize}
+\tightlist
+\item
+  Better for inspecting official that decision on recorded remote data:
+  scrap and site inspection leads, image paradoxes,
+\item
+  The process needs through review by a Directors level committee with
+  suitable time for say three months to visit and study the practices of
+  leading organisations who are following the remote inspection process.
+\end{itemize}
+
+\hypertarget{the-standard-operating-procedure-sop}{%
+\section{The Standard Operating Procedure
+(SOP)}\label{the-standard-operating-procedure-sop}}
+
+The committee has proposed the Standard Operating Procedure and the same
+is attached as annexure. : (Draft stage)
+
+\end{document}

@@ -1,0 +1,532 @@
+## not picking sections et in slides
+---
+title: A minimal example
+subtitle: With a subtitle
+author: Matthias Vogelgesang
+date: \today
+institute: Centre for Modern Beamer Themes
+output: binb::metropolis
+classoption: "aspectratio=169"
+fontsize: 12pt
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+# First Section
+
+## First Frame
+
+Hello, world!
+
+# Second Section
+
+## Second Frame
+
+### Bulleted Lists
+- Element A
+- Element B
+    - B.1
+    - B.2
+- Element C    
+
+# Elements
+
+# Expediting the RDSO’s Vendor Registration process
+
+Presentation will cover
+Probable reasons for slow vendor registration process
+Suggestions for expediting the vendor registration process
+Vigilance letters
+Case studies on Factory license, ISO documents
+
+## 
+### Reference ISO Document for Vendor Registration Process
+S no 
+Subject
+Document  No
+1  
+### Vendor Registration form
+QO-F-8.1-1 ver. 2.0
+2
+Vendor registration schedule of charges
+QO-D-8.1-14 ver. 2.1
+3
+Application  For registration of Vender
+QO-D-8.1-5 ver.2.1
+4
+List of documents to be sought from vendor at the time of registration 
+QO-F-8.1-7 ver. 1.2
+5
+Vendor application processing 
+QO-D-8.1-6 ver. 3.2
+6
+Capability assessment report for vendor registration 
+QO-F-8.1-8 ver. 1.1
+7
+Vendor sample type testing
+QO-D-8.1-10 ver. 1.5
+8
+Intimation of fresh Registration 
+QO-F-8.1-2 ver. 1.0
+9
+Vendor –changes in vendor entity
+QO-D-8.1-12 ver. 1.1
+10
+Relaxation of Vendor registration requirements
+QO-D-8.1-7 ver.1.1
+11
+Publishing EOI
+QO-D-8.1-16 ver.1.1
+Web link for above apex  ISO document https://rdso.indianrailways.gov.in/view_section.jsp?lang=0&id=0,5,268,5443,5444
+
+# Probable reason for slow vendor registration process
+ - Non awareness of activity wise vendor registration time line
+ - Non awareness of sample testing time
+    - More time taken in initial scrutiny of documents
+     + Lack of monitoring of application wrt time lines
+     + Non adherence to ISO  apex guidelines
+     + Non awareness of revised ISO guidelines regarding revised inspection charges, testing charges, new initiatives taken by RDSO etc
+ - Excessive time in deployment of officials for sample testing etc
+ - Dependent on other labs for testing of samples 
+
+## Probable reason for slow vendor registration process : Contd….
+Delays on account of unnecessary deficiencies
+Shortage of officials in dtes
+Non transfer of items from design dte to QA
+Lack of interaction with other dtes for awareness/development
+Not taking Support of field units 
+
+
+## Non Adherence to Vendor Registration Time line
+Each activity of vendor registration has prescribed time lines
+These time lines are available at following link
+https://rdso.ggn.rcil.gov.in/qamvr/TIMELINE_REPORT.aspx
+Target time for  registration was 180 days vide 
+Ref:ED/VDG & CVO’s L/No. 1.55.07.01 dated 10.03.2017
+But Revised from 180 days to 150 days vide
+
+
+
+# Activity wise TIME LINE for vendor registration
+
+## TIMEFOR INITIAL SCRUTINY OF DOCUMENTS
+Excessive  time taken in scrutiny of QAP by dtes HQ : QAP is the responsibility of official verifying CCA/sample testing. 
+During scrutiny of application, if minor deficiency is observed, then case has to be sent to field unit or further process for STR verification/Capability assessment by dtes
+In case of major deficiencies in documents submitted, the firm should be given one month time to make good the deficiencies before closure of case.”
+Ref: Document No:QO-D-8.1-6 Version No: 3.2 Date Effective : 17.09.2020 para no. 4.4
+
+
+## Permitting more time to the vendor 
+Once deficiency found during capability assessment, the case shall be CLOSED and the closure along with deficiencies shall be communicated to the vendor.  : NOT FOLLOWED by dtes.
+Ref : Document No:QO-D-8.1-6 Version No: 3.2 Date Effective : 17.09.2020 Para no. 4.7
+
+## Demand of unnecessary documents
+Unnecessary documents or irrelevant documents are asked from the vendors in writing which caused delay in vendor approval processing
+ISO Surveillance report
+Annual capacity assessment of Class A foundry etc
+
+Non awareness of revised ISO guidelines regarding revised inspection charges, testing charges, new initiatives taken by RDSO etc
+Officials are not aware about latest ISO guidelines in terms of revised testing charges, new initiatives taken by RDSO for transparency and ease of doing business.
+
+
+More time taking in deployment of officials for sample testing etc
+Delay in deputing officials for CCA/STR verification/Sample testing. It may be due to shortage of officials and multiple engagements.
+
+## Dependent on other labs sample sample testing 
+In some cases samples are sent to out side the firm’s lab and take long time as no control over there like in 70 BD coupler testing is done in  National Metallurgical Lab Jamshedpur and more than 6 months are taken for testing. 
+For finalization of such cases, the testing facilities of  firm’s or RDSO/LKO can be utilized if available. Other wise it  should be planned in advance if such delays are happening
+
+## DELAYS on account of unnecessary deficiencies
+Ref: CVO/RDSO/LKO’s L/No. 15/Vig./Policy dt 20.09.2017
+
+## Shortage of officials in dtes
+Dtes can take help of field units of other dtes for CCA/STR verification/Sample testing as it is being taken in COVID 19.
+Virtual inspection by dtes
+ Purchase inspection of some item  controlled by design directore are still done by themselves. So,  purchase inspections of such items may be transferred to QA which will lighten design official with some workload to undertake registration work on priority
+
+Non transfer of items from design dte to QA
+Ref: Sr Audit officer/RDSO/LKO’s L/No. LKO-RDSO/4-9/IR-I/01.2015-16/ dt 28.04.2015
+
+Non transfer of items from design dte to QA….
+Ref: Sr Audit officer/RDSO/LKO’s L/No. LKO-RDSO/4-9/IR-I/01.2015-16/ dt 28.04.2015
+Once the vendors are developed by design dtes for an item with stability in STR/Spec, the same should be transferred to QA for further vendor development & inspection. This system is not followed. That’s why design dtes are OVERLOADED with unnecessary work. 
+
+## Interaction with other dtes for awareness/ development
+Some dtes are not interacting with other dtes for what new  development/initiatives in vendor registration is going on. 
+So regular interaction help in updation of knowledge
+
+## Not taking Support of field units
+Design dtes/Other dtes can take help of field units for CCA/STR verification/Sample testing for further processing of the case to avoid delay 
+
+Vigilance guidelines to expedite process
+(Ref: CVO/RDSO/LKO’s L/No. 15/Vig./Policy dt 20.09.2017)
+
+21
+Vendor Registration Schedule of Charges(ISO Doc.no. QO-D-8.1-14,  Ver.2.1 , 15.07.2020)
+S.N
+Description of charges
+For Indian Firms
+For Overseas Firms
+Micro/ Small Enterprises
+Other than Micro/ Small Enterprises
+1
+For items having five or more registered vendors
+Rs.1,50,000
+Rs.2,50,000
+US $ 12,000
+2
+For items having less than five registered vendors 
+Rs 10,000
+Rs 50,000
+US $ 12,000
+Plus GST (Goods and Service Tax) as applicable from time to time
+
+Decision regarding Number of Vendors for applicability of reduced registration fees
+This will be decided on the basis of the total number of registered vendors appearing, both for  approved as well as for  development on the day of submission of the vendor registration form by the applicant
+22
+
+## Adherence Time frame for offering Samples for testing
+Samples to be offered in the given time frame
+The stipulated time frame are given in ITEM MASTER
+The link of item master is as follows
+rdso.ggn.rcil.gov.in/QAMVR/ITEM_MASTER_LIST.asp
+In case, If the vendor fails to comply within stipulated time then case shall be closed
+This time will be counted from the date of advice by RDSO
+
+23
+
+## Sample Testing Charges
+The vendor will be required to deposit testing charges, if applicable as per details provided in “Item Master” link.
+Link for item master is as follows
+https://rdso.ggn.rcil.gov.in/QAMVR/ITEM_MASTER_LIST.aspx
+
+24
+
+## Sample testing contd..
+On confirmation from vendor for readiness of sample, testing of samples shall be conducted. In case, sample fails, the case shall be closed and the closure along with the test value of the results shall be communicated to the vendor. If the vendor desires to further offer samples for re-testing, he may do so only after taking adequate corrective action to improve the product specially for the parameters which were found non-conforming. In such case, the vendor will have to re-register and re-submit samples along with testing charges, if applicable, (giving reference of the earlier case) within 6 months from the date of closure, then the case can be re-started from the stage where it was closed (as a one-time exception). 
+Charges for retesting will be depend upon number of vendor as well as number of times testing has be done
+25
+
+26
+Testing charges- for first time, and resting(ISO Doc.no. QO-D-8.1-14,  Ver.2.0 , 15.07.2020)
+SNo
+Case
+Category of vendor
+Condition
+Testing charges at the time of registration
+Testing charges at the time of re testing
+Testing charges at the time of subsequent re testing
+1
+For Fresh registration
+Any
+Till 5 vendors are registered
+Nil
+25%
+100%
+2
+For Fresh registration
+Any
+After registration of 5 or more vendors
+100%
+100%
+100%
+
+Charges  for the  Testing of samples at laboratories identified by RDSO wherever applicable & Capacity and capability assessment of firm by outsourced agencyRef: para 5 &8 of QO-D-8.14 ver. 2.1
+The vendor shall make payment to the laboratory/ inspection agency with an advice to RDSO
+27
+
+## Application for registration of vendorsRef: QO-D-8.1-5
+No paper based application to be accepted. If received, application to be returned with advice to apply on line
+QAP, Undertaking/ legal documents should be accepted both manually or Digitally signed by authorized signatory
+Authorized signatory has be authorized by proprier/all partner or director ( MOA) as case may be
+No need of asking hard copies of legal documents during application stage, instead original to be collected during CCA
+Approval Only to OEM. No traders/resellers to be permitted
+Payment of Registration charges and uploading of application to be done in 15 days after GST invoice communication, which can be further extended by 15 days with the approval of head of directorate provide payment done within first 15 days.If noncompliance, close the case forfeit the registration fees
+
+28
+
+Application for registration of vendorsRef: QO-D-8.1-5     Contd..
+Ensure that every page of submitted document is signed by authorized representative and stamped also
+Do not ask the common documents if vendor is already registered with RDSO and applying for additional item from same work address
+We should ask only those documents which are renewed and expired
+Mandatory declarations must be ensured as per QO-F81.-7
+Normally No need of sending documents/ declarations to legal cell
+
+29
+
+Prerequisite for application- ISO 9001:2015 Certification(Clause 4.3.1 of RDSO ISO Document No. QO-D-8.1-5, Version No:2.1, Date Effective: :02.07.2020)
+ 
+Scope of the certificate should be manufacture of same/ similar 
+Address on certificate should be same where registration is desired
+Cross check that the certifying body which issues the ISO: 9001 certificate is accredited by an accreditation body that is a part of the International Accreditation Forum (IAF) under the Multilateral Recognition Arrangement (MLA).
+The list of all such accreditation bodies is available at the IAF website at: http://www.iaf.nu. Any doubts regarding the veracity of certifying body or accreditation body shall be referred to ISO Cell. 
+
+ISO 9001:2015 Certification(Clause 4.3.1 of RDSO ISO Document No. QO-D-8.1-5, Version No:2.1, Date Effective: :02.07.2020 )
+ 
+Date of issue and its Validity period 
+1st Surveillance Audit due and Done
+2nd Surveillance Audit due and Done
+
+
+Online verification must be done to confirm its current status, it should be active not Suspended / Inactive.
+
+Surveillance Audits not conducted in time
+Surveillance Audit conducted but Certificate is under suspension due to non-payment of fee or any other reason.
+Confirmation about successful completion of such audits and continuation of certificates shall be confirmed through email from certifying agency.
+
+# Sample ISO Certificate
+
+ISO 9001:2015 Certification(Clause 4.3.1 of RDSO ISO Document No. QO-D-8.1-5, Version No:2.1, Date Effective: :02.07.2020 )
+ 
+
+Statutory compliances (as applicable )(Ref: RDSO ISO Document No: QO-F-8.1-7, Version No:1.3, Date Effective : 15.07.2020)
+Compliance
+Remarks
+Factory license 
+IF WORKERS >10 & POWER
+(If Factory License Not Applicable, Upload The Undertaking For It)
+
+## Udyog  Aadhar
+
+Not mandatory
+National small industries corporation (NSIC) registration 
+
+Not mandatory
+
+## Micro/Small scale industry (SSI)
+Not mandatory, but required if claiming reduced registration fees
+
+Factory License (Ref: RDSO ISO Document No: QO-F-8.1-7, Version No:1.3, Date Effective : 15.07.2020)
+The Act is applicable to any factory whereon ten or more workers are working, or were working on any day of the preceding twelve months, and in any part of which a manufacturing process is being carried on with the aid of power. 
+Details to be verified on Factory License:
+Name and address of the Occupier.
+Name and address of the factory.
+Type of the manufacturing process to be carried out in the factory.
+Name of the manager of the factory.
+Number of workers likely to be employed.
+the total rated horse power installed
+Other prescribed particulars.
+
+
+
+# Sample FL issued by Punjab Government
+
+Take Translated and Notarised copy of FL issued by Punjab Government during CCA
+
+Udyog Aadhaar 
+Udyog Aadhaar Memorandum (UAM) is a 12 digit legal identity document issued by Ministry of MSME to recognize MSME entities.
+To help them in availing different benefits issued by the government for MSMEs like collateral-free loans, assistance in finance required for market research & technology advancement, tax exemptions, and subsidies, etc. 
+To qualify registration as MSME, it is necessary to apply for UAM.
+
+## Company Registration Vs Udyog Aadhaar Registration
+Difference
+Company Registration
+Udyog Aadhaar Registration
+1. Governing law
+Companies Act,2013
+MSMED Act 2006
+2. Objective of Registration
+To incorporate the business as
+– Private Company
+– Public Company
+– One Person Company
+– Limited Liability Partnership
+– Section 8 Companies.
+To incorporate the business as MSME and avail benefits of government schemes.
+ 
+3. Eligibility
+To be applied by any individual/entity fulfilling the minimum registration criteria specified for different Company types in the Companies Act,2013. For example minimum directors/shareholders, minimum capital, etc.
+To be applied by any individual/entity recognized as MSME based on the minimum investment criteria in plant & machinery and service equipment. 
+4. Registration formalities
+Filling of
+– business details on specified e forms for business incorporation on MCA
+–  declarations by directors, members, shareholders, etc and;
+– related documents as prescribed by ROC.
+Filling of
+– business details, – investments and;
+– related documents as prescribed on the common portal of Udyog Aadhaar.
+5. Mandatory or Not
+Mandatory for all entities opting to work as a registered company organization.
+Not mandatory.
+6. Benefits
+An entity shall become eligible for all scheme benefits and tax exemptions provided by the government for company organizations. 
+The entity shall become eligible to avail tax exemptions and policy benefits for MSMEs with the subject to certain conditions.
+7. Renewal Policy
+Renewal of registration is not required, except for certain specified situations by MCA.
+Have to be renewed for certain entities after 5 years.
+ 
+
+## Legal issues
+During process of a fresh registration, it was noticed that the firm used different styles for their name in important legal documents. This matter was referred to Legal Cell of RDSO.  Legal Officer opinion is as under;
+	(i).“The name and style has to be maintained in all document. Firm may please be advised to get the deviation in name and style of the firm corrected within reasonable time”. 
+	(ii).The stamp duty paid on Partnership Deed dated 01.04.2019 is Rs. 250/- whereas the Stamp Duty rates obtained through site  provide 01% of capital subject to ceiling of Rs. 5,000/-. However, the capital investment has not been mentioned in the Partnership Deed. Since the matter pertains to Delhi hence legal opinion may please be taken from Railway Counsel. Panel of Railway Counsels of High Court/CA.
+
+Vigilance Advice to cut delays , acceptance of superior technology/ equipment, Test check(Dir./Vigilance’s letter no. 13/Vig/Policy dated 03.12.2016)  
+On same set of documents , all queries to be raised in one go 
+Positive interpretation of rules to be
+Test conducted during test check should be subset of test conducted during inspection and test conducted during inspection should be subset of internal routine testconducted by firm . Vice versa is not acceptable
+
+
+Vigilance Advice to cut delays , acceptance of superior technology/ equipment, Test check(Dir./Vigilance’s letter no. 13/Vig/Policy dated 03.12.2016) 
+Contd…
+Where inferior technology/equipment is mentioned in the specification/ STR & the same superior technology /equipment then the same should be accepted by the directorate and this fact should be recorded in noting on the file. For example Gas fired furnace is available against the requirement of Oil fired/Electric furnace in STR, it must be accepted.
+Specification to be reviewed to cover superior technology/ equipment. 
+
+43
+
+RDSO Vigilance letter on vendor approval
+
+NO DSC & Registration on IREPS
+Digital Signature and registration on IREPS are not mandatory during fresh registration, so case should  be closed/ or no time should be wasted in getting clarification for it.
+
+Quality Assurance Plan
+For preparation of QAP as such there is no format  issued in apex iso document,  so everyone is free to have its own document  covering various processes for assurance of  quality.
+However, QA (Mechanical)’s document no QM RF 8.1-3 can be used as a reference
+It is available at following link
+https://rdso.indianrailways.gov.in/works/uploads/File/QM-RF-8.1-3%20Ver.1.0_Guidelines%20for%20preparing%20QAP%20during%20registration.pdf
+)
+46
+
+Points to ensured in affidavits, under taking , authorization letterRequired to be submitted in compliance QO-F-88,1-7 annexure A1-A6
+47
+There are non judicial stamp paper and duly notarized 
+Matter on undertaking is verbatim as given in RDSO forms/ annexures
+Required information is legible and not contradicting in given set of documents
+
+What is A6??
+47
+
+Registration of Foreign Firms for item having business volume more than 300 Cr
+ Ensure that firm has given an undertaking along with application for registration for establishing domestic manufacturing capability ( as per STR or better) with at least 50% local content within 3 years. Undertaking must include time line also
+Ensure six  monthly information regarding progress of their manufacturing capability
+
+48
+
+#  Vendor application processing
+
+Normally no changes permitted in  change of entity during processing of application
+If unavoidable deal as prescribed in para 4.2 b of QO-D-8.1-6
+Check whether all documents signed
+Ensure to indicate allied/ sister concern in vendor directory after approval from the information of undertaking submitted in compliance to QO-F-8.1-7
+Cases warranting legal scrutiny should be processed parallelly and provision clearance can be granted subject to legal scrutiny
+Any deficiency or non compliance found in legal formalities will call for permanent delisting/ closure
+
+
+
+
+
+
+49
+
+##  Vendor application processing contd,..
+Outsourcing of some minor activities with the approval of directorate head can be permitted. Any precedence of outsourcing  must be allowed to prospective vendors as well
+Outsourcing from sister concern is permitted and shall be considered equivalent to in house manufacturing. The activities outsourced along with details of work address of sister concern and M&P available as per STR shall be covered in the QAP
+RDSO official must visit all outsourced work places of sister concern during certification
+Manufacturing and testing facilities covered under STR can be permitted to spread in more than one place provide they are under the same ownership with same name. The activities including testing & inspection carried out at these premises shall be clearly spelt out in the QAP
+
+50
+
+## Vendor application processing Contd..
+For the vender,  having minor deficiency  CCA can be started parallelly after verification of payment & submission of documents
+If major deficiency, firm should be given one month time to make good before closure
+Do not forget to collect originals of legal documents required in compliance to QO-F-8.1-7
+If CCA visit is waived off, arrange to collect legal documents by your rep
+Visit of officer is mandatory for fresh registration
+In force majeure situation , CCA & proto type inspection can be done by remote means
+For assessment of overseas supplier,  assessment to be got done by RA / Berlin. DRA Paris 
+
+
+51
+
+# Vendor application processingContd..
+Firm can postpone date of visit communicated by RDSO only twice, 3rd postponement shall not be granted and case shall be closed & communicated. This is not applicable for item having less than 5 sources
+Inspection and capability assessment report in pdf  duly Digitally signed should be accepted on eoffice 
+On satisfactory CCA report,  approval for manufacturing can be granted by JAG and above officers
+Take an undertaking from vendor  for not taking orders for more than the quantity restricted for RDSO ( para 4.11.1 g iv of QO-D-8,1-6)
+No intervention in source of raw material be done unless it is in spec
+When there is single source of raw material mentioned in spec. Review such case annually
+
+52
+
+# Vendor application processingcontd
+ Send digitally signed   QAP duly stamped approved to firm for implementation
+QAP must have mention about work place
+Date of approval by directorate head on file will be the effective date of approval and it must be mentioned in letter
+
+
+53
+
+# Thank You
+
+
+## Typography
+
+```
+The theme provides sensible defaults to
+\emph{emphasize} text, \alert{accent} parts
+or show \textbf{bold} results.
+
+In Markdown, you can also use _emphasize_ and **bold**.
+```
+
+\begin{center}becomes\end{center}
+
+The theme provides sensible defaults to \emph{emphasize} text,
+\alert{accent} parts or show \textbf{bold} results.
+
+In Markdown, you can also use _emphasize_ and **bold**.
+
+
+## Math
+
+\begin{equation*}
+    e = \lim_{n\to \infty} \left(1 + \frac{1}{n}\right)^n
+\end{equation*}
+
+
+## R Figure Example
+
+The following code generates the plot on the next slide (taken from
+`help(bxp)` and modified slightly):
+
+```{r pressureCode, eval=FALSE}
+library(stats)
+set.seed(753)
+bx.p <- boxplot(split(rt(100, 4),
+                      gl(5, 20)), plot=FALSE)
+bxp(bx.p, notch = FALSE, boxfill = "lightblue",
+    frame = FALSE, outl = TRUE,
+    main = "Example from help(bxp)")
+```  
+
+
+## R Figure Example
+  
+```{r pressureFig, echo=FALSE}
+library(stats)
+set.seed(753)
+bx.p <- boxplot(split(rt(100, 4),
+                      gl(5, 20)), plot=FALSE)
+bxp(bx.p, notch = FALSE, boxfill = "lightblue",
+    frame = FALSE, outl = TRUE,
+    main = "Example from help(bxp)")
+```  
+
+## R Table Example
+  
+A simple `knitr::kable` example:  
+
+```{r kableEx}
+knitr::kable(mtcars[1:5, 1:8],
+             caption="(Parts of) the mtcars dataset")
+```
+
+## Resources
+
+### For more information:
+- See the [Metropolis repository](https://github.com/matze/mtheme) for more on Metropolis
+- See the [RMarkdown repository](https://github.com/rstudio/rmarkdown) for more on RMarkdown
+- See the [binb repository](https://github.com/eddelbuettel/binb) for more on binb 
+- See the [binb vignettes](https://github.com/eddelbuettel/binb/vignettes) for more examples.
