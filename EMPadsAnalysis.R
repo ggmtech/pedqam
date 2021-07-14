@@ -1,6 +1,6 @@
 # curated file # EMPadDM  , # WarrentyPosted  # EMpadFD  # # WarrentyPosted %>% kbl()
 # Main analysis file
-rm(list = ls())
+#rm(list = ls())
 if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
 packages <- c("tidyverse",   "magrittr",  "here",
 

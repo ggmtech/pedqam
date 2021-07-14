@@ -1,37 +1,80 @@
-library(osmdata)
-library(sf)
-mannheim <-
-  osmdata::getbb("Mannheim") %>% 
-  osmdata::opq(timeout = 25*100) %>%
-  osmdata::add_osm_feature(
-    key = "admin_level", 
-    value = "6"
-  ) %>% 
-  osmdata::osmdata_sf() %$% 
-  osm_multipolygons %>% 
-  dplyr::filter(name == "Mannheim") %>% # filter on city level
-  dplyr::select(geometry) %>%
-  sf::st_transform(3035) 
-mannheim
 
 
-seq.Date(as.Date("2018-01-31"), length.out = 3, by = "month")
 
 
-today()  # today's date
-now()    # current date-time
-tz(now())       # uses local system setting as default
-Sys.timezone()  # show local system setting
+
+
+
+
+install.packages("bookdown")
+library(bookdown)
+library(NHSRdatasets)
+ae <- NHSRdatasets::ae_attendances
+write.csv(ae, "ae_nhsr.csv", row.names = FALSE) #Set row names to false
+#Use data.table to read in the document
+ae_dt <- fread("ae_nhsr.csv")
+#Create a random uniform distribution
+big_data <- data.frame(BigNumbers=runif(matrix(10000000, 10000000)))
+write.csv(big_data, "bigdata.csv")
+# Start to benchmark using system.time
+base_metrics <- system.time(  read.csv("bigdata.csv") )
+dt_metrics  <- system.time(  data.table::fread("bigdata.csv")  )
+print(base_metrics)
+print(dt_metrics)
+
+
+#Convert base data.frame to data.table
+ae_dt <- as.data.table(ae)   
+class(ae_dt)  
+ae_copy <- ae
+data.table::setDT(ae_copy)  #Using the setDT command
+class(ae_copy)
+
+data.table::setDF(ae_copy)  # Converting this back to a data.frame
+class(ae_copy)
+
+chained <- ae_dt_copy[, .(mean_attendance=mean(attendances),
+                          mean_breaches=mean(breaches), 
+                          sum_attendances=sum(attendances)),
+                      by=.(org_code)][order(org_code)]
+# Adding square brackets, instead of %>%, chains the ordering
+# Here we create a group by and summarise function and at the end we add another
+# Command sequence i.e. group by org code, summarise the mean and then order by ord code
+glimpse(chained)
+
+
+
+
+
+library("imager")
+original = imager::load.image("owl.png")
+d = dim(original)[1:2]
+d
+########
+#install.packages(data.table)
+library(data.table)
+
+
+
+######
+seq.Date( as.Date("2018-01-31"), length.out = 6, by = "month")
+
+
+lubridate::today()  # today's date
+lubridate::now()    # current date-time
+lubridate::tz(now())       # uses local system setting as default
+lubridate::Sys.timezone()  # show local system setting
 library(tidyverse)
 library(lubridate)
 # Parsing dates and times
 lubridate::ymd("06 02 04")
 lubridate::ymd_hms("2020-04-01 10:30:13")
+
 dt <- c("10:05 29/02/2020", "20:10 24/12/2020")
 tb <- tibble::tibble(datetime = dt)
 tb2 <- tb %>% 
   separate(datetime, into = c("time", "day"), sep = " ", remove = FALSE) %>% 
-  separate(time, into = c("hour", "min"), sep = ":", remove = FALSE) %>% 
+  separate(time,     into = c("hour", "min"), sep = ":", remove = FALSE) %>% 
   mutate(dt_1 = paste(day, time),  # a character string
          dt_2 = dmy_hm(dt_1),      # a <dttm> object
          ti_2 = hm(time)           # a <period> object
@@ -39,36 +82,34 @@ tb2 <- tb %>%
 
 tb2
 
-lubridate::make_date(year = 2020, month = 7, day = 13) 
-lubridate::make_date(year = 2020, month = "007", day = "013")  # even mixed data type char and no
-make_date(year = 2020, month = 7)   # day = 1# Note defaults for missing elements:
-make_date(month = 2, day = 13)      # year = 1970
-is.Date(make_date(year = 2020))
-is.POSIXct(make_date(year = 2020))
 
-make_datetime(year = 2020, month = 7, day = 13, hour = 10, min = 30, sec = 45, tz = "Europe/Zurich") # tx default UTC
-make_datetime(year = 2020)#> [1] "2020-01-01 UTC"
-make_datetime(sec = 33)# "1970-01-01 00:00:33 UTC"
+lubridate::make_date(year = 2020, month = 7, day = 13) 
+lubridate::make_date(year = 2020, month = "007", day = "013")  # even mixed data type char and number
+lubridate::make_date(year = 2020, month = 7)   # day = 1# Note defaults for missing elements:
+lubridate::make_date(month = 2, day = 13)      # year = 1970
+lubridate::is.Date(make_date(year = 2020))
+lubridate::is.POSIXct(make_date(year = 2020))
+
+lubridate::make_datetime(year = 2020, month = 7, day = 13, hour = 10, min = 30, sec = 45, tz = "Europe/Zurich") # tx default UTC
+lubridate::make_datetime(year = 2020)  # "2020-01-01 UTC"
+lubridate::make_datetime(sec = 33   )  # "1970-01-01 00:00:33 UTC"
 # amkedatetotime only expect numberic
 
-t_end   <- ceiling_date(now(), "year")
+t_end   <- lubridate::ceiling_date(now(), "year")
 t_end
 
 # Dates from numeric inputs:
-as_date(0)    # Unix epoch #> [1] "1970-01-01"
-as_date(1)    # increment: +1 day  #> [1] "1970-01-02"
-as_date(365)  # +1 year
-
-
-
+lubridate::as_date(0)    # Unix epoch #> [1] "1970-01-01"
+lubridate::as_date(1)    # increment: +1 day  #> [1] "1970-01-02"
+lubridate::as_date(365)  # +1 year
 
 
 # Get names instead of numbers:
-month(tnow, label = TRUE, abbr = TRUE)   # month in year (name)
-wday(tnow,  label = TRUE, abbr = FALSE)  # day of week (name)
+lubridate::month(tnow, label = TRUE, abbr = TRUE)   # month in year (name)
+lubridate::wday( tnow, label = TRUE, abbr = FALSE)  # day of week (name)
 
 # corresponding difftime() function (see Section 10.2.4) offers a range of units varying from “secs” to “weeks”
-
+difftime()
 # For time spans exceeding a few months, the duration class provided by lubridate is a better 
 
 
@@ -87,9 +128,8 @@ as.period(i1)
 df <- column_to_rownames(df, var = "date")
 
 install.packages("tesseract")
-# If you want to OCR french text:
 library(tesseract)
-tesseract_download('fra')
+tesseract_download('fra')  # If you want to OCR french text:
 
 library(magick)
 image_read("https://jeroen.github.io/images/birds.jpg") %>%
@@ -99,8 +139,6 @@ image_read("https://jeroen.github.io/images/birds.jpg") %>%
 
 install.packages("opencv")
 library(opencv)
-
-
 
 # ocv_face(image), ocv_facemask(image), ocv_read(path), ocv_write(image, path), 
 # ocv_destroy(image),  ocv_bitmap(image), ocv_edges(image), ocv_picture()
@@ -131,10 +169,7 @@ ocv_read('peoples2.jpg') %>% ocv_sketch()
 ############### keras
 library(keras)
 # Pretrained VGG16 model
-model <- application_vgg16(
-  weights = "imagenet",
-  include_top = TRUE
-)
+model <- application_vgg16( weights = "imagenet",  include_top = TRUE )
 # Convert images to Keras array
 get_img <- function(x) {
   arrays <- lapply(x, function(path) {
@@ -156,7 +191,7 @@ str_extract_all("The Cat in the Hat", regex("[a-z]+", TRUE))
 str_subset(string, pattern, negate = FALSE)
 str_subset(fruit, "a$")
 str_subset(fruit, "^p", negate = TRUE)# Returns elements that do NOT match
-#fixed(pattern, ignore_case = FALSE)
+# fixed(pattern, ignore_case = FALSE)
 # coll(pattern, ignore_case = FALSE, locale = "en", ...)
 # boundary(type = c("character", "line_break", "sentence", "word"), skip_word_none = NA, ... )
 # regex(  pattern,  ignore_case = FALSE,  multiline = FALSE,  comments = FALSE,  dotall = FALSE,  ... )
@@ -164,20 +199,21 @@ str_subset(fruit, "^p", negate = TRUE)# Returns elements that do NOT match
 see <- function(rx) str_view_all("abc ABC 123\t.!?\\(){}\n", rx)
 see("a")
 
-install.packages("here")
+# install.packages("here")
 here::i_am("README.Rmd")
-here("inst", "demo-project", "data", "penguins.csv")
+here::here("inst", "demo-project", "data", "penguins.csv")
 #> [1] "/home/kirill/git/R/here/inst/demo-project/data/penguins.csv"
-readr::write_csv(palmerpenguins::penguins, here("inst", "demo-project", "data", "penguins.csv"))
+readr::write_csv(palmerpenguins::penguins, 
+                 here::here("inst", "demo-project", "data", "penguins.csv")  )
 
-## install.packages("snakecase")
-library(snakecase)
+
+library(snakecase)  ## install.packages("snakecase")
 string <- c("lowerCamelCase", "ALL_CAPS", "I-DontKNOWWhat_thisCASE_is")
 
-to_any_case(string)  # convert to snake case or with option any case
-to_any_case(string, case = "parsed") # "lower_camel", "upper_camel", "all_caps", "lower_upper", "upper_lower", "sentence" and "mixed", which are based on "parsed" case:
-
-to_snake_case(c("SomeBAdInput", "someGoodInput")) %>% dput()
+snakecase::to_any_case( string                 )  # convert to snake case or with option any case
+snakecase::to_any_case( string, case = "parsed") # "lower_camel", "upper_camel", "all_caps", "lower_upper", "upper_lower", "sentence" and "mixed", which are based on "parsed" case:
+snakecase::to_snake_case(string)
+snakecase::to_snake_case( c("SomeBAdInput", "someGoodInput") ) %>%  dput()
 ## c("some_b_ad_input", "some_good_input")
 
 library(tidyverse)
@@ -190,15 +226,13 @@ starwars %>% add_tally(wt = birth_year)
 
 vroom::vroom("mtcars.tsv", col_types = list(cyl = "i",   gear = "f",   hp = "i",    disp = "_",   drat = "_",   vs = "l",   am = "l",   carb = "i") )
 
-
 #if (!require(devtools)) install.packages("devtools")
-devtools::install_github("boxuancui/DataExplorer")
+# devtools::install_github("boxuancui/DataExplorer")
 library(DataExplorer)
 create_report(airquality)              # To get a report for the airquality dataset:
 create_report(diamonds, y = "price")   # To get a report for the diamonds dataset with response variable price:
 
 # You may also run each function individually for your analysis, e.g.,
-
 
 introduce(airquality)           ## View basic description for airquality data
 plot_intro(airquality)          ## Plot basic description for airquality data

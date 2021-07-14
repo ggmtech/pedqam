@@ -1,12 +1,11 @@
-packages <- c("tidyverse", , "readxl", "lubridate",
+packages <- c("tidyverse",  "readxl", "lubridate",
               "broom", "coefplot", "cowplot", "drat",
               "ggfortify", "DT", "knitr",
               "ggpubr","scales", "GGally", "ggrepel", "ggridges",
               "viridis", "viridisLite", "devtools", "ggforce", "ggraph", 
-              "sf",
+              "naniar",
               "summarytools",
               "graphlayouts", "gridExtra", "here", "interplot", "margins", 
-              "maps", "mapproj", "mapdata", "MASS", "naniar", "prismatic", 
               #"quantreg", "rlang", "scales", "socviz", "survey", "srvyr", 
               #"ggplot2", "dplyr", "tidyr", "magrittr", "stringr","forcats","reshape2",
               #"gapminder",
@@ -18,6 +17,9 @@ packages <- c("tidyverse", , "readxl", "lubridate",
               #"assist", "ggstatsplot",  "styler", "remedy", 
               #"snakecaser", "addinslist", "esquisse", "here",  
               #"funModeling", "pander", "cluster"
+              "sf","maps", "mapproj", "mapdata", "tmap", "mapview", "raster",
+              "FedData", "rnaturalearth", "osmdata", "OpenStreetMap", "shinyjs", "rmapshaper",
+              "MASS", "naniar", "prismatic" 
               )
 # Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -35,13 +37,29 @@ my_packages <- c("tidyverse", "broom", "coefplot", "cowplot", "drat",
 # install.packages(my_packages, repos = "http://cran.rstudio.com")
 
 # spatial
-install.packages(c("sf", "tmap", "mapview", "raster", "dplyr"))
-install.packages(c("tidycensus", "FedData", "rnaturalearth", "osmdata", "OpenStreetMap", "shinyjs", "rmapshaper"))
+# install.packages(c("sf", "tmap", "mapview", "raster", "dplyr"))
+# install.packages(c("tidycensus", "FedData", "rnaturalearth", "osmdata", "OpenStreetMap", "shinyjs", "rmapshaper"))
 # Some packages may require {rJava} which is not always straightforward to install: install.packages("rJava")
 
 #If You want, visualize missings with naniar package
 library(naniar)
 gg_miss_var(task$data(), show_pct = TRUE)
+
+# better way
+packages <- c("ggplot2", "readxl", "dplyr", "tidyr", "ggfortify", "DT", "reshape2", "knitr", 
+              "lubridate", "pwr", "psy", "car", "doBy", "imputeMissings", "RcmdrMisc", "questionr",
+              "vcd", "multcomp", "KappaGUI", "rcompanion", "FactoMineR", "factoextra", "corrplot", "ltm",
+              "goeveg", "corrplot", "FSA", "MASS", "scales", "nlme", "psych", "ordinal", "lmtest", 
+              "ggpubr", "dslabs", "stringr", "assist", "ggstatsplot", "forcats", "styler", "remedy", 
+              "snakecaser", "addinslist", "esquisse", "here", "summarytools", "magrittr", "tidyverse", 
+              "funModeling", "pander", "cluster")
+
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+lapply(packages, library, character.only = TRUE) %>%  invisible()
+
+
+
 
 #########
 # Installing spatial R packages on Ubuntu Robin Lovelace 30 March 2020
@@ -52,39 +70,176 @@ gg_miss_var(task$data(), show_pct = TRUE)
 # sudo apt install libudunits2-dev libgdal-dev libgeos-dev libproj-dev libfontconfig1-dev # install system dependencies:
 # sudo apt install r-base-dev r-cran-sf r-cran-raster r-cran-rjava # binary versions of key R packages:
 
-library(sf)
-#> Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
-install.packages("tmap")
-update.packages()
+##############
+#library(sf)
+# Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
+# install.packages("tmap")
 
-#sudo apt-get update # see if things have changed
+# update.packages()
+
+# sudo apt-get update # see if things have changed
 # sudo apt upgrade # install changes
 # sudo docker run -it robinlovelace/geocompr:ubuntu-bionic
 R
-library(sf)
+#library(sf)
 #> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
 
 ##############
+# https://www.r-bloggers.com/2021/06/conversions-between-different-spatial-classes-in-r/
+raster_file_path = system.file("raster/srtm.tif", package = "spDataLarge")
+library(raster)
+srtm_raster = raster(raster_file_path)
+srtm_raster
 
+
+library(stars)
+srtm_stars = read_stars(raster_file_path)
+srtm_stars
+
+library(sabre)  # accepts objects from the raster package, but not ones from terra or stars
+library(raster)
+data("partitions1")
+data("partitions2")
+vmeasure_calc(partitions1, partitions2)
+
+
+library(spData)
+library(sf)
+library(sp)
+library(terra)
+
+world_path = system.file("shapes/world.gpkg", package = "spData")  # from  package = "spData"
+
+world        =  read_sf(world_path)    # read as sf
+world_sp1    =  as(world, "Spatial") # sf to sp
+world_terra1 =  vect(world)  # sf to terra vect
+world_terra2 =  vect(world_sp1)  # sp to terra vect
+world_sf2    =  st_as_sf(world_sp1)  # sp to sf
+world_sf3    =  st_as_sf(world_terra1) # terra vect to sf
+world_sp2    =  as(world_terra1, "Spatial")   # terra vect to sp
+world_sp2
+
+#######################
+library(osmdata)
+mannheim <-
+  osmdata::getbb("Mannheim") %>% 
+  osmdata::opq(timeout = 25*100) %>%
+  osmdata::add_osm_feature(  key = "admin_level",  value = "6" ) %>% 
+  osmdata::osmdata_sf() %$% 
+  osm_multipolygons %>% 
+  dplyr::filter(name == "Mannheim") %>%    # filter on city level
+  dplyr::select(geometry) %>%
+  sf::st_transform(3035) 
+mannheim
+plot(mannheim)
+
+Lucknowmap <-
+  osmdata::getbb("Delhi")        %>% 
+  osmdata::opq(timeout = 25*100) %>%
+  osmdata::add_osm_feature(  key = "admin_level",  value = "4" ) %>% 
+  osmdata::osmdata_sf()         %$% 
+  
+  osm_multipolygons             %>% 
+  dplyr::filter(name == "Delhi") %>%    # filter on city level
+  dplyr::select(geometry)      # %>%  sf::st_transform(3035) 
+Lucknowmap
+plot(Lucknowmap)
+
+rnorm(200) %>% matrix(ncol = 2)  %T>% 
+               plot              %>%  
+               colSums                 # plot usually does not return anything. 
+
+
+##################
+# # https://www.r-bloggers.com/2021/06/using-geospatial-data-in-r/ 
+
+library(tidyverse)
+mannheim <-
+  osmdata::getbb("Mannheim")        %>% 
+  osmdata::opq(timeout = 25*100)    %>%
+  osmdata::add_osm_feature( key = "admin_level",  value = "6" ) %>% 
+  
+  osmdata::osmdata_sf()             %$% 
+  
+  osm_multipolygons                 %>% 
+  dplyr::filter(name == "Mannheim") %>%     # filter on city level
+  dplyr::select(geometry)           %>%
+  sf::st_transform(3035) 
+mannheim
+
+ggplot2::ggplot(mannheim, fill = NA) +  ggplot2::geom_sf() #+  ggsn::blank()
+
+# Add features road
+roads <-
+  osmdata::getbb("New De") %>% 
+  osmdata::opq(timeout = 25*100) %>%
+  osmdata::add_osm_feature(
+    key = "highway", 
+    value = c(
+      "trunk", 
+      "primary", 
+      "secondary", 
+      "tertiary"
+    )
+  ) %>% 
+  osmdata::osmdata_sf() %$% 
+  osm_lines %>% 
+  dplyr::select(geometry) %>%
+  sf::st_transform(3035) %>% 
+  sf::st_intersection(mannheim) %>% 
+  dplyr::filter(
+    sf::st_is(., "LINESTRING")
+  )
+
+
+
+buildings <-
+  osmdata::getbb("Mannheim") %>% 
+  osmdata::opq(timeout = 25*100) %>%
+  osmdata::add_osm_feature(
+    key = "building", 
+    value = c(
+      "apartments", "commercial", 
+      "office", "cathredral", "church", 
+      "retail", "industrial", "warehouse", 
+      "hotel", "house", "civic", 
+      "government", "public", "parking", 
+      "garages", "carport", 
+      "transportation", 
+      "semidetached_house", "school", 
+      "conservatory"
+    )
+  ) %>% 
+  osmdata::osmdata_sf() %$% 
+  osm_polygons %>%
+  dplyr::select(geometry) %>%
+  sf::st_transform(3035) %>% 
+  sf::st_intersection(mannheim)
+
+foreign_born <-    # Stefan’s z11 package.
+  z11::z11_get_1km_attribute(Auslaender_A) %>% 
+  raster::crop(mannheim) %>% 
+  raster::rasterToPolygons() %>% 
+  sf::st_as_sf() %>% 
+  sf::st_transform(3035) %>% 
+  sf::st_intersection(mannheim) %>% 
+  dplyr::filter(layer > -1)
+
+ggplot() +
+  geom_sf(data = mannheim) +
+  #geom_sf(data = foreign_born,    aes(fill = layer,  alpha = 0.8),   color = NA ) +
+  scale_fill_distiller(  palette = "Greens",   direction = 1,  guide = FALSE ) +
+  geom_sf(data = roads) +
+  geom_sf(data = buildings) +
+  theme(legend.position = "none") # +  ggsn::blank() 
+
+##########
 
 # The script below checks, if the package exists, and if not, then it installs it and finally it loads it to R
 mypackages<-c("readxl", "dplyr", "multcomp")
-for (p in mypackages){
-    if(!require(p, character.only = TRUE)){
-        install.packages(p)
-        library(p, character.only = TRUE)
-    }
-}
-
-# better way
-# Package names
-packages <- c("ggplot2", "readxl", "dplyr", "tidyr", "ggfortify", "DT", "reshape2", "knitr", "lubridate", "pwr", "psy", "car", "doBy", "imputeMissings", "RcmdrMisc", "questionr", "vcd", "multcomp", "KappaGUI", "rcompanion", "FactoMineR", "factoextra", "corrplot", "ltm", "goeveg", "corrplot", "FSA", "MASS", "scales", "nlme", "psych", "ordinal", "lmtest", "ggpubr", "dslabs", "stringr", "assist", "ggstatsplot", "forcats", "styler", "remedy", "snakecaser", "addinslist", "esquisse", "here", "summarytools", "magrittr", "tidyverse", "funModeling", "pander", "cluster")
-# Install packages not yet installed
-installed_packages <- packages %in% rownames(installed.packages())
-if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
-lapply(packages, library, character.only = TRUE) %>%  invisible()
-
-#
+for (p in mypackages){ if(!require(p, character.only = TRUE)){  install.packages(p)
+                                                                library(p, character.only = TRUE) }
+                     }
 
 library(osmdata)
 library(sf)
@@ -101,13 +256,24 @@ row_index <- agrep("Alma St", vancouver_highways$osm_lines$name)
 plot(vancouver_highways$osm_lines$geometry[row_index])
 
 
+# 3D plots
+
+ggplot::ggplot() +
+  ggplot::geom_sf(data = rotate_sf(mannheim),  fill = NA)    +
+  ggplot::geom_sf(data = rotate_sf(roads)               )    +
+  ggplot::geom_sf(data = rotate_sf(buildings)           )    +
+  ggplot::geom_sf(data = rotate_sf(mannheim, y_add = 15000), fill = NA, color = "gray", alpha = 0.2) +
+  ggplot::ggplot::geom_sf( data = rotate_sf( foreign_born,  y_add = 15000 ),
+          aes( fill = layer, alpha = .8 ), color = NA )  +
+  scale_fill_distiller(palette = "Greens", direction = 1, guide = FALSE) +
+  theme(legend.position = "none")   # + ggsn::blank()
 
 #############
 library(tidyverse)
 library(sf)
 library(osmdata)
 rnaturalearth::ne_countries( scale = "medium", returnclass = "sf") %>%  
-               select(name, continent, geometry) %>%  
+               dplyr::select(name, continent, geometry) %>%  
                filter(name == 'United Kingdom') ->  
                uk  
 uk
@@ -127,23 +293,21 @@ geom_point(    aes(x = c(0, -4), y = c(52, 57)  ),
 
 
 
-rnaturalearth::ne_countries(  
-    scale = "medium", returnclass = "sf") ->  
+rnaturalearth::ne_countries( scale = "medium", returnclass = "sf") ->  
     ne_countries  
 
 ggplot(data = ne_countries) +  
     ggplot2::geom_sf(data = ne_countries) +  
     aes(fill = pop_est) +  
     scale_fill_viridis_c(option = "magma") +  
-    labs(title = "Defense Expenditure by Share of GDP (%)",  
+    labs(title    = "Defense Expenditure by Share of GDP (%)",  
          subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)"
-         ) +  
-    coord_sf(crs = "+proj=laea + y_0=10 + lon_0 = 77 +lat_0=-0 +ellps=WGS84 +no_defs") +
+         fill     = "Share of GDP (%)"   ) +  
+    coord_sf(crs = "+proj=laea + y_0=10 + lon_0 = 77 +lat_0=-0 +ellps=WGS84 +no_defs") +  #"+proj=moll"
     theme_bw() +  
     theme(plot.title    =  element_text(hjust = 0.5)) +  
     theme(plot.subtitle =  element_text(hjust = 0.5)) 
-#"+proj=moll"
+    
 # %%%%%%%%%%%%%%%%%
 # https://www.r-bloggers.com/2020/10/personal-art-map-with-r/
 library(osmdata)
@@ -175,7 +339,7 @@ railways <- bbx %>% opq()%>%  add_osm_feature(key = "railway",
             osmdata_sf()
 
 options(width = 60)
-
+library(ggplot2)
 require(sf)
 ggplot() +  geom_sf(data = highways$osm_lines, aes(color=highway), size = .4, alpha = .65) +
             theme_void()
@@ -198,7 +362,7 @@ ggplot() +  geom_sf(data = streets$osm_lines,
 # let’s crop the streets to show only those within the bounding box.
 
 color_roads <- rgb(0.42,0.449,0.488)
-ggplot() +  geom_sf(data = streets$osm_lines, col = color_roads, size = .4, alpha = .65) +
+ggplot() + geom_sf(data = streets$osm_lines,  col = color_roads, size = .4, alpha = .65) +
            geom_sf(data = highways$osm_lines, col = color_roads, size = .6, alpha = .8 ) +
            #coord_sf(xlim = c(min_lon,max_lon), ylim = c(min_lat,max_lat), expand = FALSE)+
            theme(legend.position = F) + theme_void()

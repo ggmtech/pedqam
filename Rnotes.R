@@ -3,9 +3,271 @@ tinytex::reinstall_tinytex()
 rmarkdown::draft("gkpaper.Rmd", template = "arxiv", package = "rticles")
 tar_load(something) # if something is a ggplot object, then this plot will appear on that spot in the paper
 
+
+#########
+# http://user:password@domain.com/
+# Instead, just use:   https://user:password@domain.com/    to avoid clear text login
+# urlencode special characters in the user or password fields 
+# eg  '@'  must be written as '%40'
+
+# the standard  http(s)://user:pass@host.
+# for http://david@company.com@foo.com/path/  
+# it should be http(s)://david%40company.com:Y0ur%24up3r%243cur3P%40%24%24w0rd@foo.com. – 
+# http://david%40company.com@foo.com/path/
+# http://username:password@example.com/ -- this sends the credentials in the standard HTTP "Authorization" header.
+
+# When using OAuth or other authentication services you can often also send your access token in a query string 
+# instead of in an authorization header, so something like:
+#  GET https://www.example.com/api/v1/users/1?access_token=1234567890abcdefghijklmnopqrstuvwxyzABCD
+
+# OAuth 2.0  resource server  to grant access to (part of) your account to an app on your behalf. safer than previous industry standards, 
+#  a series of requests and redirects between the server and the third-party app, 
+# launched by you when starting to install an app, 
+# and validating by you as one of the steps is your clicking something like “Yes, I grant access to this and that right on my Twitter account, to the app Twitter Lite”.
+# To use things on the server one needs an access token (a string, e.g. e46b7faf296e3f0624e6240a6efafe3dfb17b92ae0089c7e51952934b60749f2). 
+# The whole point of the OAuth 2.0 dance is to get such an access token. 
+# Often you will also get a refresh token (similarly a string, e.g. 3bdeb3bd19a3093674f4e7ba6e1be1706ab1f16af9ebf3b79a67a807c622b650).
+# The refresh token allows to get issued a new access token without any interactivity i.e. no need for the user to click. A common validity period for an access token would be 24 hours, for a refresh token one year, and often the refresh token is re-usable.
+
+# You create an OAuth endpoint (via httr::oauth_endpoint())
+# create an OAuth app (via httr::oauth_app()) which is an object holding the name, secret and ID of your third-party app. 
+
+
+
+##### restful
+# https://www.r-bloggers.com/2021/01/getting-data-from-the-canada-covid-19-tracker-using-r/
+
+# HTTPS and its base URI is api.covid19tracker.ca. 
+# endpoint is the specific location of the data you want to access. 
+# For the API we’re querying, endpoints include /reports /cases /fatalities  /provinces
+# ndpoints can also allow multiple sub-resources, these are variables and take the form :var_name
+# querry part  /cases?province=ON&per_page=50
+
+
+
+pkgs <- c('httr', 'jsonlite', 'dplyr', 'ggplot2', 'purrr')
+## install.packages(pkgs, Ncpus = 4) # if below not installed and false
+vapply( pkgs, library, logical(1),  logical.return = TRUE,  character.only = TRUE )
+
+# the protocol  HTTP verb (GET, POST, DELETE, etc.)
+# the base URI   The base URL for the API
+# the endpoint  The URL path or endpoint
+# additional query parameters  URL query arguments (e.g., ?foo=bar)
+# Optional headers
+# An optional request body     https://httr.r-lib.org/articles/api-packages.html
+
+
+base  <- "https://api.covid19tracker.ca"
+ep    <- "/reports/province/sk"
+query <- "?date=2021-01-31"
+req   <- paste0(base, ep, query)
+req
+
+response <- httr::GET(req)
+response
+# ( Status: 200 is success If you’re wrapping these codes in a function, the warn_for_status() and stop_for_status() )
+
+jsonlite::prettify(content(response, 'text', encoding = 'UTF-8'))
+
+# To actually parse the JSON into a similar R object we use jsonlite::fromJSON()
+
+parsed <- fromJSON(content(response, 'text', encoding = 'UTF-8'))
+parsed %>% glimpse()
+str(parsed)
+
+
+
+base <- 'https://api.covid19tracker.ca'
+ep <- '/reports/province/sk'
+req <- paste0(base, ep)
+
+response <- GET(req)
+
+cases <- response %>%
+  content(as = 'text', encoding = 'UTF-8') %>%
+  fromJSON() %>%
+  pluck('data') %>%
+  as_tibble()
+
+cases
+
+cases %>%
+  mutate(date = as.Date(date)) %>%
+  ggplot(aes(x = date, y = change_cases)) +
+  geom_line() +
+  labs(x = NULL, y = 'Cases',
+       title = 'Daily Covid-19 cases in Saskatchewan',
+       caption = 'Source: N. Little. COVID-19 Tracker Canada (2021), COVID19tracker.ca')
+
+
+#############################
+
+
 install.packages("comparator")
 # install.packages("devtools")
 devtools::install_github("ngmarchant/comparator")
+
+# Shit cmd C M(pipe)
+
+# do_something = function(parameters) {
+#   ...
+# }
+# The function that results can be used as follows:
+#   do_something(args)
+# 
+#  {purrr} package (map(), reduce(), keep(); and their base-R counterparts: Map(), lapply() etc).
+
+# For each letter,
+#   - find the name of each dataset in the {datasets} package
+#   that starts with that letter
+# Using {tidyverse} syntax
+purrr::map(  letters[1:3],
+  function(x) {
+    ds = ls("package:datasets")
+    ds[stringr::str_starts(tolower(ds), x)]
+  }
+)
+# In base R
+Map(
+  function(x) {
+    pattern = paste0("^", x) # eg "^a" to match a leading 'a'
+    grep(pattern, ls("package:datasets"), value = TRUE, ignore.case = TRUE)
+  },
+  letters[1:3]
+)
+
+
+fac1 = factor(c("a", "b", "d"))
+fac2 = factor(c("b", "c"))
+c(fac1, fac2)
+levels(c(fac1, fac2))
+
+
+library("readxl")
+readxl::read_excel("file.xls")
+readxl::read_excel("file.xlsx")
+data <- read_excel("my_file.xlsx", sheet = "sheetname",  na = "---") # or sheet = 2, 
+
+data <- readxl::read_excel(file.choose())
+
+# multiple files
+file.list <- list.files(pattern='*.xlsx')
+df.list <- lapply(file.list, read_excel)
+file.list <- list.files(pattern='*.xlsx', recursive = TRUE)  # sub direcotories
+df <- dplyr::bind_rows(df.list, .id = "id") # bind rows for similar col names
+
+library("xlsx") # another package is xlsx,  java-based 
+read.xlsx(file, sheetIndex, header=TRUE)
+read.xlsx2(file, sheetIndex, header=TRUE) # faster for bigger files
+data <- read.xlsx(file.choose(), 1)  # read first sheet
+data <- read.xlsx("file.xlsx", 1)  # read first sheet
+data <- read.xlsx("file.xlsx", sheetName="Sheet1")  # read the data contains in Sheet1
+
+# from clipboard, not reccomended
+data <- read.table(file = "clipboard", sep = "\t", header=TRUE) # on windows system the
+data <- read.table(pipe("pbpaste"), sep="\t", header = TRUE)   # MAC OSX system
+
+
+
+library(openxlsx) # openxlsx package is an another alternative to readxl package
+read.xlsx(file_path)
+read.xlsx(file_path, cols = 1:2, rows = 2:3)
+
+library(XLConnect) #  install.packages("XLConnect")  alternative to the xlsx package
+data <- readWorksheetFromFile(file_path, 
+                              sheet = "list-column",
+                              startRow = 1, endRow = 10,
+                              startCol = 1, endCol = 3   )
+#Reading several sheets
+load <- loadWorkbook(file_path)
+data  <- readWorksheet(load, sheet = "list-column",    startRow = 1, endRow = 10, startCol = 1, endCol = 3)
+data2 <- readWorksheet(load, sheet = "two-row-header", startRow = 1, endRow = 10, startCol = 1, endCol = 4)
+# can Import a named region once
+data <- readNamedRegionFromFile(file, # File path
+                                name, # Region name
+                                ...)  # Arguments of readNamedRegion()
+# read multiple
+load <- loadWorkbook(file_path)
+data <- readNamedRegion(load, name_Region_1, ...)
+data2 <- readNamedRegion(load, name_Region_2, ...)
+
+
+data<-read.csv("file.csv",1)
+# If reading excel files JAVA errors occur, set the java path in R
+Sys.getenv("JAVA_HOME") # get location
+Sys.setenv(JAVA_HOME = "path_to_jre_java_folder")
+
+#  pdftools
+
+pdftools::download.file(pdf.file, destfile = "sample.pdf", mode = "wb") # pdf.file can be http uri 
+pdf.text <- pdftools::pdf_text("sample.pdf")
+cat(pdf.text[[2]])  # para2
+pdf.text<-unlist(pdf.text)
+pdf.text<-tolower(pdf.text)
+
+library(stringr)
+res<-data.frame(stringr::str_detect(pdf.text,"suspendisse"))
+colnames(res)<-"Result"
+res<-subset(res,res$Result==TRUE)
+row.names(res)
+
+
+
+# grafify extends ggplot2 by adding simplified plotting functions. 
+# 2-Variable Functions: plot_scatterbar_sd(), plot_scatterbox(), and plot_dotviolin()
+# 3-Variable Functions: plot_3d_scatterbox()
+# Before-After Functions: plot_befafter_colors()
+
+plot_scatterbar_sd()
+plot_scatterbox()
+plot_dotviolin()
+plot_3d_scatterbox()
+plot_befafter_colors() # useful Before-After Plot line plot
+
+# subsettiing
+ed_exp1 <- education[c(10:21),c(2,6:7)]
+ed_exp2 <- education[-c(1:9,22:50),-c(1,3:5)]  # complement of above
+
+# extracting the rows we need by using the which() function
+ed_exp3 <- education[which(education$Region == 2),names(education) %in% 
+                       c("State","Minor.Population","Education.Expenditures")]
+# easier
+ed_exp4 <- subset(education, Region == 2, 
+                  select = c("State","Minor.Population","Education.Expenditures") )
+
+
+ 
+# most useful
+ed_exp5 <- dplyr::select( filter(education, Region == 2), c(State,Minor.Population:Education.Expenditures) )
+
+
+
+
+
+#install.packages("ggpubr")
+ggpubr::show_point_shapes()
+
+
+
+# data from  regions.dataobservaotry.eu
+devtools::install_github("rOpenGov/regions")
+
+
+# remove na with drp na
+df=data.frame(Col1=c("A","B","C","D", "P1","P2","P3")
+              ,Col2=c(7,8,NA,9,10,8,9)
+              ,Col3=c(5,7,6,8,NA,7,8)
+              ,Col4=c(7,NA,7,7,NA,7,7) )
+
+
+df %>% drop_na()  # drop all na
+df %>% na.omit()
+
+df %>% drop_na(Col2)  # only col 3
+df[!is.na(df$Col3),]
+df[complete.cases(df$Col3),]
+
+df[-which(is.na(df$Col3)),]
 
 # Levenshtein(): Levenshtein distance/similarity
 # DamerauLevenshtein() Damerau-Levenshtein distance/similarity

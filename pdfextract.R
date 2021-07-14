@@ -9,6 +9,25 @@ cat(txt[1])
 pdf_data(pdf_file)[[1]]         # All textboxes on page 1
 
 
+
+#
+pdf.file <- "https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf"
+# setwd("D:/RStudio/PDFEXTRACT/")
+download.file(pdf.file, destfile = "sample.pdf", mode = "wb") # download sample file
+pdf.text <- pdftools::pdf_text("sample.pdf")
+cat(pdf.text[[2]])   # page 2 of pdf
+
+# extract a particular word from these pages, unlist the data and convert it into lower case letters
+pdf.text<-unlist(pdf.text)
+pdf.text<-tolower(pdf.text)
+library(stringr)
+res<-data.frame(str_detect(pdf.text,"suspendisse")) # find The word “suspendisse” pages number
+colnames(res)<-"Result"
+res<-subset(res,res$Result==TRUE)
+row.names(res)  # The word “suspendisse” contains on pages number 2 and 3.
+
+
+
 ###### scan from pdf
 library(tesseract)
 eng <- tesseract("eng")

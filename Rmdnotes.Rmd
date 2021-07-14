@@ -3,9 +3,9 @@ title: "Untitled"
 author: "PED/QA/Mech"
 date: "16/02/2020"
 output:
-  beamer_presentation: default
-#??     engine:xelatex
+  word_document: default
   slidy_presentation: default
+  beamer_presentation: default
 ---
 
 ```{r setup, include=FALSE}
@@ -109,7 +109,4 @@ p: show presenter notes
 
 
 
-# genome <- map_dfr(files, read_tsv)
-
-”r” in the name means adding the next data frame as rows. There is also a ”c” version (map_dfc) for adding as columns.
 
