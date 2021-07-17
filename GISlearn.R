@@ -44,6 +44,45 @@ library(naniar)
 gg_miss_var(task$data(), show_pct = TRUE)
 
 #########
+#basemaps is a lightweight R package to download and cache spatial basemaps from open sources such as OpenStreetMap, Carto, Mapbox and others.
+# install.packages("basemaps")    #  devtools::install_github("16EAGLE/basemaps")
+library(basemaps)
+data(ext)  # or use draw_ext() to interactively draw an extent yourself
+draw_ext()
+get_maptypes()  # view all available maps
+
+# set defaults for the basemap
+set_defaults(map_service = "mapbox", map_type = "satellite", map_token = "YOUR_MAPTOKEN_IF_NEEDED")
+
+# load and return basemap map as many different classes:
+basemap_plot(ext)    #> Loading basemap 'satellite' from map service 'mapbox'...
+
+basemap_mapview(ext)  #> Loading basemap 'satellite' from map service 'mapbox'...
+
+basemap_ggplot(ext)
+
+basemap_magick(ext)
+
+basemap_raster(ext)
+
+basemap_stars(ext)
+
+basemap_png(ext)
+
+basemap_geotif(ext)
+
+library(ggplot2)
+ggplot() + 
+  basemap_gglayer(ext) + 
+  coord_sf() +
+  scale_fill_identity() 
+
+
+basemap_magick(ext, map_service = "osm", map_type = "topographic")  #> Loading basemap 'topographic' from map service 'osm'...
+
+
+
+################
 # Installing spatial R packages on Ubuntu Robin Lovelace 30 March 2020
 # installing gis in ubuntu
 
