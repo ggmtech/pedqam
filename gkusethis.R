@@ -1,6 +1,5 @@
 # Dev
-library(devtools) ## or library(usethis)
-
+library(devtools)   ## or limited library(usethis)
 use_devtools()
 
 usethis::edit_r_profile()  # open for edit
@@ -8,15 +7,14 @@ usethis::edit_r_profile()  # open for edit
 options(
     usethis.full_name = "Gopal kumar",
     usethis.protocol  = "ssh",
-    usethis.description = list(
-        "Authors@R" = utils::person(
-            "Gopal", "Kumar",
-            email = "ggmtech@yahoo.co,in",
-            role = c("aut", "cre"),
-            comment = c(ORCID = "JANE'S-ORCID-ID")
-        ),
-        Version = "0.0.0.1000"
-    ),
+    usethis.description = list(  "Authors@R" = utils::person( "Gopal", 
+                                                              "Kumar",
+                                                              email   = "ggmtech@yahoo.co,in",
+                                                              role    =  c("aut", "cre"),
+                                                               comment = c(ORCID = "JANE'S-ORCID-ID")
+                                                             ),
+                                    Version = "0.0.0.1000"   
+                                 ),
     usethis.destdir = "~/pedqam/projects",
     usethis.overwrite = TRUE
 )

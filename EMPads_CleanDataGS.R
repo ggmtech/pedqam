@@ -3,6 +3,30 @@
 # rm(list = ls())
 # if (!require(devtools)) install.packages("devtools") # devtools::install_github("boxuancui/DataExplorer")  #, ref = "develop"
 
+
+# mutate(date = make_date(year, month, day))
+# numbers_1 %>% mutate(number = parse_number(number))
+# flights %>% select(ends_with("hour"))
+# flights %>% select(contains("hour"))
+mutate(origin = case_when(
+  (origin == "EWR") & dep_delay > 20 ~ "Newark International Airport - DELAYED",
+  (origin == "EWR") & dep_delay <= 20 ~ "Newark International Airport - ON TIME DEPARTURE", )) %>%
+
+mutate(origin = str_replace_all(origin, c("^EWR$" = "Newark International",    
+                                          "^JFK$" = "John F. Kennedy International"
+       ))) %>%
+# 9. Filter groups without making a new column
+# flights_top_carriers <- flights %>%  group_by(carrier) %>% filter(n() >= 10000) %>% ungroup() 
+  
+#  str_detect("^Am")) 
+# All comb
+  crossing(
+    customer_channel = c("Bus", "Car"),
+    customer_status = c("New", "Repeat"),
+    spend_range = c("$0-$10", "$10-$20", "$20-$50", "$50+"))
+  
+###############################################################################################
+###############################################################################################
 packages <- c("tidyverse",   "magrittr",  "here", "lubridate", "anytime",  "googlesheets4", "readxl", "janitor",
               "DT", "DataExplorer", "inspectdf", "summarytools", "skimr", "here", "devtools", "naniar",
               "scales",    "coefplot", "cowplot", "drat",
@@ -14,6 +38,9 @@ packages <- c("tidyverse",   "magrittr",  "here", "lubridate", "anytime",  "goog
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
 lapply(packages, library, character.only = TRUE) #%>% invisible()
+
+###############################################################################################
+###############################################################################################
 
 # Get Data raw ###################################################################
 # googlesheets4::sheet_add() sheet_append() sheet_copy() sheet_delete() sheet_write() sheet_properties() sheet_rename()
@@ -162,7 +189,7 @@ EMPadDM %>% glimpse()
  
 
 
-
+###############################################################################################
 ###########################
 
 EMPadDM  %>%  filter(!is.na(DMdate))  %>% group_by(DMdate) %>% summarise( supp = sum( Qty ), n = n() )
@@ -177,16 +204,16 @@ janitor::remove_empty()
 janitor::adorn_title()
 
 
-add the quarter and year detaisl column
+# add the quarter and year detaisl column
 
-Further get the filter for total failures and warrenty reporting data
+# Further get the filter for total failures and warrenty reporting data
 
-Get year wise failures & warrenty failires percentage of total supplies of that period
+# Get year wise failures & warrenty failires percentage of total supplies of that period
 
 
-Get all data from NR by deputing officer 
+# Get all data from NR by deputing officer 
 
-Analise CR data
+# Analise CR data
 
 
 # Now write to  googlesheet  "EMpadsmaster" ss1 
