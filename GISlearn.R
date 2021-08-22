@@ -87,8 +87,10 @@ R
 ##############
 # https://www.r-bloggers.com/2021/06/conversions-between-different-spatial-classes-in-r/
 raster_file_path = system.file("raster/srtm.tif", package = "spDataLarge")
+raster_file_path = system.file("raster/srtm.tif")
+raster_file_path
 library(raster)
-srtm_raster = raster(raster_file_path)
+srtm_raster = raster::raster(raster_file_path)
 srtm_raster
 
 
@@ -175,13 +177,7 @@ roads <-
   osmdata::opq(timeout = 25*100) %>%
   osmdata::add_osm_feature(
     key = "highway", 
-    value = c(
-      "trunk", 
-      "primary", 
-      "secondary", 
-      "tertiary"
-    )
-  ) %>% 
+    value = c( "trunk",  "primary", "secondary",  "tertiary") ) %>% 
   osmdata::osmdata_sf() %$% 
   osm_lines %>% 
   dplyr::select(geometry) %>%
@@ -307,7 +303,27 @@ ggplot(data = ne_countries) +
     theme_bw() +  
     theme(plot.title    =  element_text(hjust = 0.5)) +  
     theme(plot.subtitle =  element_text(hjust = 0.5)) 
-    
+
+
+
+remove.packages(knitr)
+install.packages("knitr")
+
+
+
+# ################
+
+library(osmextract)
+
+cycleways_england = oe_get( "India", quiet = FALSE, query = "SELECT * FROM 'lines' WHERE highway = 'cycleway'"   )
+par(mar = rep(0.1, 4))
+plot(sf::st_geometry(cycleways_england))
+
+cycleways_england = oe_get( "India", quiet = FALSE, query = "SELECT * FROM 'lines' WHERE railway = 'rail'"   )
+par(mar = rep(0.1, 4))
+plot(sf::st_geometry(cycleways_england))
+
+
 # %%%%%%%%%%%%%%%%%
 # https://www.r-bloggers.com/2020/10/personal-art-map-with-r/
 library(osmdata)

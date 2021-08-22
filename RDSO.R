@@ -3,6 +3,89 @@ library(readr)
 library(dplyr)
 library(tidyverse)
 library(maps)
+
+
+
+############ OPENCAGE_KEY=3721d0dffdf54328b9dfc5eacd95005d
+
+# usethis::edit_r_environ()
+# install.packages("opencage")
+#remotes::install_github("ropensci/opencage", force = TRUE)
+library("opencage")   ## opencage some errors 
+
+oc_config(
+    key = Sys.getenv("OPENCAGE_KEY"),
+    rate_sec = getOption("oc_rate_sec", default = 1L),
+    no_record = getOption("oc_no_record", default = TRUE),
+    show_key = getOption("oc_show_key", default = FALSE),
+    ...
+)
+
+
+oc_forward_df(placename = "Sarzeau")
+# Or turn a set of coordinates into the name and address of the location:
+oc_reverse_df(latitude = 51.5034070, longitude = -0.1275920)
+
+# All geocoding functions are vectorised
+# oc_forward_df() returns three columns: oc_lat (for latitude), oc_lon (for longitude), and oc_formatted (the formatted address). 
+# If you specify oc_forward_df(output = all),  all result columns often quite extensive. 
+
+# pass a data frame to oc_forward_df(). results columns are added to the input data frame, else set bind_cols = FALSE.
+concert_df %>% oc_forward_df(location)
+
+oc_reverse_df(latitude = 51.5034070, longitude = -0.1275920)
+# CRS must adhere  WGS 84 (also known as EPSG:4326) coordinate reference system in decimal format.
+
+
+##############
+#install.packages('tidygeocoder')
+# devtools::install_github("jessecambon/tidygeocoder")
+library(dplyr)
+library(tibble)
+library(tidygeocoder)
+
+# create a dataframe with addresses
+some_addresses <- tribble(
+    ~name,                  ~addr,
+    "White House",          "1600 Pennsylvania Ave NW, Washington, DC",
+    "Transamerica Pyramid", "600 Montgomery St, San Francisco, CA 94111",     
+    "Willis Tower",         "233 S Wacker Dr, Chicago, IL 60606"                                  
+     )
+
+some_addresses <- tribble(
+    ~name,                  ~addr,         ~city,  ~country,
+    "Rail Bhawan",          "Rail Bhawan", "New Delhi", "India",
+    "RDSO",                 "Manak Nagar",  "Lucknow", "India",     
+    "Baroda House",         "Baroda House, New Delhi", "new delhi", "India"      ,
+    "SGRH",                 "Rajinder Nagar", "New Delhi", "India"
+)
+some_addresses
+
+# geocode the addresses
+lat_longs <- some_addresses %>%
+             geocode(addr, method = 'osm', lat = latitude , long = longitude)
+
+lat_longs
+
+library(ggplot2)
+library(maps)
+library(ggrepel)
+library(sf)
+
+plot(lat_longs$longitude, lat_longs$latitude)
+
+ggplot(lat_longs, aes(longitude, latitude), color = "grey99") +
+    borders("state") + geom_point()  # +
+    geom_label_repel(aes(label = name)) + theme_void()
+
+# reverse geocode
+reverse <- lat_longs %>%
+    reverse_geocode(lat = latitude, long = longitude, method = 'osm',
+                    address = address_found, full_results = TRUE) %>%
+    select(-addr, -licence)
+
+
+################
 #----- Download and unzip files -----
 zipFile <- file.path(tempdir(), "RIDBFullExport_V1_CSV.zip")
         download.file(
@@ -14,12 +97,12 @@ zipFile <- file.path(tempdir(), "RIDBFullExport_V1_CSV.zip")
     # Content type 'application/zip' length 173491403 bytes (165.5 MB)
     # ==================================================
     # downloaded 165.5 MB
-    unzip(zipFile)
-    ----- Read in data -----
+unzip(zipFile)
+#    ----- Read in data -----
         # The "Facility" dataset has some longitude/latitude problems
         # > list.files(pattern = "^Facil")
         # [1] "Facilities_API_v1.csv" "FacilityAddresses_API_v1.csv"
-        Facilities <- readr::read_csv("Facilities_API_v1.csv")
+Facilities <- readr::read_csv("Facilities_API_v1.csv")
     # Parsed with column specification:
     # cols(
     #   .default = col_character(),
@@ -35,7 +118,7 @@ zipFile <- file.path(tempdir(), "RIDBFullExport_V1_CSV.zip")
     # )
     # See spec(…) for full column specifications.
     # Warning: 3658 parsing failures.
-    FacilityAddresses <- readr::read_csv("FAcilityAddresses_API_v1.csv")
+FacilityAddresses <- readr::read_csv("FAcilityAddresses_API_v1.csv")
     # Parsed with column specification:
     # cols(
     #   FacilityAddressID = col_character(),
@@ -50,8 +133,8 @@ zipFile <- file.path(tempdir(), "RIDBFullExport_V1_CSV.zip")
     #   AddressCountryCode = col_character(),
     #   LastUpdatedDate = col_date(format = "")
     # )
-    ----- Validate locations -----
-        maps::map('world')
+ #   ----- Validate locations -----
+maps::map('world')
     points(
         Facilities$FacilityLongitude, 
         Facilities$FacilityLatitude,

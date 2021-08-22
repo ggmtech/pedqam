@@ -64,9 +64,9 @@ tinytex:::is_tinytex()
 tinytex::tlmgr_install("babel-portuges")
 
 
-if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstudio.org")
-remotes::install_github("rstudio/bookdown")
-remotes::install_github("ismayc/thesisdown")
+#if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstudio.org")
+#remotes::install_github("rstudio/bookdown")
+#remotes::install_github("ismayc/thesisdown")
 
 
 if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstudio.org")

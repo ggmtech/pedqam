@@ -1,0 +1,886 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usetheme[]{AnnArbor}
+\usecolortheme{dolphin}
+\usefonttheme{structurebold}
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={The Diesel Loco Performance},
+  pdfauthor={Gopal Kumar\^{}1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\newif\ifbibliography
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{xcolor}
+\usepackage{framed}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{The Diesel Loco Performance}
+\author{Gopal Kumar\(^1\)}
+\date{2021-08-21}
+\institute{\(^1\)CMPE(Diesel)}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}[allowframebreaks]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+\begin{frame}
+\end{frame}
+
+\begin{frame}{The meeting agenda}
+\protect\hypertarget{the-meeting-agenda}{}
+\begin{block}{Howe to get auto TOC}
+\protect\hypertarget{howe-to-get-auto-toc}{}
+\end{block}
+\end{frame}
+
+\begin{frame}{Listed agenda points}
+\protect\hypertarget{listed-agenda-points}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Discussion on Compliance of last meeting Minutes
+\item
+  Detailed investigation \& analysis of all diesel loco failures
+  including corrective action plan for Aug.~\& Sept 2017.
+\item
+  Safety issues including coupling problems, measures taken for
+  improvement, material - availability of safety items etc.
+\item
+  Fuel saving, Steps taken to reduce fuel consumption , ABC
+  classification of locos based on SFC \& Rectification/corrective
+  action plan with PDCs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{but how to get auto page brake??}
+\protect\hypertarget{but-how-to-get-auto-page-brake}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Preparedness of winter Drive.
+\item
+  Innovation \& good work done in sheds during last Six months.
+\item
+  Implementation of Action plan targets for 2017-18 including plan
+  issued by Railway Board
+\item
+  Condemnation of locos, vetted proposals to HQ, Progress of Disposal
+  locos \& excluded items.
+\item
+  Quality issues of OFF POH/IOH locos \& action plan for improvement.
+\item
+  Cleanliness drives \& action taken for improving cleanliness standards
+  of Sheds \& locos
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Performance Statistics}
+\protect\hypertarget{performance-statistics}{}
+\colorlet{shadecolor}{red!30} 
+\begin{shaded}
+Black text with a red background.
+\end{shaded}
+
+\colorlet{shadecolor}{red!20}
+
+\begin{block}{Direct PL /100ML/Month Apr-Sept}
+\protect\hypertarget{direct-pl-100mlmonth-apr-sept}{}
+\begin{longtable}[]{@{}lrrr@{}}
+\caption{Direct PL /100ML/Month Apr-Sept.}\tabularnewline
+\toprule
+Shed & 2016 & 2017 & \% improvement \\
+\midrule
+\endfirsthead
+\toprule
+Shed & 2016 & 2017 & \% improvement \\
+\midrule
+\endhead
+TKD & 12.6 & 7.2 & 42.9 \\
+LDH & 8.0 & 5.5 & 31.8 \\
+LKO & 17.9 & 12.3 & 31.3 \\
+NR & 12.2 & 8.0 & 34.4 \\
+IR & 9.2 & 7.7 & 16.7 \\
+\bottomrule
+\end{longtable}
+\end{block}
+
+\begin{block}{Loco under condemnation}
+\protect\hypertarget{loco-under-condemnation}{}
+\begin{longtable}[]{@{}llll@{}}
+\caption{Loco under condemnation}\tabularnewline
+\toprule
+Shed & Underage & Overage & Total \\
+\midrule
+\endfirsthead
+\toprule
+Shed & Underage & Overage & Total \\
+\midrule
+\endhead
+TKD & 1 & 0 & 1 \\
+LDH & 0 & 18 & 18 \\
+LKO & 1 & 1 & 2 \\
+SSB & 0 & 4 & 4 \\
+NR & 2 & 23 & 25 \\
+\bottomrule
+\end{longtable}
+\end{block}
+
+\begin{block}{SFC HSD/1000GTKM - Coaching}
+\protect\hypertarget{sfc-hsd1000gtkm---coaching}{}
+\begin{longtable}[]{@{}lrrr@{}}
+\caption{SFC HSD/1000GTKM - Coaching}\tabularnewline
+\toprule
+Shed & 2016 & 2017 & \% improvement \\
+\midrule
+\endfirsthead
+\toprule
+Shed & 2016 & 2017 & \% improvement \\
+\midrule
+\endhead
+TKD & 3.43 & 3.42 & 0.30 \\
+LDH & 3.43 & 3.43 & \\
+LKO & 3.42 & 3.43 & \\
+NR & 3.43 & 3.43 & \\
+\bottomrule
+\end{longtable}
+\end{block}
+
+\begin{block}{SFC HSD/1000GTKM - Goods}
+\protect\hypertarget{sfc-hsd1000gtkm---goods}{}
+\begin{longtable}[]{@{}llll@{}}
+\caption{SFC HSD/1000GTKM - Goods}\tabularnewline
+\toprule
+Shed & 2016 & 2017 & \% improvement \\
+\midrule
+\endfirsthead
+\toprule
+Shed & 2016 & 2017 & \% improvement \\
+\midrule
+\endhead
+TKD & 1.83 & 1.83 & \\
+LDH & 1.84 & 1.84 & \\
+LKO & 1.83 & 1.82 & \\
+NR & 1.83 & 1.83 & \\
+\bottomrule
+\end{longtable}
+
+\begin{block}{Punctuality loss casses - running account}
+\protect\hypertarget{punctuality-loss-casses---running-account}{}
+\begin{longtable}[]{@{}lllllll@{}}
+\caption{Punctuality loss cases - running account}\tabularnewline
+\toprule
+Shed & DLI & UMB & FZR & MB & LKO & Total \\
+\midrule
+\endfirsthead
+\toprule
+Shed & DLI & UMB & FZR & MB & LKO & Total \\
+\midrule
+\endhead
+Apr 17 & 0 & 0 & 0 & 2 & 4 & 6 \\
+May 17 & 0 & 0 & 1 & 1 & 11 & 13 \\
+Jun 17 & 41 & 1 & 5 & 2 & 8 & 57 \\
+July 17 & 1 & 0 & 0 & 0 & 9 & 10 \\
+Aug 17 & 4 & 0 & 0 & 1 & 7 & 12 \\
+Sept 17 & 3 & 2 & 0 & 1 & 7 & 13 \\
+Apr-Sept'17 & 49 & 3 & 6 & 7 & 46 & 111 \\
+\bottomrule
+\end{longtable}
+\end{block}
+\end{block}
+\end{frame}
+
+\begin{frame}{CB shop related Issues}
+\protect\hypertarget{cb-shop-related-issues}{}
+\begin{block}{Over due sch}
+\protect\hypertarget{over-due-sch}{}
+POH-TKD-1, LDH-01 IOH-TKD-01,LKO-04
+\end{block}
+
+\begin{block}{Weak areas-Based on setouts (Apr.-Sept.)}
+\protect\hypertarget{weak-areas-based-on-setouts-apr.-sept.}{}
+\setbeamercolor{block title}{use=structure,fg=white,bg=purple!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=white!20!blue}
+
+\begin{block}{Mechanical-45 (54.8\%)}
+\protect\hypertarget{mechanical-45-54.8}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Power Pack-12
+\item
+  Air brake system -08
+\item
+  Cooling water System-07
+\item
+  Fuel oil system-06
+\end{itemize}
+\end{block}
+
+\begin{block}{Electrical-37(45.2\%)}
+\protect\hypertarget{electrical-3745.2}{}
+-Elect. M/Cs-10 -Power \& CNL cables-06 - Relays/contractors/ - Ckt
+breakers/switches-08
+
+\begin{itemize}
+\tightlist
+\item
+  Eat eggs
+\item
+  Drink coffee
+\end{itemize}
+\end{block}
+\end{block}
+\end{frame}
+
+\begin{frame}{Issues related to crews needs Training / counseling}
+\protect\hypertarget{issues-related-to-crews-needs-training-counseling}{}
+Coupling issues (opening/stucking up etc) - H type coupler CCB issues
+(self test/Proper positioning of L\&T switch/PCS knock down etc)
+Shunter/Loco pilot failed to follow proper procedure to shut down loco
+
+\begin{block}{Cab changing issues}
+\protect\hypertarget{cab-changing-issues}{}
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=blue!20!white}
+
+Applied higher notch at lower speed
+
+Details of problems faced during working pertains to loco Troubles is
+not being recorded in ME-175
+\end{block}
+
+\begin{block}{Current Focus areas for Sheds}
+\protect\hypertarget{current-focus-areas-for-sheds}{}
+\end{block}
+
+\begin{block}{Action to be taken}
+\protect\hypertarget{action-to-be-taken}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Prompt \& in-depth investigation of Each failure
+\item
+  Implementation of Action Plan for improving reliability
+\item
+  Implementation of winter drive
+\item
+  Incoming emanation \& analysis of fault data through MBCS and REMMLOT
+\item
+  Superchecking of outgoing locos
+\item
+  ABC classification of locomotives based on
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    SFC and\\
+  \item
+    rectification planning and
+  \item
+    implementation
+  \end{itemize}
+\item
+  Timely scheduling (Major/Medium) of locos
+\item
+  Developing locos based DRIP FREE locos concepts
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Locomotives holdings of Sheds}
+\protect\hypertarget{locomotives-holdings-of-sheds}{}
+\setbeamercolor{block title}{use=structure,fg=white,bg=purple!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=blue!20!white}
+
+\begin{block}{Third level heading}
+\protect\hypertarget{third-level-heading}{}
+\begin{block}{The foruth level heading}
+\protect\hypertarget{the-foruth-level-heading}{}
+\end{block}
+\end{block}
+\end{frame}
+
+\begin{frame}{loco holding heading}
+\protect\hypertarget{loco-holding-heading}{}
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Loco Shed & Holding & Passenger Links & Goods Outage \\
+\midrule
+\endhead
+TKD & 166 & 129 & 14 \\
+LDH & 166 & 129 & 14 \\
+AMV & 166 & 129 & 14 \\
+SSB & 166 & 129 & 14 \\
+---------------------------------------------------- & & & \\
+Total & 166 & 129 & 14 \\
+\bottomrule
+\end{longtable}
+
+\begin{block}{Performance 2015-16 vs 2016-17}
+\protect\hypertarget{performance-2015-16-vs-2016-17}{}
+\begin{block}{Comparative Performance apr-Aug - 2016 vs 2017}
+\protect\hypertarget{comparative-performance-apr-aug---2016-vs-2017}{}
+\end{block}
+\end{block}
+\end{frame}
+
+\begin{frame}{Action taken for Reliability and safety}
+\protect\hypertarget{action-taken-for-reliability-and-safety}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Formulation \& Monitoring of Action plan targets for Diesel sheds
+  issued by CEE for 2017-18
+\item
+  Planning of Major \& Medium schedules for 2017-18 \& Compliance of
+  Major \& Medium schedules
+\item
+  Timely implementation of various Drives such as
+
+  \begin{itemize}[<+->]
+  \tightlist
+  \item
+    Summer Drives,
+  \item
+    Fire prevention Drive,
+  \item
+    Safety Drives \&
+  \item
+    Engine shut down
+  \item
+    prevention check Drive.
+  \end{itemize}
+\item
+  Award of AMCs on OEM of MBCS,MCBG \& TCCs and other subassemblies
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Good Works Done in recent past}
+\protect\hypertarget{good-works-done-in-recent-past}{}
+\begin{itemize}[<+->]
+\item
+  Cleanliness drive conducted in all sheds and regularly being organised
+\item
+  NR Diesel Wing has finalized the condemnation of 71 overage \& 24
+  premature obsolete and Accidental locos during 2016-17. 21 locos are
+  further under process of condemnation.
+\item
+  All ALCO and HHP locos at NR based sheds have been completed for the
+  modification of provision of additional BP cut out cocks with vent.
+  Provision of additional BP cut out cocks with vent will discharge the
+  air much faster (BP destruction). This modification was done as per
+  RDSO letter no. SD.DFM.A.4.7 dated:26.03.15.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{auto page brake ? how}
+\protect\hypertarget{auto-page-brake-how}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  All four diesel sheds of NR (TKD, AMV, SSB and LDH) are IMS certified
+  diesel sheds
+\item
+  WDG4 Locomotives maintenance has been started at LDH shed w.e.f.
+  01.12.16. Currently 13 WDG4 locomotives are based at LDH Diesel Loco
+  shed. With this facility creation, HHP loco maintenance facility is
+  available at all the three major sheds of NR viz TKD, AMV and LDH.
+  This will add flexibility to train operations and will help in
+  liquidating the overdue schedules of HHP locomotives at shortest
+  possible ineffective over NR by minimising Dead Loco movements of HHP
+  locos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{some more}
+\protect\hypertarget{some-more}{}
+any bg colour ?? - Provision of CCTV in DTC exam hall at Diesel shed AMV
+in terms of directions of Railway board and CCTV in Stores Depot have
+also been provided for security and vigil. ??? A Motorised Truck
+Assembly has been prepared for WDM3A locos in Diesel shed TKD as a unit
+exchange item for improving reliability and performance of the asset. -
+Skill development Programme - In an effort of upgrading skill and
+knowledge dissemination to shed staff, practical training sessions by
+expert supervisors have been started in all sheds. For adopting good
+practice of other Railways??? sheds visits of staff done. - Steps taken
+for human resources development - Grievance Cells are functioning in all
+sheds - Promotions for technicians staff finalised at TKD last year.
+This was pending since last many years. - Indents for filling up of
+vacancies sent to RRBs. - A cell for retired staff has been started at
+TKD shed to resolve their problems and assist in getting Railway passes
+etc. - RO water is available in all sheds for drinking to all shed
+staff. - Inputs in canteens has been given to improve infrastructure and
+quality of food. - Parks has been developed and being maintained for
+maintaining good environment.
+\end{frame}
+
+\begin{frame}{CSS color background}
+\protect\hypertarget{css-color-background}{}
+CSS color background \{data-background=\#ff0000\}
+\end{frame}
+
+\begin{frame}{Full size image background}
+\protect\hypertarget{full-size-image-background}{}
+\begin{block}{Full size image background}
+\protect\hypertarget{full-size-image-background-1}{}
+Video background \{data-background-video=``background.mp4''\}
+\end{block}
+\end{frame}
+
+\begin{frame}{Embed a web page as a background}
+\protect\hypertarget{embed-a-web-page-as-a-background}{}
+Indian Railways signed an agreement with GE on 30 November 2015 for
+manufacture , supply and maintenance of the world class fuel efficient,
+environment friendly and reliable Diesel Locomotives. The agreement
+includes supply of 700 locos of 4500 HP and 300 locos of 6000 HP. It is
+a PPP project where a compnay GEDLPL has been set up with the 26\%
+equity participtioin of Indian Railways and remaining equity with GE.
+The total value of the investment in the company is about Rupees 13000
+crores. The project would Meeting with the strict timelines, the compney
+handed over the first 2 locomotives to Indina Railways on 22 February
+meeting with the project timelines. These first two locomoitves shall be
+subjected to various tests and trials. Soon thereafter, the compnay
+would supply about 8 locomiitves per month. The first 250 of these
+locomotives shall be based in the compnay mantenance depot where
+\end{frame}
+
+\begin{frame}{Advantage of the project}
+\protect\hypertarget{advantage-of-the-project}{}
+\end{frame}
+
+\begin{frame}{The leadin project timelines}
+\protect\hypertarget{the-leadin-project-timelines}{}
+\begin{block}{Contract Agreement date 30 Nov 2015}
+\protect\hypertarget{contract-agreement-date-30-nov-2015}{}
+\end{block}
+
+\begin{block}{First contractual delivery of locos 22 Feb 2018}
+\protect\hypertarget{first-contractual-delivery-of-locos-22-feb-2018}{}
+\end{block}
+
+\begin{block}{Deal Size: \textasciitilde\$2.6B :}
+\protect\hypertarget{deal-size-2.6b}{}
+\end{block}
+
+\begin{block}{1st of its type PPP \ldots{} Joint Venture with 26\% IR
+share \textasciitilde{} Rs. 1300 Cr. plus investment}
+\protect\hypertarget{st-of-its-type-ppp-joint-venture-with-26-ir-share-rs.-1300-cr.-plus-investment}{}
+\end{block}
+
+\begin{block}{Equipment \& Services including Locomotive production
+facility 2 Service facilities}
+\protect\hypertarget{equipment-services-including-locomotive-production-facility-2-service-facilities}{}
+\end{block}
+
+\begin{block}{1000 Locos over 10 yrs 700 of 4500hp + 300 of 6000hp}
+\protect\hypertarget{locos-over-10-yrs-700-of-4500hp-300-of-6000hp}{}
+\end{block}
+
+\begin{block}{Basic cost : 15,93,60,200 per loco ( Plus taxes, 10\%
+extra for initial imported supply)}
+\protect\hypertarget{basic-cost-159360200-per-loco-plus-taxes-10-extra-for-initial-imported-supply}{}
+\end{block}
+\end{frame}
+
+\begin{frame}{Timelines}
+\protect\hypertarget{timelines}{}
+-Roza Company Maintenance Shed : Ready in Feb 2018 -Loco Handover : Feb
+2018 -Start Of India Operations : Aug 2018 -Shipment to IR from Marhowra
+: Oct 2018
+
+\textbf{The first 250 loco shall be maintained by Company at Roza for 9
+years.}
+
+\textbf{The Next 251- 500 to be maintained by Railway Depot under GE
+supervision in GandhiDham, WR for 4 years.}
+\end{frame}
+
+\begin{frame}{Infrastructure}
+\protect\hypertarget{infrastructure}{}
+-Marhowrah, Bihar : Factory + Township : 70 Acres (Total Area 200 Acres)
+-Roza, UP : Maintenance Shed + Training Centre : 20+ Acres -Gandhidham,
+GJ : Maintenance Shed 20 + Acres
+\end{frame}
+
+\begin{frame}{Supply commitment}
+\protect\hypertarget{supply-commitment}{}
+\end{frame}
+
+\begin{frame}{Accounting Year Number of Locomotives to be supplied}
+\protect\hypertarget{accounting-year-number-of-locomotives-to-be-supplied}{}
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Year of supply & Locomotive 4500 & Locomotive 6000 \\
+\midrule
+\endhead
+First Year of Supply & 2 & 0 \\
+Second Year of Supply & 96 & 2 \\
+Third Year of Supply & 85 & 15 \\
+Fourth Year of Supply & 80 & 20 \\
+Fifth Year of Supply & 75 & 25 \\
+Sixth Year of Supply & 70 & 30 \\
+Seventh Year of Supply & 60 & 40 \\
+Eighth Year of Supply & 60 & 40 \\
+Ninth Year of Supply & 60 & 40 \\
+Tenth Year of Supply & 57 & 43 \\
+Eleventh Year of Supply & 55 & 45 \\
+\bottomrule
+\end{longtable}
+
+Total 700 of 4500 HP and 300 of 6000 HP locos
+
+\setbeamercolor{block title}{use=structure,fg=black,bg=purple!55!black}
+\setbeamercolor{block body}{use=structure,fg=white,bg=blue!20!white}
+\end{frame}
+
+\begin{frame}{WDG4G Loco Architecture (ES43ACmi)}
+\protect\hypertarget{wdg4g-loco-architecture-es43acmi}{}
+\begin{block}{Platform / Underframe}
+\protect\hypertarget{platform-underframe}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  I Beam underframe
+\item
+  6000 L Fuel tank
+\item
+  400 tonnes buff load
+\item
+  AAR Type E Coupler
+\item
+  EN15551 certified buffers
+\end{itemize}
+\end{block}
+
+\begin{block}{Bogie}
+\protect\hypertarget{bogie}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Fabricated Bogie frame designed to meet EN13749
+\item
+  TM Combo Assembly GEB24 TMs
+\item
+  TBUs
+\item
+  Coil Primary \& Rubber Secondary suspension
+\end{itemize}
+\end{block}
+
+\begin{block}{Operator Cabs}
+\protect\hypertarget{operator-cabs}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Dual Cab
+\item
+  HVAC Equipped
+\item
+  4 Display Screens / Cab
+\item
+  Hot plate / Tool box
+\item
+  LED headlights, Marker lights
+\item
+  EN12663 Collision protection
+\item
+  AAR S580 Anti-climber
+\end{itemize}
+\end{block}
+
+\begin{block}{Aux Cab}
+\protect\hypertarget{aux-cab}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  IGBT technology inverters
+\item
+  Axle control
+\item
+  Full self load ??? DB Grid
+\item
+  Unitized packaging of electrical components
+\item
+  Control C
+\end{itemize}
+\end{block}
+
+\begin{block}{Engine Cab}
+\protect\hypertarget{engine-cab}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  GEVO-12 CylEngine
+\item
+  EUI Injection
+\item
+  Best of class fuel efficiency
+\item
+  UIC 1 Emissions compliant
+\end{itemize}
+\end{block}
+
+\begin{block}{Blower / Alternator Cab}
+\protect\hypertarget{blower-alternator-cab}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  GMG210 Alternator
+\item
+  Alternator start
+\end{itemize}
+\end{block}
+
+\begin{block}{Radiator Cab}
+\protect\hypertarget{radiator-cab}{}
+\begin{itemize}[<+->]
+\item
+  72 inch Cooling fan
+\item
+  Cycle skipper cooling control
+\item
+  Air to Water and Air to Air Cooling
+\item
+  Plate type Lube Oil Cooler
+\item
+  Wabtec Fastbrake Air brake system
+\item
+  APU for HVAC, lighting \& battery charging
+\item
+  Rotary Screw Compressor
+\item
+  Toilet / Urinal
+\item
+  RLA Cab
+\item
+  DB Grid ??? Full self load
+\end{itemize}
+\end{block}
+
+\begin{block}{Additional Features:}
+\protect\hypertarget{additional-features}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Additional display screen on helper side
+\item
+  Overhead console \& placements of switches
+\item
+  LED type Headlights
+\item
+  Heated Windshields
+\item
+  Windshield Washers
+\item
+  Hot plate
+\item
+  Tool box locker \& shelves on consoles
+\item
+  Insulated side windows pane for thermal and noise insulation.
+\item
+  Hand grabs and foot steps for windshield washing
+\item
+  Electrical Switch operated pneumatic parking brake instead of
+  chain/lever type
+\item
+  Integrated screens + Air Brake setup screen
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Improvements:}
+\protect\hypertarget{improvements}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Spacious Cab and Doors entry and exit (especially \# 2 cab).
+\item
+  More powerful HVAC (2.25 TR vs 1.75 TR)
+\item
+  Flasher \& Marker lights Design
+\item
+  Bigger windshields(vertically)
+\item
+  Screens size : 15??? vs 12???
+\item
+  Concealed Tubes and Conduits inside the cab (For HVAC, Brake Valve ,
+  Wiper etc)
+\item
+  Better on outside aesthetic appeal \& finish
+\item
+  Internal cab noise limited to 85 dB(A), higher for IR WDG4D loco \# 2
+  end cab.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Comparable features:}
+\protect\hypertarget{comparable-features}{}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Consoles layout is similar, controls location on desk will be quite
+  familiar to drivers.
+\item
+  Switch layout/controls type / access similar to existing Dual cab loco
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Nominal Details}
+\protect\hypertarget{nominal-details}{}
+\begin{block}{Leading data}
+\protect\hypertarget{leading-data}{}
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+item & Provided \\
+\midrule
+\endhead
+Horse Power(Gross) & 4500 HP \\
+Horse Power(Traction) & 4261 HP \\
+Weight(Nominal) & 132,000 Kg (291,010 lbs.) \\
+Maximum Speed(fully worn Wheels) & 100 Km/h \\
+axle load & 22t \\
+Wheel Arrangement & Co-Co \\
+Maximum Starting Tractive Effort & 544 KN \\
+Maximum tractive effort & 54.59t \\
+Maximum continuous Tractive Effort & 405 KN \\
+Gear Ratio & 85:18 \\
+Maximum braking effort & 27,09t \\
+\bottomrule
+\end{longtable}
+\end{block}
+
+\begin{block}{Dimentions}
+\protect\hypertarget{dimentions}{}
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+item & Provided \\
+\midrule
+\endhead
+Major Dimensions & \\
+Length (Over couplers) & 22567 mm \\
+Height & 4227 mm \\
+Width & 3200 mm \\
+Minimum Track Curvature & SU 174 m (570 ft.) radius \\
+Coupled Pair & 174 m (570 ft.) radius \\
+Driving Wheel Diameter(new) & 1092 mm \\
+Minimum Wheel Diameter & 1016 mm \\
+Maximum CG height from rail level : & not exceeding 1830mm \\
+\bottomrule
+\end{longtable}
+
+\colorlet{shadecolor}{red!90}
+
+\begin{shaded}
+
+Black text with a darker red background.
+
+\end{shaded}
+\end{block}
+
+\begin{block}{Consumables}
+\protect\hypertarget{consumables}{}
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+item & Provided \\
+\midrule
+\endhead
+Fuel Tank(usable) & 6000 L \\
+Coolant & 1249 L \\
+Lubricating Oil & 1030 L \\
+Sand & 4 sand boxes of 85 L each \\
+Maintenance periodicity & 90 days \\
+\bottomrule
+\end{longtable}
+\end{block}
+\end{frame}
+
+\end{document}

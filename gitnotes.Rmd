@@ -9,22 +9,233 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+knitted_when <- format(Sys.Date())
+knitted_where <- knitr::current_input()
+knitted_with <- packageVersion("knitr")
+#knitted_doc_url <- downlit::autolink_url("knitr::knit()")
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+<!---  Reported prepared on `r knitted_when` from `r knitted_where`
+with knitr version  
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+ r knitted_with` `r emo::ji('smile')`. -->
+
+Read more about [`knitr::knit()`](`r knitted_doc_url`)`.
+
+
+"knitted_" %>% tab() # list autocomlete tabs
+
+Better is below
+
+```{r}
+
+knitted <- list(
+
+when = format(Sys.Date()),
+
+where = knitr::current_input(),
+
+with = packageVersion("knitr"),
+
+doc_url = downlit::autolink_url("knitr::knit()") 
+
+)
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Reported prepared on `r knitted$when` from ``r knitted$where``
+
+with knitr version `r knitted$with` `r emo::ji('happy')`.
+
+Read more about [`knitr::knit()`](`r knitted$doc_url`)`.
+
+
+
+create a new branch and switch to it with `git checkout` with the `-b` switch:
+
+    $ git checkout -b iss53
+
+    $ git checkout -b iss53         # Switched to a new branch "iss53"
+
+This is shorthand for:
+
+    $ git  branch iss53
+    $ git checkout iss53
+
+You work on your website and do some commits. Doing so moves the current `iss53` branch forward, (ie your `HEAD` is pointing to it):
+
+    $ vim index.html
+    $ git commit -a -m 'Create new footer [issue 53]'
+
+To return on old work , so you can switch back to your `master` branch:
+
+    $ git checkout master                 # Switched to branch 'master'
+
+Next, you have a hotfix to make. Create a `hotfix` branch to work until it's completed:
+
+    $ git checkout -b hotfix             # Switched to a new branch 'hotfix'
+    $ vim index.html
+    $ git commit -a -m 'Fix broken email address
+
+Now run your tests, make sure the hotfix is what you want, and finally merge `hotfix` branch back into your `master` branch to deploy to production. You do this with the `git merge` command:
+
+    $ git checkout master
+    $ git merge hotfix
+
+-   "fast-forward" in that merge as branch was ahead of that same commit
+
+    you're ready to switch back to the work you were doing before you were interrupted. However, first you'll delete the `hotfix` branch, because you no longer need it --- the `master` branch points at the same place. You can delete it with the `-d` option to `git branch`:
+
+        $ git branch -d hotfix
+        Deleted branch hotfix (3a0874c).
+
+Now you can switch back to your work-in-progress branch on issue #53 and continue working on it.
+
+    $ git checkout iss53
+    Switched to branch "iss53"
+    $ vim index.html
+    $ git commit -a -m 'Finish the new footer [issue 53]'
+
+
+**Basic Merging**
+
+Suppose you've decided that your issue #53 work is complete and ready to be merged into your `master` branch. In order to do that, you'll merge your `iss53` branch into `master`, much like you merged your `hotfix` branch earlier. All you have to do is check out the branch you wish to merge into and then run the `git merge` command:
+
+    $ git checkout master
+    Switched to branch 'master'
+    $ git merge iss53
+    Merge made by the 'recursive' strategy.
+    index.html |    1 +
+    1 file changed, 1 insertion(+)
+
+All you have to do is check out the branch you wish to merge into and then run the `git merge` command:
+
+    $ git checkout master             # Switched to branch 'master'
+    $ git merge   iss53               # merge iss53 branch  into'master'
+
+Usually, **hypothesis tests are used to answer research questions in confirmatory analyses**. hypothesis tests are rarely used in exploratory analyses. exploratory analyses are sometimes referred as hypothesis-generating analyses---they are used to create some hypotheses, which in turn may be tested via confirmatory analyses at a later stage.
+
+1.  One mean: 𝜇μ ( eg to test whether the mean weight of Belgian adults is different than 80 kg (176.4 lbs). )
+
+2.  Two means:
+
+    -   independent samples: 𝜇1μ1 and 𝜇2μ2 ( whether the mean response time (in seconds) is different between patients in a control group and patients in a treatment group, where patients in the two groups are different.)
+
+    -   paired samples: 𝜇𝐷μD ( to test whether the mean response time (in seconds) is different before and after a treatment, where patients are measured twice)
+
+3.  One proportion: 𝑝p
+
+4.  Two proportions: 𝑝1p1 and 𝑝2p2 ( to test whether the proportion of smokers is different between professional and amateur athletes.)
+
+5.  One variance: 𝜎2σ2 ( whether a voltmeter has a lower variability than what is imposed by the safety standards)
+
+6.  Two variances: 𝜎21σ12 and 𝜎22σ22 ( whether the costs of the weekly maintenance of these two machines have the same variance)
+
+The good news is that the principles behind these 6 statistical tests (and many more) are exactly the same
+
+Unlike [descriptive statistics](https://statsandr.com/blog/descriptive-statistics-in-r/) where we only describe the data at hand, **hypothesis tests use a subset of observations**, referred as a [sample](https://statsandr.com/blog/what-is-the-difference-between-population-and-sample/), **to draw conclusions about a population**.
+
+**overall objective of a hypothesis test is to draw conclusions in order to confirm or refute a belief about a population**, based on a smaller group of observations.
+
+3 different methods to perform a hypothesis tests: they all lead to the exact same conclusions.
+
+-   [Method A: Comparing the test statistic with the **critical value**](https://statsandr.com/blog/hypothesis-test-by-hand/#method-a-comparing-the-test-statistic-with-the-critical-value)
+
+-   [Method B: Comparing the ***p*****-value** with the significance level 𝛼α](https://statsandr.com/blog/hypothesis-test-by-hand/#method-b-comparing-the-p-value-with-the-significance-level-alpha)
+
+-   [Method C: Comparing the target parameter with the **confidence interval**](https://statsandr.com/blog/hypothesis-test-by-hand/#method-c-comparing-the-target-parameter-with-the-confidence-interval)
+
+### **Method A: Comparing the test statistic with the critical value**
+
+Method A, which consists in comparing the test statistic with the critical value, boils down to the following 4 steps:
+
+1.  Stating the **null and alternative hypothesis**
+
+2.  Computing the **test statistic**
+
+3.  Finding the **critical value**
+
+4.  **Concluding** and interpreting the results
+
+
+a hypothesis test first requires an idea, that is, an assumption about a phenomenon. This assumption, referred as hypothesis, is derived from the theory and/or the research question.
+
+Since a hypothesis test is used to confirm or refute a prior belief, we need to **formulate our belief so that there is a null and an alternative hypothesis**. Those hypotheses must be [mutually exclusive](https://statsandr.com/blog/the-9-concepts-and-formulas-in-probability-that-every-data-scientist-should-know/#union-of-two-events)
+
+the null and alternative hypothesis are thus:
+
+-   Null hypothesis 𝐻0:𝜇=80H0:μ=80
+
+-   Alternative hypothesis 𝐻1:𝜇≠80
+
+
+When stating the null and alternative hypothesis, bear in mind the following two points:
+
+1.  *The assumption we would like to test is often the alternative hypothesis.* If the researcher wanted to test whether the mean weight of Belgian adults was less than 80 kg, she would have stated 𝐻0:𝜇=80H0:μ=80 (or equivalently, 𝐻0:𝜇≥80H0:μ≥80) and 𝐻1:𝜇<80H1:μ<80.^[4](https://statsandr.com/blog/hypothesis-test-by-hand/#fn4)^ Do not mix the null with the alternative hypothesis, or the conclusions will be diametrically opposed!
+
+2.  *The null hypothesis is often the status quo.* For instance, suppose that a doctor wants to test whether the new treatment A is more efficient than the old treatment B. The status quo is that the new and old treatments are equally efficient. Assuming a larger value is better, she will then write 𝐻0:𝜇𝐴=𝜇𝐵H0:μA=μB (or equivalently, 𝐻0:𝜇𝐴–𝜇𝐵=0H0:μA--μB=0) and 𝐻1:𝜇𝐴>𝜇𝐵H1:μA>μB (or equivalently, 𝐻0:𝜇𝐴–𝜇𝐵>0H0:μA--μB>0). On the opposite, if the lower the better, she would have written 𝐻0:𝜇𝐴=𝜇𝐵H0:μA=μB (or equivalently, 𝐻0:𝜇𝐴–𝜇𝐵=0H0:μA--μB=0) and 𝐻1:𝜇𝐴<𝜇𝐵H1:μA<μB (or equivalently, 𝐻0:𝜇𝐴–𝜇𝐵<0H0:μA--μB<0).
+
+
+**Step #2: Computing the test statistic**
+
+The **test statistic** (often called **t-stat**) is, in some sense, a metric indicating **how extreme the observations are compared to the null hypothesis**. The higher the t-stat (in absolute value), the more extreme the observations are.
+
+several formulas to compute the t-stat, with one formula for each type of hypothesis test---one or two means, one or two proportions, one or two variances.
+
+choose the appropriate formula
+
+Computing the test statistic for these tests is similar than [scaling](https://statsandr.com/blog/do-my-data-follow-a-normal-distribution-a-note-on-the-most-widely-used-distribution-and-how-to-test-for-normality-in-r/#probabilities-and-standard-normal-distribution) a random variable (a process also knows as "standardization" or "normalization") which consists in subtracting the mean from that random variable, and dividing the result by the standard deviation: Z
+
+(subtract the target parameter from the point estimator and then divide the result by the standard error (which is equivalent to the standard deviation but for an estimator)
+
+test statistic gives us an indication on how extreme our observations are.
+
+but whether this "score of extremity" is *too* extreme or not based on its value only . we need to compare our t-stat with a threshold---referred as **critical value**---given by the [probability distribution](https://statsandr.com/blog/a-guide-on-how-to-read-statistical-tables/) tables
+
+formula to compute the t-stat is different for each parameter of interest, the underlying probability distribution---and thus the statistical table---on which the critical value is based is also different for each target parameter. This means that, in addition to choosing the appropriate formula to compute the t-stat, we also need to select the appropriate probability distribution depending on the parameter we are testing.
+
+<https://www.r-bloggers.com/2021/01/hypothesis-test-by-hand/>
+
+**significance level**, denoted 𝛼α, is the probability of wrongly rejecting the null hypothesis, so the **probability of rejecting the null hypothesis although it is in reality true.** it is an error (type I error, as opposed to the type II error^[8](https://statsandr.com/blog/hypothesis-test-by-hand/#fn8)^) that we accept to deal with, in order to be able to draw conclusions about a population based on a subset of it.
+
+the significance level is very often set to 5%.^[9](https://statsandr.com/blog/hypothesis-test-by-hand/#fn9)^ In some fields (such as medicine or engineering, among others), the significance level is also sometimes set to 1% to decrease the error rate. It is best to specify the significance level *before* performing a hypothesis test to avoid the temptation to set the significance level in accordance to the results (the temptation is even bigger when the results are on the edge of being significant)
+
+
+
+    $ git branch -v
+
+Rename the branch locally with the `git branch --move` command:
+
+    $ git branch --move bad-branch-name corrected-branch-name
+
+This replaces your `bad-branch-name` with `corrected-branch-name`, for remote, you need to push it:
+
+    $ git push --set-upstream origin corrected-branch-name
+
+bad name is also still present there but you can delete it by executing the following command:
+
+    $ git push origin --delete bad-branch-name
+
+If you run `git clone -o booyah` instead, then you will have `booyah/master` as your default remote branch.
+
+Add another remote server
+
+git add remote [asname] [git:server address]
+
+Now, you can run `git fetch [asname]`
+
+you want to work on with others, you can push it up the same way you pushed your first branch. Run `git push <remote> <branch>`:
+
+git push origin serverfix:serverfix
+
+you could instead run `git push origin serverfix:awesomebranch` to push your local `serverfix` branch to the `awesomebranch` branch on the remote project.
+
+    git checkout -b serverfix origin/serverfix
+    Branch serverfix set up to track remote branch serverfix from origin.
+    Switched to a new branch 'serverfix'
+
+This gives you a local branch that you can work on that starts where `origin/serverfix` is.
+
+

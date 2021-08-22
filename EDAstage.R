@@ -1,94 +1,43 @@
-# shenkey by panta rhei everything flows
- 
-# https://cran.r-project.org/web/packages/PantaRhei/vignettes/panta-rhei.html
-# Sankey diagrams visualize the flow of conservative substances through a system. ‘PantaRhei’
-# ‘PantaRhei’ simple syntax using data in tables, spread sheets produce publication-quality diagrams.
-# you’ll need three different data frames information on nodes, flows, colors
-# nodes coordinate data frame:
-#   ID (character) to identify the node
-#   x (numeric) the x-coordinate of the node (in arbitrarly units)
-#   y (numeric) the y-coordinate of the node.
-#   label, label_pos etc
-# flows data frame between the nodes. [better multiple flow types, or substances]
-#   from (character)  starting node ID 
-#   to (character)    ending node ID
-#   quantity (numeric) magnitude of flow.
-#   substance,
-#  rainbow() but optional colors <- tribble(~substance, ~color, "Cocoa",    "chocolate", "Sugar",    "#FFE4C4" )
-# then sankey(nodes, flows),  but better sankey(nodes, flows, colors, legend=TRUE))
-nodes <- tibble::tribble(
-    ~ID,  ~label,   ~x,   ~y,      ~dir,    ~label_pos,
-    "in",    "Input",  0,   "0",     "right", "left",
-    "out",   "Output", 4,   "in",    "right", "right",
-)
-flows <- tibble::tribble(
-    ~from,     ~to,   ~quantity, ~substance,
-    "in",     "out",   1, "Oil",
-    "",       "",      1, "Gas",
-    "",       "",      1, "Biomass",
-    "",       "",      1, "Electricity",
-    "",       "",      1, "Solar",
-    "",       "",      1, "Hydrogen",
-    "",       "",      1, "Wind",
-    "",       "",      1, "Water",
-    "",       "",      1, "Nuclear",
-)
-colors <- tibble::tribble(
-    ~substance, ~color,
-    "<any>",    "cornflowerblue",
-)
-
-# reallife
-nodes   <- read_xlsx("my_sankey_data.xlsx", "nodes")
-flows   <- read_xlsx("my_sankey_data.xlsx", "flows")
-colors  <- read_xlsx("my_sankey_data.xlsx", "colors")
-#check_consistency(nodes, flows, colors)
-#check_balance(nodes, flows)
-sankey(nodes, flows, colors)
-
-
-# PantaRhei::sankey(nodes, flows,  node_style=ns, 
-#                   legend=gpar(filesize=18, col="blue", ncols=2),
-#                   page_margin=c(0.1, 0.1, 0.1, 0.2),
-#                   title=strformat("Panta Rhei", fontsize=18, col="blue") )
-# Hard cop output
-pdf("diagram.pdf", width=10, height=7) # Set up PDF device
-sankey(nodes, flows, colors)           # plot diagram
-dev.off()                              # close PDF device
-
-
-# final example
-
-library(PantaRhei)
-data(MFA) # Material Flow Account data, list of three tables
-str(MFA)
-MFA[1]
-
-# node style
-library(grid) # loads: gpar()
-
-dblue <- "#00008B" # Dark blue
-
-my_title <- "Material Flow Account"
-attr(my_title, "gp") <- grid::gpar(fontsize=18, fontface="bold", col=dblue)
-
-# node style ns
-ns <- list(type="arrow",gp=gpar(fill=dblue, col="white", lwd=2),
-           length=0.7,
-           label_gp=gpar(col=dblue, fontsize=8),
-           mag_pos="label", mag_fmt="%.0f", 
-           mag_gp=gpar(fontsize=10,fontface="bold",col=dblue)
-           )
-
-sankey(MFA$nodes, MFA$flows, MFA$palette,
-       max_width   = 0.1,   rmin=0.5,
-       node_style  = ns,
-       page_margin = c(0.15, 0.05, 0.1, 0.1),
-       legend=TRUE, title=my_title,  copyright="Statistics Netherlands"
-       )
 
 ###########################################
 # plain plots
+
+data <- data.frame( A = rpois(900, 3),
+                    B = rnorm(900),
+                    C = runif(900) )
+
+boxplot(data)
+                    
+head(ToothGrowth)
+boxplot(ToothGrowth)
+boxplot(len~supp,
+        data= ToothGrowth,
+        main="ToothGrowth ",
+        xlab="supp",
+        ylab="len",
+        col="orange",border="black"
+       )
+boxplot(len~dose,
+        data=ToothGrowth,
+        main="Different boxplots for per day growth",
+        xlab="Tooth length",
+        col="green",
+        border="brown",
+        horizontal=TRUE
+       )
+
+
+# in ggplot
+library(ggplot2)
+ggplot(data = ToothGrowth, aes(x=as.character(supp), y=len)) +
+    geom_boxplot(fill="orange") +
+    labs(title=" ToothGrowth ", x="Supp", y="len") + theme_bw()
+
+
+
+
+
+###############
 library(ggplot2)
 theme_set(   theme_classic()   +   theme(legend.position = "top")   )
 # demo data
@@ -124,57 +73,20 @@ df %>%  ggplot(  aes(x = wt, y = mpg)  ) +
 
 # 3D plot
 library(plotly)
-  
-  df <- mtcars %>%
+df <- mtcars %>%
   rownames_to_column() %>%
   as_tibble() %>%
   mutate(am = ifelse(am == 0, "Automatic", "Manual")) %>%
   mutate(am = as.factor(am))
 df
-Datanovia
-Login|Register0
-HOME
-LEARN
-TOPICS
-PRICING
-SHOP
-RESOURCES
-ABOUT
-CONTACT
-English
-HOW TO CREATE A GGPLOT-LIKE 3D SCATTER PLOT USING PLOTLY
-HOMEGGPLOT2HOW TO CREATE A GGPLOT-LIKE 3D SCATTER PLOT USING PLOTLY
-Search
 
 
-
-
-
-
-12 Jan
-How to Create a GGPlot-like 3D Scatter Plot using Plotly
-Alboukadel |  ggplot2 FAQ |  ggplot2 |  0
-In this article you will learn how to create a ggplot-like 3D scatter plot using the plotly R package.
-
-
-
-
-
-Contents:
-  
-  Prerequisites
-Basic 3D Scatter Plot
-3D Scatter Plot with Color Scaling
-Related Book
-GGPlot2 Essentials for Great Data Visualization in R
-Prerequisites
-Load required R packages
+# How to Create a GGPlot-like 3D Scatter Plot using Plotly
 
 library(tidyverse)
 library(plotly)
-Data preparation:
-  
-  df <- mtcars %>%
+
+df <- mtcars %>%
   rownames_to_column() %>%
   as_data_frame() %>%
   mutate(am = ifelse(am == 0, "Automatic", "Manual")) %>%
@@ -182,73 +94,6 @@ Data preparation:
 df
 
 # Basic 3D Scatter Plot
-
-df %>% plot_ly(  x = ~wt, y = ~hp, z = ~qsec, color = ~am, colors = c('#BF382A', '#0C4B8E')    ) %>%
-      add_markers() %>%
-      layout(    scene = list(xaxis = list(title = 'Weight'),
-                 yaxis = list(title = 'Gross horsepower'),
-                 zaxis = list(title = '1/4 mile time')    )    
-            )  -> p
-
-p
-# HOME
-LEARN
-TOPICS
-PRICING
-SHOP
-RESOURCES
-ABOUT
-CONTACT
-English
-HOW TO CREATE A GGPLOT-LIKE 3D SCATTER PLOT USING PLOTLY
-HOMEGGPLOT2HOW TO CREATE A GGPLOT-LIKE 3D SCATTER PLOT USING PLOTLY
-Search
-
-
-
-
-
-
-12 Jan
-How to Create a GGPlot-like 3D Scatter Plot using Plotly
-Alboukadel |  ggplot2 FAQ |  ggplot2 |  0
-In this article you will learn how to create a ggplot-like 3D scatter plot using the plotly R package.
-
-
-
-
-
-Contents:
-  
-  Prerequisites
-Basic 3D Scatter Plot
-3D Scatter Plot with Color Scaling
-Related Book
-GGPlot2 Essentials for Great Data Visualization in R
-Prerequisites
-Load required R packages
-
-library(tidyverse)
-library(plotly)
-Data preparation:
-  
-  df <- mtcars %>%
-  rownames_to_column() %>%
-  as_data_frame() %>%
-  mutate(am = ifelse(am == 0, "Automatic", "Manual")) %>%
-  mutate(am = as.factor(am))
-df
-## # A tibble: 32 x 12
-##   rowname   mpg   cyl  disp    hp  drat    wt  qsec    vs am    gear  carb
-##   <chr>   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <fc> <dbl> <dbl>
-## 1 Mazda …  21       6   160   110  3.9   2.62  16.5     0 Man…     4     4
-## 2 Mazda …  21       6   160   110  3.9   2.88  17.0     0 Man…     4     4
-## 3 Datsun…  22.8     4   108    93  3.85  2.32  18.6     1 Man…     4     1
-## 4 Hornet…  21.4     6   258   110  3.08  3.22  19.4     1 Aut…     3     1
-## 5 Hornet…  18.7     8   360   175  3.15  3.44  17.0     0 Aut…     3     2
-## 6 Valiant  18.1     6   225   105  2.76  3.46  20.2     1 Aut…     3     1
-## # ... with 26 more rows
-Basic 3D Scatter Plot
 # Create the plot
 p <- plot_ly(
   df, x = ~wt, y = ~hp, z = ~qsec, 
@@ -292,11 +137,9 @@ p <- ggplot(iris, aes(Species, Sepal.Length)) +
   theme_icon()
 # Save the icon into a 72x72 pixel png or svg format:
 # SVG
-?ggsave(   filename = "figures/boxplot-icon_72px.svg", p, 
-            dpi=72, width = 1, height = 1   )
+?ggsave(   filename = "figures/boxplot-icon_72px.svg", p, dpi=72, width = 1, height = 1   )
 # PNG
-?ggsave(  filename = "figures/boxplot-icon_72px.png", p, 
-          dpi=72, width = 1, height = 1, bg = "transparent" )
+?ggsave(  filename = "figures/boxplot-icon_72px.png", p,  dpi=72, width = 1, height = 1, bg = "transparent" )
 
 
 #  Hex sticker
@@ -318,9 +161,9 @@ library(heatmaply)
 heatmaply_na( airquality[1:30, ], showticklabels = c(TRUE, FALSE)  )
 
 # venn diagram
-# Créer une donnée de démonstration
+
 set.seed(20190708)
-genes <- paste("gene", 1:1000, sep="")
+genes <- paste("gene", 1:1000, sep="")    ## Créer une donnée de démonstration
 x <- list(
   A = sample(genes,300), 
   B = sample(genes,525), 
@@ -337,16 +180,14 @@ ggvenn( x,
         stroke_size = 0.5, set_name_size = 4
        )
 
-# Utilisation du package R ggVennDiagram
-if (!require(devtools)) install.packages("devtools")
-devtools::install_github("gaospecial/ggVennDiagram")
 
+# if (!require(devtools)) install.packages("devtools")  
+devtools::install_github("gaospecial/ggVennDiagram")  ## Utilisation du package R ggVennDiagram
 library("ggVennDiagram")
 ggVennDiagram(x, label_alpha = 0.2)
 
 
-install.packages("VennDiagram")
-
+# install.packages("VennDiagram")
 library(VennDiagram)
 venn.diagram(x, filename = "venn-4-dimensions.png")
 
@@ -365,29 +206,23 @@ summary(data)
 
 
 
-if (condition) {   code executed when condition is TRUE } else { code executed when condition is FALSE }
-
-
-for(i in 1:x) { code }
-
-
-while (test_expression) {  statement }
-      
-
-repeat {  statement }
+# if (condition) {   code executed when condition is TRUE } else { code executed when condition is FALSE }
+# for(i in 1:x) { code }
+# while (test_expression) {  statement }
+# repeat {  statement }
 
 rep("A",4)
 rep(1:5,2)
 rep(1:5,rep(2,5))
 
-#break and next statements
+# break and next statements
 
-if (test_expression) {
-           break
-           }
+# if (test_expression) {
+#            break
+#            }
 
 
-switch(expression, case1, case2, case3....)
+# switch(expression, case1, case2, case3....)
 
 # scan statements
 

@@ -7,11 +7,9 @@ library(highcharter)
 library(dplyr)
 library(plotly)
 library(viridis)
-
-#hrbrthemes::import_roboto_condensed()
 library(rayshader)
 
-
+#hrbrthemes::import_roboto_condensed()
 library(hrbrthemes)
 # or 
 # geom_point() + scale_x_continuous("Item Visibility", breaks = seq(0,0.35,0.05))+ scale_y_continuous("Item MRP", breaks = seq(0,270,by = 30))
@@ -28,10 +26,8 @@ library(hrbrthemes)
 
 # pairs plot,
 data<-dplyr::select(mtcars,mpg,disp,hp)
-pairs(data)
-
+graphics::pairs(data)
 GGally::ggpairs(data)  +  theme_bw()
-
 GGally::ggpairs(data,
         upper = list(continuous = "density", combo = "box_no_facet"),
         lower = list(continuous = "points", combo = "dot_no_facet")    )
@@ -42,21 +38,16 @@ GGally::ggpairs( tips[, c(1, 3, 4, 2)],
         upper = list(continuous = "density", combo = "box_no_facet"),
         lower = list(continuous = "points", combo = "dot_no_facet")    )
 
-
 data(flea)
 GGally::ggpairs(flea, columns = 2:4, ggplot2::aes(colour=species))
 
-data(flea)
-ggpairs(flea, columns = 2:4, ggplot2::aes(colour=species))ggpairs(
-  tips[, c(1, 3, 4, 2)],
-  upper = list(continuous = "density", combo = "box_no_facet"),
-  lower = list(continuous = "points", combo = "dot_no_facet"))
-
-
+GGally::ggpairs(
+   tips[, c(1, 3, 4, 2)],
+   upper = list(continuous = "density", combo = "box_no_facet"),
+   lower = list(continuous = "points",  combo = "dot_no_facet"))
 
 ###################
 
-# The dataset is provided in the gapminder library
 library(gapminder)
 data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
 
@@ -103,26 +94,27 @@ pp
 
 
 
+
+
+
+
+
 # Add marginal rugs
-ggplot(mtcars, aes(x=wt, y=mpg, color=cyl)) +
+mtcars %>% ggplot(aes(x=wt, y=mpg, color=cyl)) +
           geom_point()    + 
           geom_rug()      +  # Add marginal rugs
           theme_bw()
 
 # Scatter plot with the 2d density estimation
-sp <- ggplot(faithful, aes(x=eruptions, y=waiting))  +  
-      geom_point()
+sp <- ggplot(faithful, aes(x=eruptions, y=waiting))  +    geom_point()
 
 sp + geom_density_2d()
-
-sp + stat_density_2d(aes(fill = ..level..), geom="polygon")     # Gradient color
-
-sp + stat_density_2d(aes(fill = ..level..), geom="polygon")  +  # Change the gradient color
-        scale_fill_gradient(low="blue", high="red")
+sp + stat_density_2d(   aes(fill = ..level..), geom="polygon"     )     # Gradient color
+sp + stat_density_2d(   aes(fill = ..level..), geom="polygon")  +  # Change the gradient color
+     scale_fill_gradient(low="blue", high="red")
 
 # One ellipse arround all points
-ggplot(faithful, aes(waiting, eruptions))+
-        geom_point()+
+faithful %>% ggplot( aes(waiting, eruptions)) +  geom_point() +
        stat_ellipse()   # One ellipse arround all points
 # Ellipse by groups
 p <- ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3)) +      geom_point()
@@ -142,13 +134,11 @@ scatterPlot <- ggplot(df,aes(x, y, color=group)) + # color by groups
                theme(legend.position=c(0,1), legend.justification=c(0,1))
 scatterPlot
 
-
 xdensity <- ggplot(df, aes(x, fill=group)) + 
             geom_density(alpha=.5)         +             # Marginal density plot of x (top panel)
             scale_fill_manual(values = c('#999999','#E69F00')) + 
             theme(legend.position = "none")
 xdensity
-
 
 ydensity <- ggplot(df, aes(y, fill=group)) + 
             geom_density(alpha=.5) +                   # Marginal density plot of y (right panel)
@@ -194,7 +184,6 @@ plot_ly( df,
                       ) 
 
 bubbleplot
-
 bubbleplot <- bubbleplot %>% layout
 bubbleplot
 
@@ -231,9 +220,9 @@ facet(p,  facet.by = c("supp", "dose"),  short.panel.labs = TRUE)
 
 
 # gridExtra R package, 
-gridExtra::grid.arrange()   # but no attempt at aligning the plot panels
-gridExtra::arrangeGrob() #to arrange multiple ggplots on one page
-gridExtra::marrangeGrob() #for arranging multiple ggplots over multiple pages.
+gridExtra::grid.arrange() # but no attempt at aligning the plot panels
+gridExtra::arrangeGrob()  # to arrange multiple ggplots on one page
+gridExtra::marrangeGrob() # for arranging multiple ggplots over multiple pages.
 # cowplot package::plot_grid()  argument alignbut doesn’t contain any solution for multi-pages layout. 
 # ggpubr::ggarrange() #  wrapper on plot_grid() to arrange multiple ggplots over multiple pages.
 
@@ -303,14 +292,14 @@ annotate_figure(figure,
 
 
 data("mtcars")
-dfm <- mtcars
-dfm$cyl <- as.factor(dfm$cyl)  # Convert the cyl variable to a factor
-dfm$name <- rownames(dfm)      # # Add the name colums
+
+dfm      <- mtcars
+dfm$cyl  <- as.factor(dfm$cyl)  # Convert the cyl variable to a factor
+dfm$name <- rownames(dfm)       # Add the name colums
 head(   dfm[  , c("name", "wt", "mpg", "cyl") ]    )  # Inspect the data
 
 # Calculate the z-score of the mpg data
 dfm$mpg_z   <- ( dfm$mpg - mean(dfm$mpg) ) / sd( dfm$mpg )
-
 dfm$mpg_grp <- factor( ifelse( dfm$mpg_z < 0, "low",  "high"),   levels = c("low", "high"))
 
 ggpubr::ggbarplot(dfm, x = "name", y = "mpg_z",
@@ -443,7 +432,7 @@ ggarrange(ggsurv$plot, ggsurv$table, heights = c(2, 0.7),  ncol = 1, nrow = 2, a
 mypngfile <- download.file("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/France_Flag_Map.svg/612px-France_Flag_Map.svg.png", 
                            destfile = "france.png", mode = 'wb') 
 img <- png::readPNG('france.png') 
-
+plot(img)
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
   background_image(img) +   # img read by png:readPNG
   geom_point(aes(color = Species), alpha = 0.6, size = 5) +
@@ -454,25 +443,15 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 # further see http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/
 
 
-
-
-
-
-
-
-
 ##  3dplots #########
 #install.packages(rgl)?
 library(rgl)
-# Allowed plot types include "p", "l", "h", "s", meaning points, lines, segments from z=0, and spheres. 
+# Allowed plot include "p", "l", "h", "s", meaning points, lines, segments from z=0, and spheres. 
 
-with(iris, plot3d(Sepal.Length, Sepal.Width, Petal.Length,  type="s", col=as.numeric(Species)))  # works
-
-library(magrittr)
-iris %>% plot3d(  Sepal.Length,   Sepal.Width,   Petal.Length,   type="s",   col=as.numeric(Species)    ) # object 'Sepal.Length' not found
+with(iris, plot3d(Sepal.Length,Sepal.Width, Petal.Length, type="s", col=as.numeric(Species)))#works
+iris %>% plot3d(Sepal.Length,  Sepal.Width, Petal.Length, type="s", col=as.numeric(Species) ) # object 'Sepal.Length' not found
 
 # To open a new graphics window, use open3d.
-
 methods(plot3d)
 methods(persp3d)
 # native OpenGL shapes primitives. Each of the above functions takes arguments x, y and z, again using xyz.coords for flexibility.
@@ -570,28 +549,17 @@ shade3d(oh3d(col=cols[7]))
 # 
 #   slices3d      Uses tkrplot to create an interactive slice view of three or
 #                 four dimensional volume data, such as MRI data.
-
-
-
-
 #"shape3d", "mesh3d" or "shapelist3d".
-
-
-
 ####################################
 
-
-
-
-
 # plots libraries
-
 
 ## Time series ###
 walmart_sales_weekly <- timetk::walmart_sales_weekly
 
 g1 <- timetk::walmart_sales_weekly %>%
-  timetk::plot_time_series(
+timetk::plot_time_series(
+    #.data = walmart_sales_weekly,
     .date_var =  Date,
     .value    = Weekly_Sales,
     .color_var = id,
@@ -611,30 +579,29 @@ g1
 
 g1 %>% 
   rayshader::plot_gg(
-    height =3,
-    width = 3.5,
+    height = 3,
+    width  = 3.5,
     multicore = TRUE,
     pointcontract = 0.7,
-    soliddepth = -200
+    soliddepth   = -200
   )
 
 
 
 ## 
-
+library(tidyr, tidyverse, tibble)
 volcano_tble <- volcano %>%
   as_tibble(.name_repair = "minimal") %>%
-  set_names(str_c("V", seq_along(names(.) ))) %>%
-  rowid_to_column(var = "x") %>%
+  set_names(stringr::str_c("V", seq_along(names(.) ))) %>%
+  tibble::rowid_to_column(var = "x") %>%
   pivot_longer(
     cols = contains("V"),
     names_to = "y",
     values_to = "value"
   ) %>%
-  mutate(y =str_remove(y, "^V") %>% as.numeric() )
+  mutate(y =stringr::str_remove(y, "^V") %>% as.numeric() )
 
 
-volcano_tble
 volcano_tble
 # ggplot visualitsiotn 
 g2 <- volcano_tble %>%
@@ -667,7 +634,6 @@ g2 %>%
 
 ###############################
 # WAFFLE The following functions are implemented:
-  
 # waffle:             Make waffle (square pie) charts
 # draw_key_pictogram: Legend builder for pictograms
 # fa_grep:            Search Font Awesome glyph names for a pattern
@@ -690,7 +656,7 @@ library(magrittr)
 library(hrbrthemes)
 library(ggplot2)
 library(dplyr)
-library(waffle)
+
 
 data.frame(
   parts = factor(rep(month.abb[1:3], 3), levels=month.abb[1:3]),
@@ -785,8 +751,8 @@ ggplot(xdf, aes(fill=parts, values=values)) +
 
 ########  Waffle Bar Charts with scales! ######
 Sys.time()
-remotes::install_github("liamgilbey/ggwaffle") # That package has a working geom_waffle
-remotes::install_github("hrbrmstr/waffle")
+#remotes::install_github("liamgilbey/ggwaffle") # That package has a working geom_waffle
+#remotes::install_github("hrbrmstr/waffle")
 library(waffle)
 
 
@@ -878,17 +844,23 @@ ggplot(iris, aes(Species, Sepal.Length, col = Species)) + geom_quasirandom()
 ggplot(iris, aes(Species, Sepal.Length, col = Species)) + geom_quasirandom(size = 2, method = "smiley") # !! it allows many patterns!
 
 
-savings <- c(  `Mortgage\n($84,911)` = 84911, `Auto and\ntuition loans\n($14,414)` = 14414,
-               `Home equity loans\n($10,062)` = 10062, `Credit Cards\n($8,565)` = 8565    )
-waffle(       savings / 392, rows = 7, size = 0.5, legend_pos = "bottom",
-              colors = c("#c7d4b6", "#a3aabd", "#a0d0de", "#97b5cf")
-           )
 ##################################33
 
-# install.packages("devtools")
-devtools::install_github("liamgilbey/ggwaffle")
-library(ggwaffle)
+savings <- c(  `Mortgage\n($84,911)` = 84911, 
+               `Auto and\ntuition loans\n($14,414)` = 14414,
+               `Home equity loans\n($10,062)` = 10062, 
+               `Credit Cards\n($8,565)` = 8565    )
 
+waffle(       savings / 392,  
+              rows = 7, size = 0.5, legend_pos = "bottom",
+              colors = c("#c7d4b6", "#a3aabd", "#a0d0de", "#97b5cf")
+)
+
+
+
+# install.packages("devtools")
+#devtools::install_github("liamgilbey/ggwaffle")
+library(ggwaffle)
 
 waffle_data <- waffle_iron(mpg, aes_d(group = class))
 waffle_data
@@ -1226,4 +1198,269 @@ waffle_chart(x, fill = "carb", facet = "gear_vs", value = "value", composition =
 
 
 
+# personograph plots (also called Kuiper-Marshall plots) 
+# older subset 
+library(personograph)   ## Loading required package: grImport , grid, XML
 
+n <- 2000
+probl_wo_alc <- 18 / n
+probl_w_alc <- 1 / n
+
+data <- list(first = probl_wo_alc, 
+             second = 1-probl_wo_alc)
+personograph(data,  
+             colors = list(first = "black", second = "#efefef"),
+             fig.title = "18 of 2000 people with health problems",
+             draw.legend = FALSE, n.icons = n, dimensions = c(20, 100), 
+             plot.width = 0.97)
+
+data_2 <- list(first = probl_wo_alc, 
+               second = probl_w_alc, 
+               third = 1-(probl_wo_alc+probl_w_alc) )
+
+personograph(data_2, 
+             colors = list(first = "black", second = "red", third = "#efefef"),
+             fig.title = "About 1 additional case with half a litre of beer per day",
+             draw.legend = FALSE, n.icons = n, dimensions = c(20, 100),
+             plot.width = 0.97)
+
+
+#  definitions of sensitivity and  Understanding ROC Curves
+# Sensitivity or True Positive Rate (TPR): the proportion of actual (= true) positives (TP) that are correctly identified as such (e.g. the percentage of sick people who are correctly identified as having (had) the condition).
+# Specificity or True Negative Rate (TNR): the proportion of actual (= true) negatives (TN) that are correctly identified as such (e.g. the percentage of healthy people who are correctly identified as not having (had) the condition).
+# Positive predictive value (PPV): the probability that subjects with a positive screening test truly have (had) the disease.
+# Negative predictive value (NPV): the probability that subjects with a negative screening test truly don’t have (have not had) the disease.
+# all four figures are conditional probabilities,
+
+library(personograph)
+colorlist <- list(FN = "darkred", TP = "red", FP = "darkgreen", TN = "green")
+TPR <- 0.95 # true positive rate = sensitivity
+TNR <- 0.95 # true negative rate = specificity
+IR <- 0.05 # infection rate
+data <- list(FN = (1-TPR)*IR, TP = TPR*IR, FP = (1-TNR)*(1-IR), TN = TNR*(1-IR))
+NPV <- round(100 * data$TN / (data$TN + data$FN), 1) # negative predictive value
+PPV <- round(100 * data$TP / (data$TP + data$FP), 1) # positive predictive value
+personograph(data, colors = colorlist, fig.title = paste0("PPV = ", PPV, "%, NPV = ", NPV, "%"), n.icons = 500, dimensions = c(20, 25))
+
+IR <- 0.25 # infection rate
+data <- list(FN = (1-TPR)*IR, TP = TPR*IR, FP = (1-TNR)*(1-IR), TN = TNR*(1-IR))
+NPV <- round(100 * data$TN / (data$TN + data$FN), 1) # negative predictive value
+PPV <- round(100 * data$TP / (data$TP + data$FP), 1) # positive predictive value
+personograph(data, colors = colorlist, fig.title = paste0("PPV = ", PPV, "%, NPV = ", NPV, "%"), n.icons = 500, dimensions = c(20, 25))
+
+
+
+# Efficacy 
+# Primary efficacy analysis demonstrates BNT162b2 to be 95% effective against COVID-19 beginning 28 days after the first dose;
+# 170 confirmed cases of COVID-19 were evaluated, with 162 observed in the placebo group versus 8 in the vaccine group
+# To get to the 95%-number the following calculation was performed:   (1 - 8/162) * 100 = 95%
+# So the 95% is the *relative risk-reduction* in infections, and no *absolute probability* of not getting infected despite being vaccinated!
+# relative vs. absolute risk reductions 
+# illustrating the confirmed COVID-19 cases in the placebo (= control) group for a better manageable group size of 2,500…
+
+library(personograph) # first install from CRAN
+n <- 2500
+inf_wo_vac <- 20 / n
+data <- list(first = inf_wo_vac, second = 1-inf_wo_vac)
+personograph(data,  colors = list(first = "red", second = "lightgrey"),
+             fig.title = "20 of 2500 infected without vaccine",
+             draw.legend = FALSE, n.icons = n, dimensions = c(25, 100), 
+             plot.width = 0.97)
+# and now for the vaccine group of the same size:
+inf_w_vac <- 1 / n
+data <- list(first = inf_w_vac, second = 1-inf_w_vac)
+personograph(data,  colors = list(first = "red", second = "lightgrey"),
+             fig.title = "1 of 2500 infected despite of vaccine",
+             draw.legend = FALSE, n.icons = n, dimensions = c(25, 100), 
+             plot.width = 0.97)
+# The main problem is that vaccine studies cannot directly measure what we really want to know: the effectiveness of the vaccine in the real world, i.e. how well it protects us from contracting the disease. 
+# Therefore they use efficacy as a proxy instead, i.e. relative risk-reduction of infections in the two study groups.
+
+
+################################ 
+# shenkey by panta rhei everything flows
+library(pentarhai)
+# https://cran.r-project.org/web/packages/PantaRhei/vignettes/panta-rhei.html
+# Sankey diagrams visualize the flow of conservative substances through a system. ‘PantaRhei’
+# ‘PantaRhei’ simple syntax using data in tables, spread sheets produce publication-quality diagrams.
+# you’ll need three different data frames information on nodes, flows, colors
+# nodes coordinate data frame:
+#   ID (character) to identify the node
+#   x (numeric) the x-coordinate of the node (in arbitrarly units)
+#   y (numeric) the y-coordinate of the node.
+#   label, label_pos etc
+# flows data frame between the nodes. [better multiple flow types, or substances]
+#   from (character)  starting node ID 
+#   to (character)    ending node ID
+#   quantity (numeric) magnitude of flow.
+#   substance,
+#  rainbow() but optional colors <- tribble(~substance, ~color, "Cocoa",    "chocolate", "Sugar",    "#FFE4C4" )
+# then sankey(nodes, flows),  but better sankey(nodes, flows, colors, legend=TRUE))
+nodes <- tibble::tribble(
+  ~ID,     ~label,   ~x,   ~y,      ~dir,     ~label_pos,
+  "in",    "Input",   0,   "0",     "right",   "left",
+  "out",   "Output",  4,   "in",    "right",   "right",
+)
+flows <- tibble::tribble(
+  ~from,     ~to,   ~quantity, ~substance,
+  "in",     "out",   1, "Oil",
+  "",       "",      1, "Gas",
+  "",       "",      1, "Biomass",
+  "",       "",      1, "Electricity",
+  "",       "",      1, "Solar",
+  "",       "",      1, "Hydrogen",
+  "",       "",      1, "Wind",
+  "",       "",      1, "Water",
+  "",       "",      1, "Nuclear",
+)
+colors <- tibble::tribble( ~substance, ~color,
+                           "<any>",    "cornflowerblue",
+)
+
+# reallife
+nodes   <- read_xlsx("my_sankey_data.xlsx", "nodes")
+flows   <- read_xlsx("my_sankey_data.xlsx", "flows")
+colors  <- read_xlsx("my_sankey_data.xlsx", "colors")
+#check_consistency(nodes, flows, colors)
+#check_balance(nodes, flows)
+sankey(nodes, flows, colors)
+
+
+# PantaRhei::sankey(nodes, flows,  node_style=ns, 
+#                   legend=gpar(filesize=18, col="blue", ncols=2),
+#                   page_margin=c(0.1, 0.1, 0.1, 0.2),
+#                   title=strformat("Panta Rhei", fontsize=18, col="blue") )
+# Hard cop output
+pdf("diagram.pdf", width=10, height=7) # Set up PDF device
+sankey(nodes, flows, colors)           # plot diagram
+dev.off()                              # close PDF device
+
+
+# final example
+
+library(PantaRhei)
+data(MFA) # Material Flow Account data, list of three tables
+str(MFA)
+MFA[1]
+
+# node style
+library(grid) # loads: gpar()
+
+dblue <- "#00008B" # Dark blue
+
+my_title <- "Material Flow Account"
+attr(my_title, "gp") <- grid::gpar(fontsize=18, fontface="bold", col=dblue)
+
+# node style ns
+ns <- list(type="arrow",gp=gpar(fill=dblue, col="white", lwd=2),
+           length=0.7,
+           label_gp=gpar(col=dblue, fontsize=8),
+           mag_pos="label", mag_fmt="%.0f", 
+           mag_gp=gpar(fontsize=10,fontface="bold",col=dblue)
+)
+
+sankey(MFA$nodes, MFA$flows, MFA$palette,
+       max_width   = 0.1,   rmin=0.5,
+       node_style  = ns,
+       page_margin = c(0.15, 0.05, 0.1, 0.1),
+       legend=TRUE, title=my_title,  copyright="Statistics Netherlands"
+)
+
+
+
+
+
+
+
+###############
+###############
+###############
+###############
+###############
+###############
+###############
+# Plot Differences in Two Measurements-Bland-Altman Plot in R
+# Jhon  Tukey mean-difference plot or
+# Bland–Altman plot (difference plot) in analytical chemistry or biomedicine i
+# Bland–Altman plot compare two clinical measurements each of which produced some error in their measures
+# Bland–Altman plot showing likely proportional bias
+# Bland–Altman plots allow identification of any systematic difference between the measurements (i.e., fixed bias) or possible outliers. 
+# sample data
+data <- data.frame(A=c(6, 5, 3, 5, 6, 6, 5, 4, 7, 8, 9, 10, 11, 13, 10, 4, 15, 8, 22, 5),
+                   B=c(5, 4, 3, 5, 5, 6, 8, 6, 4, 7, 7, 11, 13, 5, 10, 11, 14, 8, 9, 4))
+
+# Calculate mean and diffrence (MAD) 
+data$avg <- rowMeans(data)
+data$diff <- data$A - data$B
+# Step 3: Calculate the Confidence Interval
+mean_diff <- mean(data$diff)
+# find lower 95% confidence interval limits
+lower <- mean_diff - 1.96*sd(data$diff)
+#find upper 95% confidence interval limits
+upper <- mean_diff + 1.96*sd(data$diff)
+# Step 4: Create the Bland-Altman Plot
+
+library(ggplot2)
+ggplot(data, aes(x = avg, y = diff)) +
+  geom_point(size=2) +
+  geom_hline(yintercept = mean_diff) +
+  geom_hline(yintercept = lower, color = "red", linetype="dashed") +
+  geom_hline(yintercept = upper, color = "red", linetype="dashed") +
+  ggtitle("Bland-Altman / John  Tukey mean-difference plot  ") +
+  ylab("Difference Between Instruments") +
+  xlab("Average")+theme_bw()
+
+
+
+
+
+# R TIPS ---- ggalt: dumbbell plots ----
+library(tidyverse)
+library(tidyquant)
+library(ggalt)
+mpg   # DATA ----
+mpg_by_year_tbl <- mpg %>% select(hwy, year, model, class) %>%
+  pivot_wider(
+    names_from   = year,
+    values_from  = hwy,
+    id_cols      = c(class, model),
+    values_fn    = function(x) mean(x, na.rm = TRUE),
+    names_prefix = "year_"
+  ) %>%
+  mutate( model = fct_reorder(model, year_2008) ) %>%    drop_na()
+
+mpg_by_year_tbl
+
+# 2.0 VISUALIZATION (Dumbell Plots) ---- Basic Dumbbell Plot with ggalt ----
+g1 <- mpg_by_year_tbl %>%
+  #mutate( model = fct_reorder(model, year_2008) ) %>%    drop_na() %>% # already done above
+  ggplot2::ggplot(  aes(x    = year_1999, 
+                        xend = year_2008, 
+                        y = model, 
+                        group = model)  ) +
+  ggalt::geom_dumbbell( colour      ="#a3c4dc",
+                        colour_xend ="#0e668b",
+                        size        =4.0,
+                        dot_guide   =TRUE,
+                        dot_guide_size=0.15,
+                        dot_guide_colour = "grey60"
+  )
+
+g1
+
+g2 <- g1 +         # * Customize Theme with tidyquant ----
+labs(
+  title = "Change Vehicle Fuel Economy between 1999 and 2008",
+  x="Fuel Economy (MPG)", y = "Vehicle Model"
+) +
+  theme_tq() +
+  theme(
+    panel.grid.minor=element_blank(),
+    panel.grid.major.y=element_blank(),
+    panel.grid.major.x=element_line(),
+    axis.ticks=element_blank(),
+    panel.border=element_blank()
+    
+  )
+
+g2

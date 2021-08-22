@@ -27,7 +27,7 @@ The failure rate of HHP traction motor on account of IR- zero & Bearing failure 
 The lube oil supply pipe broken on HHP Loco No. 40472 resulting which the Loco seized due to lack of lubrication. 
 GE type liners are being used in place of EMD liner due to out of stock which have increased failure rate of Locomotives. Supply of EMD liners may be chased from EMD/DLW.
 Sr.DME/DSL TKD pointed out improper matching of Brake Block with wheel tyre resulting which improper wearing of brake block. The casting of these brake blocks are being done by KLK Workshop. The brake block needs to be casted as per M/S Ridhi Sidhi make. 
-Loco no 15011 WDP1 failed on 22.08.2017 due to ABB make TSC overheated compressor wheel & impellor broken due to design failure. Presently the BAP of ABB make turbo fitted Locos has been de-rated to 1.4 - 1.5 kg/cm² instead of BAP- 1.8- n 1.9 kg/cm². 
+Loco no 15011 WDP1 failed on 22.08.2017 due to ABB make TSC overheated compressor wheel & impellor broken due to design failure. Presently the BAP of ABB make turbo fitted Locos has been de-rated to 1.4 - 1.5 kg/cm? instead of BAP- 1.8- n 1.9 kg/cm?. 
  As per shed practices OST is being removed from locos during yearly schedule and being fitted after overhauling and testing on test bench before fitment to improve reliability of Locos. 
  TKD Shed is also doing RDP test of RTTM body during overhauling and being fitted after checking on test bench to improve reliability. 
 TKD /DSL /Shed have also adopted the practice of vacuum test for Cylinder Head valve seat sealing. Such practices may also be done in other sheds.  
@@ -39,4 +39,5 @@ Record of clamping mansoon record ,Electrical  safety device  record & VCD safet
 Bogie frame strengthening on centre point frame of WDP4 by welding work at different point as per drawing is in progress to improve reliability.  
 M/s Elgi make compressor having a problem in discharge plate due to some time sticking now TKD  shed has been replaced spring. M/s GD type compressor valve plate performance is good there is no failure of GD make compressor. 
 All magnet valve  are  overhauled & tested on IRAB tested stand & CCB-1.5 test bench in air brake section .
+
 Lighting system of under frame in HHP mail section  defective.

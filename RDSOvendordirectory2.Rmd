@@ -55,7 +55,8 @@ knitr::opts_chunk$set(echo = FALSE)
 ## RDSO Vendor Analysis  #########################
 library(tidyverse)
 packages <- c("tidyverse", "lubridate", "cowplot", "ggpubr", "scales", "stringr",  
-              "summarytools",  "here", "googlesheets", 
+              "summarytools",  "here", 
+              "googlesheets4", 
               "knitr",  "kableExtra")
 # if not Instaled 
 installed_packages <- packages %in% rownames(installed.packages())
@@ -64,9 +65,6 @@ if (any(installed_packages == FALSE)) { install.packages(packages[!installed_pac
 lapply(packages, library, character.only = TRUE) %>% invisible()
 
 library(formattable) # for pretty html tables
-
-library(googlesheets)   
-allvendorhandle   <-   gs_title("RDSO MASTERLIST VENDOR DATA 26 Jan")      # gs by title
 
 # filter your data to use youth <- gun_deaths %>% filter(age <= 65)
 
@@ -78,11 +76,12 @@ allvendorhandle   <-   gs_title("RDSO MASTERLIST VENDOR DATA 26 Jan")      # gs 
 
 
 ```{r test2, include=FALSE, eval=FALSE, message=FALSE, echo=FALSE}
+
 collapse_rows_dt <- expand.grid(
                         Country = sprintf('Country with a long name %s', c('A', 'B')),
                         State = sprintf('State %s', c('a', 'b')),
                         City = sprintf('City %s', c('1', '2')),
-                        District = sprintf('District %s', c('1', '2')) ) %>% 
+                        District = sprintf('District %s', c('1', '2')) )      %>% 
                     arrange(Country, State, City) %>%
                     mutate_all(as.character) %>%
                     mutate(C1 = rnorm(n()), C2 = rnorm(n()) )
@@ -110,7 +109,7 @@ kable(collapse_rows_dt, "latex", longtable = T, booktabs = T, align = "c", lines
 
 ```{r venderlist, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
 
-RDSOvd <-  gs_read(ss = allvendorhandle, ws = 2 , skip = 2, col_names = FALSE,verbose = TRUE)    # %>% rowid_to_column()
+RDSOvd <-  read_sheet(ss = allvendorhandle, ws = 2 , skip = 2, col_names = FALSE,verbose = TRUE)    # %>% rowid_to_column()
 # suppressMessages(expr)
 RDSOvd %<>% rename(SN = X1)
 

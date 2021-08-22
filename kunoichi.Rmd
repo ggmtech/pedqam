@@ -2,7 +2,6 @@
 title: " परस्तुती:<br>  गुणवत्ता अास्वाशन   " #(य़ाँर्तिकी)  "
 subtitle: " वर्ष २०१९-२०  के कार्य "
 author: "गोपाल कुमार, <br> वरिस्ठ कार्यकारी निदेसक (गु० आ० या० )"
-#"<br><br>Emi Tanaka &nbsp;`r  anicon::faa('twitter', animate='float', rtext='@statsgen')` "
 date: "<br>`r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -31,7 +30,7 @@ class: middle center bg-main1
 
 --
 
-<img src="img/blooms_taxonomy.png" width="40%">
+<img src="dahlia.png" width="40%">
 
 ---
 
@@ -567,7 +566,7 @@ class: shuriken-300 white with-border border-black
 .blade2[.content.sideways-rl[]]
 ```
 # Vertical writing may need manual fixes however. 
-## A future update may fix this but if you have a solution, feel free to put in a pull request `r anicon::faa("github", animate="vertical")`. 
+## A future update may fix this but if you have a solution, feel free to put in a pull request #
 ]]
 .blade4.bg-orange[.content.sideways-rl.center[
 # To write vertically the other way
@@ -1053,4 +1052,3 @@ class: bg-main1
 
 ## (or you may be able to figure out the features looking at the code)
 
-## You'll find future updates [`r anicon::faa("github", animate="vertical")` here](https://github.com/emitanaka/ninja-theme) or <br>you'll hear about it [`r anicon::faa("twitter", animate="float")` here](https://twitter.com/statsgen).

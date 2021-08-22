@@ -1,5 +1,70 @@
 #notes
 
+
+# md
+# four spaces (or one tab) is treated as verbatim text
+# fenced code blocks > 3 tildes (~) and end with as long tilde, 
+# If the code itself contains a row of tildes or backticks, just use a longer row of tildes or backticks
+# attach attributes to fenced or backtick code block using this syntax: ~~~~ {#mycode .haskell .numberLines startFrom="100"}
+    
+# A line block is a sequence of lines beginning with a vertical bar (|) followed by a space
+
+# Pandoc supports task lists, using the syntax of GitHub-Flavored Markdown.
+# - [ ] an unchecked task list item
+# - [x] checked item
+
+# Pandoc supports definition lists, using the syntax of PHP Markdown Extra with some extensions.2
+# 
+# Term 1
+# 
+# :   Definition 1
+# 
+# Term 1
+# ~ Definition 1
+# 
+# Term 2
+# ~ Definition 2a
+# ~ Definition 2b
+
+# each new list using @ will take up where the last stopped. So, for example:
+#     
+#     (@)  My first example will be numbered (1).
+# (@)  My second example will be numbered (2).
+# 
+# Explanation of examples.
+# 
+# (@)  My third example will be numbered (3).
+# Numbered examples can be labeled and referred to elsewhere in the document:
+#     
+#     (@good)  This is a good example.
+# 
+# As (@good) illustrates, ...
+
+# To “cut off” the list after item two, you can insert some non-indented content, like an HTML comment,
+
+# Horizontal rules  A line containing a row of three or more *, -, or _ characters 
+# Tables Four kinds of tables 
+
+# ---
+#     title:  'This is the title: it contains a colon'
+# author:
+#     - Author One
+# - Author Two
+# keywords: [nothing, nothingness]
+# abstract: |
+#     This is the abstract.
+# 
+# It consists of two paragraphs.
+# ...
+
+
+# nly the following characters to be backslash-escaped:  \`*_{}[]()>#+-.!
+
+
+
+remove.packages(bookdown)
+
+
 library(ggplot2)
 ggplot(mtcars, aes(sample=mpg))+stat_qq()+theme_bw()
 # The result you got from Q-Q plot you can verify the same based on shapiro test.

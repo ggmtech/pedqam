@@ -4,8 +4,10 @@ author: "Yihui Xie"
 date: "2014/08/03"
 output:
   pdf_document: default
-  html_document: default
+    always_allow_html: true
   word_document: default
+  html_document: default
+always_allow_html: true
 ---
     
 ```{r results='asis'}

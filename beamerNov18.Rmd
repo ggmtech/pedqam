@@ -2,16 +2,9 @@
 title: "The Diesel Loco Performance"
 author: "Gopal Kumar$^1$"
 date: '`r Sys.Date()`'
+always_allow_html: true
 output:
-  revealjs::revealjs_presentation:
-    reveal_options:
-      chalkboard:
-        theme: chalkboard
-        toggleNotesButton: yes
-      menu:
-        numbers: yes
-    self_contained: no
-  ioslides_presentation:
+  slidy_presentation:
     highlight: tango
     incremental: yes
   beamer_presentation:
@@ -22,9 +15,18 @@ output:
     keep_tex: yes
     theme: AnnArbor
     toc: yes
-  slidy_presentation:
+  ioslides_presentation: 
     highlight: tango
     incremental: yes
+    #logo: ~/36.1.-5.65.png
+  revealjs::revealjs_presentation:
+    reveal_options:
+      chalkboard:
+        theme: chalkboard
+        toggleNotesButton: yes
+      menu:
+        numbers: yes
+    self_contained: no
 institute: $^1$CMPE(Diesel)
 header-includes:
 - \usepackage{xcolor}
@@ -285,9 +287,9 @@ any bg colour ??
 
 CSS color background {data-background=#ff0000}
 
-# Full size image background {data-background="\Users\lenovo\Desktop\CMPE\swatch.jpg"}
+# Full size image background {data-background= "dahlia.png"}
 
-## Full size image background {data-background="newmap3.png"}
+## Full size image background {data-background="~/dahlia.png"}
 
  Video background {data-background-video="background.mp4"}
 

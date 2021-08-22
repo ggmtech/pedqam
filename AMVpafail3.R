@@ -6,26 +6,17 @@ library(gridExtra, cowplot)
 # library(ggthemes)      # or install_github('cttobin/ggthemr') #library(themr) # ggthemr("<theme name>") #ggthemr_reset()
 # library(plotly)        # plot_grid(gp1, gp2, NULL, gp1, labels = "AUTO")
 
-library(googlesheets)             
-setwd("/Users/gk/Google Drive")   #getwd()  #ls()  # list.files()  # difference 
-gs_auth()      #gs_auth(new_user = TRUE)  #  gs_user()    # current user 
+library(googlesheets4)             
+#setwd("/Users/gk/Google Drive")   #getwd()  #ls()  # list.files()  # difference 
 
-# locate files and names
-gs_ls("TKDpa2")                     # list the worksheets containing "setout"                                   
-gs_ls("ONE")                        # list the worksheets containing "ONE .."
-gs_ls("AMV")[1,1]
 
-# Files  by title
-TKDpahandle    <-   gs_title( "TKDpa"  )     
-TKDpahandle2   <-   gs_title( "TKDpa2"  )    
-AMVhandle      <-   gs_title("AMVpowerassemblies")
 
 # Sheets
-TKDpa          <-   gs_read(ss = TKDpahandle,   ws = 1 , skip = 0, col_names = TRUE, verbose = TRUE)
-TKDpac         <-   gs_read(ss = TKDpahandle2,  ws = 1 , skip = 0, col_names = TRUE, verbose = TRUE)
+TKDpa          <-   sheet_read(ss = TKDpahandle,   ws = 1 , skip = 0, col_names = TRUE, verbose = TRUE)
+TKDpac         <-   sheet_read(ss = TKDpahandle2,  ws = 1 , skip = 0, col_names = TRUE, verbose = TRUE)
 TKDpaf         <-   gs_read(ss = TKDpahandle2,  ws = 2 , skip = 0, col_names = TRUE, verbose = TRUE)
 
-AMVliferaw     <-   gs_read(ss = AMVhandle,     ws = 1 , skip = 0, col_names = TRUE, verbose = TRUE)
+AMVliferaw     <-   sheet_read(ss = AMVhandle,     ws = 1 , skip = 0, col_names = TRUE, verbose = TRUE)
 
 AMVliferaw  %>% View()   # contain multiple locations
 AMVliferaw  %>% separate(Location, into = c("Loc" , "misc"), extra = "warn" ) %>% mutate(paste0("Loc", Loc))  %>% View()

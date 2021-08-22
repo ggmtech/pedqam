@@ -7,7 +7,7 @@ address:
   - Dirk Eddelbuettel
   - 123 Street Rd
   - Chicago, IL
-lco: NF 
+lco: DIN #SN #SNleft #, NipponEL #UScommercial9DW  #UScommercial9 #,    DINmtext #DIN  #NF 
 subject: Some nonsensical Subject
 yourref:	'Addressee’s reference as part of reference line.'
 myref:	'Sender’s reference as part of reference line.'
@@ -20,6 +20,13 @@ cc: PS-SEDQAM
 encl:	'List of enclosures.'
 output: komaletter::komaletter
 ---
+
+
+Germany	DIN 676	DIN lang, C4, C5	A4	DIN, DINmtext
+France	NF Z 11-001	DL	A4	NF
+Switzerland	SN 010 130	DIN lang, C4, C5	A4	SN, SNleft
+United States		commercial #9	Letter	UScommercial9, UScommercial9DW
+Japan		Chou/You 3 & 4	A4	NipponEL, …
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis
 dolor vitae tristique eleifend. Quisque non ipsum sit amet velit

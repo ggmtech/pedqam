@@ -1,18 +1,20 @@
 ---
-author: Max Mustermann
+author: Gopal Kumar , PED QAM/M2
 return-address: 
-  - Musterstr. 12
-  - 34567 Musterstadt
+  - Room No 305 Annexi 2,
+  - RDSO LKO
+  - Lucknow
+  - Uttar Pradesh
 address:
   - Robert Nuske
   - Hauptstr. 31
   - 30167 Hannover
   - Germany
   
-subject: Some nonsensical Subject
+subject: Sub. Some nonsensical Subject
 opening: Dear Robert,
-closing: Best regards,
-signature: Max Mustermann
+closing: Yours sincerely,
+signature: Gopal Kumar
 
 output: komaletter::komaletter
 ---

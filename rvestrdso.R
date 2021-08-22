@@ -2,6 +2,7 @@
 # rvest vendors
 packages <- c("tidyverse", "lubridate", "parsedate", "janitor",
               "cowplot", "ggpubr",  
+              "rvest",
               #"summarytools",  "here", "scales", "stringr", 
               "googledrive" , "googlesheets4", 
               "knitr",  "kableExtra",  
@@ -12,6 +13,6 @@ if (any(installed_packages == FALSE)) { install.packages(packages[!installed_pac
 
 lapply(packages, library, character.only = TRUE) # %>% invisible()
 
+read_html("https://rdso.indianrailways.gov.in/")
 
 
-read_html(“address of website”)).

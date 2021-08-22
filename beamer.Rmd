@@ -1,42 +1,31 @@
 ---
 title: "The Diesel Loco Performance"
-#author: "Diesel Wing"
-author: 
-   - Gopal Kumar$^1$
-#   - G Kumar$^2$
-institute: 
-   - $^1$CMPE(Diesel)
-#   - $^2$Northern Railway
-date: '`r Sys.Date()`'
-#output:
-#  html_document: default
-#  pdf_document: default
-#  word_document: default
-#output: ioslides_presentation #revealjs_presentation #ioslides_presentation
-#    incremental: true
-#    center: true
-#fontsize: 12pt  #ok before output
+author: "Gopal Kumar$^1$"
+date: "`r Sys.Date()`"
 output:
   beamer_presentation:
-    theme: "AnnArbor" #"Copenhagen" #"Madrid" #"AnnArbor" "Warsaw" #"Antibas"
-    toc: true
-#    toc_depth: 2
-    keep_tex: true
-    incremental: true
-    colortheme: "dolphin"
+    theme: AnnArbor
+    toc: yes
+    keep_tex: yes
+    incremental: yes
+    colortheme: dolphin
     highlight: tango
-    fonttheme: "structurebold"
+    fonttheme: structurebold
+  pdf_document:
+    toc: yes
+  slidy_presentation:
+    incremental: yes
+    highlight: tango
+  word_document:
+    toc: yes
+  ioslides_presentation:
+    incremental: yes
+    highlight: tango
+  html_document: default
+institute: $^1$CMPE(Diesel)
 header-includes:
-  - \usepackage{xcolor}
-  - \usepackage{framed}
-#output:
-#  revealjs::revealjs_presentation:
-#    theme: sky #"default simple sky beige serif solarized blood", "moon", "night", "black", "league" or "white"
-#    highlight: pygments #"default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn", and "haddock"
-#    center: true
-#    transition: convex #"default", "fade", "slide", "convex", "concave", "zoom" or "none".
-#    background_transition: zoom
-#abstract: "Review Meeting for Diesel Operations and Maintenance of \nNorthern Railway\n"
+- \usepackage{xcolor}
+- \usepackage{framed}
 ---
 
 ```{r setup, include=FALSE}

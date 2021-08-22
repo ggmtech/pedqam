@@ -1,1338 +1,286 @@
-tinytex::reinstall_tinytex()
 
-rmarkdown::draft("gkpaper.Rmd", template = "arxiv", package = "rticles")
-tar_load(something) # if something is a ggplot object, then this plot will appear on that spot in the paper
 
 
-#########
-# http://user:password@domain.com/
-# Instead, just use:   https://user:password@domain.com/    to avoid clear text login
-# urlencode special characters in the user or password fields 
-# eg  '@'  must be written as '%40'
 
-# the standard  http(s)://user:pass@host.
-# for http://david@company.com@foo.com/path/  
-# it should be http(s)://david%40company.com:Y0ur%24up3r%243cur3P%40%24%24w0rd@foo.com. – 
-# http://david%40company.com@foo.com/path/
-# http://username:password@example.com/ -- this sends the credentials in the standard HTTP "Authorization" header.
 
-# When using OAuth or other authentication services you can often also send your access token in a query string 
-# instead of in an authorization header, so something like:
-#  GET https://www.example.com/api/v1/users/1?access_token=1234567890abcdefghijklmnopqrstuvwxyzABCD
 
-# OAuth 2.0  resource server  to grant access to (part of) your account to an app on your behalf. safer than previous industry standards, 
-#  a series of requests and redirects between the server and the third-party app, 
-# launched by you when starting to install an app, 
-# and validating by you as one of the steps is your clicking something like “Yes, I grant access to this and that right on my Twitter account, to the app Twitter Lite”.
-# To use things on the server one needs an access token (a string, e.g. e46b7faf296e3f0624e6240a6efafe3dfb17b92ae0089c7e51952934b60749f2). 
-# The whole point of the OAuth 2.0 dance is to get such an access token. 
-# Often you will also get a refresh token (similarly a string, e.g. 3bdeb3bd19a3093674f4e7ba6e1be1706ab1f16af9ebf3b79a67a807c622b650).
-# The refresh token allows to get issued a new access token without any interactivity i.e. no need for the user to click. A common validity period for an access token would be 24 hours, for a refresh token one year, and often the refresh token is re-usable.
 
-# You create an OAuth endpoint (via httr::oauth_endpoint())
-# create an OAuth app (via httr::oauth_app()) which is an object holding the name, secret and ID of your third-party app. 
 
+install.packages("bookdown")
+library(bookdown)
+library(NHSRdatasets)
+ae <- NHSRdatasets::ae_attendances
+write.csv(ae, "ae_nhsr.csv", row.names = FALSE) #Set row names to false
+#Use data.table to read in the document
+ae_dt <- fread("ae_nhsr.csv")
+#Create a random uniform distribution
+big_data <- data.frame(BigNumbers=runif(matrix(10000000, 10000000)))
+write.csv(big_data, "bigdata.csv")
+# Start to benchmark using system.time
+base_metrics <- system.time(  read.csv("bigdata.csv") )
+dt_metrics  <- system.time(  data.table::fread("bigdata.csv")  )
+print(base_metrics)
+print(dt_metrics)
 
 
-##### restful
-# https://www.r-bloggers.com/2021/01/getting-data-from-the-canada-covid-19-tracker-using-r/
+#Convert base data.frame to data.table
+ae_dt <- as.data.table(ae)   
+class(ae_dt)  
+ae_copy <- ae
+data.table::setDT(ae_copy)  #Using the setDT command
+class(ae_copy)
 
-# HTTPS and its base URI is api.covid19tracker.ca. 
-# endpoint is the specific location of the data you want to access. 
-# For the API we’re querying, endpoints include /reports /cases /fatalities  /provinces
-# ndpoints can also allow multiple sub-resources, these are variables and take the form :var_name
-# querry part  /cases?province=ON&per_page=50
+data.table::setDF(ae_copy)  # Converting this back to a data.frame
+class(ae_copy)
 
+chained <- ae_dt_copy[, .(mean_attendance=mean(attendances),
+                          mean_breaches=mean(breaches), 
+                          sum_attendances=sum(attendances)),
+                      by=.(org_code)][order(org_code)]
+# Adding square brackets, instead of %>%, chains the ordering
+# Here we create a group by and summarise function and at the end we add another
+# Command sequence i.e. group by org code, summarise the mean and then order by ord code
+glimpse(chained)
 
 
-pkgs <- c('httr', 'jsonlite', 'dplyr', 'ggplot2', 'purrr')
-## install.packages(pkgs, Ncpus = 4) # if below not installed and false
-vapply( pkgs, library, logical(1),  logical.return = TRUE,  character.only = TRUE )
 
-# the protocol  HTTP verb (GET, POST, DELETE, etc.)
-# the base URI   The base URL for the API
-# the endpoint  The URL path or endpoint
-# additional query parameters  URL query arguments (e.g., ?foo=bar)
-# Optional headers
-# An optional request body     https://httr.r-lib.org/articles/api-packages.html
 
 
-base  <- "https://api.covid19tracker.ca"
-ep    <- "/reports/province/sk"
-query <- "?date=2021-01-31"
-req   <- paste0(base, ep, query)
-req
-
-response <- httr::GET(req)
-response
-# ( Status: 200 is success If you’re wrapping these codes in a function, the warn_for_status() and stop_for_status() )
-
-jsonlite::prettify(content(response, 'text', encoding = 'UTF-8'))
-
-# To actually parse the JSON into a similar R object we use jsonlite::fromJSON()
-
-parsed <- fromJSON(content(response, 'text', encoding = 'UTF-8'))
-parsed %>% glimpse()
-str(parsed)
-
-
-
-base <- 'https://api.covid19tracker.ca'
-ep <- '/reports/province/sk'
-req <- paste0(base, ep)
-
-response <- GET(req)
-
-cases <- response %>%
-  content(as = 'text', encoding = 'UTF-8') %>%
-  fromJSON() %>%
-  pluck('data') %>%
-  as_tibble()
-
-cases
-
-cases %>%
-  mutate(date = as.Date(date)) %>%
-  ggplot(aes(x = date, y = change_cases)) +
-  geom_line() +
-  labs(x = NULL, y = 'Cases',
-       title = 'Daily Covid-19 cases in Saskatchewan',
-       caption = 'Source: N. Little. COVID-19 Tracker Canada (2021), COVID19tracker.ca')
-
-
-#############################
-
-
-install.packages("comparator")
-# install.packages("devtools")
-devtools::install_github("ngmarchant/comparator")
-
-# Shit cmd C M(pipe)
-
-# do_something = function(parameters) {
-#   ...
-# }
-# The function that results can be used as follows:
-#   do_something(args)
-# 
-#  {purrr} package (map(), reduce(), keep(); and their base-R counterparts: Map(), lapply() etc).
-
-# For each letter,
-#   - find the name of each dataset in the {datasets} package
-#   that starts with that letter
-# Using {tidyverse} syntax
-purrr::map(  letters[1:3],
-  function(x) {
-    ds = ls("package:datasets")
-    ds[stringr::str_starts(tolower(ds), x)]
-  }
-)
-# In base R
-Map(
-  function(x) {
-    pattern = paste0("^", x) # eg "^a" to match a leading 'a'
-    grep(pattern, ls("package:datasets"), value = TRUE, ignore.case = TRUE)
-  },
-  letters[1:3]
-)
-
-
-fac1 = factor(c("a", "b", "d"))
-fac2 = factor(c("b", "c"))
-c(fac1, fac2)
-levels(c(fac1, fac2))
-
-
-library("readxl")
-readxl::read_excel("file.xls")
-readxl::read_excel("file.xlsx")
-data <- read_excel("my_file.xlsx", sheet = "sheetname",  na = "---") # or sheet = 2, 
-
-data <- readxl::read_excel(file.choose())
-
-# multiple files
-file.list <- list.files(pattern='*.xlsx')
-df.list <- lapply(file.list, read_excel)
-file.list <- list.files(pattern='*.xlsx', recursive = TRUE)  # sub direcotories
-df <- dplyr::bind_rows(df.list, .id = "id") # bind rows for similar col names
-
-library("xlsx") # another package is xlsx,  java-based 
-read.xlsx(file, sheetIndex, header=TRUE)
-read.xlsx2(file, sheetIndex, header=TRUE) # faster for bigger files
-data <- read.xlsx(file.choose(), 1)  # read first sheet
-data <- read.xlsx("file.xlsx", 1)  # read first sheet
-data <- read.xlsx("file.xlsx", sheetName="Sheet1")  # read the data contains in Sheet1
-
-# from clipboard, not reccomended
-data <- read.table(file = "clipboard", sep = "\t", header=TRUE) # on windows system the
-data <- read.table(pipe("pbpaste"), sep="\t", header = TRUE)   # MAC OSX system
-
-
-
-library(openxlsx) # openxlsx package is an another alternative to readxl package
-read.xlsx(file_path)
-read.xlsx(file_path, cols = 1:2, rows = 2:3)
-
-library(XLConnect) #  install.packages("XLConnect")  alternative to the xlsx package
-data <- readWorksheetFromFile(file_path, 
-                              sheet = "list-column",
-                              startRow = 1, endRow = 10,
-                              startCol = 1, endCol = 3   )
-#Reading several sheets
-load <- loadWorkbook(file_path)
-data  <- readWorksheet(load, sheet = "list-column",    startRow = 1, endRow = 10, startCol = 1, endCol = 3)
-data2 <- readWorksheet(load, sheet = "two-row-header", startRow = 1, endRow = 10, startCol = 1, endCol = 4)
-# can Import a named region once
-data <- readNamedRegionFromFile(file, # File path
-                                name, # Region name
-                                ...)  # Arguments of readNamedRegion()
-# read multiple
-load <- loadWorkbook(file_path)
-data <- readNamedRegion(load, name_Region_1, ...)
-data2 <- readNamedRegion(load, name_Region_2, ...)
-
-
-data<-read.csv("file.csv",1)
-# If reading excel files JAVA errors occur, set the java path in R
-Sys.getenv("JAVA_HOME") # get location
-Sys.setenv(JAVA_HOME = "path_to_jre_java_folder")
-
-#  pdftools
-
-pdftools::download.file(pdf.file, destfile = "sample.pdf", mode = "wb") # pdf.file can be http uri 
-pdf.text <- pdftools::pdf_text("sample.pdf")
-cat(pdf.text[[2]])  # para2
-pdf.text<-unlist(pdf.text)
-pdf.text<-tolower(pdf.text)
-
-library(stringr)
-res<-data.frame(stringr::str_detect(pdf.text,"suspendisse"))
-colnames(res)<-"Result"
-res<-subset(res,res$Result==TRUE)
-row.names(res)
-
-
-
-# grafify extends ggplot2 by adding simplified plotting functions. 
-# 2-Variable Functions: plot_scatterbar_sd(), plot_scatterbox(), and plot_dotviolin()
-# 3-Variable Functions: plot_3d_scatterbox()
-# Before-After Functions: plot_befafter_colors()
-
-plot_scatterbar_sd()
-plot_scatterbox()
-plot_dotviolin()
-plot_3d_scatterbox()
-plot_befafter_colors() # useful Before-After Plot line plot
-
-# subsettiing
-ed_exp1 <- education[c(10:21),c(2,6:7)]
-ed_exp2 <- education[-c(1:9,22:50),-c(1,3:5)]  # complement of above
-
-# extracting the rows we need by using the which() function
-ed_exp3 <- education[which(education$Region == 2),names(education) %in% 
-                       c("State","Minor.Population","Education.Expenditures")]
-# easier
-ed_exp4 <- subset(education, Region == 2, 
-                  select = c("State","Minor.Population","Education.Expenditures") )
-
-
- 
-# most useful
-ed_exp5 <- dplyr::select( filter(education, Region == 2), c(State,Minor.Population:Education.Expenditures) )
-
-
-
-
-
-#install.packages("ggpubr")
-ggpubr::show_point_shapes()
-
-
-
-# data from  regions.dataobservaotry.eu
-devtools::install_github("rOpenGov/regions")
-
-
-# remove na with drp na
-df=data.frame(Col1=c("A","B","C","D", "P1","P2","P3")
-              ,Col2=c(7,8,NA,9,10,8,9)
-              ,Col3=c(5,7,6,8,NA,7,8)
-              ,Col4=c(7,NA,7,7,NA,7,7) )
-
-
-df %>% drop_na()  # drop all na
-df %>% na.omit()
-
-df %>% drop_na(Col2)  # only col 3
-df[!is.na(df$Col3),]
-df[complete.cases(df$Col3),]
-
-df[-which(is.na(df$Col3)),]
-
-# Levenshtein(): Levenshtein distance/similarity
-# DamerauLevenshtein() Damerau-Levenshtein distance/similarity
-# Hamming(): Hamming distance/similarity
-# OSA(): Optimal String Alignment distance/similarity
-# LCS(): Longest Common Subsequence distance/similarity
-# Jaro(): Jaro distance/similarity
-# JaroWinkler(): Jaro-Winkler distance/similarity
-
-# InVocabulary(): Compares strings using a reference vocabulary. Useful for comparing names.
-# Lookup(): Retrieves distances/similarities from a lookup table
-# BinaryComp(): Compares strings based on whether they agree/disagree exactly.
-# Numeric comparators:
-# Euclidean(): Euclidean (L-2) distance
-# Manhattan(): Manhattan (L-1) distance
-# Chebyshev(): Chebyshev (L-∞) distance
-# Minkowski(): Minkowski (L-p) distance
-
-library(ggraph)
-library(tidyquant)
-library(shiny)
-
-library(caret)
-
-#install.packages("e1071")
-library(e1071) # clustering, Fourier Transform, Naive Bayes, SVM, and other types of modeling 
-library(plotly)
-
-library(mlr3)
-
-library(xgboost)
-
-library(xml) 
-
-# RMySQL, RPostgresSQL, RSQLite
-#car# – For making type II and type III ANOVA tables.
-#httr# – For working with HTTP connections
-
-
-
-
-data6<-msleep %>% select(name, sleep_total) %>%  filter(name %in% c("Cow","Dog","Goat"))
-data7<-msleep %>%
-  select(name, sleep_total) %>%
-  filter(between(sleep_total,16,18))
-
-#KNN Algorithm Machine Learning » Classification & Regression »
-
-data8<-msleep %>%
-  select(name, sleep_total) %>%
-  filter(near(sleep_total,17, tol=0.5))
-
-
-###### 
-# sqldf
-library(dplyr)
-library(sqldf)
-
-iris <- iris
-# In base R:
-iris[iris$Sepal.Width >= 3.0,]$Sepal.Width
-# using dplyr:
-  iris %>%
-  select(Sepal.Width) %>%
-  filter(Sepal.Width>=3.0)
-
-# using sqldf:
-  
-sqldf("select [Sepal.Width] from iris
-       where
-      [Sepal.Width]  >= 3.0"  )  # no \n space?
-
-
-# 𝜇 $\mu$    𝛼$\alpha$    𝛽 $\beta$  𝛾$\gamma$    𝜏 $\tau$    𝜎 $\sigma$   
-
-𝐻0 $H_0$    𝑌𝑖𝑗 $Y_{ij}$ 
-𝜎2 $\sigma^2$ 
-𝑌̂$\hat{Y}$ $\bar{Y}$ $\hat{f}_i$ 
-≥ $\ge$    ≤ $\le$    ≠  $\neq$   ∑ $\sum{}$     △ $\triangle{}$   9‾√  $\sqrt{9}$
-$\frac{3}{4}$
-
-install.packages("rmarkdown") # version 2.7 is on CRAN.
-# Files with .sass or .scss extension provided to html_document’s css parameter are now compiled to CSS using the sass package (thanks, [@cpsievert]
-# Pandoc’s bracketed Spans:  This is a [color]{.my-color} word.
-# To apply CSS to longer text, you can create divs using Pandoc’s fenced Div blocks:
-::: {.my-color}
-All of these words are colored.
-:::
-  
-## Using Sass to style an html_document: use the SCSS syntax. 
----
-  output:
-  html_document:
-  css: custom.scss # update this css to scss !
----
-  
-#Just like CSS, SCSS uses semi-colons and curly braces. The main difference is that we’ll use the $ symbol to make something a variable:
-$green: #212D2C;
-$sky: #A9FDFF;
-.my-color {
-    background-color: $green;
-    color: $sky;
-    padding: 1em;
-}
-
-#We apply the style in the exact same way as before:
-This is a [color]{.my-color} word.
-
-# Also for LaTeX environments by adding a special attribute.
-::: {.verbatim latex=true}
-We show some _verbatim_ text here.
-:::
-
-
-
-
-  
-install.packages("pagedown")   # paginate HTML output with CSS print and paged.js.
-
-/* reset page numbering for main content */
-  .main .level1:first-child h1 {
-    counter-reset: page 1;
-  }
-
-
-
-
-# for final presentation of EM pads ##########################
-# git config --list  #  git config --global user.email "ggmtech@yahoo.co.in" # git help fn
-# git init  or git clone url/ remotedir.git ./gk/dr2/ # rm -rf .git # git status #  .gitignore #git  add -A or file # git reset #
-# git commit -m "ttttt"
-# git remote -v # git branch -a (all branches all loc) 
-# git diff
-# git pull origin master
-# git push origin master
-# git branch nme # git checkout nme  # git push -u nmed
-
-
-###############
-# XLConnect allows for reading, writing and manipulating Microsoft Excel files from within R.
-# Reading & writing of named ranges (via data.frames)
-# • Creating, removing, renaming and cloning worksheets
-# • Adding graphics
-# • Specifying cellstyles: data formats, borders, back- and foreground fill color, fill pattern, text
-# wrapping
-# • Controlling sheet visibility
-# • Defining column width and row height
-# • Merging/unmerging cells
-# • Setting/getting cell formulas
-# • Defining formula recalculation behavior (when workbooks are opened)
-# • Setting auto-filters
-# • Style actions: controlling application of cell styles when writing (e.g. when using templates)
-# • Defining behavior when error cells are encountered
-# install.packages("XLConnect")
-library(XLConnect)
-help(functionName)
-data <- readWorksheetFromFile(file, sheet, ...)
-writeWorksheetToFile(file, data, sheet, ...)
-# Reading/writing named regions
-data <- readNamedRegionFromFile(file, name, ...)
-writeNamedRegionToFile(file, data, name, ...)
-#Reading/writing workbooks  multiple times
-wb <- loadWorkbook(file)
-data1 <- readWorksheet(wb, sheet1, ...)
-data2 <- readWorksheet(wb, sheet2, ...)
-wb <- loadWorkbook(file)
-createSheet(wb, sheet1)
-writeWorksheet(wb, data1, sheet1, ...)
-saveWorkbook(wb)
-wb <- loadWorkbook(file)
-data1 <- readNamedRegion(wb, name1, ...)
-data2 <- readNamedRegion(wb, name2, ...)
-wb <- loadWorkbook(file)
-createName(wb, name1, ...)
-writeNamedRegion(wb, data1, name1, ...)
-saveWorkbook(wb)
-# https://mirai-solutions.ch, https://github.com/miraisolutions/xlconnect
-
-
-
-#######33
-# Function and pipe
-triple <- function(x) x * 3 
-triple <- \(x) x * 3    # in R 4.1.0 you can use the more concise syntax
-# Pipes
-triple(4)
-4 %>% triple
-4 ->.; triple(.)  # base R
-4 |> triple()  
-#################
-#  d[rep(seq_len(nrow(d )),     n   ), ]
-# df[rep(seq_len(nrow(df)), each = 2), ]
-# df %>% slice(  rep(1:n(), each = 2))
-# df <- as.data.frame(lapply(df, rep, df$ntimes))
-
-# df <-  t1  %>%   lapply( rep,  t1$Qty ) %>%  as.data.frame( )  # good
-# df %>%   mutate( DMdated2 = floor_date( DMdated, "month") )   %>%       View()
-
-#?devtools::source_url("https://github.com/tonybreyal/Blog-Reference-Functions/blob/master/R/bingSearchXScraper/bingSearchXScraper.R?raw=TRUE")
-#?tmp <- devtools::source_url("https://github.com/ggmtech/pedqam/raw/master/Shenkey.R")
-#?tmp <- devtools::source_url("https:://raw.githubusercontent.com/ggmtech/pedqam/master/EDAstage.R")
-
-#      merge(x = df1, y = df2, by = "StudentId",     all = TRUE)  # by = c("a" = "b") or NULL
-# full_join(x, y,              by = NULL, copy = FALSE,  suffix = c(".x", ".y"),   ...)
-# nest_join(x, y,              by = NULL, copy = FALSE, keep = FALSE, name = NULL,     ...)
-
-# df %>% rowwise() %>% mutate(m = mean(c(x, y, z)))
-# df %>% rowwise(name) %>%     summarise(m = mean(c(x, y, z)))
-
-# df %>% rowwise() %>% mutate( sum = sum(  c_across(w:z) ), sd = sd(c_across(w:z) )  )
-
-# parse_number(number), parse_date_time()
-# select with ends_with("hour"), contains("hour")
-# mutate(origin = case_when( (origin == "EWR") & dep_delay > 20 ~ "DELAYED",
-#                            (origin == "EWR") & dep_delay <= 20 ~ "DEPARTURED",) )
-# mutate(origin = str_replace_all(origin, c( "^EWR$" = "Newark International",    "^JFK$" = "John F. Kennedy International"))) 
-# group_by(carrier) %>%  filter(n() >= 10000) %>% ungroup()
-# mutate(name = fct_reorder(name, n)) %>%
-# expendgrid, crossing()
-# r function
-# na_if(eye_color, "unknown")  #  mutate(across(where(is.character), ~na_if(., "unknown")))
-# cumall(x): all cases until the first FALSE. # cumany(x): all cases after the first TRUE.
-# "previous" (lag()) or "next" (lead()) values in a vector, order_by	
-# lag(x, n = 1L, default = NA, order_by = NULL, ...) # Override default ordering
-
-# expand(df, nesting(school_id, student_id), date) would produce a row for each present school-student combination for all possible dates.    
-# nesting for combinations already present, add outside, for full expend.
-# fruits %>% expand(type, size, full_seq(year, 1))
-# all %>% dplyr::anti_join(fruits)  to see missing
-# fruits %>% dplyr::right_join(all) to fill missing
-# complete(data, ..., fill = list())
-# df %>% complete(group, nesting(item_id, item_name))
-# df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0)) # fill missing from list
-# .. expand(df, nesting(school_id, student_id), date)   would produce a row for each present school-student combination for all possible dates.
-
-
-
-
-
-#   scale_x_continuous(breaks = round(seq(min(dat$x), max(dat$x), by = 0.5),1)) +
-#   scale_x_continuous(breaks = scales::pretty_breaks(n = 10) ) +
-#  scales::pretty_breaks(n = 10)
-# or zoom by xlim() and ylim()  , max-min/30 is a pretty common "bucket" size
-# scale_x_date(date_breaks = "5 months",                date_minor_breaks = "1 months") 
-# best       scale_x_continuous(n.breaks = 5)
-# df %>% rowwise() %>% mutate(m = mean(c_across(x:z)))
-# Rows:filter() , starwars %>% slice(5:10), desc(), %>% slice_sample(n = 5), slice_sample(prop = 0.1)
-# Columns:  select() , rename() , mutate() , relocate(sex:homeworld, .before = height) changes the order of the columns.
-# Groups of rows:  summarise() : collapses a group into a single row but ueful with group_by()
-# SN <- seq(1, nrow(df))  and then mutate(df, newsn = SN)
-
-# union_all(), inner_join() left_join() right_join() full_join(), nest_join()
-# across() if_any() if_all()
-
-#installed.packages() %>% View()
-#ggplot(mpg) +   ggfx::with_blur( geom_point(aes(x = hwy, y = displ)), sigma = 3 ) +
-# with_variable_blur(); with_drop_shadow() etc
-# with_blend(), with_custom_blend(), with_mask(), with_interpolate() 
-# with_raster()
-
-
-# h + geom_ribbon(aes(ymin = unemploy-900, ymax = unemploy+900), fill = "steelblue") + geom_path(size = 0.8) 
-# h + geom_rect(aes(xmin = as.Date('1980-01-01'), xmax = as.Date('1985-01-01'), ymin = -Inf,  ymax = Inf), fill = "steelblue") + geom_path(size = 0.8) 
-# i + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15)) 
-# p + geom_boxplot()
-# P + scale_color_gradient(low="blue", high="red")
-# p + scale_color_gradient2(midpoint=mid, low="blue", mid="white", high="red", space = "Lab" )
-#     geom_line(linetype = "dashed")
-# p + coord_cartesian(xlim =c(5, 20), ylim = c(0, 50)) 
-# p + expand_limits(x = c(5, 50), y = c(0, 150))
-# p + scale_x_continuous(trans='log2') # 'log2', 'log10','sqrt'
-# Format axis tick mark labels  : require(scales)
-# # Reverse coordinates p + scale_y_reverse() 
-# sp + geom_hline(yintercept=20, linetype="dashed",  color = "red" ) 
-# sp + geom_vline(xintercept = 3,          size=1.5, color = "blue") 
-#   coord_quickmap()  #   coord_sf()
-
-
-iris %>% rgl::plot3d(Sepal.Length, Sepal.Width, Petal.Length, 
-       type="s", col=as.numeric(Species))
-# Function	Description
-# points3d:	adds points
-# lines3d:	adds lines
-# segments3d:	adds line segments
-# triangles3d:	adds triangles
-# quads3d:	adds quadrilaterals
-
-
-######
-grep('stringtomatch', strlist, ignore.case ="True")   # grepl() for logical
-# regexpr() no of patterns found. 
-# sub(pattern, replaced_string, string) replaces the only first occurrence of the string to be replaced and returns modified
-# gsub(pattern, replaced_string, string) replaces all occurrences and returns the modified string.
-# str_remove(string, pattern, ignore.case=False) and str_remove_all()   removes and returns the modified string
-
-#
-str_extract("aaa12xxx", "[0-9]+")   # 
-# str_extract(fruit, "nana") is shorthand for str_extract(fruit, regex("nana"))
-stringr::str_extract(string, pattern)
-
-str_extract_all(string, pattern, simplify = FALSE) # FALSE list char vectors.TRUE char matrix.
-
-str_replace_all(text, "\\s+", " ")  # correct badly spaced text nline
-#\p{property name} matches any character with specific unicode property
-#\P{property name} - compliment ]
-# \w \b 
-# [^abc]: matches anything except a, b, or c.
-# [\^\-]: matches ^ or -.
-# [:punct:]: punctuation., [:alpha:]: letters.
-# [:lower:]: lowercase letters., [:upper:]: upperclass letters. [:digit:]: digits.
-# [:alnum:]: letters and numbers. [:cntrl:]: control characters.
-# [:graph:]: letters, numbers, and punctuation.
-# [:print:]: letters, numbers, punctuation, and whitespace.
-# [:space:]: space characters (basically equivalent to \s).
-# [:blank:]: space and tab.
-
-
-
-
-7718955555
-
-
-
-
-packages <- c("tidyverse", "lubridate", "parsedate", "janitor",
-              "cowplot", "ggpubr",  "here", "scales", "stringr", 
-              "writexl", "readxl",         #"xlsx", needs java
-              "googledrive" , "googlesheets4",               
-              #"summarytools",  
-              "knitr",  "kableExtra",  
-              "alluvial", "ggalluvial"  )
-
-
-installed_packages <- packages %in% rownames(  installed.packages() )
-if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
-
-lapply(packages, library, character.only = TRUE) # %>% invisible()
-
-#library(devtools) ; devtools::install_github("tidyverse/googlesheets4")
-
-install.packages("tidyverse", type="source")
-remove.packages("rlang")
-library(tidyverse)
-devtools::install_github("tidyverse/tidyverse")
-
-############################
-library(usethis)
-ui_info("hi!")
-analysis_year <- 2019
-ui_todo("Querying demographics data for
-        {analysis_year}...")
-
-# Automating templates
-clean_data <- function(analysis_year) {
-    usethis::use_template(
-        template = "clean_data.R",
-        save_as = "01_clean-data.R",
-        data = list(analysis_year = analysis_year),
-        package = "demographicsreport"
-    )
-}
-###############
-library(osmdata) ## Data (c) OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright
-library(sf)
-
-vancouver_highways <- opq(bbox = 'Vancouver Canada') %>% add_osm_feature(key = 'highway') %>% osmdata_sf()
-
-vancouver_highways <- opq(bbox = 'New Delhi India') %>%
-                      add_osm_feature(key = 'railway', value = c('subway', 'rail') )%>%   #highway
-                      osmdata_sf()
-
-vancouver_highways
-
-plot(vancouver_highways$osm_lines$geometry)
-
-######################## to be used
-# drive_auth()  # authorise user, cmpenr done
-# drive_user()  # see user authorised
-# drive_find("xari", n_max = 30) # List files
-# drive_find("Master")
-#  range = "B3:F80" | cell_cols(1:4) | cell_limits(  c(1, 4), c(5, NA) | cell_rows(1:1000) ), locale, trim_ws, na, comment, n_max
-
-sheetgid = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg"
-sheetid = "ItemMaster400"
-sheetid3 = "ListofLT5Vendors"
-
-#MasterList1 <- read_sheet( sheetgid, sheetid)
-MasterList1 <- read_sheet(sheetgid, sheetid, 
-                          skip = 0, col_names = TRUE,  na = "", trim_ws = TRUE, .name_repair = "unique" ) %>% 
-               rowid_to_column()  %>%
-               as_tibble()
-
-
-glimpse(MasterList1)
-MasterList1$Item
-
-MasterLT5 <- read_sheet(sheetgid, sheetid3, 
-                          skip = 0, col_names = TRUE,  na = "", trim_ws = TRUE, .name_repair = "unique" ) %>% 
-    rowid_to_column()  %>%
-    as_tibble()
-
-MasterLT5 %>% View()
-MasterLT5$Item
-
-#MasterList1  %>%  mutate( DateApplication = parsedate::parse_date(DateApplication)) %>% 
-#                  mutate(qtr = paste0(substring(year(DateApplication),1,4),"/Q",quarter(DateApplication, with_year = FALSE, fiscal_start = 4))) %>% 
-#                  View()
-
-
-#quarter(x, with_year = TRUE, fiscal_start = 11)
-#parse_date(dates, approx = TRUE, default_tz = "UTC")
-# Cross tabulation
-# library(janitor)
-#FreshVRegistration  %>%  
-    #mutate( DateApplication = parsedate::parse_date(DateApplication)) %>% 
-    #x mutate( DateApplication = excel_numeric_to_date(DateApplication, include_time = TRUE)  ) %>%
-    # mutate(qtr = paste0(substring(year(DateApplication),1,4),"/Q",quarter(DateApplication, with_year = FALSE))) %>%   #, fiscal_start = 4
-    # tabyl(Directorate, qtr) %>%
-    # adorn_totals(c("row", "col")) %>%         #adorn_totals(): Add totals row, column, or both.
-    # adorn_ns() %>%
-    # adorn_title("combined") %>%   #adorn_title(): add a title to a tabyl (or other data.frame).
-    # adorn_percentages(rounding = "half up", digits = 0) %>%  # percentages along either axis or over the entire tabyl
-    # adorn_pct_formatting(digits = 2) %>%   
-    # adorn_ns() %>%  #Adornments have options to control axes, rounding, and other relevant formatting choices (
-    # View()
-
-
-# also good for tibbles !! 
-# mtcars %>% adorn_totals(c("row", "col")) #%>% adorn_percentages("col")
-
-
-#mutate_if(is.numeric, funs(replace_na(., 0)))
-#na_if(y, "")
-#starwars %>%
-#    select(name, eye_color) %>%
-#    mutate(eye_color = na_if(eye_color, "unknown"))
-
-#starwars %>%
-#    mutate_if(is.character, list(~na_if(., "unknown")))
-# df %>% replace_na(list(x = 0, y = "unknown"))
-
-month_levels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-x1 <- c("Jan", "fel", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-y2 <- parse_factor(x1, levels = month_levels)  # gives warning else factor(x1, levels = month_levels) drops silenlty
-
-factor(x1) # make factores in alphabatical order
-f1 <-  x1 %>% factor( levels = unique(x1))
-f2 <-  x1 %>% factor() %>% fct_inorder()
-
-MasterList1 %>% mutate( value = as.numeric(as.character(`AA Value in Crores`)   ))  %>% as.data.frame()-> temp #%>% View()
-
-glimpse(temp)
-
-MasterList1 %>% count()
-MasterList1 %>% count(  Less3Vendor )
-MasterList1 %>% count(  Less3Vendor ,  `AA Value in Crores` )
-
-RDSOmarch31 <- MasterList1
-
-RDSOmarch31 %>% filter(!is.na(`RlyBd Del List SN`) ) %>%   
-               # mutate(  StatusMarch31 = if_else(is.na(`Under Process`) , NA, `Under Process` )   )%>%
-                mutate( fct_infreq(as.character(Vendors) )) %>%
-                mutate(StatusMarch31 = fct_lump(StatusApril30, n =8)) %>%
-               count()
-               # mutate( Business = as.double(`AA Value in Crores`) ) %>% 
-               # filter(!is.na(Business)) %>%
-               #  group_by(Directorate) %>%
-
-
-RDSOmarch31 %>%  filter(!is.na(`RlyBd Del List SN`) ) %>%
-                 mutate(VDnow = if_else( StatusApril30 ==  "Approved" , "Approved", "Awaited" ,  missing = NULL  ) ) %>% 
-                 mutate(VDnow = parse_factor(VDnow, levels(c("Approved", "Not Approved" ) )))  %>% 
-                 View() #str() 
-    
-
-
-mutate(VDnow = if_else(  is.na(VDnow ),   "Under Process" , StatusApril30, missing = NULL  ) ) %>%
-    group_by(Directorate, VDnow) %>% count() %>%  spread(VDnow, n)           
-    
-
-
-RDSOmarch31 %>%  filter(!is.na(`RlyBd Del List SN`) ) %>% 
-    mutate(VDnow = if_else(StatusApril30 == "Under Process", StatusApril30, StatusApril30 ) ) %>% 
-    mutate( StatusMarch31 = as.factor(StatusApril30) ) %>%
-    group_by(Directorate, StatusApril30) %>% count() %>%
-    spread(StatusApril30, n)           
-    
-
-RDSOmarch31 %>% mutate( Business = as.double(`AA Value in Crores`)   )  %>%
-                mutate(  LessVendors = if_else(Vendors < 3 , "Less", "OK")   )  %>%
-                select( -SN, -UID, -Item, -`RlyBd Del List SN`, -`Remarks ( if critically required, else avoid)`,
-                        -`PL Number`, -Less3Vendor, -`Cat I-II-III`, -`AA Value in Crores`)  %>% 
-                mutate( Less2cr = if_else(Business < 2, "Less2Crores", "BusinessOver2Cr", missing = "Not Available")  )  ->  vlist
-vlist
-
-vlist %>%  filter()  %>% count()
-all = count(vlist)
-vlist %>% count(LessVendors)
-
-
-
-##########
-
-a<-data.frame(name=c('Ace Co','Bayes', 'asd', 'Bcy', 'Baes', 'Bays'),price=c(10,13,2,1,15,1))
-b<-data.frame(name=c('Ace Co.','Bayes Inc.','asdf'),qty=c(9,99,10))
-
-a <- MasterLT5
-b <- MasterList1
-
-
-library(stringdist)
-
-d        <- expand.grid( a$Item,  b$Item) # Distance matrix in long form
-names(d) <- c("a_name","b_name")
-d$dist <- stringdist(d$a_name,d$b_name, method="jw") # String edit distance (use your favorite function here)
-
-# Greedy assignment heuristic (Your favorite heuristic here)
-greedyAssign <- function(a,b,d){
-    x <- numeric(length(a)) # assgn variable: 0 for unassigned but assignable, 
-    # 1 for already assigned, -1 for unassigned and unassignable
-    while(any(x==0)){
-        min_d <- min(d[x==0]) # identify closest pair, arbitrarily selecting 1st if multiple pairs
-        a_sel <- a[d==min_d & x==0][1] 
-        b_sel <- b[d==min_d & a == a_sel & x==0][1] 
-        x[a==a_sel & b == b_sel] <- 1
-        x[x==0 & (a==a_sel|b==b_sel)] <- -1
-    }
-    cbind(a=a[x==1],b=b[x==1],d=d[x==1])
-}
-
-data.frame(greedyAssign(as.character(d$a_name),as.character(d$b_name),d$dist))
-
-
-
-# or
-a <- data.frame(name = c('Ace Co', 'Bayes', 'asd', 'Bcy', 'Baes', 'Bays'),
-                price = c(10, 13, 2, 1, 15, 1))
-b <- data.frame(name = c('Ace Co.', 'Bayes Inc.', 'asdf'),
-                qty = c(9, 99, 10))
-
-library(fuzzyjoin); library(dplyr);
-
-
-
-stringdist_join(a, b,        by = "Item",      mode = "left",    ignore_case = FALSE, 
-                method = "jw",       max_dist = 99, 
-                distance_col = "dist") %>%     View()
-                group_by(Item.x) %>%           #View()
-                top_n(1, -dist)  %>% View()
-
-
-
-
-
-########################## using excel
-# excel_sheets("/Users/gk/Google Drive/gkvdlist.xlsx")
-# To load all sheets in a workbook, use lapply
-#path <- excel_sheets("/Users/gk/Google Drive/gkvdlist.xlsx")
-#?lapply(read_xlsx(path), read_excel, path = path)
-#QAdata    <- readxl::read_xlsx("/Users/gk/Google Drive/gkvdlist.xlsx", sheet = 1)
-#QAdel     <- readxl::read_xlsx("/Users/gk/Google Drive/gkvdlist.xlsx", sheet = "Del132")
-#QAdatamix <- readxl::read_xlsx("/Users/gk/Google Drive/QAfull.xlsx", sheet = 1)
-
-QAall    <-        excel_sheets("/Users/gk/Google Drive/QAsuperlist.xlsx")
-QAall      <- readxl::read_xlsx("/Users/gk/Google Drive/QAsuperlist.xlsx", sheet = "VD638")
-QArbupdate <- readxl::read_xlsx("/Users/gk/Google Drive/QAsuperlist.xlsx", sheet = "Update132")
-QArbupdate %>% select(ListRB, StatusMarch) %>% mutate(ListRB = toupper(ListRB)) -> QArb
-QArb  %>% str()
-
-
-left_join( QAall,  QArb , by = c(  "ListRB" = "ListRB" ) ) -> QAmaster #%>% View()
-str(QAmaster)
-QAmaster %>% View()
-QAmaster %>% count(StatusMarch)
-
-QAmaster %>% mutate(Less3Vendor = if_else(as.numeric(Vendors)  <3 , "Less3Vendor" , "OK"   )) %>%
-    select(SN, Directorate,  UID,  Item ,  Vendors, Less3Vendor, AAVcr, Prospects , ListRB, StatusMarch ) -> QAMedit
-
-QAMedit %>% View() 
-
-write_xlsx(QAMedit, path = "/Users/gk/Google Drive/QAedit.xlsx", col_names = TRUE)
-
-# prepare for alluviam
-str(QAMedit)
-
-QAMedit %>%  mutate(ListRB = ifelse(is.na(ListRB), "NotSent" , "SentRB") ) %>%
-    mutate(Less3Vendor = ifelse( is.na(Less3Vendor) , "OK" , Less3Vendor ) )%>%
-    group_by(Directorate,  ListRB, Less3Vendor) %>%  
-    count(Directorate )  -> QAplot
-QAplot
-
-
-############## or latest googled  RDSOmarch31
-RDSOmarch31  %>% View()
-
-str(RDSOmarch31)
-
-
-# Status on march 31 
-RDSOmarch31 %>%     #mutate(VDnow = ifelse(StatusMarch31 == "Approved"|StatusMarch31 == "Merged" ,  "Deleted", "RDSOitem"    ) ) %>%
-                    group_by(Directorate, StatusMarch31) %>% count() %>%
-                    spread(StatusMarch31, n) # %>% kable()
-
-                  
-
-
-# items break up of less then three items :
-RDSOmarch31 %>%     filter(Vendors  < 3)   %>%
-                    filter(!StatusMarch31 =="Approved" | is.na(StatusMarch31) )  %>% View()
-                    #group_by(Directorate,  Less3Vendor) %>%  
-                    count( )  #%>%
-                    spread(Less3Vendor, n)
-
-   
-
-
-#### Eulerr
-RDSOmarch31 %>% group_by(Directorate) %>% count()  -> list1
-list1
-library(eulerr)
-
-three_inside_fourth <- euler(c("A-Totalitems" = 639,
-                               "A-Totalitems&B-BoardProposed" = 132, "A-Totalitems&C" = 3, "A-Totalitems&D" = 3,
-                               "A-Totalitems&B-BoardProposed&C" = 20, "A-Totalitems&B-BoardProposed&D" = 32, "A-Totalitems&C&D" = 42,
-                               "A-Totalitems&B-BoardProposed&C&D" = 15))
-plot(three_inside_fourth)
- 
-
-str(RDSOmarch31)
-
-
-
-# Dot chart of a single numeric vector
-dotchart(mtcars$mpg, labels = row.names(mtcars), cex = 0.6, xlab = "mpg")
-
-dotchart(RDSOmarch31$Vendors, labels = RDSOmarch31$Directorate, cex = 0.6, xlab = "mpg")
-
-
-barplot(RDSOmarch31$Vendors, names = RDSOmarch31$Directorate)
-
-
-completely_contained <- euler(c("A" = 15, "B" = 15, "C" = 3,
-                                "A&B" = 3, "A&C" = 0, "B&C" = 0,
-                                "A&B&C" = 3))
-?euler
-plot(completely_contained,
-    # labels = list(col = c("white", "black", "black") ),
-     labels = c("To m \n ggg", "Greg", "Alberta"),   # "A&B" , "A&C", "B&C" , "A&B&C"
-     edges = list(col = "white", lex = 2),
-     fills = c("magenta", "cyan", "yellow")         # orange
-      )   
-
-
-plot(euler(as.table(apply(Titanic, 2:4, sum))))
-
-Titanic
-class(Titanic)
-typeof(Titanic)
-as_tibble(Titanic)  
-Titanic %>% apply( 2:4, sum) %>% as.table() %>% euler() %>% plot()
-
-     
-three_inside_fourth <- euler(c("A" = 30,
-                               "A&B" = 3, "A&C" = 3, "A&D" = 3,
-                               "A&B&C" = 2, "A&B&D" = 2, "A&C&D" = 2,
-                               "A&B&C&D" = 1))
-plot(three_inside_fourth, labels = c("To m \n ggg", "Greg", "Alberta", "hhgkhjgk"),)
-
-
-
-## for alluvial plot data
-RDSOmarch31 %>%     mutate(ListRB = ifelse(is.na(`RlyBd Del List SN`), "NotSent" , "SentRB") ) %>%
-                    mutate(Less3Vendor = ifelse( is.na(Less3Vendor) , "OK" , Less3Vendor ) )%>%
-                    group_by(Directorate,  ListRB, Less3Vendor) %>%  
-                    count(Directorate )  -> QAplot
-
-QAplot 
-
-
-
-################  plot the alluivial 
-QAplot
-
-alluvial(QAplot[ , 1:3],
-         freq   = QAplot$n,
-         col    = ifelse(QAplot$Less3Vendor == "Less3Vendor", "red", "blue"),
-         #border = ifelse(!is.na(QAplot$ListRB), "blue", "red"),
-         #hide   = QAplot$ProposedDEL_RB < 2, #uncomplicate by ignoring small
-         cex    = 0.7 ,    #font size
-         alpha  = 0.4 ,   
-         # blocks=FALSE   # for merging
-         gap.width = 0.1,
-         cw = 0.1         # colomn width
-         # other options ..layer order, gap.width, xw,cw,blocks, 
-         # ordering,axis_lables, 
-)
-
-#######################################
-
-
-
-
-
-
-
-
-
-QAall %>% View()
-str(QAall)
-
-
-QAall %>% count()                   #  641 item list
-QAall %>% count(Directorate)        #  Directratewise
-QAall %>% filter( !is.na(ListRB) )  %>%  count()   # 129   list sent to board, not non avl
-QAall %>% mutate(less3vendor = if_else( as.numeric(Vendors) <3, TRUE, FALSE )  ) %>%  count(less3vendor) # View()
-
-# less vendor and less then 2 crores  # 60 TRUE
-QAall %>% mutate(less3vendor = if_else( as.numeric(Vendors) <3, TRUE, FALSE )  ) %>% 
-    filter(  as.numeric(AAVcr) > 2    )   %>%
-    count(less3vendor) # View()
-
-# less vendor and More then 2 crores  # 54 + 2
-QAall %>% mutate(less3vendor = if_else( as.numeric(Vendors) <3, TRUE, FALSE )  ) %>% 
-    filter(  as.numeric(AAVcr) < 2.001    )   %>%
-    count(less3vendor) # View()
-
-# After removing "proposed"    # 68 TRUE + 4 NA
-QAall %>% mutate(less3vendor = if_else( as.numeric(Vendors) < 3 , TRUE, FALSE )  ) %>%  
-    filter( !is.na(ListRB) ) %>%  count(less3vendor) # View()
-
-# After only removing "deltedby board"    # 
-QAall %>% mutate(less3vendor = if_else( as.numeric(Vendors) < 3 , TRUE, FALSE )  ) %>%  
-    filter( !is.na(   ?????ListRB  ) ) %>%  count(less3vendor) # View()
-
-
-
-
-QAdata
-QAdel
-QAdata %>% count(Directorate)
-
-inner_join(QAdata, QAdel ,  by = c("Item" = "Item"))  %>% View()
-
-full_join(QAdata, QAdel ,  by = c("Item" = "Item"))  -> QAfull   # %>% View()
-QAfull
-write_xlsx(QAfull, path = "/Users/gk/Google Drive/QAfull.xlsx", col_names = TRUE)
-
-# write_xlsx(x = daily, path = "daily.xlsx", col_names = TRUE)
-# write_xlsx( x      ,  path = tempfile(fileext = ".xlsx"),  col_names = TRUE,  format_headers = TRUE )
-
-left_join(QAdata, QAdel ,  ) 
-
-#setoutbak <- read_csv("/Users/gk/Google Drive/setouts1819final.csv") #  OK !
-glimpse(QAdata)
-QAdata %>% View()
-
-#tally(QAdata$ProposedDEL_RB)
-
-
-QAdata  %>% mutate(Less3Vendor = ifelse( as.numeric(Vendors) > 3, "OK", "LessThen3")   ) %>%
-    group_by(Directorate,ProposedDEL_RB , Less3Vendor) %>% 
-    count(`Item Description` , )  -> QAplot
-
-QAplot
-alluvial(QAplot[,1:2], 
-         freq   = QAplot$n,
-         #col    = ifelse(QAplot$ProposedDEL_RB == "No", "red", "blue"),
-         border = ifelse(QAplot$ProposedDEL_RB == "No", "blue", "red"),
-         #hide   = QAplot$ProposedDEL_RB < 2, #uncomplicate by ignoring small
-         cex    = 0.7 ,    #font size
-         alpha  = 0.4 ,   
-         # blocks=FALSE   # for merging
-         gap.width = 0.1,
-         cw = 0.1         # colomn width
-         # other options ..layer order, gap.width, xw,cw,blocks, 
-         # ordering,axis_lables, 
-)
-
-
-
-install.packages('tinytex')
-tinytex::install_tinytex()
-
-install_tinytex(
-    force = FALSE,
-    dir = "auto",
-    repository = "ctan",
-    extra_packages = NULL,
-    add_path = TRUE
-)
-##########
-as.data.frame(Titanic)
-
-ggplot(as.data.frame(Titanic),
-       aes( y = Freq, 
-            axis1 = Survived, 
-            axis2 = Sex, 
-            axis3 = Class,
-            axis4 = Age )  )      +
-    geom_alluvium( aes(fill = Class),
-                   width = 0, 
-                   knot.pos = 0, 
-                   reverse = FALSE) +
-    guides(fill = FALSE)  +
-    geom_stratum(width = 1/5, reverse = FALSE) +
-    geom_text(stat = "stratum", label.strata = TRUE, reverse = FALSE) +
-    scale_x_continuous(breaks = 1:4, 
-                       labels = c("Survived", "Sex", "Class", "Age") ) +
-    # coord_flip() +
-    #ggtitle("Titanic survival by class and sex") 
-    ggtitle("passengers on Titanic", "stratified by demographics and survival")
-####################
-
-
-
-reducedData = myFormattedData %>% 
-    group_by(replicate, position, size) %>% 
-    summarise(count = sum(count)) %>% 
-    ungroup()
-#################
-
-
-tit <- as.data.frame(Titanic, stringsAsFactors = FALSE)
-head(tit)
-glimpse(tit)
-
-# Plain and simple
-alluvial(  tit[ , 1:4 ],   freq   = tit$Freq  )
-
-# or with bells
-alluvial(tit[,1:4], 
-         freq   = tit$Freq,
-         col    = ifelse(tit$Survived == "Yes", "red", "blue"),
-         border = ifelse(tit$Survived == "Yes", "blue", "grey"),
-         hide   = tit$Freq < 1, #uncomplicate by ignoring small
-         cex    = 0.7 ,    #font size
-         alpha  = 0.4 ,   
-         # blocks=FALSE   # for merging
-         gap.width = 0.1,
-         cw = 0.1         # colomn width
-         # other options ..layer order, gap.width, xw,cw,blocks, 
-         # ordering,axis_lables, 
-)
-
-# alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
-#         alpha = 0.5, gap.width = 0.05, xw = 0.1, cw = 0.1, blocks = TRUE,
-#         ordering = NULL, axis_labels = NULL, cex = par("cex"),
-#         cex.axis = par("cex.axis"))
-
-# simplest only two cross
-# Survival status and Class
-
-tit  %>%  group_by(Class, Survived)    %>% 
-    summarise(  n = sum(Freq)  ) %>% 
-    select(1,2)  %>% 
-    alluvial(  freq = tit2d$n  )
-
-
-tit %>% group_by(Class, Survived)  %>%
-    summarise(  n = sum(Freq)  )        -> tit2d
-tit2d
-alluvial(  tit2d[,1:2], freq=tit2d$n  )
-
-#same
-tit %>% group_by(Class, Survived)       %>%
-    summarise(  n = sum(Freq)  )    %>% 
-    select(1,2)                     %>%
-    alluvial(   freq=tit2d$n   )
-
-#Three variables Sex, Class, and Survived:
-
-# Survival status, Sex, and Class
-tit %>% group_by(Sex, Class, Survived) %>%
-    summarise(n = sum(Freq)) -> tit3d
-
-alluvial(   tit3d[,1:3],    freq=tit3d$n)
-
-# Customizing colors
-# Colors of the alluvia can be customized with col, border and alpha arguments. For example:
-
-alluvial(    tit3d[,1:3],   
-             freq=tit3d$n,
-             col = ifelse( tit3d$Sex == "Female",  "pink",  "lightskyblue"),
-             border = "green",  
-             # blocks=FALSE,
-             alpha = 0.7
-)
-
-# hide small items
-
-alluvial(tit2d[,1:2], freq=tit2d$n, hide=tit2d$n < 150)
-
-# This skips drawing the alluvia corresponding to the following rows in tit data frame:
-tit2d %>% select(Class, Survived, n) %>% filter(n < 150)
-
-#Changing “layers”
-# By default alluvia are plotted in the same order in which the rows are ordered in the dataset.
-
-d <- data.frame(
-    x = c(1, 2, 3),
-    y = c(3 ,2, 1),
-    freq=c(1,1,1)
-)
+library("imager")
+original = imager::load.image("owl.png")
+d = dim(original)[1:2]
 d
-
-
-
-#As there are three rows, we will have three alluvia:
-
-alluvial(  d[,1:2],       freq=d$freq, col=1:3, alpha=1)
-alluvial(  d[ 3:1, 1:2 ], freq=d$freq, col=3:1, alpha=1)             # Reversing the order
-alluvial(  d[,1:2],       freq=d$freq, col=1:3, alpha=1,  layer=3:1) #  with single para
-
-
-pal <- c("red4", "lightskyblue4", "red", "lightskyblue")
-
-tit %>%    mutate(      ss = paste(Survived, Sex),
-                        k  = pal[ match(ss, sort(unique(ss))) ]
-) -> tit
-tit
-alluvial(    tit[,c(4,2,3)],  
-             freq=tit$Freq,
-             hide = tit$Freq < 10,
-             col = tit$k,
-             border = tit$k,
-             blocks=FALSE,
-             ordering = list(   NULL,    NULL,  order(tit$Age, tit$Sex )   )
-)
-
-
-###############  vertical  #########################
-
-library(ggalluvial)
-as.data.frame(Titanic)
-
-ggplot(as.data.frame(Titanic),
-       aes( y = Freq, 
-            axis1 = Survived, 
-            axis2 = Sex, 
-            axis3 = Class,
-            axis4 = Age )  )      +
-    geom_alluvium( aes(fill = Class),
-                   width = 0, 
-                   knot.pos = 0, 
-                   reverse = FALSE) +
-    guides(fill = FALSE)  +
-    geom_stratum(width = 1/5, reverse = FALSE) +
-    geom_text(stat = "stratum", label.strata = TRUE, reverse = FALSE) +
-    scale_x_continuous(breaks = 1:4, 
-                       labels = c("Survived", "Sex", "Class", "Age") ) +
-    # coord_flip() +
-    #ggtitle("Titanic survival by class and sex") 
-    ggtitle("passengers on Titanic", "stratified by demographics and survival")
-
-
-###########
-
-
-
-
-
-library(networkD3)
-nodes = data.frame("name" =    c("Node A",       # Node 0
-                                 "Node B",        # Node 1
-                                 "Node C",        # Node 2
-                                 "Node D",        # Node 3
-                                 "Nodes E"
-))       
-
-links = as.data.frame(  matrix(
-    c(  0, 1, 5,           # Each row represents a link. The first number
-        0, 2, 20,          # represents the node being conntected from. 
-        1, 3, 30,          # the second number represents the node connected to.
-        2, 3, 40,          # The third number is the value of the node
-        3, 4, 25),
-    byrow = TRUE, ncol = 3))
-
-names(links) = c("source", "target", "value")
-
-links
-
-sankeyNetwork( Links = links, 
-               Nodes = nodes,
-               Source = "source", 
-               Target = "target",
-               Value = "value", 
-               NodeID = "name",
-               fontSize= 18, 
-               nodeWidth = 30  )
-
+########
+#install.packages(data.table)
+library(data.table)
 
 
 
 ######
-
-data(majors)
-# omit missing lodes and incident flows
-ggplot(majors,
-       aes(x = semester, stratum = curriculum, alluvium = student) ) +
-    geom_alluvium(fill = "darkgrey", na.rm = TRUE) +
-    geom_stratum(aes(fill = curriculum), color = NA, na.rm = TRUE) +
-    #scale_y_reverse() + 
-    #geom_flow(stat = "alluvium", lode.guidance = "rightleft", color = "black")
-    theme_bw()
+seq.Date( as.Date("2018-01-31"), length.out = 6, by = "month")
 
 
-## Not run: 
-# Recreate Bostock Sankey diagram: http://bost.ocks.org/mike/sankey/
-# Load energy projection data
-URL <- paste0('https://cdn.rawgit.com/christophergandrud/networkD3/' , 'master/JSONdata/energy.json')
-energy <- jsonlite::fromJSON(URL)
-str(energy) # a List of 2
-unnest(energy)
-# Plot
-sankeyNetwork(Links = energy$links, 
-              Nodes = energy$nodes, 
-              Source = 'source',
-              Target = 'target', 
-              Value = 'value', 
-              NodeID = 'name',
-              units = 'TWh', 
-              fontSize = 12, 
-              nodeWidth = 30)
+lubridate::today()  # today's date
+lubridate::now()    # current date-time
+lubridate::tz(now())       # uses local system setting as default
+lubridate::Sys.timezone()  # show local system setting
+library(tidyverse)
+library(lubridate)
+# Parsing dates and times
+lubridate::ymd("06 02 04")
+lubridate::ymd_hms("2020-04-01 10:30:13")
 
-# Colour links
-energy$links$energy_type <- sub(' .*', '', energy$nodes[energy$links$source + 1, 'name'])
+dt <- c("10:05 29/02/2020", "20:10 24/12/2020")
+tb <- tibble::tibble(datetime = dt)
+tb2 <- tb %>% 
+  separate(datetime, into = c("time", "day"), sep = " ", remove = FALSE) %>% 
+  separate(time,     into = c("hour", "min"), sep = ":", remove = FALSE) %>% 
+  mutate(dt_1 = paste(day, time),  # a character string
+         dt_2 = dmy_hm(dt_1),      # a <dttm> object
+         ti_2 = hm(time)           # a <period> object
+  )
 
-sankeyNetwork(  Links = energy$links, 
-                Nodes = energy$nodes, 
-                Source = 'source',
-                Target = 'target', 
-                Value = 'value', 
-                NodeID = 'name',
-                LinkGroup = 'energy_type', 
-                NodeGroup = NULL             )
+tb2
 
 
+lubridate::make_date(year = 2020, month = 7, day = 13) 
+lubridate::make_date(year = 2020, month = "007", day = "013")  # even mixed data type char and number
+lubridate::make_date(year = 2020, month = 7)   # day = 1# Note defaults for missing elements:
+lubridate::make_date(month = 2, day = 13)      # year = 1970
+lubridate::is.Date(make_date(year = 2020))
+lubridate::is.POSIXct(make_date(year = 2020))
+
+lubridate::make_datetime(year = 2020, month = 7, day = 13, hour = 10, min = 30, sec = 45, tz = "Europe/Zurich") # tx default UTC
+lubridate::make_datetime(year = 2020)  # "2020-01-01 UTC"
+lubridate::make_datetime(sec = 33   )  # "1970-01-01 00:00:33 UTC"
+# amkedatetotime only expect numberic
+
+t_end   <- lubridate::ceiling_date(now(), "year")
+t_end
+
+# Dates from numeric inputs:
+lubridate::as_date(0)    # Unix epoch #> [1] "1970-01-01"
+lubridate::as_date(1)    # increment: +1 day  #> [1] "1970-01-02"
+lubridate::as_date(365)  # +1 year
 
 
-#########
-# devtools::install_github("corybrunson/ggalluvial", ref = "optimization")
-library(ggalluvial)
+# Get names instead of numbers:
+lubridate::month(tnow, label = TRUE, abbr = TRUE)   # month in year (name)
+lubridate::wday( tnow, label = TRUE, abbr = FALSE)  # day of week (name)
 
-titanic_wide <- data.frame(Titanic)
-ggplot(data = titanic_wide,
-       aes(axis1 = Class, axis2 = Sex, axis3 = Age,    y = Freq)) +
-    scale_x_discrete(limits = c("Class", "Sex", "Age"), expand = c(.1, .05)) +
-    xlab("Demographic") +
-    geom_alluvium(aes(fill = Survived)) +
-    geom_stratum() + geom_text(stat = "stratum", label.strata = TRUE) +
-    #coord_flip() +
-    theme_minimal() +
-    ggtitle("passengers on the maiden voyage of the Titanic",
-            "stratified by demographics and survival") +
-    theme(legend.position = 'bottom')
+# corresponding difftime() function (see Section 10.2.4) offers a range of units varying from “secs” to “weeks”
+difftime()
+# For time spans exceeding a few months, the duration class provided by lubridate is a better 
 
-## 
-ggplot(titanic_wide,
-       aes( axis1 = Survived, axis2 = Sex, axis3 = Class,  y = Freq )) +
-    geom_alluvium(aes(fill = Class), width = 0, knot.pos = 0, reverse = FALSE) +
-    guides(fill = FALSE) +
-    geom_stratum(width = 1/8, reverse = FALSE) +
-    geom_text(stat = "stratum", label.strata = TRUE, reverse = FALSE) +
-    scale_x_continuous(expand = c(0, 0), breaks = 1:3, labels = c("Survived", "Sex", "Class")) +
-    scale_y_discrete(expand = c(0, 0)) +
-    #coord_flip() +
-    ggtitle("Titanic survival by class and sex")
+
+
+# Define interval by start %--% end:
+i4 <- tm_911 %--% tm_now
+
+as.duration(i1)
+#> [1] "605675158.68614s (~19.19 years)"
+as.period(i1)
+#> [1] "19y 2m 9d 2H 5M 58.6861400604248S"
+
+
+
+# # Repurpose date column to be used as dataframe index
+df <- column_to_rownames(df, var = "date")
+
+install.packages("tesseract")
+library(tesseract)
+tesseract_download('fra')  # If you want to OCR french text:
+
+library(magick)
+image_read("https://jeroen.github.io/images/birds.jpg") %>%
+  image_crop('1200x300+100+1700') %>%
+  image_ocr() %>%
+  cat()
+
+install.packages("opencv")
+library(opencv)
+
+# ocv_face(image), ocv_facemask(image), ocv_read(path), ocv_write(image, path), 
+# ocv_destroy(image),  ocv_bitmap(image), ocv_edges(image), ocv_picture()
+# ocv_resize(image, width = 0, height = 0), ocv_mog2(image), ocv_knn(image)
+# ocv_hog(image) , ocv_blur(image, ksize = 5), ocv_sketch(image, color = TRUE)
+# ocv_stylize(image), ocv_markers(image), ocv_info(image), ocv_copyto(image, target, mask)
+# ocv_display(image), ocv_video(filter), ocv_grayscale(image), ocv_version()
+
+# Silly example
+mona <- ocv_read('https://jeroen.github.io/images/monalisa.jpg')
+ocv_edges(mona) # Edge detection
+ocv_markers(mona)
+
+faces <- ocv_face(mona)# Find face
+facemask <- ocv_facemask(mona)# To show locations of faces
+attr(facemask, 'faces')
+#ocv_destroy(mona)# This is not strictly needed
+
+ocv_read('NAIRbatch.jpg') %>% ocv_face()   # ocv_hog()
+ocv_read('peoples2.jpg') %>% ocv_hog()
+# Edge detection
+ocv_read('peoples2.jpg') %>%   ocv_edges()
+ocv_read('peoples2.jpg') %>%  ocv_markers()
+
+ocv_read('peoples3.jpg') %>%  ocv_face() # detected but just 4 out of 10
+ocv_read('peoples2.jpg') %>% ocv_sketch()
+
+############### keras
+library(keras)
+# Pretrained VGG16 model
+model <- application_vgg16( weights = "imagenet",  include_top = TRUE )
+# Convert images to Keras array
+get_img <- function(x) {
+  arrays <- lapply(x, function(path) {
+    img <- image_load(path, target_size = c(224,224))
+    x <- image_to_array(img)
+    x <- array_reshape(x, c(1, dim(x)))
+    x <- imagenet_preprocess_input(x)
+  })
+  do.call(abind::abind, c(arrays, list(along = 1)))
+}
+
+
+
+######################
+
+stingr::str_split(words, " ")[[1]]
+str_split(words, boundary("word"))[[1]]
+str_extract_all("The Cat in the Hat", regex("[a-z]+", TRUE))
+str_subset(string, pattern, negate = FALSE)
+str_subset(fruit, "a$")
+str_subset(fruit, "^p", negate = TRUE)# Returns elements that do NOT match
+# fixed(pattern, ignore_case = FALSE)
+# coll(pattern, ignore_case = FALSE, locale = "en", ...)
+# boundary(type = c("character", "line_break", "sentence", "word"), skip_word_none = NA, ... )
+# regex(  pattern,  ignore_case = FALSE,  multiline = FALSE,  comments = FALSE,  dotall = FALSE,  ... )
+
+see <- function(rx) str_view_all("abc ABC 123\t.!?\\(){}\n", rx)
+see("a")
+
+# install.packages("here")
+here::i_am("README.Rmd")
+here::here("inst", "demo-project", "data", "penguins.csv")
+#> [1] "/home/kirill/git/R/here/inst/demo-project/data/penguins.csv"
+readr::write_csv(palmerpenguins::penguins, 
+                 here::here("inst", "demo-project", "data", "penguins.csv")  )
+
+
+library(snakecase)  ## install.packages("snakecase")
+string <- c("lowerCamelCase", "ALL_CAPS", "I-DontKNOWWhat_thisCASE_is")
+
+snakecase::to_any_case( string                 )  # convert to snake case or with option any case
+snakecase::to_any_case( string, case = "parsed") # "lower_camel", "upper_camel", "all_caps", "lower_upper", "upper_lower", "sentence" and "mixed", which are based on "parsed" case:
+snakecase::to_snake_case(string)
+snakecase::to_snake_case( c("SomeBAdInput", "someGoodInput") ) %>%  dput()
+## c("some_b_ad_input", "some_good_input")
+
+library(tidyverse)
+starwars
+starwars %>% group_by(eye_color) %>% tally() # or
+starwars %>% count(sex, eye_color)
+starwars %>% add_count(eye_color, wt = birth_year) # mutating add_count
+starwars %>% add_tally(wt = birth_year)
+
+
+vroom::vroom("mtcars.tsv", col_types = list(cyl = "i",   gear = "f",   hp = "i",    disp = "_",   drat = "_",   vs = "l",   am = "l",   carb = "i") )
+
+#if (!require(devtools)) install.packages("devtools")
+# devtools::install_github("boxuancui/DataExplorer")
+library(DataExplorer)
+create_report(airquality)              # To get a report for the airquality dataset:
+create_report(diamonds, y = "price")   # To get a report for the diamonds dataset with response variable price:
+
+# You may also run each function individually for your analysis, e.g.,
+
+introduce(airquality)           ## View basic description for airquality data
+plot_intro(airquality)          ## Plot basic description for airquality data
+
+
+plot_missing(airquality)        ## View missing value distribution for airquality data
+
+plot_bar(diamonds)                 ## Left: frequency distribution of all discrete variables
+plot_bar(diamonds, with = "price") ## Right: `price` distribution of all discrete variables
+plot_bar(diamonds, by = "cut")     ## View frequency distribution by a discrete variable
+plot_histogram(diamonds)       ## View histogram of all continuous variables
+
+
+## View estimated density distribution of all continuous variables
+plot_density(diamonds)
+
+## View quantile-quantile plot of all continuous variables
+plot_qq(diamonds)
+
+
+plot_qq(diamonds, by = "cut")                ## View quantile-quantile plot of all continuous variables by feature `cut`
+plot_correlation(diamonds)                   ## View overall correlation heatmap
+plot_boxplot(diamonds, by = "cut")           ## View bivariate continuous distribution based on `cut`
+plot_scatterplot(split_columns(diamonds)$continuous, by = "price", sampled_rows = 1000L)## Scatterplot `price` with all other continuous features
+plot_prcomp(diamonds, maxcat = 5L)           ## Visualize principal component analysis
+
+
+# To make quick updates to your data:
+group_category(diamonds, feature = "clarity", threshold = 0.2, update = TRUE)   ## Group bottom 20% `clarity` by frequency
+group_category(diamonds, feature = "clarity", threshold = 0.2, measure = "price", update = TRUE)## Group bottom 20% `clarity` by `price`
+dummify(diamonds)                                                         ## Dummify diamonds dataset
+dummify(diamonds, select = "cut")
+
+
+df <- data.frame("a" = rnorm(260), "b" = rep(letters, 10))           ## Set values for missing observations
+df[sample.int(260, 50), ] <- NA
+set_missing(df, list(0L, "unknown"))
+
+## Update columns
+update_columns(airquality, c("Month", "Day"), as.factor)
+update_columns(airquality, 1L, function(x) x^2)
+
+## Drop columns
+drop_columns(diamonds, 8:10)
+drop_columns(diamonds, "clarity")
+
+
+
+
+
 

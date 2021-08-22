@@ -1,7 +1,7 @@
 #First install devtools to allow you to install inspectdf from github
 #install and load the package - https://github.com/alastairrushworth/inspectdf
-install.packages("devtools")
-library(devtools)
+#install.packages("devtools")
+#library(devtools)
 devtools::install_github("alastairrushworth/inspectdf")
 
 library(inspectdf)   # load the package full code is available on my  github repo.
@@ -19,7 +19,8 @@ df
 # explore # dim(df)  # glimpse(df)  # summary(df)  # 
 # library(skimr)  skim(df)
 # library(visdat)   # vis_miss(df)  # vis_dat(df)
-# library(DataExplorer)  # DataExplorer::create_report(df)
+# library(DataExplorer)  # 
+DataExplorer::create_report(df)
 
 allGrades <- df
 
@@ -61,3 +62,13 @@ inspect_cor(youngGrades, oldGrades, show_plot = TRUE)
 # with my locofailures
 lf20 <- load()
 inspect_cor(lf20, show_plot = TRUE)
+
+x <- inspect_cat(df)
+x %>% show_plot()
+x %>% show_plot(high_cardinality = 1)  # lump smalls
+
+inspect_na(starwars) %>% show_plot()
+
+star_1 <- starwars %>% sample_n(50)
+star_2 <- starwars %>% sample_n(50) %>% select(-1, -2)
+inspect_na(star_1, star_2) %>% show_plot()

@@ -4,7 +4,6 @@ author     : Tyler Rinker
 mode : selfcontained
 framework: revealjs
 hitheme : zenburn
-output: # it was missing add it
 revealjs:
   theme: solarized
   transition: none
