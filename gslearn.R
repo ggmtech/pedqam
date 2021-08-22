@@ -22,9 +22,68 @@ set_values(search, hl = "fr")
 
 
 ###################################################
+
 devtools::install_github('emitanaka/anicon')
 
 ###############################################
+#########
+#basemaps is a lightweight R package to download and cache spatial basemaps from open sources such as OpenStreetMap, Carto, Mapbox and others.
+# install.packages("basemaps")    #
+devtools::install_github("16EAGLE/basemaps")
+library(basemaps)
+# similar is "ceramic"  is to obtain web map tiles. library(ceramic)
+
+data(ext)  # or use draw_ext() to interactively draw an extent yourself
+draw_ext()
+get_maptypes()  # view all available maps
+
+# set defaults for the basemap
+set_defaults(map_service = "mapbox", map_type = "satellite", map_token = "YOUR_MAPTOKEN_IF_NEEDED")
+
+# load and return basemap map as many different classes:
+basemap_plot(ext)    #> Loading basemap 'satellite' from map service 'mapbox'...
+
+basemap_mapview(ext)  #> Loading basemap 'satellite' from map service 'mapbox'...
+
+basemap_ggplot(ext)
+
+basemap_magick(ext)
+
+basemap_raster(ext)
+
+basemap_stars(ext)
+
+basemap_png(ext)
+
+basemap_geotif(ext)
+
+library(ggplot2)
+ggplot() +
+  basemap_gglayer(ext) +
+  coord_sf() +
+  scale_fill_identity()
+
+
+basemap_magick(ext, map_service = "osm", map_type = "topographic")  #> Loading basemap 'topographic' from map service 'osm'...
+basemap_magick(ext, map_service = "osm_stamen", map_type = "toner")
+basemap_magick(ext, map_service = "osm", map_type = "hike")
+basemap_magick(ext, map_service = "carto", map_type = "dark")
+basemap_magick(ext, map_service = "mapbox", map_type = "hybrid")
+basemap_magick(ext, map_service = "mapbox", map_type = "streets")
+basemap_magick(ext, map_service = "mapbox", map_type = "terrain")
+# get_maptypes() returns every supported map service and map type that can be used as input
+# draw_ext() lets you draw an extent on an interactive map.
+# set_defaults(), get_defaults() and reset_defaults() set, get or reset the defaults of all map arguments passed to basemap() or associated functions.
+# basemap() and aliases basemap_raster(), basemap_stars(), basemap_mapview(), basemap_plot(), basemap_ggplot(), basemap_gglayer(), basemap_magick(), basemap_png() and basemap_geotif()
+
+
+
+
+
+
+#############################
+# moveVis  tools to visualize movement data (e.g. from GPS tracking) and temporal changes of environmental data (e.g. from remote sensing) by creating video animations.
+
 
 ## add first six rows of iris data (and var names) into a blank sheet
 foo <- foo %>%
