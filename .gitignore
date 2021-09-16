@@ -2,7 +2,6 @@
 # All subdirectories
 */*
 */*/*
-
 # document files
 *.doc
 *.docx
@@ -10,16 +9,13 @@
 *.ods
 *.xlsx
 *.xls
-
 *.pdf
-
 # PPT , impress, keynote etc
 *.key
 *.odp
 *.pps
 *.ppt
 *.pptx
-
 # Data and database file extensions
 #*.csv
 #*.dat
@@ -31,10 +27,7 @@
 #*.sql
 *.tar
 #*.xml
-
-
 # image files 
-
 *.img
 *.png
 *.jpg
@@ -48,7 +41,6 @@
 *.svg
 *.tif
 *.tiff
-
 # Multimedia Movies files 
 *.mpg
 *.mpeg
@@ -59,19 +51,15 @@
 *.mp4
 *.wav
 *.ogg
-
 # Archive files 
 *.zip
 *.rar
 *.z
 *.tar.gz
-
 #  Binary files 
 *.bin
 *.dmg
 *.iso
-
-
 # excecutible
 *.apk
 *.bat
@@ -85,8 +73,6 @@
 *.msi
 #*.py - Python file
 *.wsf
-
-
 # Internet files
 *.asp
 *.aspx
@@ -103,7 +89,6 @@
 #*.py
 *.rss
 *.xhtml
-
 # log files
 *.bak
 *.log
@@ -116,19 +101,13 @@
 *.cpl
 *.cur
 *.dll
-
 *.drv
 *.icns
 *.msi
 *.sys
-
-
 #*.ico - Icon file
-
 # system files
 *.pyc
-
-
 # program files
 *.c
 *.cgi
@@ -142,9 +121,6 @@
 *.php
 *.swift
 *.vb
-
-
-
 # Git to not ignore this file by prefixing the file name with a ! i
 !*.R
 !*.Rmd
@@ -155,6 +131,5 @@
 !*.py
 !*.csv
 !*.sqlite
-
-
 .Rproj.user
+.httr-oauth

@@ -1,3 +1,25 @@
+
+
+library(janitor)
+data<-read.csv("D:/RStudio/Website/FinData.csv",1)
+
+clean <-clean_names(data)
+
+clean_x<-clean %>% remove_empty(whic=c("rows"))
+clean_x<-clean %>% remove_empty(whic=c("cols"))
+# Remove duplicate records
+clean %>% get_dupes(first_name)
+clean %>% get_dupes(first_name,certification)
+excel_numeric_to_date(41103)
+
+
+# https://cran.r-project.org/web/packages/fedmatch/vignettes/Intro-to-fedmatch.html
+## clean_strings(rownames) #lowercase,  names &, @, %, $ removes "," .  , tabs to spaces, rm extra spaces
+## fedmatch::merge_plus() different types of matches: exact, fuzzy, and multivar.
+
+
+
+
 # YUAM
 # Data spliting for vendor data into separate fields
 
@@ -31,6 +53,9 @@ gsheet2  =            # Mastersheet of vendor irps data
 # left join of QAM vendor master
 
 
+  
+  
+  
 str_extract_all(text, "\\{.+?\\}")
 #To only capture the text within the {}, one needs to use the regular expression's look behind and look head options.
 str_extract_all(text, "(?<=(\\{)).+?(?=\\})")

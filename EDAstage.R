@@ -1,4 +1,4 @@
-
+library(tidyverse)
 ###########################################
 # plain plots
 
@@ -7,7 +7,8 @@ data <- data.frame( A = rpois(900, 3),
                     C = runif(900) )
 
 boxplot(data)
-                    
+
+
 head(ToothGrowth)
 boxplot(ToothGrowth)
 boxplot(len~supp,
@@ -29,20 +30,16 @@ boxplot(len~dose,
 
 # in ggplot
 library(ggplot2)
-ggplot(data = ToothGrowth, aes(x=as.character(supp), y=len)) +
-    geom_boxplot(fill="orange") +
-    labs(title=" ToothGrowth ", x="Supp", y="len") + theme_bw()
-
-
-
-
+ToothGrowth %>% ggplot(   aes(x=as.character(supp), y=len)  ) +
+                geom_boxplot(  fill="orange"   ) +
+                labs(title=" ToothGrowth ", x="Supp", y="len") + theme_bw()
 
 ###############
 library(ggplot2)
 theme_set(   theme_classic()   +   theme(legend.position = "top")   )
-# demo data
+
 set.seed(1234)
-wdata = data.frame(   sex = factor(   rep(c("F", "M"),  each=200)   ),
+wdata = data.frame(   sex = factor(   rep(c("F", "M"),  each=200)   ),     ## demo data
                    weight = c( rnorm(200, 55),  rnorm(200, 58)   )    )
 
 # line color by sex , change fill and outline color manually 
@@ -50,8 +47,7 @@ wdata  %>% ggplot( aes(x = weight)) +
            geom_histogram(  aes(color = sex, fill = sex), 
                             position = "identity", 
                             bins = 30, 
-                            alpha = 0.4
-                                            )  +
+                            alpha = 0.4   )  +
            scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
            scale_color_manual(values = c("#00AFBB", "#E7B800")) 
 
@@ -80,12 +76,7 @@ df <- mtcars %>%
   mutate(am = as.factor(am))
 df
 
-
 # How to Create a GGPlot-like 3D Scatter Plot using Plotly
-
-library(tidyverse)
-library(plotly)
-
 df <- mtcars %>%
   rownames_to_column() %>%
   as_data_frame() %>%
@@ -95,15 +86,13 @@ df
 
 # Basic 3D Scatter Plot
 # Create the plot
-p <- plot_ly(
-  df, x = ~wt, y = ~hp, z = ~qsec, 
-  color = ~am, colors = c('#BF382A', '#0C4B8E')
-) %>%
-  add_markers() %>%
-  layout(
-    scene = list(xaxis = list(title = 'Weight'),
-                 yaxis = list(title = 'Gross horsepower'),
-                 zaxis = list(title = '1/4 mile time'))
+p <- plot_ly( df, x = ~wt, y = ~hp, z = ~qsec, 
+              color = ~am, colors = c('#BF382A', '#0C4B8E')
+            ) %>%
+      add_markers() %>%
+      layout( scene  = list(xaxis = list(title = 'Weight'),
+               yaxis = list(title = 'Gross horsepower'),
+               zaxis = list(title = '1/4 mile time'))
   )
 p
 
@@ -119,27 +108,26 @@ df %>%  plot_ly( x = ~wt, y = ~hp, z = ~qsec, marker = marker) %>%
                  zaxis = list(title = '1/4 mile time') )
       )  
 
-
-
 # create icon 
 # Helper theme for ggplot icon
-theme_icon <- function () {  theme_void() + 
-                            theme( panel.background = element_rect(fill = "transparent", colour = NA), 
-                                   plot.background = element_rect(fill = "transparent", colour = NA), 
-                                   legend.background = element_rect(fill = "transparent", colour = NA), 
-                                   legend.box.background = element_rect(fill = "transparent", colour = NA) )
+theme_icon <- function () {  
+                  theme_void() + 
+                  theme( panel.background = element_rect(fill = "transparent", colour = NA), 
+                          plot.background = element_rect(fill = "transparent", colour = NA), 
+                        legend.background = element_rect(fill = "transparent", colour = NA), 
+                    legend.box.background = element_rect(fill = "transparent", colour = NA) )
                             }
 
-library(ggplot2)
 # Create an icon form a ggplot graphic
 p <- ggplot(iris, aes(Species, Sepal.Length)) + 
   geom_boxplot(color = "#478bca", fill = "transparent") +
   theme_icon()
-# Save the icon into a 72x72 pixel png or svg format:
-# SVG
-?ggsave(   filename = "figures/boxplot-icon_72px.svg", p, dpi=72, width = 1, height = 1   )
+p
+
+# Save into a 72x72 pixel png or svg format for the icon:
+ggsave( filename = "test.svg", p, dpi=72, width = 1, height = 1   )
 # PNG
-?ggsave(  filename = "figures/boxplot-icon_72px.png", p,  dpi=72, width = 1, height = 1, bg = "transparent" )
+ggsave(  filename = "test.png", p,  dpi=72, width = 1, height = 1, bg = "transparent" )
 
 
 #  Hex sticker
@@ -343,6 +331,71 @@ DataExplorer::plot_bar(web,with = c("home"), maxcat = 20, parallel = TRUE)
 DataExplorer::create_report(web)
 
 
+
+library(tidyverse)
+starwars
+starwars %>% group_by(eye_color) %>% tally() # or
+starwars %>% count(sex, eye_color)
+starwars %>% add_count(eye_color, wt = birth_year) # mutating add_count
+starwars %>% add_tally(wt = birth_year)
+
+
+#if (!require(devtools)) install.packages("devtools")
+devtools::install_github("boxuancui/DataExplorer")
+library(DataExplorer)
+create_report(airquality)              # To get a report for the airquality dataset:
+create_report(diamonds, y = "price")   # To get a report for the diamonds dataset with response variable price:
+
+# You may also run each function individually for your analysis, e.g.,
+
+
+introduce(airquality)           ## View basic description for airquality data
+plot_intro(airquality)          ## Plot basic description for airquality data
+plot_missing(airquality)        ## View missing value distribution for airquality data
+plot_bar(diamonds)                 ## Left: frequency distribution of all discrete variables
+plot_bar(diamonds, with = "price") ## Right: `price` distribution of all discrete variables
+plot_bar(diamonds, by = "cut")     ## View frequency distribution by a discrete variable
+plot_histogram(diamonds)        ## View histogram of all continuous variables
+plot_density(diamonds)          ## View estimated density distribution of all continuous variables
+plot_qq(diamonds)               ## View quantile-quantile plot of all continuous variables
+plot_qq(diamonds, by = "cut")   ## View qq plot of all continuous variables by feature `cut`
+plot_correlation(diamonds)      ## View overall correlation heatmap
+plot_boxplot(diamonds, by = "cut")    ## View bivariate continuous distribution based on `cut`
+
+plot_scatterplot(split_columns(diamonds)$continuous, by = "price", sampled_rows = 1000L)## Scatterplot `price` with all other continuous features
+plot_prcomp(diamonds, maxcat = 5L)           ## Visualize principal component analysis
+
+# To make quick updates to your data:
+group_category(diamonds, feature = "clarity", threshold = 0.2, update = TRUE) ## Group bottom 20% `clarity` by frequency
+group_category(diamonds, feature = "clarity", threshold = 0.2, measure = "price", update = TRUE) ## Group bottom 20% `clarity` by `price`
+dummify(diamonds)                    ## Dummify diamonds dataset
+dummify(diamonds, select = "cut")
+
+
+df <- data.frame("a" = rnorm(260), "b" = rep(letters, 10))  ## Set values for missing observations
+df[sample.int(260, 50), ] <- NA
+set_missing(df, list(0L, "unknown"))
+
+## Update columns
+update_columns(airquality, c("Month", "Day"), as.factor)
+update_columns(airquality, 1L, function(x) x^2)
+
+## Drop columns
+drop_columns(diamonds, 8:10)
+drop_columns(diamonds, "clarity")
+
+###########
+library(tidyverse)
+library(timetk)
+walmart_sales_weekly
+
+walmart_sales_weekly %>%
+  group_by(Store, Dept) %>%
+  tk_anomaly_diagnostics(Date, Weekly_Sales)
+
+walmart_sales_weekly %>%
+  group_by(Store, Dept) %>%
+  plot_anomaly_diagnostics(Date, Weekly_Sales, .facet_ncol = 2)
 
 
 

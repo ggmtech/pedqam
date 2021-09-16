@@ -5,18 +5,12 @@ data <- data.frame(  x = runif(20),
 
 ##########################
 library(ggfortify)
-
 library(survival)
 library(survminer)
-
 library(KMsurv)
-
-
 library(flexsurv)
-
 library(Epi)
 library(epitools)
-
 library(plotly)
 library(cowplot)
 library(Cairo) # problems in Cairo
@@ -26,7 +20,7 @@ library(Cairo) # problems in Cairo
 orca <- read.table("http://www.stats4life.se/data/oralca.txt")
 head(orca)
 str(orca)
-summary(orca)  # gimplse
+summary(orca)  # glimpse
 
 
 ### Draw line diagram
@@ -357,7 +351,7 @@ sapply(pkg, require, character.only = TRUE)
 
 # Install and load the survival package
 
-install.packages("survival")
+#install.packages("survival")
 library(survival)
 
 # sort the aml data by time

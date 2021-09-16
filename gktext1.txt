@@ -1,4 +1,47 @@
+
 This is emacs
 
+# the sejda software to combine pdf with retaining links:
+sejda-console merge -b retain -f Downloads/DataReport_front.pdf Downloads/WDR2020.pdf Downloads/DataReport_back.pdf -o WDR2.pdf -s all:2-71:all
 
 
+# plot Weibull distribution in R.
+dweibull(x, shape, scale = 1) #to create the probability density function.
+curve(function, from = NULL, to = NULL) #to plot the probability density function.
+# Weibull distribution based on parameters shape = 2 and scale = 2 where the x-axis of the plot ranges from 0 to 5:
+
+curve(dweibull(x, shape=2, scale = 2), from=0, to=5,
+    main = 'Weibull Distribution (shape = 2, scale = 2)',
+    ylab = ' dWeibull gives the density',
+    lwd = 2,
+    col = 'pink')
+    
+# Let’s see how to add more than one curve in the same plot
+curve(dweibull(x, shape=2, scale = 2), from=0, to=5,
+    main = 'Weibull Distribution',
+    ylab = ' dWeibull gives the density',
+    lwd = 2,
+    col = 'pink')
+curve(dweibull(x, shape=1.5, scale = 2), from=0, to=5, col='green', add=TRUE)
+
+
+
+# Presentations
+# https://bookdown.org/martin_monkman/DataScienceResources_book/presentations.html 
+# Art of slide design presentation miss geaky Milinda sackington
+# https://speakerdeck.com/mseckington/the-art-of-slide-design?slide=117
+# # https://kieranhealy.org/blog/archives/2018/03/24/making-slides/  # many ideas
+
+
+# read to set emacs
+# https://kieranhealy.org/blog/archives/2018/03/24/making-slides/
+# https://kieranhealy.org/resources/emacs-starter-kit/  # good
+# 
+# 
+# 
+
+
+
+
+    
+    

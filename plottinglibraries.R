@@ -114,8 +114,9 @@ sp + stat_density_2d(   aes(fill = ..level..), geom="polygon")  +  # Change the 
      scale_fill_gradient(low="blue", high="red")
 
 # One ellipse arround all points
-faithful %>% ggplot( aes(waiting, eruptions)) +  geom_point() +
-       stat_ellipse()   # One ellipse arround all points
+faithful %>% ggplot( aes(waiting, eruptions)) +  
+             geom_point() +
+             stat_ellipse()   # One ellipse arround all points
 # Ellipse by groups
 p <- ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3)) +      geom_point()
 p
@@ -154,10 +155,6 @@ grid.arrange( xdensity,
               ydensity,  
               ncol=2, nrow=2, 
               widths=c(4, 1.4), heights=c(1.4, 4))
-
-
-
-
 
 #### bubble charts
 
@@ -871,8 +868,11 @@ ggplot() +   geom_waffle(data =  waffle_data, aes(x, y, fill = group))
 library(emojifont)  
 library(dplyr)
 
+fa_list()
+
 iris$Species <- as.character(iris$Species)
-waffle_data  <- waffle_iron(iris, aes_d(group = Species)) %>% mutate(label = fontawesome('fa-twitter'))
+waffle_data  <- waffle_iron(iris, aes_d(group = Species)) %>% 
+                 mutate(label = fontawesome('fa-twitter'))
 
 ggplot(waffle_data, aes(x, y, colour = group)) + 
   geom_text(aes(label=label), family='fontawesome-webfont', size=4) +
@@ -1279,7 +1279,7 @@ personograph(data,  colors = list(first = "red", second = "lightgrey"),
 
 ################################ 
 # shenkey by panta rhei everything flows
-library(pentarhai)
+library(PantaRhei)
 # https://cran.r-project.org/web/packages/PantaRhei/vignettes/panta-rhei.html
 # Sankey diagrams visualize the flow of conservative substances through a system. ‘PantaRhei’
 # ‘PantaRhei’ simple syntax using data in tables, spread sheets produce publication-quality diagrams.
@@ -1464,3 +1464,25 @@ labs(
   )
 
 g2
+
+
+################
+################
+# Calander plot
+#install.packages(calendR)
+library(calendR)
+
+# Data
+set.seed(2)
+data <- rnorm(365)
+
+# Vertical calendar
+calendR(year = 2021,
+        special.days = data,
+        
+        low.col = "#FCFFDD",
+        special.col = "#00AAAE",
+        gradient = TRUE,
+        legend.pos = "right",
+        orientation = "portrait")
+

@@ -162,7 +162,8 @@ packages <- c("tidyverse", "lubridate", "readxl", "writexl","stringr",
               "cowplot", # "ggpubr", 
               "scales",  "timetk",
               "summarytools",  
-              "googledrive",  "googlesheets4", 
+              "googledrive",  
+              "googlesheets4", 
               "knitr",  "kableExtra",
               "fuzzyjoin",
               "alluvial", "ggalluvial")
@@ -201,7 +202,7 @@ library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
 
 
 
-```{r getdatas, include=TRUE, eval=TRUE, echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7 , cache=TRUE}
+```{r getdatas, include=TRUE, eval=FALSE, echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7 , cache=TRUE}
 
 #ss2 = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
 #ss1 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
@@ -209,15 +210,14 @@ library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
 # need rvest opencases = read_sheet(ss5)
 #itemmaster <- read_sheet(ss1, "ItemMaster2021")
 #itemmaster
-# newvendors <- read_sheet("https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=526290481", sheet = 7 )
+newvendors <- read_sheet("https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=526290481", sheet = 7 )
 
 ss <- "https://docs.google.com/spreadsheets/d/10aeSJpy43V-Ou2caF5cl5njxjV7bxkZXIFaUz6F3W0Q/edit#gid=80354961"
 sheet = 1
-empaddata1 <- read_sheet(   ss,   "MCtests",    #sheet = NULL,  
+empaddata1 <- read_sheet(  ss,   sheet = NULL,  
                            skip = 1, range = NULL,
                            col_names = TRUE,  col_types = NULL, trim_ws = TRUE,
-                           na        = " ",     
-                          .name_repair = "unique" 
+                           na        = " "  #,     .name_repair = "unique" 
                         )
 
 empaddata2 <- read_sheet(ss, 2)  
@@ -230,11 +230,11 @@ itemmaster
 
 ```
 
-```{r printable1, include=TRUE, eval=TRUE, echo=FALSE, message = FALSE,  warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7, cache=TRUE}
+```{r printable1, include=TRUE, eval=FALSE, echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7, cache=TRUE}
 
 empaddata1  %>%
   kbl(caption = "Recreating booktabs style table") %>%
-#  kable_classic(full_width = F) %>%
+  kable_classic(full_width = F) %>%
   kable_paper(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "10em")
@@ -274,46 +274,6 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 
 landscape(knitr::kable(head(mtcars), "latex"))
 
-```
-
-```{r printable4, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
-
-
-empaddata4  %>%
-  kbl(caption = "Recreating booktabs style table") %>%
-#  kable_classic(full_width = F) %>%
-  kable_paper(full_width = F) %>%
-  column_spec(1, bold = T, border_right = T) %>%
-  column_spec(2, width = "10em")
-
-```
-
-```{r printable5, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
-
-
-empaddata5  %>%
-  kbl(caption = "Recreating booktabs style table") %>%
-#  kable_classic(full_width = F) %>%
-  kable_paper(full_width = F) %>%
-  column_spec(1, bold = T, border_right = T) %>%
-  column_spec(2, width = "10em")
-
-
-# mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
-# ggplot(mtcars2, aes(hp, mpg, color = am)) +   geom_point() + geom_smooth() +  theme(legend.position = 'bottom')
-```
-
-
-```{r printablelandwrong5, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
-kableExtra::kbl(dt, caption = "Demo Table (Landscape)[note]", booktabs = T) %>%
-kable_styling(latex_options = c("hold_position")) %>%
-add_header_above(c(" ", "Group 1[note]" = 3, "Group 2[note]" = 3)) %>%
-add_footnote(c("This table is from mtcars",
-"Group 1 contains mpg, cyl and disp",
-"Group 2 contains hp, drat and wt"),
-notation = "symbol") %>%
-pack_rows("Group 1", 4, 5) %>%
-landscape()
 ```
 
 

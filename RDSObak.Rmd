@@ -4,7 +4,7 @@ subtitle: "Total items 638"
 author: "PED/QAM/RDSO"
 date: "`r format(Sys.time(), '%d %B, %Y')`" # " needs escape but not `r format(Sys.time(), "%I:%M")`  or "`r Sys.Date()`"
 output: 
-  bookdown::pdf_document2:
+  pdf_document:
     keep_tex: yes
     latex_engine: xelatex
     toc: true

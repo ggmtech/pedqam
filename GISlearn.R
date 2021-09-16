@@ -1,10 +1,26 @@
-packages <- c("tidyverse", , "readxl", "lubridate",
+# Plot india wrongmap
+library("ggmap")
+us <- c(left = -125, bottom = 25.75, right = -67, top = 49)
+get_stamenmap(us, zoom = 5, maptype = "toner-lite") %>% ggmap() 
+#  Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.
+#  
+India <- c(left = 63, bottom = 5, right = 100, top = 40)
+get_stamenmap(India, zoom = 5, maptype = "toner-lite") %>% ggmap() 
+#  Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.
+
+
+
+
+
+
+
+packages <- c("tidyverse", "readxl", "lubridate",
               "broom", "coefplot", "cowplot", "drat",
               "ggfortify", "DT", "knitr",
               "ggpubr","scales", "GGally", "ggrepel", "ggridges",
               "viridis", "viridisLite", "devtools", "ggforce", "ggraph",
               "sf",
-              "summarytools",
+               #,
               "graphlayouts", "gridExtra", "here", "interplot", "margins",
               "maps", "mapproj", "mapdata", "MASS", "naniar", "prismatic",
               #"quantreg", "rlang", "scales", "socviz", "survey", "srvyr",
@@ -18,7 +34,7 @@ packages <- c("tidyverse", , "readxl", "lubridate",
               #"assist", "ggstatsplot",  "styler", "remedy",
               #"snakecaser", "addinslist", "esquisse", "here",
               #"funModeling", "pander", "cluster"
-              )
+              "summarytools" )
 # Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
@@ -35,15 +51,15 @@ my_packages <- c("tidyverse", "broom", "coefplot", "cowplot", "drat",
 # install.packages(my_packages, repos = "http://cran.rstudio.com")
 
 # spatial
-install.packages(c("sf", "tmap", "mapview", "raster", "dplyr"))
-install.packages(c("tidycensus", "FedData", "rnaturalearth", "osmdata", "OpenStreetMap", "shinyjs", "rmapshaper"))
+#install.packages(c("sf", "tmap", "mapview", "raster", "dplyr"))
+#install.packages(c("tidycensus", "FedData", "rnaturalearth", "osmdata", "OpenStreetMap", "shinyjs", "rmapshaper"))
 # Some packages may require {rJava} which is not always straightforward to install: install.packages("rJava")
 
 #If You want, visualize missings with naniar package
 library(naniar)
 gg_miss_var(task$data(), show_pct = TRUE)
-
-
+gg_miss_var(mtcars)
+data
 ################
 # Installing spatial R packages on Ubuntu Robin Lovelace 30 March 2020
 # installing gis in ubuntu
@@ -53,18 +69,14 @@ gg_miss_var(task$data(), show_pct = TRUE)
 # sudo apt install libudunits2-dev libgdal-dev libgeos-dev libproj-dev libfontconfig1-dev # install system dependencies:
 # sudo apt install r-base-dev r-cran-sf r-cran-raster r-cran-rjava # binary versions of key R packages:
 
-library(sf)
-#> Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
-install.packages("tmap")
-update.packages()
+library(sf) #> Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
+#install.packages("tmap")
+#update.packages()
 
 #sudo apt-get update # see if things have changed
 ################################### tidygeocoder
-
 #https://www.r-bloggers.com/2021/04/tidygeocoder-1-0-3/
-
-
-library(tidyverse, warn.conflicts = FALSE)
+#library(tidyverse, warn.conflicts = FALSE)
 library(tidygeocoder)
 library(knitr)
 library(leaflet)
@@ -78,6 +90,10 @@ set.seed(103) # for reproducibility
 lat_limits <- c(40.40857, 40.42585)
 long_limits <- c(-3.72472, -3.66983)
 
+# India <- c(left = 63, bottom = 5, right = 100, top = 40)
+lat_limits <- c(5, 40)
+long_limits <- c(63, 100)
+
 # randomly sample latitudes and longitude values
 random_lats  <- runif( num_coords,   min = lat_limits[1],  max = lat_limits[2] )
 random_longs <- runif( num_coords,   min = long_limits[1], max = long_limits[2] )
@@ -85,12 +101,13 @@ random_longs <- runif( num_coords,   min = long_limits[1], max = long_limits[2] 
 # Reverse geocode the coordinates
 # the speed of the query is limited to 1 coordinate per second to comply
 # with Nominatim's usage policies
-madrid <- reverse_geo(
-  lat = random_lats, random_longs,
-  method = 'osm', full_results = TRUE,
-  custom_query = list(extratags = 1, addressdetails = 1, namedetails = 1)
-)
-
+madrid <- reverse_geo( lat = random_lats, 
+                        random_longs,
+                       method = 'osm', 
+                       full_results = TRUE,
+                       custom_query = list(extratags = 1, addressdetails = 1, namedetails = 1)
+                      )
+madrid
 
 
 # Create html labels
@@ -100,8 +117,8 @@ madrid_labelled <- madrid %>%
     lat,
     long,
     label = str_c(
-      ifelse(is.na(name), "", glue("<b>Name</b>: {name}<br>")),
-      ifelse(is.na(suburb), "", glue("<b>Suburb</b>: {suburb}<br>")),
+      ifelse(is.na(name),    "", glue("<b>Name</b>: {name}<br>")),
+      ifelse(is.na(suburb),  "", glue("<b>Suburb</b>: {suburb}<br>")),
       ifelse(is.na(quarter), "", glue("<b>Quarter</b>: {quarter}")),
       sep = ''
     ) %>% lapply(htmltools::HTML)
@@ -193,21 +210,21 @@ library(rmapshaper)
 ??rmapshaper
 
 dataset <- read.csv(file = "dataset_res.csv", stringsAsFactors = FALSE, encoding = 'latin1') %>%
-    select(Codigo_IBGE, Sigla_Estado, cidade, longitude, latitude, Data, Total_Exames, Total_positivos, Indice_Positividade)
+           select( Codigo_IBGE, Sigla_Estado, cidade, longitude, latitude, Data, 
+                  Total_Exames, Total_positivos, Indice_Positividade )
+
 dataset$Data <- as.Date(dataset$Data)
 dataset$Codigo_IBGE <- as.character(dataset$Codigo_IBGE)
 
 # for one day first
-dataset1 <- dataset %>%
-    filter(Data == as.Date('2020-03-10'))
+dataset1 <- dataset %>%  filter(Data == as.Date('2020-03-10'))
 
 data_uf <- st_read('br_unidades_da_federacao', layer = 'BR_UF_2019')
 # plot(data_uf)
 
 # Summarise by UF
-dataset1 <- dataset1 %>%
-    group_by(Sigla_Estado) %>%
-    summarise(Total_positivos = sum(Total_positivos, na.rm = TRUE))
+dataset1 <- dataset1 %>%  group_by(Sigla_Estado) %>%
+             summarise(Total_positivos = sum(Total_positivos, na.rm = TRUE))
 
 data_uf <- data_uf %>% ms_simplify(keep = 0.1)
 #plot(data_uf)
@@ -239,7 +256,6 @@ leaflet(casos) %>%
 #devtools::install_github("Nowosad/spDataLarge")
 library(dplyr)
 library(stringr) # for working with strings (pattern matching)
-
 
 library(sf)          # classes and functions for vector data
 library(raster)      # classes and functions for raster data

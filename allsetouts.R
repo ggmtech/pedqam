@@ -1,4 +1,3 @@
-
 ## setouts 2014-15, 2016, 2017, 2018,  2019 Analysis  ########################################### 
 library(tidyverse)
 library(lubridate)
@@ -15,10 +14,8 @@ ls()  # list.files()
 library(readxl)
 ls("/Users/gk/Google Drive/setouts1819final.csv")
 list.files("/Users/gk/Google Drive/setouts1819final.csv")
-setoutbak <- readxl::read_xlsx("/Users/gk/Google Drive/setouts1819final.csv", sheet = 1)
-
-
-setoutbak <- read_csv("/Users/gk/Google Drive/setouts1819final.csv") #  OK !
+#?setoutbak <- readxl::read_xlsx("/Users/gk/Google Drive/setouts1819final.csv", sheet = 1)
+setoutbak   <- read_csv("/Users/gk/Google Drive/setouts1819final.csv") #  OK !
 setoutbak
 # write_excel_csv(x, path, na = "NA", append = FALSE, col_names = !append)
 
@@ -31,51 +28,6 @@ setoutbak
 
 
 ########### DATA from gs_read ###############
-library(googlesheets)   
-gs_auth()                           # gs_auth(new_user = TRUE)
-gs_user()                           # current user 
-
-gs_ls("setout")                     # list the worksheets containing "setout"                                   
-gs_ls("set")$`sheet_title`          # gives name of files
-gs_ls("setout")[ 1, 1]              # error ?
-gs_ls("all")[[1]] 
-# gs handle with_title(), gs_url(), gs_gs(), gs_key(), get key extract_key_from_url()
-# gs_ws_(ls, new, rename, modify, delete, resize, feed )
-# explore str, glimpse, typeof(), class(), glimpse(),
-# extract_key_from_url(URL), gs_key(URL),  gs_url()  # gs_browse(ss = setouts1718, ws = "setouts1718" )
-# lf17handle        <- gs_url("https://docs.google.com/spreadsheets/d/1LXx._0K9U/edit#gid=0")
-
-allsetoutshandle   <-   gs_title("allsetouts1419"  )      # gs by title
-
-allsetoutshandle
-# range = "R1C1:R4C3" | "B3:F80" | cell_cols(1:4) | cell_limits(  c(1, 4), c(5, NA) | cell_rows(1:1000) )
-# locale, trim_ws, na, comment, n_max
-
-#?setout1819dataraw  <-   gs_read(ss = allsetoutshandle,   ws = 1 , skip = 1, col_names = TRUE,verbose = TRUE) %>% rowid_to_column()
-setout1819dataraw  <-   gs_read(ss = allsetoutshandle,   ws = 1 , skip = 1, col_names = TRUE,verbose = TRUE) %>% rowid_to_column()
-setout1718dataraw  <-   gs_read(ss = allsetoutshandle,   ws = 2 , skip = 1, col_names = TRUE,verbose = TRUE) %>% rowid_to_column()
-setout1617dataraw  <-   gs_read(ss = allsetoutshandle,   ws = 3 , skip = 1, col_names = TRUE,verbose = TRUE) %>% rowid_to_column()
-setout1516dataraw  <-   gs_read(ss = allsetoutshandle,   ws = 4 , skip = 1, col_names = TRUE,verbose = TRUE) %>% rowid_to_column()
-setout1415dataraw  <-   gs_read(ss = allsetoutshandle,   ws = 5 , skip = 1, col_names = TRUE,verbose = TRUE) %>% rowid_to_column()
-
-## data view and compare columns
-setout1819dataraw  %>% View()    # explore and match columns
-a = colnames(setout1819dataraw) ; b = colnames(setout1718dataraw)
-setdiff(b,a)  ;  setdiff(a,b)  ; intersect(a,b)  # common in a and b
-
-# rectify wrong dates formats in data of year 2018-19
-setout1819dataraw %>% filter(rowid < 3041 ) %>%  mutate( Date = dmy(Date) , `PL-DATE` = dmy(`PL-DATE`) ) -> lf18a  #,  
-setout1819dataraw %>% filter(rowid > 3040 ) %>%  mutate( Date = mdy(Date) , `PL-DATE` = mdy(`PL-DATE`) ) -> lf18b  # problems(lf18b)
-lf18 <- rbind(lf18a,lf18b)
-
-setout1819dataraw  %>% str()
-setout1819dataraw %>% filter(!is.na(Date)) %>%      # ifelse makes factors lose their levels and Dates  their class
-                      mutate( Date2 = if_else(rowid < 3041,   dmy(Date) ,   mdy(Date)    ) 
-                             )  ->  lf18test  #,  
-lf18test %>% select(rowid, Date, Date2) %>% filter( is.na(Date2)  )  %>% View()
-lf18test %>% filter(is.Date(Date)) %>% View()
-
-
 #########################################################################################
 #### Year wise Data view and standardisation ############################################
 lf18   %>% View() 
@@ -345,7 +297,6 @@ plot_bar(nrshedsetouts)
 plot_correlation(na.omit(nrshedsetouts), maxcat = 5L)
 
 data_list <-  list( nrshedsetouts,  setoutdata1415clean )   # list of databases to visualise structure
-plot_str( data_list )
 
 # install.packages("ExPanDaR")
 # library(ExPanDaR) interactive no use
@@ -885,7 +836,7 @@ View(setouts1819)
 library(survival)   # essential for fitting
 library(survminer)  # for cutomisable plot with table
 lung
-fit <- survfit(Surv(time, status) ~ 1, data = lung)
+fit <- survfit( Surv(time, status) ~ 1, data = lung)
 # Drawing curves
 ggsurvplot(fit, color = "#2E9FDF")
 
@@ -1524,7 +1475,7 @@ ggplot(vaccinations,
     geom_text(stat = "stratum")
 
 # time series alluvia of WorldPhones data  # not wow
-wph <- as.data.frame(as.table(WorldPhones))
+wph        <- as.data.frame(as.table(WorldPhones))
 names(wph) <- c("Year", "Region", "Telephones")
 ggplot(wph,  aes(x = Year, alluvium = Region, y = Telephones)) +
     geom_flow(aes(fill = Region, colour = Region), width = 0)
@@ -1558,7 +1509,7 @@ ggdendrogram(hc, rotate=TRUE)
 hcdata <- dendro_data(hc)
 ggdendrogram(hcdata, rotate=TRUE) + labs(title="Dendrogram in ggplot2")
 
-# alluvial
+
 library(alluvial)
 
 lf18 %>% group_by( Terrotory, SHED, RLY) %>%  count(SHED)-> locof

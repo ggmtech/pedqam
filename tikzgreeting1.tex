@@ -1,0 +1,31 @@
+\documentclass[border=2pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{calligra}
+\usepackage{pgfornament}
+\usetikzlibrary{calc}
+\begin{document}
+\centering
+\begin{tikzpicture}[
+    every node/.style ={inner sep=0pt},
+    pgfornamentstyle/.style={color=green!50!black,fill=green!80!black}]
+\node[text width=8cm,outer sep=1.2cm,text centered,color=red!90! black](Greeting)
+{\calligra \Huge% 
+Wish  a Very Happy New Year to all \\
+\normalfont \normalsize IRSME leagures and \\ IRMS members \\
+%\calligra \Huge   ! \\
+\pgfornament[color=red!90!black,width=4cm]{72}};
+
+\foreach \corner/\sym in {north west/none, north east/v, south west/h, south east/c}{
+\node[anchor=\corner](\corner)
+at(Greeting.\corner)
+{\pgfornament[width=2cm,symmetry=\sym]{63}};}
+\path(north west)--(south west)
+node[midway, anchor=east]
+{\pgfornament[height=2cm]{9}}
+(north east)--(south east)
+node[midway,anchor=west]
+{\pgfornament[height=2cm, symmetry=v]{9}};
+\pgfornamenthline{north west}{north east}{north}{87}
+\pgfornamenthline{south west}{south east}{south}{87}
+\end{tikzpicture}
+\end{document}

@@ -1,4 +1,86 @@
+# install.packages("remotes")
+remotes::install_github("gadenbuie/xaringanExtra")
+
+library(tidymodels)
+library(modeltime)
+library(tidyverse)
+library(timetk)
+
+data_tbl <- walmart_sales_weekly %>%
+            select(id, Date, Weekly_Sales) %>%   
+            set_names(c("id", "date", "value"))
+data_tbl
+
+
+data_tbl %>% group_by(id) %>%
+             plot_time_series(  date, 
+                                value, 
+                                .interactive = F, 
+                                .facet_ncol = 2
+                              )
+
+# Nested Data Structure: Most critical to ensure your data is prepared (covered next)
+# Nested Modeltime Workflow: create many models, fit models to data, and generate forecasts at scale
+# conceptually combine nested data and tidymodels workflows using  modeltime_nested_fit().
+
+# Extending each of the times series: How far into the future    extend_timeseries().
+# Nesting by the grouping variable: nested structure. identify the ID column that separates each time series, and the number of timestamps to include in the “.future_data” and optionally “.actual_data”. Typically,  select the same .length_future as your extension from previous step. See nest_timeseries().
+
+# take your .actual_data and Train/Test Set Splitting:into train/test splits for accuracy and CI estimation. See split_nested_timeseries().
+
+nested_data_tbl <- data_tbl %>%
+  # 1. Extending: We'll predict 52 weeks into the future.
+  extend_timeseries(
+                    .id_var        = id,
+                    .date_var      = date,
+                    .length_future = 52       ) %>%
+  # 2. Nesting: We'll group by id, and create a future dataset
+  #    that forecasts 52 weeks of extended data and
+  #    an actual dataset that contains 104 weeks (2-years of data)
+  nest_timeseries(
+                    .id_var        = id,
+                    .length_future = 52,
+                    .length_actual = 52*2
+  ) %>%
+  
+  # 3. Splitting: We'll take the actual data and create splits
+  #    for accuracy and confidence interval estimation of 52 weeks (test)
+  #    and the rest is training data
+  split_nested_timeseries(.length_test = 52 )
+
+nested_data_tbl
+
+rec_prophet <- recipe(value ~ date, training(nested_data_tbl$.splits[[1]])) 
+
+wflw_prophet <- workflow() %>%
+  add_model(
+    prophet_reg("regression", seasonality_yearly = TRUE) %>% 
+      set_engine("prophet")
+  ) %>%
+  add_recipe(rec_prophet)
+
+
+
+
+
+
+
+
+
+
+
+
 #notes
+
+
+str1 <- "My Friend is coming on july 10 2018 or 10/07/2018"
+
+library(anytime)
+library(stringr)
+anydate(str_extract_all(str1, 
+                        "[[:alnum:]]+[ /]*\\d{2}[ /]*\\d{4}")[[1]])  
+#[1] "2018-07-10" "2018-10-07"
+
 
 
 # md

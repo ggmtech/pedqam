@@ -1,0 +1,1451 @@
+---
+title: "Shiny September"
+subtitle: "Making an interactive web app with R"
+author: "<br><br>Emi Tanaka&nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext='&nbsp;@statsgen')`"
+date: "<br>2018/09/19<br><br>`r anicon::faa('link', animate='vertical', rtext='&nbsp;bit.ly/rladies-sydney-shiny', color='yellow')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu", "assets/ninpo.css", "assets/custom.css"]
+    seal: true 
+    self_contained: false
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+livedemosign <- function(top, left, deg) {
+  htmltools::div("Live Demo!", class="faa-flash animated",
+                 style=glue::glue("border:solid; border-color:black; position:absolute; top:{top}%; left:{left}%; font-size:36px; padding:4px; background-color:white; color:black;transform:rotate({deg}deg);")
+                 )
+}
+
+```
+
+
+layout: true
+class: shuriken-300 white
+
+.blade1.bg-main1[.content.vmiddle.center[
+## There are a lot of debate around .yellow[tableau] vs. .yellow[Power BI] for data visualisation without much need for coding.
+]]
+.hole[.content.nopadding.black.center[
+## Tableau vs. Power BI
+]]
+.blade2.bg-light-blue[.content.center.vmiddle[
+![](images/tableau.ai)
+]]
+.blade3.bg-yellow.color-main1[.content.vmiddle.center[
+{{content}}
+]]
+.blade4.bg-light-blue[.content[
+]]
+
+---
+
+{{content}}
+
+--
+
+## But if you know coding, you can use `r icon::fa("r-project")` to easily make an interactive web app 
+
+{{content}}
+
+--
+
+# for FREE.
+
+---
+
+layout: true
+class: shuriken-reverse-100 
+
+.blade1.bg-main1[.content.vmiddle.center[
+## You won't be able to learn or do all the task today!
+]]
+.blade2.bg-light-blue[.content.white.vmiddle.center[
+`r anicon::nia("G", size=4)`<br>
+`r anicon::nia("O", size=4)`<br>
+`r anicon::nia("!", size=4)`
+]]
+.hole.bg-black[.content.center.nopadding[
+<img src="images/letsgetstarted.gif" height="500px">
+]]
+.blade3.bg-yellow[.content.vmiddle.center.color-main1[
+## I hope that tonight will motivate you to start. **Persist** and you can do it!
+]]
+.blade4.bg-light-blue[.content.vmiddle.white.center[
+`r anicon::nia("L", size=4)`<br>
+`r anicon::nia("E", size=4)`<br>
+`r anicon::nia("T", size=4)`<br>
+`r anicon::nia("'", size=4)`<br>
+`r anicon::nia("S", size=4)`
+]]
+
+---
+
+class: hide-blade2 hide-blade3 hide-blade4 hide-hole
+
+---
+
+class: hide-blade2 hide-blade4 hide-hole
+count: false
+
+---
+
+count: false
+
+---
+
+layout: true
+class: split-10 with-thick-border border-gray
+
+.row.center[.content.vmiddle[
+# A Plan but not the Plan
+]]
+.row[.content[
+.split-three[
+.column.bg-main1[.content[
+.center[
+# R Markdown
+]
+.font2[
+* Simple markdown syntax.
+* Analyse. Share. Reproduce. 
+]
+.center[
+### `flexdashboard`
+]
+[.img-fill.nopadding[![](images/flexdashboard.png)]](https://jjallaire.shinyapps.io/shiny-crandash/)
+]]
+.column.bg-main1[.content[
+.center[
+# Plotly
+]
+```{r, eval=F}
+library(plotly)
+plot_ly(cars, 
+        x = ~dist, 
+        y = ~speed)
+```
+.center[
+### `plotly` (+ `ggplot2`)
+]
+```{r, include=F}
+pg <- plot_ly(cars, x = ~dist, y = ~speed, width=400, height=300)
+htmltools::save_html(pg, file="first_plotly.html") 
+```
+<div class="nopadding">
+<iframe src="first_plotly.html" width="100%" height="320px" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
+</div>
+]]
+.column.bg-main1[.content[
+.center[
+# Shiny
+]
+.font2[
+* Interactive web app
+]
+.center[
+### `shiny`
+### `shinydashboard`
+]
+.img-fill.nopadding[![](images/caigexplorer.gif)]
+]]
+]]]
+
+---
+
+class: gray-row2-col2 gray-row2-col3
+
+---
+
+class: gray-row2-col1 gray-row2-col3
+count: false
+
+---
+
+class: gray-row2-col1 gray-row2-col2
+count: false
+
+---
+
+count: false
+
+---
+
+layout: true
+class: split-10 with-border border-white
+
+.row.center[.content.vmiddle[
+#Getting Started
+]]
+.row[.content[
+.split-three[
+.column.bg-main1[.content[
+# R
+.font_medium[Download and install the R (version > 3.5) [here](https://cran.r-project.org/mirrors.html).]
+
+--- 
+
+# R Studio
+.font_medium[Download and install the latest RStudio Deskstop (version > 1.1.4) [here](https://www.rstudio.com/products/rstudio/download/).]
+
+--- 
+
+# Accounts 
+
+.font_medium[
+Make your accounts at:
+* [RPubs](https://rpubs.com/)
+* [shinyapps.io](https://www.shinyapps.io/)
+]
+
+]]
+.column.bg-main1[.content[
+# R Packages
+```{r, eval=F}
+install.packages("pkg-name")
+```
+* .font-mono[rmarkdown]
+* .font-mono[shiny]
+* .font-mono[shinydashboard]
+* .font-mono[shinycustomloader]
+* .font-mono[plotly]
+* .font-mono[ggplot2] or .font-mono[tidyverse]
+* .font-mono[flexdashboard]
+* and their dependencies.
+
+---
+
+.font1[
+Note: all these are provided at no costs to you thanks to the generous development and work of various people.
+If these have been helpful to you, please consider supporting the R community whether it be through [R-Ladies](https://rladies.org/about-us/help/), [R-Ladies Sydney](https://rladiessydney.org/posts/contribute-a-post/), or other forum.
+]
+
+
+]]
+.column.bg-main1[.content[
+# Need help?
+
+# .yellow[Please help each other out!]  
+<br><br>
+{{content}}
+
+.font1.bottom_abs.width100[
+--- 
+
+Interested in learning more after this meetup? Keep it up by continuing to come to [R-Ladies Sydney Meetup](https://www.meetup.com/rladies-sydney/), joining the [R-Ladies Sydney](https://rladies-sydney.slack.com/) slack channel, [R-Ladies Community](https://rladies-community-slack.herokuapp.com/) slack channel, [R4DS Community](https://www.jessemaegan.com/post/r4ds-the-next-iteration/) slack channel, [RStudio Community](https://community.rstudio.com/), post your questions/answers on [Stack Overflow](https://stackoverflow.com/) / [Cross Validated](https://stats.stackexchange.com/) with R tag, take some [DataCamp courses](https://www.datacamp.com/courses/free-introduction-to-r) or use [twitter with hashtag #rstats](https://twitter.com/search?q=%23rstats&src=typd&lang=en).  
+]]]
+]]]
+
+---
+
+class: hide-row2-col3
+
+{{content}}
+
+---
+
+count: false
+
+{{content}}
+
+---
+
+count: false
+
+## `r anicon::cia("images/left-arrow.svg", animate="horizontal", rtext="&nbsp;Let's get started")`
+
+---
+
+layout: false
+class: bg-main3 split-30 hide-slide-number
+
+.column[
+
+]
+.column.slide-in-right[.content.vmiddle[
+.sliderbox.shade_main.pad1[
+.font5[R Markdown]
+]
+]]
+
+---
+
+layout: true
+class: split-three 
+
+.column.bg-main1[
+.content.vmiddle[
+# Markdown Syntax
+]
+.bottom_abs.width100.pad1[
+{{content}}
+#### See also RStudio > 
+#### &nbsp;&nbsp;&nbsp;&nbsp;Help > 
+#### &nbsp;&nbsp;&nbsp;&nbsp;Cheatsheet > 
+#### &nbsp;&nbsp;&nbsp;&nbsp;R Markdown Reference Guide
+]]
+.column.bg-main2[.content[
+# Code
+## <u>Headers</u>
+```markdown
+ # First level header
+ ## Second level header
+ ### Third level header
+```
+## <u>Emphasis</u>
+```markdown
+ *This text will be italic*
+ **This text will be bold**
+ *You **can** combine them*
+```
+## <u>Images</u>
+```markdown
+ ![](images/kunoichi.svg)
+```
+]]
+.column.bg-main3[.content[
+# Output
+
+.bg-code[
+# &nbsp;First level header
+## Second level header
+### Third level header
+]
+<br>
+.font2[
+.bg-code[
+*This text will be italic*<br>
+**This text will be bold**<br>
+*You **can** combine them*<br>
+]
+.center[
+<img src="images/kunoichi.svg" width="100px">
+]]]]
+
+---
+
+{{content}}
+
+---
+
+count: false
+
+## `r anicon::cia("images/down-arrow.svg", animate="vertical", rtext="&nbsp;Look here")`
+
+
+---
+
+layout: true
+class: split-50 with-border border-black border-dotted
+
+.column.bg-main1[
+# .center[An R Markdown document] 
+
+### File extension should be .font-mono[.Rmd]
+
+````markdown
+---
+title: "A Simple Regression"
+author: "Yihui Xie"
+output: html_document
+---
+We built a linear regression model.
+`r ''````{r}
+fit <- lm(dist ~ speed, data = cars)
+b   <- coef(fit)
+plot(fit, 1)
+```
+
+The *slope* of the regression is **`r '\x60r b[2]\x60'`**.
+````    
+{{content}}
+
+
+
+]
+.column[.content.nopadding[
+.img-fill[![](images/knitr_html_output.png)]
+]]
+
+
+
+---
+
+class: show-10
+
+{{content}}
+
+---
+
+class: show-10
+count: false
+
+## Now it's now time to start knitting <img src="images/knitting.svg" width="40px">
+
+---
+
+count: false
+
+## Now it's now time to start knitting <img src="images/knitting.svg" width="40px">
+
+---
+
+layout: false
+class: split-50 with-border border-black border-dotted
+
+.column.bg-main1[
+# .center[An R Markdown document] 
+
+### File extension should be .font-mono[.Rmd]
+
+````markdown
+---
+title: "A Simple Regression"
+author: "Yihui Xie"
+output: pdf_document
+---
+We built a linear regression model.
+`r ''````{r}
+fit <- lm(dist ~ speed, data = cars)
+b   <- coef(fit)
+plot(fit, 1)
+```
+
+The *slope* of the regression is **`r '\x60r b[2]\x60'`**.
+````    
+
+.font_medium[
+The output of your document is now a .yellow[pdf] file.
+.orange[You will need to have [LaTeX](https://www.latex-project.org/get/) installed for this to work!] You can get this also through [tinytex](https://yihui.name/tinytex/) R-package.]
+
+]
+.column[.content.nopadding[
+.img-fill[![](images/knitr_pdf_output.png)]
+]]
+
+---
+
+layout: true
+class: split-50 with-border border-black border-dotted
+
+.column.bg-main1[
+# .center[An R Markdown document] 
+
+### File extension should be .font-mono[.Rmd]
+
+````markdown
+---
+title: "A Simple Regression"
+author: "Yihui Xie"
+output: word_document
+---
+We built a linear regression model.
+`r ''````{r}
+fit <- lm(dist ~ speed, data = cars)
+b   <- coef(fit)
+plot(fit, 1)
+```
+
+The *slope* of the regression is **`r '\x60r b[2]\x60'`**.
+````    
+.font_medium[
+The output of your document is now a .yellow[word] file.
+]
+{{content}}
+
+]
+
+]
+.column[.content.nopadding[
+.fig90[![](images/knitr_word_output.png)]
+]]
+
+---
+
+
+---
+
+count: false
+
+`r livedemosign(90, 70, -10)`
+
+Hint: Start a R Markdown file with RStudio > New File > R Markdown...
+
+
+---
+
+layout: false
+class: split-60 with-border
+
+.column.bg-main1[.content[
+.font_large[Don't want your .yellow[code chunks] to .orange[appear] in the report?]
+
+````markdown
+*`r ''````{r, echo=F}
+fit <- lm(dist ~ speed, data = cars)
+b   <- coef(fit)
+plot(fit, 1)
+```
+````
+
+.font_large[Don't want your .yellow[code chunks] to be .orange[evaluated] (but appear) in the report?]
+
+````markdown
+*`r ''````{r, eval=F}
+fit <- lm(dist ~ speed, data = cars)
+b   <- coef(fit)
+plot(fit, 1)
+```
+````
+
+.font_large[Want your .yellow[code chunks] to be evaluated but hide code and output?]
+
+````markdown
+*`r ''````{r, include=F}
+fit <- lm(dist ~ speed, data = cars)
+b   <- coef(fit)
+plot(fit, 1)
+```
+````
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+#You can find other code chunk options [here](https://yihui.name/knitr/options/).
+]]
+
+---
+
+class: split-50 
+
+.column.bg-main1[.content[
+
+
+# .center[RPubs]
+.font2[
+
+You can publish your R Markdown html output to RPubs!
+
+1. Knit your R Markdown html output
+1. Push Publish from the Viewer pane
+<br>
+.img-fill[![](images/publish2.png)]
+]
+.width100[
+### Published at https://rpubs.com/emitanaka/firstRmarkdown
+]]]
+.column[
+.fig[![](images/rpubs.png)]
+]
+
+
+---
+
+
+
+layout: true
+class: split-three bg-main1 with-border
+
+.column[.content[
+# .center[Task 1: Basics]
+* Click [here](https://rpubs.com/emitanaka/simplesoap) to see a R Markdown report. 
+* You can find the data [here](http://www.statsci.org/data/oz/soap.html).
+* Your task is to:
+  1. Reproduce a similar report, replacing the About Me section to be about *you*!
+  1. You get told there was a mistake in the data and the .orange[observation on the last recorded day was 4g instead of 6g]. Reproduce the report with the mistake corrected.  
+  1. Publish your report on the RPub. 
+  1. Add your RPub link to your report [here](https://docs.google.com/spreadsheets/d/1UJ0zKIEkEzBI2MoM03bUxP5KxEA1Srff1jHsK2GarpI/edit?usp=sharing). 
+
+.font_medium.bottom_abs.width100.yellow[
+Bottomline: your analytical workflow can be embedded directly/under the hood to generate your reproducible report with R Markdown. Changes in data? No need to spend hours redoing the report!
+]]]
+.column[.content[
+# .center[Task 2: Presentation]
+* Install the `xaringan` package and its dependencies.
+* Install the `xaringanthemer` package.
+* Your task is to:
+  1. Go to RStudio > New File > R Markdown ... > From Template > Ninja Presentation. 
+  1. There should be a file that opens with the content filled. Now knit!
+  1. Now go to RStudio > New File > R Markdown ... > From Template > Ninja Themed Presentation. 
+  1. Now change to .font-mono[mono_light] theme (see documentation [here](https://github.com/gadenbuie/xaringanthemer)) with 
+```{}
+base_color=#562457
+```
+  and knit! 
+  1. Try changing or deleting slides as you see fit and knit to see changes! Hint: or use .font-mono[xaringan::inf_mr()].
+  1. (Advanced) Play around with the [R Markdown source file of these slides!](https://github.com/emitanaka/talks).
+]]
+.column[.content[
+# .center[Task 3: Dashboard]
+* Install the `flexdashboard` package and its dependencies.
+* Click [here](https://rpubs.com/emitanaka/simplesoapdashboard) to see a flexdashboard output. 
+* Your task is to:
+  1. Reproduce a similar output, replaying "Why R-Ladies" with what you hope to learn from coming to R-Ladies. 
+  1. Publish your report on the RPub. 
+  1. Add your RPub link to your report [here](https://docs.google.com/spreadsheets/d/1UJ0zKIEkEzBI2MoM03bUxP5KxEA1Srff1jHsK2GarpI/edit?usp=sharing). 
+  
+<br><br>
+{{content}}
+  
+]]
+
+---
+
+class: fade-col2
+
+{{content}}
+
+---
+
+class: fade-col2
+count: false
+
+<center>
+<span style="font-size: 2em">If you feel lost, have a look<br/>
+at the .Rmd files <a href="https://github.com/emitanaka/workshop-rladies-shiny-september-2018">here</a>.</span><br><br>
+`r anicon::cia("images/up-arrow.svg", animate="vertical", rtext="&nbsp;Solution here!", size=2)`
+</center>
+
+---
+
+layout: false
+class: bg-main3 split-30 hide-slide-number
+
+.column[
+
+]
+.column.slide-in-right[.content.vmiddle[
+.sliderbox.shade_main.pad1[
+.font5[Plotly (+ ggplot2)]
+]
+]]
+
+---
+
+class: split-10
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot1, eval=FALSE}
+ggplot(iris) #<<
+```
+.bottom_abs.width100[
+This example inspired by **Gina Reynolds** and **Garrick Aden-Buie**.
+]
+]]
+.column[.content.center[
+.img90[
+```{r output1, ref.label="plot1", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot2, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) #<<
+```
+.bottom_abs.width100[
+Note: .font-mono[aes] normally sits within .font-mono[ggplot] function!
+]
+]]
+.column[.content.center[
+.img90[
+```{r output2, ref.label="plot2", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot3, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() #<<
+```
+]]
+.column[.content.center[
+.img90[
+```{r output3, ref.label="plot3", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T, cache=T}
+```
+]]]]]
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot4, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") #<<
+```
+]]
+.column[.content.center[
+.img90[
+```{r output4, ref.label="plot4", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot5, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") +
+  labs(y = "Sepal Width") #<<
+```
+]]
+.column[.content.center[
+.img90[
+```{r output5, ref.label="plot5", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot6, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") +
+  labs(y = "Sepal Width") +
+  labs(title="The famous iris data") #<<
+```
+]]
+.column[.content.center[
+.img90[
+```{r output6, ref.label="plot6", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot7, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") +
+  labs(y = "Sepal Width") +
+  labs(title="The famous iris data") + 
+  labs(subtitle="Data collected by Anderson, Edgar (1935)") #<<
+```
+]]
+.column[.content.center[
+.img90[
+```{r output7, ref.label="plot7", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot8, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") +
+  labs(y = "Sepal Width") +
+  labs(title="The famous iris data") + 
+  labs(subtitle="Data collected by Anderson, Edgar (1935)") +
+  aes(color= Species) #<<
+```
+]]
+.column[.content.center[
+.img90[
+```{r output8, ref.label="plot8", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot9, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") +
+  labs(y = "Sepal Width") +
+  labs(title="The famous iris data") + 
+  labs(subtitle="Data collected by Anderson, Edgar (1935)") +
+  aes(color= Species) +
+  theme_bw(base_size=16) #<<
+```
+]]
+.column[.content.center[
+.img90[
+```{r output9, ref.label="plot9", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot10, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") +
+  labs(y = "Sepal Width") +
+  labs(title="The famous iris data") + 
+  labs(subtitle="Data collected by Anderson, Edgar (1935)") +
+  aes(color= Species) +
+  theme_bw(base_size=16) 
+```
+<br><br>
+.center[
+## Enjoy making .orange[beautiful],
+## .orange[reproducible] plots!
+]]]
+.column[.content.center[
+.img90[
+```{r output10, ref.label="plot10", echo=FALSE, out.width="90%", fig.retina=2, fig.height=6, cache=T}
+```
+]]]]]
+
+
+---
+
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[plotly]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot11, eval=FALSE}
+plot_ly(iris, 
+        x=~Sepal.Length, 
+        y=~Sepal.Width, 
+        color=~Species)
+```
+.center[
+.font2[
+<br><br>
+.font-mono[plotly] uses .font-mono[plotly.js]<br>
+to make interactive plots.]
+]
+]]
+.column[.content.center[
+```{r, include=F}
+pg <- plot_ly(iris, 
+        x=~Sepal.Length, 
+        y=~Sepal.Width, 
+        color=~Species,
+        width=500, height=500)
+htmltools::save_html(pg, file="iris_plotly.html") 
+```
+<iframe src="iris_plotly.html" width="600px" height="550px" frameBorder="0"> </iframe>
+
+]]]]
+
+
+---
+
+class: split-10 
+count: false
+
+.row.bg-main1.white[.content.vmiddle[
+# .font-mono[ggplot2] + .font-mono[plotly]
+]]
+.row[
+.split-40[
+.column[.content[
+```{r plot12, eval=FALSE}
+ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") +
+  labs(y = "Sepal Width") +
+  labs(title="The famous iris data") + 
+  labs(subtitle="Data collected by Anderson, Edgar (1935)") +
+  aes(color= Species) +
+  theme_bw(base_size=16) 
+ggplotly() #<<
+```
+.center[
+.font2[
+.font-mono[ggplotly] convert a .font-mono[ggplot]<br>
+object to a .font-mono[plotly] object.]
+]
+]]
+.column[.content.center[
+```{r, include=F}
+gg <- ggplot(iris) +
+  aes(Sepal.Length, Sepal.Width) +
+  geom_point() +
+  labs(x = "Sepal Length") +
+  labs(y = "Sepal Width") +
+  labs(title="The famous iris data") + 
+  labs(subtitle="Data collected by Anderson, Edgar (1935)") +
+  aes(color= Species) +
+  theme_bw(base_size=16) 
+pg <- ggplotly(gg, width=590, height=500)
+htmltools::save_html(pg, file="iris_ggplotly.html") 
+```
+<iframe src="iris_ggplotly.html" width="600px" height="550px" frameBorder="0"> </iframe>
+
+]]]]
+
+
+---
+
+
+class: split-two bg-main1 with-border
+
+.row[
+.split-three[
+.column[.content[
+# .center[Task 4: .font_mono[ggplot2]]
+* Install the `ggplot2` package and its dependencies.
+* In the first instance, try replicating some of the plots you've seen.
+* You are now free to pursue making a plot you like! Have fun.
+* Once done, do add your RPub link to your report with the plot [here](https://docs.google.com/spreadsheets/d/1UJ0zKIEkEzBI2MoM03bUxP5KxEA1Srff1jHsK2GarpI/edit?usp=sharing). 
+
+]]
+.column[.content[
+# .center[Task 5: .font_mono[plotly]]
+* Install the `plotly` package and its dependencies.
+* Same as Task 4 but make your plot now interactive!
+* Again when done, do add your RPub link to your report with the interactive plot [here](https://docs.google.com/spreadsheets/d/1UJ0zKIEkEzBI2MoM03bUxP5KxEA1Srff1jHsK2GarpI/edit?usp=sharing). 
+
+]]
+.column[.content[
+# .center[Task 6: .font_mono[ggplotly]]
+* Install the `ggplot2` and `plotly` package and its dependencies (if you've skipped previous tasks).
+* Don't forget to add your RPub link to your report with the interactive plot [here](https://docs.google.com/spreadsheets/d/1UJ0zKIEkEzBI2MoM03bUxP5KxEA1Srff1jHsK2GarpI/edit?usp=sharing). 
+]]]]
+.row[.content.center[
+<br>
+.font3[Need some idea of what to plot? <br>
+Check [here](http://bit.ly/tanaka-asc2018) for some inspirations.
+]
+]]
+
+---
+
+class: bg-main3 split-30 hide-slide-number
+
+.column[
+
+]
+.column.slide-in-right[.content.vmiddle.pad1[
+.sliderbox.shade_main[
+.font5[Shiny]
+]
+]]
+
+---
+
+class: bg-main1
+
+<br>
+
+# `r icon::fa("r-project", size=2)` is great!
+
+
+--
+
+<br>
+
+## But not everyone knows `R` `r icon::ii_sad()`.  
+
+--
+
+<br> 
+
+## `shiny` can bridge that gap between  non-`R` users and `R` users...
+
+--
+
+<br>
+
+## ... by making it easier for R users to write a web app!
+
+--
+
+<div class="borderit bg-black" style="position:absolute; right:10%; top:4%; width:300px">
+<img src="images/geyser.gif" width="100%">
+</div>
+
+---
+
+
+class: split-two with-border border-black
+
+.column.bg-main2[.content[
+.font-mono[**ui.R**]
+```{r, eval=F}
+shinyUI( #<<
+  fluidPage(
+    titlePanel("Old Faithful Geyser Data"),
+    sliderInput("bins", "Number of bins:",
+          min = 1, max = 50, value = 30),
+    plotOutput("distPlot")
+  )
+)
+```
+.font-mono[**server.R**]
+```{r, eval=F}
+shinyServer(function(input, output) {
+  output$distPlot <- renderPlot({
+    ggplot(faithful, aes(waiting)) + 
+      geom_histogram(bins=input$bins) + 
+      theme_bw()
+  })
+})
+```
+]]
+.column[.content[
+.shade_main.pad10px[
+.font-large[`shinyUI` register the user-interface with Shiny (no longer required for Shiny 0.10 and beyond).]
+]
+.bottom_abs.width100[
+.center.fig90[![](images/geyser-1.png)]
+]
+
+]]
+
+---
+
+class: split-two with-border border-black
+count: false
+
+.column.bg-main2[.content[
+.font-mono[**ui.R**]
+```{r, eval=F}
+shinyUI( 
+  fluidPage( #<<
+    titlePanel("Old Faithful Geyser Data"),
+    sliderInput("bins", "Number of bins:",
+          min = 1, max = 50, value = 30),
+    plotOutput("distPlot")
+  )
+)
+```
+.font-mono[**server.R**]
+```{r, eval=F}
+shinyServer(function(input, output) {
+  output$distPlot <- renderPlot({
+    ggplot(faithful, aes(waiting)) + 
+      geom_histogram(bins=input$bins) + 
+      theme_bw()
+  })
+})
+```
+]]
+.column[.content[
+.shade_main.pad10px[
+.font-large[`fluidPage` to let R know your about to create a page...]
+]
+.bottom_abs.width100[
+.center.fig90[![](images/geyser-1.png)]
+]
+
+]]
+
+---
+
+class: split-two with-border border-black
+count: false
+
+.column.bg-main2[.content[
+.font-mono[**ui.R**]
+```{r, eval=F}
+shinyUI( 
+  fluidPage( 
+    titlePanel("Old Faithful Geyser Data"), #<<
+    sliderInput("bins", "Number of bins:",
+          min = 1, max = 50, value = 30),
+    plotOutput("distPlot")
+  )
+)
+```
+.font-mono[**server.R**]
+```{r, eval=F}
+shinyServer(function(input, output) {
+  output$distPlot <- renderPlot({
+    ggplot(faithful, aes(waiting)) + 
+      geom_histogram(bins=input$bins) + 
+      theme_bw()
+  })
+})
+```
+]]
+.column[.content[
+.shade_main.pad10px[
+.font-large[... which contains a title, ...]
+]
+.bottom_abs.width100[
+.center.fig90[![](images/geyser-1.png)]
+]
+
+]]
+
+---
+
+class: split-two with-border border-black
+count: false
+
+.column.bg-main2[.content[
+.font-mono[**ui.R**]
+```{r, eval=F}
+shinyUI( 
+  fluidPage( 
+    titlePanel("Old Faithful Geyser Data"), 
+    sliderInput("bins", "Number of bins:", #<<
+          min = 1, max = 50, value = 30),  #<<
+    plotOutput("distPlot")
+  )
+)
+```
+.font-mono[**server.R**]
+```{r, eval=F}
+shinyServer(function(input, output) {
+  output$distPlot <- renderPlot({
+    ggplot(faithful, aes(waiting)) + 
+      geom_histogram(bins=input$bins) + 
+      theme_bw()
+  })
+})
+```
+]]
+.column[.content[
+.shade_main.pad10px[
+.font-large[... a slider stemming from 1 to 50 with default value 30 contained in `bins`, ...]
+]
+.bottom_abs.width100[
+.center.fig90[![](images/geyser-1.png)]
+]
+
+]]
+
+---
+
+class: split-two with-border border-black
+count: false
+
+.column.bg-main2[.content[
+.font-mono[**ui.R**]
+```{r, eval=F}
+shinyUI( 
+  fluidPage( 
+    titlePanel("Old Faithful Geyser Data"), 
+    sliderInput("bins", "Number of bins:", 
+          min = 1, max = 50, value = 30),
+    plotOutput("distPlot") #<<
+  )
+)
+```
+.font-mono[**server.R**]
+```{r, eval=F}
+shinyServer(function(input, output) {
+  output$distPlot <- renderPlot({
+    ggplot(faithful, aes(waiting)) + 
+      geom_histogram(bins=input$bins) + 
+      theme_bw()
+  })
+})
+```
+]]
+.column[.content[
+.shade_main.pad10px[
+.font-large[... and plot `distPlot` output.]
+]
+.bottom_abs.width100[
+.center.fig90[![](images/geyser-1.png)]
+]
+
+
+]]
+
+---
+
+class: split-two with-border border-black
+count: false
+
+.column.bg-main2[.content[
+.font-mono[**ui.R**]
+```{r, eval=F}
+shinyUI( 
+  fluidPage( 
+    titlePanel("Old Faithful Geyser Data"), 
+    sliderInput("bins", "Number of bins:", 
+          min = 1, max = 50, value = 30),
+    plotOutput("distPlot") 
+  )
+)
+```
+.font-mono[**server.R**]
+```{r, eval=F}
+shinyServer(function(input, output) {
+  output$distPlot <- renderPlot({ #<<
+    ggplot(faithful, aes(waiting)) + #<<
+      geom_histogram(bins=input$bins) + #<<
+      theme_bw()#<<
+  })#<<
+})
+```
+]]
+.column[.content[
+.shade_main.pad10px[
+.font-large[The `distPlot` output is rendered in the server side with a histogram from `ggplot2`.]
+]
+.bottom_abs.width100[
+.center.fig90[![](images/geyser-1.png)]
+]
+
+
+]]
+
+---
+
+class: split-two with-border border-black
+count: false
+
+.column.bg-main2[.content[
+.font-mono[**ui.R**]
+```{r, eval=F}
+shinyUI( 
+  fluidPage( 
+    titlePanel("Old Faithful Geyser Data"), 
+    sliderInput("bins", "Number of bins:", 
+          min = 1, max = 50, value = 30),
+    plotOutput("distPlot") 
+  )
+)
+```
+.font-mono[**server.R**]
+```{r, eval=F}
+shinyServer(function(input, output) {
+  output$distPlot <- renderPlot({ 
+    ggplot(faithful, aes(waiting)) + 
+      geom_histogram(bins=input$bins) + #<<
+      theme_bw()
+  })
+})
+```
+]]
+.column[.content[
+.shade_main.pad10px[
+.font-large[`input$bins` contains the value specified in the user interface. ]
+]
+.bottom_abs.width100[
+.center.fig90[![](images/geyser-1.png)]
+]
+
+]]
+
+---
+
+class: split-10 center bg-gray
+
+.row[.split-four[
+.column[
+]
+.column[.content.center[
+# Server 
+#(Running R)
+]]
+.column[.content[
+
+]]
+.column[.content[
+# User Interface 
+]]
+]]
+.row[.split-two[
+.row[.split-four[
+.column[.content.vmiddle.center[
+# Local 
+(both are the same machine)
+]]
+.column[.content.vmiddle[
+<img src="images/analytics.svg" width="80%">
+]]
+.column[.content.vmiddle[
+<img src="images/right-and-left-arrows-outlines.svg" width="40%">
+]]
+.column[.content.vmiddle[
+<img src="images/app.png" width="80%">
+]]
+]]
+.row[.split-four[
+.column[.content.vmiddle.center[
+# Server 
+(web server is elsewhere)
+]]
+.column[.content.vmiddle[
+<img src="images/database.svg" width="80%">
+]]
+.column[.content.vmiddle[
+<img src="images/right-and-left-arrows-outlines.svg" width="40%">
+]]
+.column[.content.vmiddle[
+<img src="images/app.png" width="80%">
+]]
+]]]]
+
+---
+
+class: split-three bg-main1 with-border
+
+.column[.content[
+# .center[Task 7: <br>Hello Shiny]
+* Install the `shiny` package and its dependencies.
+* Get started with RStudio > Shiny Web App ... > and fill details in as necessary. Note: my preference is the Multiple File (ui.R/server.R) which separates the user interface and server to two files but you can have both in one file (app.R). 
+* You will get a template with the eruption time histogram example. Go to either ui.R, server.R or app.R. There should be `Run App` appear in the upper right corner of the editor window in RStudio.
+* Push the `Run App` and you will see a .font-mono[shiny] app in action!
+* Now try replacing the base plot with a ggplot histogram.
+]]
+.column[.content[
+# .center[Task 8: <br>Deployment]
+* To deploy the app, you will need an account at `shinyapps.io`
+* The specifics of how to deploy is written in detail [here](http://docs.rstudio.com/shinyapps.io/getting-started.html#deploying-applications). 
+* We will have some live demo if we can get here!
+* Once done, do add your RPub link to your shiny app [here](https://docs.google.com/spreadsheets/d/1UJ0zKIEkEzBI2MoM03bUxP5KxEA1Srff1jHsK2GarpI/edit?usp=sharing). 
+]]
+.column[.content[
+# .center[Task 9: <br>Shiny Flexdashboard]
+* Install the `shiny` and `flexdashboard` packages and its dependencies (if you have not already).
+* `flexdashboard` can run shiny by specifying `runtime: shiny` in the YAML. 
+* Try recreating the Hello Shiny example (histogram of eruption time) with .font-mono[flexdashboard] instead!
+* See [here](https://rmarkdown.rstudio.com/flexdashboard/shiny.html) for examples.
+]]
+
+---
+
+class: bg-main1 middle center white
+
+# Pop Quiz! 
+
+## What's the difference between getting the interactive plot in `plotly` and `shiny`?
+
+
+---
+
+class: split-three bg-main1 with-border
+
+.column[.content[
+# .center[Task 10: <br>Shiny Dashboard]
+* Install the `shinydashboard` package and its dependencies.
+* `shinydashboard` allows for a more complex dashboard structure than that of `flexdashboard`.
+* It is more complex hence the coding may not be as straight forward. 
+* To learn more about it, see the documentation [here](https://rstudio.github.io/shinydashboard/get_started.html).
+* To see an example of an instance running `shinydashboard`, see [here](http://shiny.maths.usyd.edu.au/caige_explorer_2011_2017/). 
+]]
+.column[.content.nopadding[
+# .center[Task 11: .font-mono.font_small[shinycustomloader]]
+* Install the `shinycustomloader` package and its dependencies.
+* .font-mono[shinycustomloader] is a simple package that allows for custom image/gif loader (or you can use built-in ones) as a waiting screen while a computationally heavy work needs to load. 
+* To see your waiting screen, you can use `Sys.sleep(10)` to pause the computation for 10 seconds (don't do it in practice of course)!
+.fig90[![](images/progressbar.png)]
+* As Charles, the residential Melbourne R-(Cat)-Lady, says it's just more friendly if you have a company while waiting!
+* If you want a hex sticker for `shinycustomloader`, approach Emi. 
+* For instructions and examples, see [here](https://github.com/emitanaka/shinycustomloader).
+
+]]
+.column[.content[
+# .center[Task 12: <br>Portable Shiny]
+* .font-mono[shiny] is great but you need R to be running in the background. 
+* Hence this is why we need to run on special servers (as per Task 8).
+* There is a way to make R shiny app an executable file. 
+* This was the subject of [this talk](https://www.youtube.com/watch?v=ARrbbviGvjc).
+* To get started follow the instruction [here](https://github.com/ksasso/Electron_ShinyApp_Deployment).
+
+]]
