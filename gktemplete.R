@@ -1,6 +1,11 @@
 #gktemplete
+
+setwd("/Users/gk/gkgit/pedqam")
 library(here)
-load(here(), loadinglibs.R)
+here()
+
+list.files()
+load( here(), "loadinglibs.R" )
 
 
 # loadingkubs.R for loading inital packages various means

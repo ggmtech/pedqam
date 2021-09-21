@@ -1,3 +1,4 @@
+
 # install.packages("remotes")
 remotes::install_github("gadenbuie/xaringanExtra")
 
@@ -64,7 +65,28 @@ wflw_prophet <- workflow() %>%
 
 
 
+#######
+#######
 
+flights %>% count(flight_path = str_c(origin, " -> ", dest), sort = TRUE)
+
+flights %>% slice_sample(n = 15) # or slice_sample(prop = 0.15)
+
+number = parse_number(number)
+
+flights %>%  mutate(
+  origin = case_when(
+    (origin == "EWR") & dep_delay > 20   ~ "Newark International Airport - DELAYED",
+    (origin == "EWR") & dep_delay <= 20  ~ "Newark International Airport - ON TIME DEPARTURE,
+                 )  ) %>%   count(origin)
+
+mutate(origin = str_replace_all(
+ origin, c( "^EWR$" = "Newark International", "^JFK$" = "John F. Kennedy International" ) ) ) %>% count(origin)
+
+# extract the row information’s based on str_detect function
+beginning_with_am <-  airlines %>%    filter( name %>% str_detect("^Am") ) 
+
+crossing()
 
 
 

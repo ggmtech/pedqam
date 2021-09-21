@@ -1,4 +1,4 @@
-
+# EM Pads life analysis
 library(tidyverse); library(readxl) ; library(lubridate); library(cowplot)
 # library(ggthemes)      # or install_github('cttobin/ggthemr') #library(themr) # ggthemr("<theme name>") #ggthemr_reset()
 # library(plotly)        # plot_grid(gp1, gp2, NULL, gp1, labels = "AUTO")
@@ -8,6 +8,7 @@ library("survival") ; library("survminer")
 
 getwd()
 #setwd("/Users/gk/Google Drive")
+setwd("/Users/gk/github/empads")
 ls()  # files in memory
 list.files()  # files in curr dir
 

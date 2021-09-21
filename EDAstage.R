@@ -1,4 +1,23 @@
 library(tidyverse)
+library(DataExplorer)
+mtcars  %>% glimpse()
+mtcars  %>% DataExplorer::introduce()
+mtcars  %>% DataExplorer::plot_intro()
+mtcars  %>% DataExplorer::plot_missing()
+mtcars  %>% DataExplorer::profile_missing()
+mtcars  %>% DataExplorer::plot_density()
+mtcars  %>% DataExplorer::plot_histogram()
+mtcars  %>% DataExplorer::plot_bar()
+mtcars  %>% DataExplorer::plot_correlation()
+mtcars  %>% DataExplorer::plot_correlation(maxcat = 5) 
+
+
+
+
+
+
+
+
 ###########################################
 # plain plots
 
