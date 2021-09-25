@@ -84,8 +84,66 @@ rivet_data
 
 #Data can be read from locally or known web sources.
 # agcread.csv( file.choose())
-agc<-read.csv("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/data/acid_gas_compressor.csv",header=T)
+
+agc<-read.csv("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/data/acid_gas_compressor.csv", header=T)$agc
 
 agc
 
+#Running a script
+# source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/contour_challenge.r")
+
+daf<-read.csv("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/data/contour_challenge/daTEST.csv", header=FALSE)
+das<-read.csv("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/data/contour_challenge/dasuspendedTEST.csv", header=FALSE)
+
+fdf<-as.data.frame(table(daf[,1]))
+ft<- as.numeric(levels(fdf[,1]))
+fq<-fdf[  , 2 ]
+sdf<-as.data.frame(table(das[,1]))
+st<-as.numeric(levels(sdf[,1]))
+sq<-sdf[,2]
+fail_edata<-data.frame(time=ft, event=rep(1, length(ft)), qty=fq)
+sus_edata <-data.frame(time=st, event=rep(0, length(st)), qty=sq)
+teq_frame<-rbind(fail_edata, sus_edata)
+teq_frame
+
+require(WeibullR)
+contour(   WeibullR::wblr(teq_frame),  col="grey")
+
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/manipulate_contour_challenge.r")
+
+# Replicating Figure3.13 from “The New Weibull Handbook”
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/Fig3.13ln.r")
+
+#A Multi-Distribution plot on Weibull Canvas
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/Fig3.13multi.r")
+
+#Bathtub Life Data
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/bathtub_life.r")
+
+#Life Data Division as Competing Modes
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/competing_modes.r")
+
+# Linearized 3p fits by t0 modification
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/linearized3p.r")
+
+# Compare two data sets by likelihood contour
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/compare_6mp.r")
+
+# Inspection Data for Cracks in Parts in Service - Probit Analysis
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/probit_1.r")
+
+# Interval Analysis on Parts Cracking Data (need WeibullR version > 1.0.11.4 on R-Forge)
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/inspection_intervals.r")
+
+# Comparing the Simple Weibayes Function to a Challenging MLE Contour
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/weibayes_study.r")
+
+# Contour to Bounds
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/contour2bounds.r")
+
+# Likelihood Ratio Bounds on a 3-Parameter Model
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/LRbounds_3p.r")
+
+# Fisher Matrix Bounds on a 3-Parameter Model
+source("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/scripts/three_parameter_FM2.r")
 

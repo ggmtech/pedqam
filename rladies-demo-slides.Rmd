@@ -14,6 +14,63 @@ output:
      # in_header: header.html
 ---
 
+
+install.packages("xaringan")
+install.packages("usethis")
+
+1. Create a new RStudio project for your presentation:
+
+usethis::create_project("filepath/for/your/presentation/repo-name")
+check getwd() and use it as a filepath reference point
+
+2. Create a xaringan deck using a xaringan template:
+File > New File > R Markdown > From Template > Ninja Presentation > OK
+
+3. Delete what you don’t need and save your R Markdown file with whatever name you like. If you pick index.Rmd the live link you share at the end will be relatively short.
+
+4. Render HTML slides from the open Rmd file using xaringan’s infinite moon reader:
+
+  xaringan::infinite_moon_reader()
+Initialize version control with git 
+5. Initialize version control of your slides with git:
+
+usethis::use_git()
+
+6. Connect your local project with a GitHub repo:
+
+usethis::use_github()
+
+7. Your new GitHub repo with all of your xaringan project files will automatically open up in your browser
+
+Repo for the R-Ladies xaringan template:
+https://github.com/spcanelon/RLadies-xaringan-template
+
+8. Edit your slides as you wish. Commit often! And then push to GitHub. Use the tools provided by the Git pane in RStudio, or use the following commands in the Terminal:
+
+# Step 1: Stage all modified files
+git add .
+# Step 2: Describe the changes you made to your files
+git commit -m "<A brief but descriptive commit message>"
+Consider writing a commit message that finishes the following sentence:2 “If applied, this commit will…” (e.g. “Change the slide theme,” “Add hello slide”)
+
+# Step 3: Push the changes to your GitHub repository
+git push
+
+Deploying your slides 
+9. When you’re ready to deploy your slides, you can use the usethis::use_github_pages() function which makes the process of deploying via GitHub Pages super easy. I recommend pointing branch to the name of your primary branch.
+
+usethis::use_github_pages(branch = "master")
+
+
+10. Visit the link provided to see your newly deployed slides! 🚀
+Don’t panic if you don’t see them right away, sometimes it takes a little time. This is the link you will share with the world when you present. Notice it looks very similar to your GitHub repo link.
+
+Link to the R-Ladies xaringan template rendered slides:
+https://spcanelon.github.io/RLadies-xaringan-template
+
+
+
+
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 ```

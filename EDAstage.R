@@ -1,23 +1,4 @@
 library(tidyverse)
-library(DataExplorer)
-mtcars  %>% glimpse()
-mtcars  %>% DataExplorer::introduce()
-mtcars  %>% DataExplorer::plot_intro()
-mtcars  %>% DataExplorer::plot_missing()
-mtcars  %>% DataExplorer::profile_missing()
-mtcars  %>% DataExplorer::plot_density()
-mtcars  %>% DataExplorer::plot_histogram()
-mtcars  %>% DataExplorer::plot_bar()
-mtcars  %>% DataExplorer::plot_correlation()
-mtcars  %>% DataExplorer::plot_correlation(maxcat = 5) 
-
-
-
-
-
-
-
-
 ###########################################
 # plain plots
 
@@ -154,16 +135,15 @@ library(hexSticker)
 p <- ggplot(iris, aes(Species, Sepal.Length)) + 
      geom_boxplot(color = "white", fill = "transparent") +
      theme_icon()  # defined above fn
-
-?p.sticker <- sticker(
-  p, package=" ", p_size=3, 
-  s_x=1, s_y=1.1, s_width=1.3, s_height=1.5,
-  h_color = "#478bca", h_fill = "#478bca",
-  filename="figures/boxplot-icon-sticker.png" )
-
+p
+p.sticker <- sticker( p,  package=" ", p_size=3, 
+                      s_x=1, s_y=1.1, s_width=1.3, s_height=1.5,
+                      h_color = "#478bca", h_fill = "#478bca",
+                      filename="figures/boxplot-icon-sticker.png" )
 
 
-# misssing data visualise using heatmap
+
+# missing data visualise using heatmap
 library(heatmaply)
 heatmaply_na( airquality[1:30, ], showticklabels = c(TRUE, FALSE)  )
 
@@ -189,7 +169,7 @@ ggvenn( x,
 
 
 # if (!require(devtools)) install.packages("devtools")  
-devtools::install_github("gaospecial/ggVennDiagram")  ## Utilisation du package R ggVennDiagram
+devtools::install_github("gaospecial/ggVennDiagram")  ## Use ggVennDiagram
 library("ggVennDiagram")
 ggVennDiagram(x, label_alpha = 0.2)
 

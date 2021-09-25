@@ -1,3 +1,27 @@
+
+library(librarian)
+librarian::shelf(tidyverse)
+tidyverse_packages()
+# Core : readr, dplyr, tidyr, ggplot2, forcats,  purrr ,  stringr, tibble.
+# non cre : blob , feather , jsonlite , glue , googledrive , haven , hms , lubridate , magritt, modelr , readxl , reprex , rvest  and xml2 
+
+library(tidymodels) # Loads: broom, recipes, dials, rsample, yardstick, infer, tune
+#  modeldata, workflows, parsnip, workflowsets 
+# dplyr , tibble, ggplot2 , tidyr ,  purrr  ,
+# broom messy output like lm, nls, or t.test into tidy data frames.
+# dials create and manage values of tuning parameters.
+# dplyr ggplot2  purrr tibble
+# infer statistical inference.
+# parsnip tidy, unified interface to creating models.
+# recipes  data preprocessor , can create model matrices incorporating feature engineering etc
+# rsample  resampling data so that models can be assessed and empirically validated.
+# tune functions to optimize model hyper-parameters.
+# workflows methods to combine pre-processing steps and models into a single object.
+# yardstick  tools for evaluating models (e.g. accuracy, RMSE, etc.)
+# tidymodels_conflicts(), tidymodels_prefer() to resolve common conflicts.
+
+# 
+# 
 # R TIPS # TIP 044 | ggalt: dumbbell plots --  https://mailchi.mp/business-science/r-tips-newsletter
 # LIBRARIES ----
 

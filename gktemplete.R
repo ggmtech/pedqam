@@ -54,6 +54,72 @@ if (knitr::is_latex_output()) {
 
 
 library(ggplot2)
+
+p <- ggplot(iris, aes(Petal.Width, fill=Species))
+p
+p + geom_blank()
+p + geom_dotplot()
+p + geom_histogram()
+p + geom_density()  # + scale_fill_brewer(palette="Set3")
+p + geom_freqpoly(aes(color=Species))
+p + geom_boxplot()  # + scale_fill_brewer(palette="Set3")
+p + geom_violin()
+
+p + geom_density() +  
+   scale_fill_manual(
+    values=c("red","yellow", "blue"),
+    labels=c("setosa", "versicolor", "virginica"))
+# scale_color_distiller(palette="YlGnBu") # continous colour
+# scale_color_brewer(palette="Set1") # descreat var
+
+g + geom_label(data=maxh_df, size=4, aes(T4, height, label=year) )
+g + ggrepel::geom_label_repel(data=maxh_df, size=4,aes(T4, height, label=year))
+g + annotate("text", x=12, y=100,  label="1974", size=12)
+g + annotate("rect", xmin=15, xmax=18,  ymin=-Inf, ymax=Inf, alpha=0.2, fill="red")
+
+g <- ggplot(iris,  aes(Sepal.Length, Sepal.Width, color=Species)) + geom_point()
+g
+plotly::ggplotly(g)
+
+
+p + geom_abline(intercept=-0.4,slope=0.4) # y= a +mx
+p + geom_smooth(method="lm")
+p + geom_hline(yintercept=0)
+p + geom_vline(xintercept=0)
+p + geom	#Description
+p + geom_abline	#Reference lines: horizontal, vertical, and diagonal
+geom_bar	    #Bar charts
+geom_bin2d	  #Heatmap of 2d bin counts
+geom_blank	  #Draw nothing
+geom_boxplot	#A box and whiskers plot (in the style of Tukey)
+geom_contour	#2d contours of a 3d surface
+geom_count	  #Count overlapping points
+geom_density	#Smoothed density estimates
+geom_density_2d	#Contours of a 2d density estimate
+geom_dotplot	#Dot plot
+geom_errorbarh#Horizontal error bars
+geom_hex	    #Hexagonal heatmap of 2d bin counts
+geom_freqpoly	#Histograms and frequency polygons
+geom_jitter	  #Jittered points
+geom_crossbar	#Vertical intervals: lines, crossbars & errorbars
+geom_map	    #Polygons from a reference map
+geom_path	    #Connect observations
+geom_point	  #Points
+geom_polygon	#Polygons
+geom_qq_line	#A quantile-quantile plot
+geom_quantile	#Quantile regression
+geom_ribbon	  #Ribbons and area plots
+geom_rug	    #Rug plots in the margins
+geom_segment	#Line segments and curves
+geom_smooth	  #Smoothed conditional means
+geom_spoke	  #Line segments parameterised by location, direction and distance
+geom_label	  #Text
+geom_raster	  #Rectangles
+geom_violin	  #Violin plot
+
+
+
+
 library(patchwork)
 p1 <- ggplot2::ggplot(mtcars) + ggplot2::geom_point(aes(mpg, disp))
 p2 <- ggplot2::ggplot(mtcars) + ggplot2::geom_boxplot(aes(gear, disp, group = gear))
@@ -63,7 +129,10 @@ p4 <- ggplot2::ggplot(mtcars) + ggplot2::geom_bar(aes(carb))
 (p1 | p2 | p3) / 
   p4
 
-
+# ear8 + ear9 + ear10 + ear11 + plot_layout(ncol = 2)
+ 
+# 
+# 
 # Use interactive graphics in your documents by embedding plotly
 # ![](path/to/image), and not ![]("path/to/image"). There are no quote marks!
 
