@@ -1,34 +1,83 @@
-# GIS book
-# geo raster data model has raster header and a matrix (rows/columns) of equally spaced cells / pixels;
-# raster header defines crs, extent and origin (or starting point frequently lower-left corner.
+# GIS book  # sf is df+spatial extn  class(lnd_sf) # "sf"   "data.frame", data analysis capabilities
+# geo raster data model has raster header and equally spaced cells / pixels matrix (rows/columns) 
+# raster header defines: crs, extent and origin (or starting point frequently lower-left corner.
 # matrix and map algebra makes raster processing efficient and faster than vector data processing.
-# terra package create, read, export, manipulate and process raster datasets
-# Simple features widely used data model structures including in QGIS and PostGIS. cross-transferable
-# sf objects can be treated as data frames in most operations and fn starts with st_**
-# Simple features is data frames with a spatial extension: class(lnd_sf) # "sf"   "data.frame"
-# sf enables the full power of R’s data analysis capabilities to be unleashed on geographic data
-# install.packages("sf")
-# install.packages("terra")
-# install.packages("spData")
-# spDataLarge has few raster and one vector of Zion National Park (Utah, USA)  srtm.tif is a digital elevation model 
-# install.packages("spDataLarge", repos = "https://nowosad.r-universe.dev")
+# terra package for raster datasets - create, read, export, manipulate and process raster datasets
+# sf widely used in QGIS and PostGIS. cross-transferable
+# sf objects is data frames in most operations and fn starts with st_**
 
 # All the packages needed for  book can be installed with the following command: 
 # remotes::install_github("geocompr/geocompkg"). 
 
 # spatial element "geom or geometry" added as ‘list columns’ of class sfc "simple feature column"
 #  In turn, sfc objects  composed of one or more objects of class sfg: "simple feature geometries"
+
+# devtools::install_github("spatialstatisticsupna/rsat", build_vignettes=TRUE)
+
+# rsat  # register  reqd USGS ( Modis Images) , EarthData (NASA), SciHub (Copernicus) # use same id pwd
+# username 4 char with a period, number or underscore. password 12 char with capital + numbers.
+# set_credentials("rsat.package","UpnaSSG.2021", "scihub")
+# set_credentials("rsat.package","UpnaSSG.2021", "earthdata")
+# if sane id pwd  # set_credentials("rsat.package","UpnaSSG.2021")
+data("ex.navarre")
+toi <- as.Date("2021-01-01") + 0:15
+rcd <- rsat_search(region = ex.navarre, product = c("mod09ga"), dates = toi)
+rcd <- rsat_search(region = ex.navarre, product = c("mod09ga", "SY_2_SYN___"), dates = toi)
+class(rcd)
+
+# Search # vignette("rsat1_search", package = "rsat")  
+# satellite images region and time of interest (roi and toi )
+# Download # vignette("rsat2_download", package = "rsat") 
+# Customize # vignette("rsat3_customize", package = "rsat") 
+# Process # vignette("rsat4_process", package = "rsat")
+
+
+# https://finnstats.com/
+
+# ggraph Everything has some limitations, so is an extension of ggplot2 
+# tidyquant financial quantitative financial analysis  for importing, analyzing, and visualizing data
+# shiny interactive and beautiful web interface customizable slider widget built-in animation support.
+# caret classification and regression  CaretEnsemble for combining different models.
+# e1071    clustering, Fourier Transform, Naive Bayes, SVM, 
+# plotly interactive and high-quality graphs JavaScript library embedding graphs
+# mlr3 machine learning oo ‘R6’ objects clustering, regression, classification, and survival analysis, etc…
+# xgboost also interface caret package, faster H20, Spark, and Python, classification, ranking, regression.
+# xml httr web scraping or extracting data from online source. For read and create XML documents with R.
+# RMySQL, RPostgresSQL, RSQLite 
+# car – For making type II and type III ANOVA tables.
+# mgcv – For Generalized Additive Models
+# lme4/nlme- For Linear and Non-linear mixed effects models
+
+# janitor::clean_names(data)
+# tabyl(clean,employee_status)
+# clean %>% tabyl(employee_status) %>% adorn_pct_formatting(digits =2,affix_sign=TRUE)
+# clean %>% tabyl(employee_status, full_time) %>% adorn_totals()
+# clean %>% tabyl(employee_status, full_time) %>% adorn_totals(where = "col")
+# clean %>% tabyl(employee_status, full_time) %>% adorn_totals(where = c("row","col"))
+# clean %>% tabyl(employee_status, full_time) %>% adorn_totals("row") %>%   adorn_percentages("row") %>% adorn_pct_formatting() %>% adorn_ns("front")
+# clean_x<-clean %>% remove_empty(whic=c("rows"))
+# clean %>% get_dupes(first_name,certification)
+# excel_numeric_to_date(41103)
+
+# Y yield or effect of the factors Trend(T), Seasonal (S), Cycle (C) and Irregular (I) : Y=T*S*C*I
+# addition model  Y=T+S+C+S+I,  assumption independent. Additive models are very rarely
+
+
+
+
+
 library(stringr) # for working with strings (pattern matching)
 library(tidyr)   # for unite() and separate()
+
 library(sf) # classes and functions for vector data #> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 library(terra)      # classes and functions for raster data
 
 library(spData)        # load geographic data
-library(spDataLarge)   # load larger geographic data
+library(spDataLarge)   # larger data # Zion National Park (Utah, USA), few vec, rester and elv srtm.tif 
+# install.packages("spDataLarge", repos = "https://nowosad.r-universe.dev") 
 
 library(tmap)    # for static and interactive maps
 library(leaflet) # for interactive maps
-library(ggplot2) # tidyverse data visualization package
 
 
 # sf - unified interface to GEOS lib for geometry operations, GDAL lib for read/write geo data files, and the PROJ lib for representing and transforming projected CRS.  Details
@@ -406,4 +455,103 @@ names(world5)[names(world5) == "pop"] = "population" # rename column manually
 
 
 
+# tmap
+library(tmap)
+data("World")     # World is class df and sf
+# shape spatial object of class sf, sp, stars, raster and Multiple shapes and layers per shape
+# 
+tmap_mode("view") # interactive "view" or default print with "plot"
+World %>%    tmap::tm_shape()   +  
+             tmap::tm_polygons("HPI")
+
+
+
+# multiple shapes
+data(World, metro, rivers, land)
+
+tmap_mode("plot")   ## tmap mode set to plotting
+# recreate crs with sf::st_crs()
+tm_shape(land) +
+  tm_raster("elevation", palette = terrain.colors(10), alpha = 0.5) +
+  tm_shape(World) +
+  tm_borders("white", lwd = .5) +
+  tm_text("iso_a3", size = "AREA") +
+  tm_shape(metro) +
+  tm_symbols(col = "red", size = "pop2020", scale = .5) +
+  tm_legend(show = TRUE)
+
+
+# facets
+# By assigning multiple variable names to one aesthetic in argument of tm_polygons()
+tmap_mode("view")
+tm_shape(World) +
+  tm_polygons(c("HPI", "economy")) +
+  tm_facets(sync = TRUE, ncol = 2)  #+  tm_legend(show = FALSE)
+
+# By splitting data by argument of tm_facets:
+tmap_mode("plot") ## tmap mode set to plotting
+data(NLD_muni)
+
+NLD_muni$perc_men <- NLD_muni$pop_men / NLD_muni$population * 100
+
+tm_shape(NLD_muni) +
+  tm_polygons("perc_men", palette = "RdYlBu") +
+  tm_facets(by = "province")
+
+# By using function tmap_arrange()
+tm1 <- tm_shape(NLD_muni) + tm_polygons("population", convert2density = TRUE)
+tm2 <- tm_shape(NLD_muni) + tm_bubbles(size = "population")
+tmap_arrange(tm1, tm2)
+
+
+
+# Basemaps and overlay tile maps
+# Tiled basemaps  added with  tm_basemap().
+# Semi-transparent overlay maps (eg annotation labels) can be added with tm_tiles.
+tmap_mode("view") # only with view?
+tm_basemap("Stamen.Watercolor") +
+  tm_shape(metro) + tm_bubbles(size = "pop2020", col = "red") +
+  tm_tiles("Stamen.TonerLabels")
+
+leaflet::providers # see list of providers
+
+# Options and styles  tm_layout and tm_view and the interactive aspects like layer functions, e.g.
+tmap_mode("plot") ## tmap mode set to plotting
+tm_shape(World) +
+  tm_polygons("HPI") +
+  tm_layout(bg.color = "skyblue", inner.margins = c(0, .02, .02, .02))
+
+# many options,can also be set within with tmap_options globally
+tmap_options(bg.color = "black", legend.text.color = "white")
+
+tm_shape(World) + tm_polygons("HPI", legend.title = "Happy Planet Index")
+
+# A style is a certain configuration of tmap_options()
+tmap_style("classic") ##"white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
+
+tm_shape(World) + tm_polygons("HPI", legend.title = "Happy Planet Index")
+
+
+tmap_options_diff()  # see what options have been changed
+tmap_options_reset() # reset the options to the default values # New style see ?tmap_options.
+
+
+# Exporting saving maps
+tm <- tm_shape(World) + tm_polygons("HPI", legend.title = "Happy Planet Index")
+tmap_save(tm, filename = "world_map.png")  ## save an image ("plot" mode)
+tmap_save(tm, filename = "world_map.html") ## save as stand-alone HTML file ("view" mode)
+
+# Shiny integration
+# in UI part:
+tmapOutput("my_tmap")
+# in server part
+output$my_tmap = renderTmap({
+  tm_shape(World) + tm_polygons("HPI", legend.title = "Happy Planet Index")
+ })
+
+# Quick thematic map with one function call qtm()
+qtm(World, fill = "HPI", fill.pallete = "RdYlGn")
+
+# Tips ’n Tricks many
+tmap_tip()
 

@@ -415,6 +415,35 @@ print(xtable::xtable(data, caption = 'Table with xtable'), type = 'HTML',
 data <- faithful[1:4, ]
 stargazer::stargazer(data, type = 'HTML', title = 'Table with stargazer')
 
+
+
+## another tutorial https://finnstats.com/index.php/2021/05/04/exploratory-data-analysis/
+library(tidyverse)
+library(DataExplorer)
+gss_cat
+gss_cat  %>% glimpse()
+gss_cat  %>% introduce()
+gss_cat  %>% plot_intro()
+gss_cat  %>% plot_missing()
+gss_cat  %>% profile_missing()
+gss_cat  %>% plot_density()
+gss_cat  %>% plot_histogram()
+gss_cat  %>% plot_bar()
+gss_cat  %>% plot_correlation()
+gss_cat  %>% plot_correlation(maxcat = 5) 
+
+# For complete html report you can make use below mentioned codes.
+gss_cat %>%
+  create_report( output_file = "gss_survey_data_profile_report",
+             #    output_dir = "D:/RStudio/EDA/",
+                           y = "rincome",
+                report_title = "EDA Report"
+                )  # OK fine
+
+
+
+
+
 library(tidyverse, tidytext)
 data %>% unnest_tokens(word, line) %>% anti_join(stop_words) %>% count(word, sort = TRUE)
 

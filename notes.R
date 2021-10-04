@@ -1,4 +1,15 @@
 
+
+# webshot2 
+remotes::install_github("rstudio/webshot2") # Chrome or Chromium based lile, Edge, Opera, Vivaldi, Brave,
+library(webshot2)
+webshot2::webshot("https://www.r-project.org")   # Single page
+webshot2::webshot(c("https://www.r-project.org", "https://www.rstudio.com")) # Multiple pages (in parallel!)
+
+# Specific height and width
+webshot2::webshot("https://www.r-project.org", vwidth = 1600, vheight = 900, cliprect = "viewport")
+
+
 # install.packages("remotes")
 remotes::install_github("gadenbuie/xaringanExtra")
 
@@ -7,17 +18,18 @@ library(modeltime)
 library(tidyverse)
 library(timetk)
 
-data_tbl <- walmart_sales_weekly %>%
+timetk::walmart_sales_weekly
+data_tbl <- timetk::walmart_sales_weekly %>%
             select(id, Date, Weekly_Sales) %>%   
             set_names(c("id", "date", "value"))
 data_tbl
 
 
 data_tbl %>% group_by(id) %>%
-             plot_time_series(  date, 
+        timetk::plot_time_series(  date, 
                                 value, 
-                                .interactive = F, 
-                                .facet_ncol = 2
+                                .interactive = F, #T for plotly
+                                .facet_ncol = 3
                               )
 
 # Nested Data Structure: Most critical to ensure your data is prepared (covered next)
@@ -31,7 +43,7 @@ data_tbl %>% group_by(id) %>%
 
 nested_data_tbl <- data_tbl %>%
   # 1. Extending: We'll predict 52 weeks into the future.
-  extend_timeseries(
+  timetk::extend_timeseries(
                     .id_var        = id,
                     .date_var      = date,
                     .length_future = 52       ) %>%
@@ -47,17 +59,16 @@ nested_data_tbl <- data_tbl %>%
   # 3. Splitting: We'll take the actual data and create splits
   #    for accuracy and confidence interval estimation of 52 weeks (test)
   #    and the rest is training data
-  split_nested_timeseries(.length_test = 52 )
+  ????::split_nested_timeseries(.length_test = 52 )
 
 nested_data_tbl
 
 rec_prophet <- recipe(value ~ date, training(nested_data_tbl$.splits[[1]])) 
 
 wflw_prophet <- workflow() %>%
-  add_model(
-    prophet_reg("regression", seasonality_yearly = TRUE) %>% 
-      set_engine("prophet")
-  ) %>%
+                add_model( prophet_reg("regression", seasonality_yearly = TRUE) %>% 
+                set_engine("prophet")
+          ) %>%
   add_recipe(rec_prophet)
 
 
@@ -65,20 +76,20 @@ wflw_prophet <- workflow() %>%
 
 
 
-#######
-#######
-
-flights %>% count(flight_path = str_c(origin, " -> ", dest), sort = TRUE)
-
-flights %>% slice_sample(n = 15) # or slice_sample(prop = 0.15)
+##############
+##############
+timetk::flights
+flights %>% count(flight_path   =   str_c(origin,  " -> ",  dest), sort = TRUE)
+flights %>% slice_sample(n = 15)                     # or slice_sample(prop = 0.15)
 
 number = parse_number(number)
 
 flights %>%  mutate(
   origin = case_when(
     (origin == "EWR") & dep_delay > 20   ~ "Newark International Airport - DELAYED",
-    (origin == "EWR") & dep_delay <= 20  ~ "Newark International Airport - ON TIME DEPARTURE,
-                 )  ) %>%   count(origin)
+    (origin == "EWR") & dep_delay <= 20  ~ "Newark International Airport - ON TIME DEPARTURE",
+                    )  
+                    ) %>%   count(origin)
 
 mutate(origin = str_replace_all(
  origin, c( "^EWR$" = "Newark International", "^JFK$" = "John F. Kennedy International" ) ) ) %>% count(origin)
@@ -94,30 +105,28 @@ crossing()
 
 #notes
 
-
 str1 <- "My Friend is coming on july 10 2018 or 10/07/2018"
 
 library(anytime)
 library(stringr)
-anydate(str_extract_all(str1, 
-                        "[[:alnum:]]+[ /]*\\d{2}[ /]*\\d{4}")[[1]])  
-#[1] "2018-07-10" "2018-10-07"
+anydate( str_extract_all( str1, "[[:alnum:]]+[ /]*\\d{2}[ /]*\\d{4}")[[1]] ) #[1] "2018-07-10" "2018-10-07"
 
 
 
 # md
-# four spaces (or one tab) is treated as verbatim text
-# fenced code blocks > 3 tildes (~) and end with as long tilde, 
-# If the code itself contains a row of tildes or backticks, just use a longer row of tildes or backticks
-# attach attributes to fenced or backtick code block using this syntax: ~~~~ {#mycode .haskell .numberLines startFrom="100"}
+# four spaces (or one tab) is treated as verbatim text 
+# fenced code blocks > 3 tildes (~) and end same tildes # Use more if code itself contains tildes or backticks. 
+# attach attributes to code blocks using syntax: ~~~~ {#mycode .haskell .numberLines startFrom="100"}
     
 # A line block is a sequence of lines beginning with a vertical bar (|) followed by a space
 
-# Pandoc supports task lists, using the syntax of GitHub-Flavored Markdown.
+# Pandoc supports
+
+#  task lists, using the syntax of GitHub-Flavored Markdown.
 # - [ ] an unchecked task list item
 # - [x] checked item
 
-# Pandoc supports definition lists, using the syntax of PHP Markdown Extra with some extensions.2
+# definition lists, using the syntax of PHP Markdown Extra with some extensions.2
 # 
 # Term 1
 # 
@@ -133,27 +142,27 @@ anydate(str_extract_all(str1,
 # each new list using @ will take up where the last stopped. So, for example:
 #     
 #     (@)  My first example will be numbered (1).
-# (@)  My second example will be numbered (2).
+#     (@)  My second example will be numbered (2).
 # 
 # Explanation of examples.
 # 
-# (@)  My third example will be numbered (3).
-# Numbered examples can be labeled and referred to elsewhere in the document:
+#    (@)  My third example will be numbered (3).
+#         
 #     
-#     (@good)  This is a good example.
+#     (@good) Numbered examples can be labeled and referred to elsewhere in the document:
 # 
 # As (@good) illustrates, ...
 
 # To “cut off” the list after item two, you can insert some non-indented content, like an HTML comment,
 
-# Horizontal rules  A line containing a row of three or more *, -, or _ characters 
+# Horizontal rules : a row of three or more *, -, or _ characters 
 # Tables Four kinds of tables 
 
 # ---
-#     title:  'This is the title: it contains a colon'
+# title:  'This is the title: it contains a colon'
 # author:
 #     - Author One
-# - Author Two
+#     - Author Two
 # keywords: [nothing, nothingness]
 # abstract: |
 #     This is the abstract.
@@ -162,7 +171,7 @@ anydate(str_extract_all(str1,
 # ...
 
 
-# nly the following characters to be backslash-escaped:  \`*_{}[]()>#+-.!
+# Only the following characters to be backslash-escaped:  \`*_{}[]()>#+-.!
 
 
 
@@ -194,7 +203,6 @@ band <- tibble(  z       = seq(-2.2, 2.2, length.out = 300),  n = length(d$x_sam
                robust_upper = robust_line + 2 * robust_se,
                robust_lower = robust_line - 2 * robust_se,
              )
-
 
 ggplot(d) +  geom_point(aes(x = z_theoretical, y = x_sample)) + 
             geom_abline( aes(intercept = mean, slope = sd, color = "Naive"),
@@ -265,7 +273,7 @@ library(tidyverse)
 library(ggforce)
 library(ggfx)
 ggplot() + 
-    as_reference( geom_text(aes(x = 0, y = 0, label = 'RDSO'), size = 40, family = 'Fontania'),
+    as_reference( geom_text(aes(x = 0, y = 0, label = 'RDSO'), size = 50, family = 'Fontania'),
                  id = 'text_layer') + 
     with_blend( geom_circle(aes(x0 = 0, y0 = 0, r = seq_len(5) ), fill = NA, size = 8),
         bg_layer = 'text_layer',  blend_type = 'xor' ,
@@ -277,15 +285,16 @@ ggplot() +
 ggfx_logo <- as.raster(magick::image_read( system.file('help', 'figures', 'logo.png', package = 'ggfx') ))
 magick::image_read( "/Users/gk/Downloads/newyear2021.png")
 ggfx_logo <- as.raster(magick::image_read( "/Users/gk/Downloads/newyear2021.png" ) ) 
+
 ggplot(mpg) +   with_blend(  bg_layer = ras_fit(ggfx_logo, 'viewport'),
                              geom_point(aes(x = hwy, y = displ), size = 5), 
                              blend_type = 'xor' )
 
 
 
-# library(ggthemes)   ;   # or install_github('cttobin/ggthemr') #library(themr) # ggthemr("<theme name>") #ggthemr_reset()
-# library(plotly) ;       # plot_grid(gp1, gp2, NULL, gp1, labels = "AUTO")
-library(googlesheets4) ;   # gs_auth(new_user = TRUE) #
+# library(ggthemes) #install_github('cttobin/ggthemr') #library(themr) # ggthemr("<name>") #ggthemr_reset()
+# library(plotly)   # plot_grid(gp1, gp2, NULL, gp1, labels = "AUTO")
+library(googlesheets4) # gs_auth(new_user = TRUE) #
 library("survival") ; library("survminer") ; 
 library(ggfortify); library(DataExplorer)
 
@@ -345,7 +354,7 @@ separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)
 library(sparkline)
 sparkline(0)
 
-spk_dt <- data.frame( var      = c("mpg", "wt"),
+spk_dt <- data.frame( var = c("mpg", "wt"),
                      sparkline = c(spk_chr(mtcars$mpg), spk_chr(mtcars$wt))  )
 
 kbl(spk_dt, escape = F) %>%    kable_paper(full_width = F)
