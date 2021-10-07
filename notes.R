@@ -1,4 +1,7 @@
 
+p + scale_x_date(date_breaks = "1 month", date_labels =  "%b %Y") 
+p + theme(axis.text.x=element_text(angle=60, hjust=1))
+
 
 # webshot2 
 remotes::install_github("rstudio/webshot2") # Chrome or Chromium based lile, Edge, Opera, Vivaldi, Brave,
