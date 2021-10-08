@@ -1,30 +1,60 @@
 #devtools::install_github("daheelee/timelineS")
 
-## This package contains five functions as below.
-# timelineS: Plots a horizontal timeline with event descriptions at corresponding dates.
-# timelineG: Plots faceted timelines for grouped data.
+# 5 fucntions
+# timelineS:  horizontal timeline with event descriptions at corresponding dates.
+# timelineG:  faceted timelines for grouped data.
 # durPlot: Plots boxplot, histogram, density plot, scatter plot, line plot and prints summary statistics for date duration data.
-# durCalc: Calculates the duration between two dates, use it as a filter to select rows that satisfy the length criteria. Returns the dataset with additional columns regarding the length of durations in different units.
+# durCalc: Calculates duration between two dates,to filter rows. Returns additional columns of durations in different units.
 # durSummary: Returns summary statistics for date duration data.
 
 
 
 library(timelineS)
-timelineS(mj_life, main = "Life of Michael Jackson")
 mj_life
 
+timelineS(mj_life, main = "Life of Michael Jackson")
 
 timelineS(mj_life, main = "Life of Michael Jackson", 
-          label.direction = "up", label.length = c(0.2,0.8,0.4,1.2), label.position = 3, 
-          line.color = "blue", label.color = "blue", point.color = "blue", pch = "-")
+          label.direction = "updown", 
+          label.length = c(0.2,0.8,0.4,1.2), label.position = 3, label.angle = 90,label.color = "green",
+          line.color = "blue",  
+          point.color = "red", pch = "*", scale.cex = 0.85)
+
+# general
+timelineS(mj_life, 
+          main = "Life of Michael Jackson",  #NA, 
+          xlab = "(c) sub Life of Michael Jackson", #NA, 
+          buffer.days = 150,
+          line.color = "blue", #gray46", 
+          line.width = 5, 
+          
+          scale = "year", 
+          scale.format = "%Y", #"%d%m%Y"
+          scale.font = 2, scale.orient = 1,scale.cex = 1,
+          scale.above = FALSE,  
+          scale.tickwidth = 1,
+          # labels = paste(df[[1]], df[[2]]),   # make your lables
+          label.direction = "updown", # "up", "down", "downup",
+          label.length = c(0.5,0.5,0.8,0.8), 
+          # label.position = c(1,3),
+          label.color = "red", label.cex = 0.95, label.font = 0.61, label.angle = -90,
+          pch = 20, point.cex = 1, 
+          point.color = "gray44" )
+
+getwd()
+list.dirs()
+list.files()
+
+mydata = readxl::read_xlsx(path = "C:/Users/Lenovo/Downloads/" , "final Annexure-I (pending vendor registration cases)")
 
 
-
-
+life_country
 timelineG(df=life_country, 
-          start="Start", end="End", names="Name", 
-          phase="Phase", 
-          group1="Country", group2="Gender" )    # + theme_bw()
+          names="Name",
+          start="Start", end="End",  
+          phase="Phase",   # colours
+          group1="Country", group2="Gender"    
+          )    # + theme_bw()
 
 # durPlot function gives five different plots by default. 
 # You can set facet=TRUE to get faceted plots.

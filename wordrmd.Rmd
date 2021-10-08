@@ -2,7 +2,9 @@
 title: "Untitled"
 author: "PED/QA/Mech"
 date: "02/06/2021"
-output: word_document
+output:
+  pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -10,6 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
+
+<!--- rmarkdown::render('C:/Users/Lenovo/Documents/gkgit/pedqam/wordrmd.Rmd',  encoding = 'UTF-8');   --->
+
 
 This is an `R Markdown document`. [*Markdown*]{.ul} is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 

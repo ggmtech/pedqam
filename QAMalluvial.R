@@ -8,23 +8,10 @@ library(writexl)  # install.packages("writexl")
 library(alluvial)
 library(ggalluvial)
 
-remotes::install_github("davidgohel/officedown")
-install.packages("officedown")
-install.packages(c('tinytex', 'rmarkdown'))
-tinytex::install_tinytex()
-# after restarting RStudio, confirm that you have LaTeX with 
-tinytex:::is_tinytex() 
-#tinytex::tlmgr_install("babel-portuges")
-
-# not on CRAN yet
-if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstudio.org")
-remotes::install_github("rstudio/bookdown")
-remotes::install_github("ismayc/thesisdown")
-
 
 ######################## to be used
 library(googledrive) # better  use  for files suggested by jenny bryon
-library(googlesheets)
+library(googlesheets4)
 drive_user()  # user authorised
 drive_auth()  # authorise user
 
