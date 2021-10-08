@@ -1,22 +1,27 @@
 # YUAM
+#
+# tidyverse # ggplot2, dplyr, tidyr,stringr, readr(csv,tsv,fwf), purrr, tibble, forcats
+# liberary(DBI,  readxl, googlesheets4, googledrive , lubridate, hms, glue
+#                 httr, rvest , jsonlite , xml2 ,  # blob, dtplyr magrittr %$%  %<>%
+#                 tidymodels,
+
 # Data spliting for vendor data into separate fields
 
-# regexp search for an email address. \b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}\b 
+# regexp email \b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}\b 
 # phone  in 264 area code   \b1?[-( ]*264[-) ]*\d{3}[- ]*\d{4}\b 
 # Date regexpr 
 #  yyyy-mm-dd regexp  ^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$
 #  mm/dd/yyyy regexp  ^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$
 #  dd-mm-yyyy format  ^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$
-#  
 
 library(stringr, lubridate)
 string <- "<13>1 2018-04-18T10:29:00.581243+10:00 KOI-QWE-HUJ vmon 2318 - -  Some Description..."
-string %>%   str_extract("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}") %>%  ymd_hms() # YYYY-mm-dd HMSS
+string %>% str_extract("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}") %>% ymd_hms() # YYYY-mm-dd HMSS
 
 
 waldo::compare(df1,df2)
 
-install.packages("prophet")  # with strong seasonal effects and several seasons of historical data. robust to missing data and shifts in the trend, and typically handles outliers well.
+install.packages("prophet")  # with strong seasonal effects and historical data. robust to missing data and shifts in the trend, and typically handles outliers well.
 library(prophet)
 library(readr)
 df <- readr::read_csv('../tests/testthat/data.csv')

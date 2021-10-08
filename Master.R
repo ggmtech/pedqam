@@ -1,18 +1,22 @@
 
-# keyboard shortcut  Ctrl/Cmd + Shift + F10.
-# comments ctr sht c
+# keyboard shortcut  Cmd + Shift + F10.    # comments ctr sht c
+
 rm(list = ls(all.names = TRUE))  # will clear all objects includes hidden objects.
 rm(list = ls(all       = TRUE))
-#invisible( lapply( paste0('package:', names(sessionInfo()$otherPkgs)),   detach,   character.only=TRUE, unload=TRUE )     )
-gc()                             # free up memrory and report the memory usage.but does not delete variables
+#invisible( lapply( paste0('package:', names(sessionInfo()$otherPkgs)),  detach, character.only=TRUE, unload=TRUE )     )
+gc()                             # free memory and report usage.but does not delete variables
 sessionInfo()
+
 #install.packages(c('tinytex', 'rmarkdown'))
 #tinytex::install_tinytex()
-# after restarting RStudio, confirm that you have LaTeX with 
+# restarting RStudio, confirm LaTeX with 
 #tinytex:::is_tinytex() 
+
 if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstudio.org")
+
 #remotes::install_github("rstudio/bookdown")
 #remotes::install_github("ismayc/thesisdown")
+<<<<<<< HEAD
 remotes::install_github("davidgohel/officedown")
 dir <- system.file(package = "officedown", "examples", "bookdown")
 file.copy(dir, getwd(), recursive = TRUE, overwrite = TRUE)
@@ -36,6 +40,15 @@ remotes::install_github("rstudio/bookdown")
 remotes::install_github("ismayc/thesisdown")
 
 
+=======
+#remotes::install_github("davidgohel/officedown")
+#dir <- system.file(package = "officedown", "examples", "bookdown")
+#file.copy(dir, getwd(), recursive = TRUE, overwrite = TRUE)
+
+#rmarkdown::render_site("bookdown")
+#rmarkdown::powerpoint_presentation()
+# browseURL("bookdown/_book/bookdown.docx") ?
+>>>>>>> 4bb9860ba0f8c4292b05ce8b6918fa91b0eddbe7
 ############################
 
 # load libraries
@@ -58,35 +71,37 @@ lapply(packages, library, character.only = TRUE) # %>% invisible()
 
 # library(cowplot)
 # library(ggthemes)      # or install_github('cttobin/ggthemr') #library(themr) # ggthemr("<theme name>") #ggthemr_reset()
-# library(plotly)        # plot_grid(gp1, gp2, NULL, gp1, labels = "AUTO", label_size=12, align="v" , scale = c(1, 1, .85, .9))
+# library(plotly)        # plot_grid(gp1, gp2, NULL, gp1, labels = "AUTO", label_size=12, align="v, scale = c(1, 1, .85, .9))
+
 
 theme_set( theme_bw()  +  theme( legend.position = "top" )   )
 library(ggpubr)          # with plotgrid, and cowplot
 
 
 ####### Load Data ###################
-## load or input(loadpackages) 
+## load or 
+## input(loadpackages) 
 
 #setwd("/Users/gk/Google Drive")   #  
-#ls()  # list.files()  
-#ls("/Users/gk/Google Drive/setouts1819final.csv")
+#ls()  
+#list.files()  #ls("/Users/gk/Google Drive/setouts1819final.csv")
 #list.files("/Users/gk/Google Drive/setouts1819final.csv")
 #setoutbak <- read_csv("/Users/gk/Google Drive/setouts1819final.csv") #  OK !
 # write_excel_csv(x, path, na = "NA", append = FALSE, col_names = !append)
 
-#setoutbak <- readxl::read_xlsx("/Users/gk/Google Drive/setouts1819final.csv", sheet = 1)
+#readxl::read_xlsx("/Users/gk/Google Drive/setouts1819final.csv", sheet = 1)
 #writexl::write_xlsx(setoutdata1419)
-# setoutsheetexl <-  readxl::read_excel( "/Users/gk/Google Drive/allsetout.xlsx",  sheet= 1,  skip = 1, col_names = TRUE, range = NULL)      # cf ""
+#readxl::read_excel( "/Users/gk/Google Drive/allsetout.xlsx",  sheet= 1,  skip = 1, col_names = TRUE, range = NULL)      # cf ""
 # or                       ::read_xlsx(    filepath                   ,    sheet = NULL, skip = 0, col_names = TRUE, range = NULL, ..
 # , col_types = NULL,  na = "", trim_ws = TRUE,  n_max = Inf, guess_max = min(1000, n_max)   )
 #  range = NULL, col_types = NULL,  na = "", trim_ws = TRUE,  n_max = Inf, guess_max = min(1000, n_max)  )
 
 
+# left_join(x, y) : returns all rows from x,        and all columns from x and y.
+# inner_join(x, y): returns all rows from x where matching values in y, and all columns from x , y
 
+########### 
 
-########### DATA from gs_read ########### mydata1, mydata2, mydata3, mydata4, mydata5
-# left_join(x, y): returns all rows from x, and all columns from x and y.
-# inner_join(x, y): returns all rows from x where there are matching values in y, and all columns from x and y
 
 library(googlesheets4)   
 

@@ -1,10 +1,11 @@
 # Weibull distr p.d.f  fx(x; α, β)= α/βα [x α-1e(-x/ β)^α       ]For x>0, α, β>0.
 #  reliability theory. Corrosion, alloy weight loss, and metal tensile strength follow Weibull
-# IEC 61649, Edition 2, Weibull Analysis # (the official international standard)
+# IEC 61649, Edition 2, Weibull Analysis # (official international standard)
 # http://weibullnews.com/Weibull-Engineering-Basics-and-Introduction.html
+
 # management wants how long any particular battery of the same design should be used before replacement if the chance of failure is limited to only 2 percent (%). Plus conservativeness
 
-# Plot battery test data on Weibull CDF scalingordered lowest to highest.
+# Plot battery test data on Weibull CDF scaling ordered lowest to highest.
 #  place data points on the Weibull plot horizontally by increasing data value, and vertically by increasing failure probability estimated with order statistics. 
 #  fit a straight line (on this scaling) to the data is a standard Weibull solution using graphical `rank regression` (rr).
 #   Another way to get a solution repeatedly searches for highest data probability, giving a `maximum likelihood estimate` (mle). The resulting plot models the variability of battery life capability. 
@@ -21,43 +22,39 @@
 # Weibull-Engineering-Basics-Battery-New.jpg
 # Adding one cost factor for planned replacement (usually lower ) and a second cost factor for emergency replacement due to failure () at higher cost) for optimum replacement in non-safety-related items.
 
-install.packages(WeibullR)
+
+
+#install.packages(WeibullR)
 library(WeibullR)
+#help(package="WeibullR")
+
 # weibull 
-dweibull(x, shape, scale = 1) #to create the probability density function.
-curve(function, from = NULL, to = NULL) #to plot the probability density function.
-curve(dweibull(x, shape=2, scale = 2), from=0, to=5)
+dweibull(x = 4, shape= 2, scale = 2)      # to create the p.d.f
+#curve(function, from = NULL, to = NULL)  # to plot p.d.f
+curve(dweibull(x, shape=2, scale = 2), from=0,  to=5)   ## to plot p.d.f
 
 curve(dweibull(x, shape=2, scale = 2), from=0, to=5,
       main = 'Weibull Distribution (shape = 2, scale = 2)',
       ylab = ' dWeibull gives the density',
+      xlab = 'x values from 0 to 5',
       lwd = 2,
       col = 'pink')
 
 #add more than one curve in the same plot
-curve(dweibull(x, shape=2, scale = 2), from=0, to=5,
-      main = 'Weibull Distribution',
-      ylab = ' dWeibull gives the density',
-      lwd = 2,
-      col = 'pink')
 curve(dweibull(x, shape=1.05, scale = 2), from=0, to=5, col='green', add=TRUE)
 # add legends
 legend(2, .3, legend=c("shape=2, scale=2", "shape=1.5, scale=2"),
-col=c("green", "blue"), lty=1, cex=1.2)
+              col=c("green", "blue"), 
+              lty=1, cex=1.2     )
 
-curve(dweibull(x, shape=1, scale = 2), from=0, to=5, col='black', add=TRUE)
+curve(dweibull(x, shape=1,    scale = 2), from=0, to=5, col='black', add=TRUE)
 curve(dweibull(x, shape=0.71, scale = 2), from=0, to=5, col='blue', add=TRUE)
 
 
-
 rivet_failures<-c(30, 49, 82, 90, 96)
-rivet_failures<-c(
-  30, 49, 82, 90, 96)
-
 
 # Now let’s get a fit using WeibullR’s
 MRRw2p(rivet_failures) # Quick Fit method MRRw2p:
-
 
 # Using the wblr object
 obj1<-wblr(rivet_failures) # Creates a wblr object labeled obj1.
@@ -65,13 +62,12 @@ obj1<-wblr.fit(obj1, col="red") #Adds a default fit that will appear as ared lin
 obj1<-wblr.conf(obj1, lwd=1) # Adds default CI boundsusing a single width line.
 plot(obj1)
 
-help(package="WeibullR")
 
 
 # Quick Fit Functions :  MRRw2p, MLEln3p and permutations 
-# wblr Object Model  wblr, wblr.fit, and wblr.conf  with more user control,permits multi plots
-# Backend functions are mostly employed by advanced users anddevelopers.
-#Using the wblr object
+# wblr Object Model:     wblr, wblr.fit, and wblr.conf  with more user control,permits multi plots
+
+# Using the wblr object
 obj2<-wblr.conf(wblr.fit(wblr(rivet_failures,rivet_suspensions, col="purple"),),lwd=1)
 # Here a nested object method used to create similar obj2 incorporating rivet suspension data.
 # (Notice that the color specification wasapplied inside the wblr parenthesis, not the fit.)
@@ -82,10 +78,10 @@ plot.wblr(list(obj1, obj2))
 rivet_data <- data.frame(time=c(rivet_failures, rivet_suspensions), event=c(rep(1,length(rivet_failures)), rep(0,length(rivet_suspensions))))
 rivet_data
 
-#Data can be read from locally or known web sources.
-# agcread.csv( file.choose())
 
-agc<-read.csv("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/data/acid_gas_compressor.csv", header=T)$agc
+agcread.csv( file.choose())  #Data can be read from locally or known web sources.
+
+agc <- read.csv("https://raw.githubusercontent.com/openrelia/WeibullR.gallery/master/data/acid_gas_compressor.csv", header=T)$agc
 
 agc
 

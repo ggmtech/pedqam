@@ -58,8 +58,10 @@ timelineG(df=life_country,
 
 # durPlot function gives five different plots by default. 
 # You can set facet=TRUE to get faceted plots.
-
-durPlot(life_exp, start="Birth", end="Death", group="Country", timeunit="years", 
+life_exp
+durPlot(life_exp, 
+        start="Birth", end="Death", 
+        group="Country", timeunit="years", 
          facet=TRUE, binwidth=3, alpha=0.7, title=TRUE , plot_type= "boxplot") # "all" ?
 
 ?durPlot()
@@ -88,8 +90,7 @@ data <- data.frame(
     end     = c(NA          ,           NA, "2016-02-04", NA)
 )
 
-timevis(data)
-
+timevis(data) # js based interactive?
 ###### Every item must have a content and a start variable. 
 ###### If the item is a range rather than a single point in time, you can supply an end as well. 
 ###### id is only required if you want to access or manipulate an item. 
@@ -99,7 +100,6 @@ timevis(data)
 # if editable = TRUE option, then the user will be able to add new items 
 # by double clicking, modify items by dragging, and delete items by selecting them.
 # You can use the groups feature to group together multiple items into different “buckets”
-
 
 
 timevis() %>%
