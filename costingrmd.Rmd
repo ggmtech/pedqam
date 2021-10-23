@@ -1,0 +1,188 @@
+---
+title: Cost estimation of RDSO controlled items
+author: "QA RDSO"
+#date: "17MAR2021"
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+classoption: twoside
+fontsize: 10pt
+output:
+  officedown::rdocx_document:
+    reference_docx: costingrmd.docx # testrmd.docx # template.docx
+    toc: yes
+    toc_depth: 4
+    number_sections: true
+
+  bookdown::pdf_document2:  # unicode need xeletex
+    latex_engine: xelatex
+    keep_tex: true
+    toc: true
+    toc_depth: 3
+    df_print: kable  # default table style
+   # reference_docx: pandoc_template.docx
+    tables:
+      style: Table
+      layout: autofit
+      width: 1.0
+      caption:
+        style: Table Caption
+        pre: 'Table '
+        sep: ': '
+      conditional:
+        first_row: true
+        first_column: false
+        last_row: false
+        last_column: false
+        no_hband: false
+        no_vband: true
+    plots:
+      style: Normal
+      align: center
+      caption:
+        style: Image Caption
+        pre: 'Figure '
+        sep: ': '
+    lists:
+      ol.style: null
+      ul.style: null
+    mapstyles:
+      Normal: ['First Paragraph', 'Author', 'Date']
+    page_size:
+      width: 8.3
+      height: 11.7
+      orient: "portrait"
+    page_margins:
+      bottom: 1
+      top: 1
+      right: 1.25
+      left: 1.25
+      header: 0.5
+      footer: 0.5
+      gutter: 0.5
+    reference_num: true
+abstract: |
+ DG directed setting up of a committee of 3 PED’s to examine the recommended system improvement to examine the recommended system improvement at para “e” / NP3 , which is reproduced as: Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd. Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021. The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
+keywords:
+  - key, QAM, Railway, RDSO
+  - dictionary
+  - word
+linestretch: 1.5
+geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
+bibliography: ../gkbookdown/book.bib
+#bibliography: ../pedqam/GKBibMaster.bib
+csl         : "etransportation.csl"
+nocite: |
+  @*    # or   @item1, @item2 @* is a wildcard for all references.
+---
+
+```{r setup, include=FALSE}
+rm( list=ls() )
+library(knitr)
+library(officedown)
+library(officer)
+library(ggplot2)
+library(tidyverse)
+library(broom)
+library(flextable)
+# set chunks defaults
+knitr::opts_chunk$set(
+  echo       = FALSE,
+  message    = FALSE,
+  warning    = FALSE
+ )
+
+# set flextable defaults
+knitr::opts_chunk$set(echo = TRUE, 
+                      fig.cap = TRUE, 
+                      fig.retina=2)
+set_flextable_defaults(font.family = "Arial", font.size = 9, 
+theme_fun = "theme_vanilla", big.mark="", table.layout="autofit")
+
+# formatting properties for specific paragraphs
+centeredP <- fp_par(text.align = "center")
+knitr::opts_chunk$set(fig.retina=2)
+```
+
+```{r ipsumsetup , message=FALSE, warning=FALSE, cache=FALSE, echo=FALSE}
+library(hrbrthemes)
+library(tidyverse)
+update_geom_font_defaults(font_rc)
+```
+
+# Abstract {-}
+
+An abstract
+
+```{r myimage, eval = TRUE, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
+knitr::include_graphics("flowery.png")
+```
+
+\tableofcontents
+
+
+
+# History of the case
+
+Based on a complaint by M/s Prag industries , Lucknow to Member(RS) Railway Board, and PED/Vigilance , Railway Board , etc, the case was investigated and Vigilance organisation recommended following system improvements. 
+
+> > Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd.
+
+ CVO view that indicative costing of the items should be done by concerned directorate with finance vetting by invoking book examination clause, if need be,, as a result of discrete value analysis to preclude the possibility of revenue loss. It is also hightime where RDSO may consider setting up of value analysis cell for this purpose,
+
+The committee noted that the then  DG/RDSO also  agreed on the recommendations
+
+DG directed setting up of a committee of 3 PED’s to examine the recommended system improvement to examine the recommended system improvement at para “e” / NP3 , which is reproduced as :
+> Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd.
+
+Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021
+
+ * Gopal Kumar, PED/QA(Mech) - Convener
+ * Sunit Kumar, PED(EL)
+ * Alok Mathur, PED/QA(Elec)
+
+The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
+
+<!--- It is seen that DG/RDSO has already accepted the recommendations for working out financial  implications, including financial vetting of the costing at NP4 of the file RDSO/20/Vig/05/CT/39. 
+
+Sheridan [@Brown14]: You know,
+--->
+
+
+
+# Figures
+
+```{r,  eval=TRUE, include=TRUE, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+#fig.show='hold',
+#library(officer)
+# docx_file <- system.file(package = "officer", "template", "template.docx")
+# doc <- read_docx(docx_file)
+# To read paragraph stylenames:styles_info(doc, type = "paragraph")
+# To read table stylenames:styles_info(doc, type = "table")
+# To read list stylenames: styles_info(doc, type = "numbering")
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  labs(title="mtcars again, it seems") #+  theme_ipsum_rc(grid="XY" 
+```
+
+
+```{r, child=c('one.Rmd', 'two.Rmd')}
+```
+
+Change `BOSS_MODE` to `TRUE` if this report is to be read
+by the boss:
+
+```{r, include=FALSE}
+BOSS_MODE <- TRUE
+```
+
+Conditionally include the appendix:
+
+```{r, child=if (!BOSS_MODE) 'two.Rmd'}
+```
+
+# Reference 
+
+```{r bib, include=TRUE, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
+# KEEP THIS AT THE END OF THE DOCUMENT TO GENERATE A LOCAL bib FILE FOR PKGS USED
+knitr::write_bib(sub("^package:", "", grep("package", search(), value=TRUE)), file='skeleton.bib')
+```
