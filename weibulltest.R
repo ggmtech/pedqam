@@ -1,6 +1,6 @@
 # Weibull distr p.d.f  fx(x; α, β)= α/βα [x α-1e(-x/ β)^α       ]For x>0, α, β>0.
 #  reliability theory. Corrosion, alloy weight loss, and metal tensile strength follow Weibull
-# IEC 61649, Edition 2, Weibull Analysis # (official international standard)
+# IEC 61649, Ed2, Weibull Analysis # (official international standard)
 # http://weibullnews.com/Weibull-Engineering-Basics-and-Introduction.html
 
 # management wants how long any particular battery of the same design should be used before replacement if the chance of failure is limited to only 2 percent (%). Plus conservativeness
@@ -57,9 +57,9 @@ rivet_failures<-c(30, 49, 82, 90, 96)
 MRRw2p(rivet_failures) # Quick Fit method MRRw2p:
 
 # Using the wblr object
-obj1<-wblr(rivet_failures) # Creates a wblr object labeled obj1.
-obj1<-wblr.fit(obj1, col="red") #Adds a default fit that will appear as ared line on a chart.
-obj1<-wblr.conf(obj1, lwd=1) # Adds default CI boundsusing a single width line.
+obj1<-wblr(rivet_failures)      # Creates a wblr object labeled obj1.
+obj1<-wblr.fit(obj1, col="red") # Adds a default fit that will appear as ared line on a chart.
+obj1<-wblr.conf(obj1, lwd=1)    # Adds CI bounds using line width lwd =1
 plot(obj1)
 
 

@@ -5,7 +5,7 @@ author: "Nombre de la autora"
 institute: "R-Ladies Xalapa"
 date: "Fecha"
 output:
-  xaringan::moon_reader:
+  countIncrementalSlides: false
   lib_dir: libs
   css: 
     - default
@@ -15,7 +15,7 @@ output:
   nature:
     highlightStyle: github
     highlightLines: true
-  countIncrementalSlides: false
+  xaringan::moon_reader:
   ratio: "4:3"
 ---
   

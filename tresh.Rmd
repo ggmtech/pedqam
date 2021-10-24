@@ -1,0 +1,183 @@
+---
+title: Awesome Rmarkdown Word report with programmatically inserted headings, outputs 
+  and cross-references
+author: "Thomas de Marchin"
+#date: "17MAR2021"
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+classoption: twoside
+fontsize: 10pt
+output:
+  officedown::rdocx_document:
+    reference_docx: testrmd.docx # template.docx
+    toc: yes
+    toc_depth: 4
+    number_sections: true
+
+  bookdown::pdf_document2:  # unicode need xeletex
+    latex_engine: xelatex
+    keep_tex: true
+    toc: true
+    toc_depth: 3
+    df_print: kable  # default table style
+   # reference_docx: pandoc_template.docx
+    tables:
+      style: Table
+      layout: autofit
+      width: 1.0
+      caption:
+        style: Table Caption
+        pre: 'Table '
+        sep: ': '
+      conditional:
+        first_row: true
+        first_column: false
+        last_row: false
+        last_column: false
+        no_hband: false
+        no_vband: true
+    plots:
+      style: Normal
+      align: center
+      caption:
+        style: Image Caption
+        pre: 'Figure '
+        sep: ': '
+    lists:
+      ol.style: null
+      ul.style: null
+    mapstyles:
+      Normal: ['First Paragraph', 'Author', 'Date']
+    page_size:
+      width: 8.3
+      height: 11.7
+      orient: "portrait"
+    page_margins:
+      bottom: 1
+      top: 1
+      right: 1.25
+      left: 1.25
+      header: 0.5
+      footer: 0.5
+      gutter: 0.5
+    reference_num: true
+abstract: |
+  The text of your abstract.  150 -- 250 words.
+keywords:
+  - key
+  - dictionary
+  - word
+linestretch: 1.5
+geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
+bibliography: ../gkbookdown/book.bib
+#bibliography: ../pedqam/GKBibMaster.bib
+csl         : "etransportation.csl"
+nocite: |
+  @*    # or   @item1, @item2 @* is a wildcard for all references.
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+library(knitr)
+library(officedown)
+library(officer)
+library(ggplot2)
+library(tidyverse)
+library(broom)
+library(flextable)
+# set chunks defaults
+knitr::opts_chunk$set(
+  echo       = FALSE,
+  message    = FALSE,
+  warning    = FALSE
+)
+
+# set flextable defaults
+knitr::opts_chunk$set(echo = TRUE, 
+                      fig.cap = TRUE, 
+                      fig.retina=2)
+set_flextable_defaults(
+
+font.family = "Arial", font.size = 9, 
+
+theme_fun = "theme_vanilla",
+
+big.mark="", table.layout="autofit")
+
+# formatting properties for specific paragraphs
+centeredP <- fp_par(text.align = "center")
+knitr::opts_chunk$set(fig.retina=2)
+```
+
+```{r ipsum_setup, message=FALSE, warning=FALSE, cache=FALSE, echo=FALSE}
+library(hrbrthemes)
+library(tidyverse)
+
+update_geom_font_defaults(font_rc)
+```
+
+\# Abstract {-}
+
+An abstract
+
+```{r myimage, eval = TRUE, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE, cache=FALSE}
+knitr::include_graphics("flowery.png")
+```
+
+\\tableofcontents
+
+# HEADING level 1
+
+Captain John Sheridan [@Brown14]: You know, I just had a thought. You've been back and forth to your world so many times since you got here. How do I know you're the same Vorlon? Inside that encounter suit you could be anyone. Kosh Naranek: I have *always* been here. Captain John Sheridan: Oh, yeah? You said that about me too. Kosh Naranek: Yes. [starts to walk away] Captain John Sheridan: I really *hate* it when you do that. Kosh Naranek: [turns around] Good! Delenn: I am Grey. I stand between the candle and the star. We are Grey. We stand between the darkness and the light.
+
+    library(officer)
+    docx_file <- system.file(package = "officer", "template", "template.docx")
+    doc <- read_docx(docx_file)
+
+To read `paragraph` stylenames:
+
+    styles_info(doc, type = "paragraph")
+
+To read `table` stylenames:
+
+    styles_info(doc, type = "table")
+
+To read `list` stylenames:
+
+    styles_info(doc, type = "numbering")
+
+Lt. Corwin: Do we trust no-one then? Cmdr. Susan Ivanova: No, trust Ivanova, trust yourself, anybody else, shoot'em. Ta'Lon: Congratulations citizen G'Kar. You are now a religious icon. Susan Ivanova: So the next time we find out where the Shadows plan to strike, we can mine the area, and as soon as they come out of hyperspace... Citizen G'Kar: Then, as you so concisely say, Boom!
+
+## Section Title
+
+G'Kar: It is said that the future is always born in pain. The history of war is the history of pain. If we are wise, what is born of that pain matures into the promise of a better world, because we learn that we can no longer afford the mistakes of the past. Dr. Stephen Franklin: Doesn't anyone listen to one damn word I say? Captain John Sheridan: No surrender, no retreat. [Opening narration, season 4] Lennier: It was the year of fire, Zack Allan: The year of destruction, Citizen G'Kar: The year we took back what was ours. Lyta Alexander: It was the year of rebirth, Ambassador Vir Cotto: The year of great sadness, Marcus Cole: The year of pain, Delenn: And a year of joy. Ambassador Londo Mollari: It was a new age. Dr. Stephen Franklin: It was the end of history. Susan Ivanova: It was the year everything changed. Michael Garibaldi: The year is 2261. Captain John Sheridan: The place, Babylon 5. Sinclair: They say God works in mysterious ways. Michael Garibaldi: Maybe so, but He's a con-man compared to the Vorlon.
+
+## Figures
+
+```{r, fig.show='hold', eval=FALSE}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  labs(title="mtcars again, it seems") #+  theme_ipsum_rc(grid="XY" 
+                 )
+
+```
+
+### Level 3
+
+Commander Jeffrey David Sinclair: Everyone lies, Michael. The innocent lie because they don't want to be blamed for something they didn't do and the guilty lie because they don't have any other choice. Lt. Corwin: Do we trust no-one then? Cmdr. Susan Ivanova: No, trust Ivanova, trust yourself, anybody else, shoot'em. Susan Ivanova: If I live through this without completely losing my mind, it will be a miracle of Biblical proportions.
+
+Lt. Corwin: [aside] Well, there goes my faith in the Almighty. [Opening narration, season 3] Susan Ivanova: The Babylon Project was our last, best hope for peace. It failed. But in the year of the Shadow War, it became something greater: our last, best hope for victory. The year is 2260. The place - Babylon 5. Alfred Bester: Being a telepath means you're special and rare and valuable.
+
+#### Level 4
+
+Delenn: We are star stuff. We are the universe made manifest trying to figure itself out.
+
+Captain John Sheridan: If more of our so-called leaders would walk the same streets as the people who voted them in, live in the same buildings, eat the same food instead of hiding behind glass and steel and bodyguards, maybe we'd get better leadership and a little more concern for the future.
+
+Captain John Sheridan: If more of our so-called leaders would walk the same streets as the people who voted them in, live in the same buildings, eat the same food instead of hiding behind glass and steel and bodyguards, maybe we'd get better leadership and a little more concern for the future. Kosh Naranek: Understanding is a three-edged sword. Alfred Bester: Much as it might offend their sense of perspective, not everything is about Babylon 5.
+
+# Reference 
+
+```{r bib, include=FALSE, eval=FALSE }
+# KEEP THIS AT THE END OF THE DOCUMENT TO GENERATE A LOCAL bib FILE FOR PKGS USED
+knitr::write_bib(sub("^package:", "", grep("package", search(), value=TRUE)), file='skeleton.bib')
+```

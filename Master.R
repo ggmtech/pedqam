@@ -16,6 +16,29 @@ if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstud
 
 #remotes::install_github("rstudio/bookdown")
 #remotes::install_github("ismayc/thesisdown")
+
+remotes::install_github("davidgohel/officedown")
+dir <- system.file(package = "officedown", "examples", "bookdown")
+file.copy(dir, getwd(), recursive = TRUE, overwrite = TRUE)
+rmarkdown::render_site("bookdown")
+browseURL("bookdown/_book/bookdown.docx")
+
+
+
+
+remotes::install_github("davidgohel/officedown")
+install.packages("officedown")
+install.packages(c('tinytex', 'rmarkdown'))
+tinytex::install_tinytex()
+# after restarting RStudio, confirm that you have LaTeX with 
+tinytex:::is_tinytex() 
+#tinytex::tlmgr_install("babel-portuges")
+
+# not on CRAN yet
+if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstudio.org")
+remotes::install_github("rstudio/bookdown")
+remotes::install_github("ismayc/thesisdown")
+
 #remotes::install_github("davidgohel/officedown")
 #dir <- system.file(package = "officedown", "examples", "bookdown")
 #file.copy(dir, getwd(), recursive = TRUE, overwrite = TRUE)

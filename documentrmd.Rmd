@@ -6,7 +6,14 @@ date: "17MAR2021"
 output: 
   word_document:
     reference_docx: testrmd.docx # template.docx
+    toc            : true
 #  pdf_document: default
+#bibliography: "../pedqam/GKBibMaster.bib" #   , "skeleton.bib"
+bibliography: "../gkbookdown//book.bib" #   , "skeleton.bib"
+
+# csl         : "path/to/nature.csl"
+nocite: |
+  @*    # or   @item1, @item2 @* is a wildcard for all references.
 ---
 
 ```{r setup, include=FALSE}
@@ -140,5 +147,10 @@ run_pagebreak()
 
 `r fpar(ftext("Congratulations!", fp_text(font.size = 12, bold = TRUE, color = "#C32900")), fp_p = fp_par(text.align = "center"))`
 
-![](cheers.jpg)
+![](flowery.png)
 
+```{r myimage, eval = TRUE, echo = FALSE, results = 'asis'}
+knitr::include_graphics("flowery.png")
+```
+
+# References

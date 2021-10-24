@@ -44,8 +44,8 @@ library(timetk)
 interactive <- FALSE
 
 LT3 %>% mutate( months = my(Month)  ) %>% 
-  plot_time_series(.date_var = months, 
-                   ItemsLessThan3Vendors, 
+  plot_time_series( .date_var = months, 
+                    ItemsLessThan3Vendors, 
                    #.interactive = interactive,
                    # .plotly_slider = TRUE
                    )

@@ -1,0 +1,775 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  10pt,
+  twoside]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Awesome Rmarkdown Word report with programmatically inserted headings, outputs and cross-references},
+  pdfauthor={Thomas de Marchin},
+  pdfkeywords={key, dictionary, word},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[left=4cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\title{Awesome Rmarkdown Word report with programmatically inserted headings, outputs and cross-references}
+\author{Thomas de Marchin}
+\date{23/10/2021}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+The text of your abstract. 150 -- 250 words.
+\end{abstract}
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\setstretch{1.5}
+\# Abstract \{-\}
+
+An abstract
+
+\textbackslash tableofcontents
+
+\hypertarget{heading-level-1}{%
+\section{HEADING level 1}\label{heading-level-1}}
+
+Captain John Sheridan (Brown et al. 2014): You know, I just had a thought. You've been back and forth to your world so many times since you got here. How do I know you're the same Vorlon? Inside that encounter suit you could be anyone. Kosh Naranek: I have \emph{always} been here. Captain John Sheridan: Oh, yeah? You said that about me too. Kosh Naranek: Yes. {[}starts to walk away{]} Captain John Sheridan: I really \emph{hate} it when you do that. Kosh Naranek: {[}turns around{]} Good! Delenn: I am Grey. I stand between the candle and the star. We are Grey. We stand between the darkness and the light.
+
+\begin{verbatim}
+library(officer)
+docx_file <- system.file(package = "officer", "template", "template.docx")
+doc <- read_docx(docx_file)
+\end{verbatim}
+
+To read \texttt{paragraph} stylenames:
+
+\begin{verbatim}
+styles_info(doc, type = "paragraph")
+\end{verbatim}
+
+To read \texttt{table} stylenames:
+
+\begin{verbatim}
+styles_info(doc, type = "table")
+\end{verbatim}
+
+To read \texttt{list} stylenames:
+
+\begin{verbatim}
+styles_info(doc, type = "numbering")
+\end{verbatim}
+
+Lt. Corwin: Do we trust no-one then? Cmdr. Susan Ivanova: No, trust Ivanova, trust yourself, anybody else, shoot'em. Ta'Lon: Congratulations citizen G'Kar. You are now a religious icon. Susan Ivanova: So the next time we find out where the Shadows plan to strike, we can mine the area, and as soon as they come out of hyperspace\ldots{} Citizen G'Kar: Then, as you so concisely say, Boom!
+
+\hypertarget{section-title}{%
+\subsection{Section Title}\label{section-title}}
+
+G'Kar: It is said that the future is always born in pain. The history of war is the history of pain. If we are wise, what is born of that pain matures into the promise of a better world, because we learn that we can no longer afford the mistakes of the past. Dr.~Stephen Franklin: Doesn't anyone listen to one damn word I say? Captain John Sheridan: No surrender, no retreat. {[}Opening narration, season 4{]} Lennier: It was the year of fire, Zack Allan: The year of destruction, Citizen G'Kar: The year we took back what was ours. Lyta Alexander: It was the year of rebirth, Ambassador Vir Cotto: The year of great sadness, Marcus Cole: The year of pain, Delenn: And a year of joy. Ambassador Londo Mollari: It was a new age. Dr.~Stephen Franklin: It was the end of history. Susan Ivanova: It was the year everything changed. Michael Garibaldi: The year is 2261. Captain John Sheridan: The place, Babylon 5. Sinclair: They say God works in mysterious ways. Michael Garibaldi: Maybe so, but He's a con-man compared to the Vorlon.
+
+\hypertarget{figures}{%
+\subsection{Figures}\label{figures}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mtcars, }\FunctionTok{aes}\NormalTok{(wt, mpg)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"mtcars again, it seems"}\NormalTok{) }\CommentTok{\#+  theme\_ipsum\_rc(grid="XY" }
+                 \ErrorTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{level-3}{%
+\subsubsection{Level 3}\label{level-3}}
+
+Commander Jeffrey David Sinclair: Everyone lies, Michael. The innocent lie because they don't want to be blamed for something they didn't do and the guilty lie because they don't have any other choice. Lt. Corwin: Do we trust no-one then? Cmdr. Susan Ivanova: No, trust Ivanova, trust yourself, anybody else, shoot'em. Susan Ivanova: If I live through this without completely losing my mind, it will be a miracle of Biblical proportions.
+
+Lt. Corwin: {[}aside{]} Well, there goes my faith in the Almighty. {[}Opening narration, season 3{]} Susan Ivanova: The Babylon Project was our last, best hope for peace. It failed. But in the year of the Shadow War, it became something greater: our last, best hope for victory. The year is 2260. The place - Babylon 5. Alfred Bester: Being a telepath means you're special and rare and valuable.
+
+\hypertarget{level-4}{%
+\paragraph{Level 4}\label{level-4}}
+
+Delenn: We are star stuff. We are the universe made manifest trying to figure itself out.
+
+Captain John Sheridan: If more of our so-called leaders would walk the same streets as the people who voted them in, live in the same buildings, eat the same food instead of hiding behind glass and steel and bodyguards, maybe we'd get better leadership and a little more concern for the future.
+
+Captain John Sheridan: If more of our so-called leaders would walk the same streets as the people who voted them in, live in the same buildings, eat the same food instead of hiding behind glass and steel and bodyguards, maybe we'd get better leadership and a little more concern for the future. Kosh Naranek: Understanding is a three-edged sword. Alfred Bester: Much as it might offend their sense of perspective, not everything is about Babylon 5.
+
+\hypertarget{reference}{%
+\section*{Reference}\label{reference}}
+\addcontentsline{toc}{section}{Reference}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-EMPad20}{}%
+Abgrall, P., and A.-M. Gu? 2007. {``Lab-on-Chip Technologies: Making a Microfluidic Network and Coupling It into a Complete Microsystem---a Review.''} \emph{J. Micromech. Microeng.} 17: R15--49. \url{https://doi.org/10.1088/0960-1317/17/5/R01}.
+
+\leavevmode\hypertarget{ref-Abgr06}{}%
+Abgrall, P., and others. 2006. {``A Novel Fabrication Method of Flexible and Monolithic {3D microfluidic structures using lamination of SU-8} Films.''} \emph{J. Micromech. Microeng.} 16: 113--21. \url{https://doi.org/10.1088/0960-1317/16/1/016}.
+
+\leavevmode\hypertarget{ref-Abol05}{}%
+Abolmasov, S. N., T. Shirafuji, and K. Tachibana. 2005. {``Submillimeter Dielectric Barrier Discharges at Atmospheric Pressure: Edge Effect.''} \emph{IEEE Trans. Plasma Sci.} 33: 941--48. \url{https://doi.org/10.1109/TPS.2005.845093}.
+
+\leavevmode\hypertarget{ref-Akis03}{}%
+Akishev, Yu.S., A. V. Dem'yanov, V. B. Karal'nik, A. E. Monich, and N. I. Trushkin. 2003. {``Comparison of the AC Barrier Corona with DC Positive and Negative Coronas and Barrier Discharge.''} \emph{Plasma Physics Reports} 29: 90--100. \url{https://doi.org/10.1134/1.1538505}.
+
+\leavevmode\hypertarget{ref-ASTME1294}{}%
+\emph{{ASTM}~e~1294-89~(1999), Standard Test Method for Pore Size Characteristics of Membrane Filters Using Automated Liquid Porosimeter}. n.d. ASTM International. \url{http://www.astm.org/DATABASE.CART/WITHDRAWN/E1294.htm}.
+
+\leavevmode\hypertarget{ref-Baba01}{}%
+Babayan, S. E., and others. 2001. {``Deposition of Silicon Dioxide Films with a Non-Equilibrium Atmospheric-Pressure Plasma Jet.''} \emph{Plasma Sources Sci. Technol.} 10 (4): 573--78. \url{https://doi.org/10.1088/0963-0252/10/4/305}.
+
+\leavevmode\hypertarget{ref-Beck06}{}%
+Becker, K. H., K. H. Schoenbach, and J. G. Eden. 2006. {``Microplasmas and Applications.''} \emph{J. Phys. D: Appl. Phys.} 39: R55--70. \url{https://doi.org/10.1088/0022-3727/39/3/R01}.
+
+\leavevmode\hypertarget{ref-Bile04}{}%
+Bilenberg, B., T. Nielsen, B. Clausen, and A. Kristensen. 2004. {``PMMA to SU-8 Bonding for Polymer Based Lab-on-a-Chip Systems with Integrated Optics.''} \emph{J. Micromech. Microeng.} 14: 814--18. \url{https://doi.org/10.1088/0960-1317/14/6/008}.
+
+\leavevmode\hypertarget{ref-Blan04}{}%
+Blanco, F. J., and others. 2004. {``Novel Three-Dimensional Embedded {SU-8} Microchannels Fabricated Using a Low Temperature Full Wafer Adhesive Bonding.''} \emph{J. Micromech. Microeng.} 14: 1047--56. \url{https://doi.org/10.1088/0960-1317/14/7/027}.
+
+\leavevmode\hypertarget{ref-Boga02}{}%
+Bogaerts, A., E. Neyts, R. Gijbels, and J. van der Mullen. 2002. {``Gas Discharge Plasmas and Their Applications.''} \emph{Spectrochim. Acta. B Atom. Spectros.} 57 (4): 609--58. \url{https://doi.org/10.1016/S0584-8547(01)00406-2}.
+
+\leavevmode\hypertarget{ref-Bohl1989}{}%
+Bohl, Willi. 1989. \emph{Technische Str?mungslehre}. 8th ed. Vogel-Verlag, W?rzburg. \url{http://www.worldcat.org/oclc/315749265}.
+
+\leavevmode\hypertarget{ref-Bran07}{}%
+Brandenburg, R., and others. 2007. {``Antimicrobial Treatment of Heat Sensitive Materials by Means of Atmospheric Pressure {Rf}-Driven Plasma Jet.''} \emph{Contrib. Plasma Phys.} 47: 72--79. \url{https://doi.org/10.1002/ctpp.200710011}.
+
+\leavevmode\hypertarget{ref-Bran05}{}%
+Brandenburg, R., H.-E. Wagner, A. M. Morozov, and K. V. Kozlov. 2005. {``Axial and Radial Development of Microdischarges of Barrier Discharges in {N2/O2} Mixtures at Atmospheric Pressure.''} \emph{J. Phys. D: Appl. Phys.} 38 (11): 1649--57. \url{https://doi.org/10.1088/0022-3727/38/11/003}.
+
+\leavevmode\hypertarget{ref-Brea09}{}%
+Breadmore, M. C., E. Candish, and R. M. Guijt. 2009. {``Dry Film Photoresist, Saving Time and Money Without Compromising on Performance.''}
+
+\leavevmode\hypertarget{ref-Brown14}{}%
+Brown, Michelle L., Therese M. Donovan, W. Scott Schwenk, and David M. Theobald. 2014. {``Predicting Impacts of Future Human Population Growth and Development on Occupancy Rates of Forest-Dependent Birds.''} Journal Article. \emph{Biological Conservation} 170: 311--20. \url{https://doi.org/10.1016/j.biocon.2013.07.039}.
+
+\leavevmode\hypertarget{ref-Bruu08}{}%
+Bruus, Henrik. 2008. \emph{Theoretical Microfluidics}. Oxford University Press. \url{http://www.worldcat.org/oclc/176807166}.
+
+\leavevmode\hypertarget{ref-Bull01}{}%
+Bullett, N. A., and others. 2001. {``Direct Imaging of Plasma-Polymerized Chemical Micropatterns.''} \emph{Surf. Interface Anal.} 31 (11): 1074--76. \url{https://doi.org/10.1002/sia.1146}.
+
+\leavevmode\hypertarget{ref-Carl04}{}%
+Carlier, J., and others. 2004. {``Integrated Microfluidics Based on Multi-Layered SU-8 for Mass Spectrometry Analysis.''} \emph{J. Micromech. Microeng.} 14: 619--24. \url{https://doi.org/10.1088/0960-1317/14/4/024}.
+
+\leavevmode\hypertarget{ref-Carl1977}{}%
+Carlsson, DJ, A. Garton, and DM Wiles. 1977. {``The Weatherability of Polypropylene Monofilaments. Effects of Fiber Production Conditions.''} \emph{Journal of Applied Polymer Science} 21 (11): 2963--78. \url{https://doi.org/10.1002/app.1977.070211112}.
+
+\leavevmode\hypertarget{ref-Carr1903}{}%
+Carr, W. R. 1903. {``On the Laws Governing Electric Discharges in Gases at Low Pressures.''} \emph{Phil. Trans. Roy. Soc. Lond. Math. Phys. Sci.} 201: 403--33. \url{https://doi.org/10.1098/rsta.1903.0020}.
+
+\leavevmode\hypertarget{ref-Chang00}{}%
+Chang, H.-K., and Y.-K. Kim. 2000. {``{UV-LIGA process for high aspect ratio structure using stress barrier and C-shaped etch hole}.''} \emph{Sensors and Actuators A} 84: 342--50. \url{https://doi.org/10.1016/S0924-4247(00)00408-8}.
+
+\leavevmode\hypertarget{ref-Char1967}{}%
+Charbonnier, F. M., C. J. Bennette, and L. W. Swanson. 1967a. {``Electrical Breakdown Between Metal Electrodes in High Vacuum. I. Theory.''} \emph{J. Appl. Phys.} 38: 627--33. \url{https://doi.org/10.1063/1.1709385}.
+
+\leavevmode\hypertarget{ref-Char1967-2}{}%
+---------. 1967b. {``Electrical Breakdown Between Metal Electrodes in High Vacuum. II. Experimental.''} \emph{J. Appl. Phys.} 38: 634--40. \url{https://doi.org/10.1063/1.1709386}.
+
+\leavevmode\hypertarget{ref-Coog1996}{}%
+Coogan, J. J., and A. D. Sappey. 1996. {``Distribution of {OH} Within Silent Discharge Plasma Reactors.''} \emph{IEEE Trans. Plasma Sci.} 24 (1): 91--92. \url{https://doi.org/10.1109/27.491706}.
+
+\leavevmode\hypertarget{ref-Cutl1993}{}%
+Cutler, P. 1993. {``Theory of Electron Emission in High Fields from Atomically Sharp Emitters: Validity of the Fowler-Nordheim Equation.''} \emph{Progress in Surface Science} 42 (1-4): 169--85. \url{https://doi.org/10.1016/0079-6816(93)90068-7}.
+
+\leavevmode\hypertarget{ref-Davi1998}{}%
+Davis, J. R. 1998. \emph{Metals Handbook: Desk Edition}. 2nd ed. ASM International.
+
+\leavevmode\hypertarget{ref-Dikm04}{}%
+Dikmans, A. J., and others. 2004. {``A New Compact Disc Format of High Density Array Synthesis Applied to Peptide Nucleic Acids and in Situ {MALDI} Analysis.''} \emph{Molecular Diversity} 8 (3): 197--207. \url{https://doi.org/10.1023/B:MODI.0000036234.66238.4e}.
+
+\leavevmode\hypertarget{ref-Dora03}{}%
+Dorai, R., and M. J. Kushner. 2003. {``A Model for Plasma Modification of Polypropylene Using Atmospheric Pressure Discharges.''} \emph{J. Phys. D: Appl. Phys} 36 (6): 666--85. \url{https://doi.org/10.1088/0022-3727/36/6/309}.
+
+\leavevmode\hypertarget{ref-Dora02}{}%
+Dorai, Rajesh. 2002. {``Modeling of Atmospheric Pressure Plasma Processing of Gases and Surfaces.''} PhD thesis, University of Illinois at Urbana-Champaign. \url{http://uigelz.eecs.umich.edu/pub/theses/rajesh_phd_thesis.pdf}.
+
+\leavevmode\hypertarget{ref-Dush1923}{}%
+Dushman, S. 1923. {``Electron Emission from Metals as a Function of Temperature.''} \emph{Physical Review} 21: 623--36. \url{https://doi.org/10.1103/PhysRev.21.623}.
+
+\leavevmode\hypertarget{ref-Eden03}{}%
+Eden, J. G., and others. 2003. {``Microplasma Devices Fabricated in Silicon, Ceramic, and Metal/Polymer Structures: Arrays, Emitters and Photodetectors.''} \emph{J. Phys. D: Appl. Phys.} 36: 2869--77. \url{https://doi.org/10.1088/0022-3727/36/23/001}.
+
+\leavevmode\hypertarget{ref-Eich05}{}%
+Eichler, M., M. Thomas, H. Mewes, and C.-P. Klages. 2005. {``{Ortsselektive Atmosph?rendruck-Plasmavorbehandlung f?r das Direkt-Wafer-Bonden bei niedrigen Temperaturen}.''} \url{http://www.vde-verlag.de/data/buecher.php?action=bookdetail/\&vertriebsnr=562926}.
+
+\leavevmode\hypertarget{ref-Elia1991}{}%
+Eliasson, B., and U. Kogelschatz. 1991. {``Modeling and Applications of Silent Discharge Plasmas.''} \emph{IEEE Trans. Plasma Sci.} 19 (2): 309--23. \url{https://doi.org/10.1109/27.106829}.
+
+\leavevmode\hypertarget{ref-Klei03}{}%
+F.Kleinschmidt, K.Saalw?chter, U.St?hr, and others. 2003. {``NMR Spectroscopy Characterization and Self-Diffusion Study of Partially Swollen Polymer Networks.''} \emph{Macromol. Chem. Phys.} 204: F24--25.
+
+\leavevmode\hypertarget{ref-Fahl01}{}%
+Fahland, M., C. Charton, V. Kirchhoff, and U. St?hr. 2001. {``Deposition of Multilayer Optical Coatings onto Plastic Webs by Pulse Magnetron Sputtering; Challenges and Opportunities.''} In \emph{Proceedings 6th. International Symposium on Sputtering and Plasma Processes (ISSP), p. 189, Kanazawa, Japan}.
+
+\leavevmode\hypertarget{ref-FIDICgreen}{}%
+FIDIC. 2005a. \emph{FIDIC Green Book}. Edited by FIDIC. FIDIC, Paris.
+
+\leavevmode\hypertarget{ref-FIDICred}{}%
+---------. 2005b. \emph{FIDIC Red Book}. Edited by FIDIC. FIDIC, Paris.
+
+\leavevmode\hypertarget{ref-FIDICyellow}{}%
+---------. 2007. \emph{FIDIC Yellow Book}. Edited by FIDIC. FIDIC, Paris.
+
+\leavevmode\hypertarget{ref-FIDICrainbow}{}%
+---------. 2008. \emph{FIDIC Rainbow Suite}. Edited by FIDIC. FIDIC, Paris.
+
+\leavevmode\hypertarget{ref-Flac02}{}%
+Flack, W. W., H. A. Nguyen, and E. Capsuto. 2002. {``Characterization of a Novel Photoresist Redistribution Material for Advanced Packaging Applications.''} \url{https://doi.org/10.1117/12.474198}.
+
+\leavevmode\hypertarget{ref-Forb1999}{}%
+Forbes, R. G. 1999. {``Refining the Application of Fowler-Nordheim Theory.''} \emph{Ultramicroscopy} 79: 11--23. \url{https://doi.org/10.1016/S0304-3991(99)00097-2}.
+
+\leavevmode\hypertarget{ref-Fowl1928}{}%
+Fowler, R. H., and L. Nordheim. 1928. {``Electron Emission in Intense Electric Fields.''} \emph{Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character} 119 (781): 173--81. \url{http://www.jstor.org/pss/95023}.
+
+\leavevmode\hypertarget{ref-Gabo1993}{}%
+Gaboury, S. R., and M. W. Urban. 1993. {``Microwave Plasma Reactions of Solid Monomers with Silicone Elastomer Surfaces: A Spectroscopic Study.''} \emph{Langmuir} 9 (11): 3225--33. \url{https://doi.org/10.1021/la00035a076}.
+
+\leavevmode\hypertarget{ref-GEKA}{}%
+GEKA~mbH. n.d. {``Destroying Chemical Warfare Agents and Contaminated Military Waste.''} Internet: http://www.geka-munster.de/Seiten-engl/vernichtung/plasma-index.html (accessed 06-09-2009). \url{http://www.geka-munster.de/Seiten-engl/vernichtung/plasma-index.html}.
+
+\leavevmode\hypertarget{ref-Gerb03}{}%
+Gerbracht, M. 2003. {``{Trocknung dicker Photoresistschichten mittels unterschiedlicher Trocknungsverfahren}.''} Diplomarbeit, Fachhochschule D?sseldorf.
+
+\leavevmode\hypertarget{ref-Filament}{}%
+Golubovskii, Yu. B. n.d. Internet:{}http://optics.phys.spbu.ru/\textasciitilde golub/images/filament.jpg (accessed 07-09-2009). \url{http://optics.phys.spbu.ru/~golub/images/filament.jpg}.
+
+\leavevmode\hypertarget{ref-Golub02-2}{}%
+Golubovskii, Yu.B., V. A. Maiorov v J. Behnke, and J. F. Behnke. 2002. {``Stability of the Barrier Discharge Relative to the Filamentation.''} In \emph{Proc. Of 16th ESCAMPIG/5th ICRP (Grenoble, France, 14-18 July 2002), Vol. 1, p. 235-236}. \url{http://optics.phys.spbu.ru/~golub/articles/barrier2d/_16ESCAMPIG.pdf}.
+
+\leavevmode\hypertarget{ref-Golub01}{}%
+Golubovskii, Yu.B., V. A. Maiorov, J. Behnke, and J. F. Behnke. 2001. {``The Role of Emission from the Dielectric Surface in a Homogeneous Barrier Discharge in Nitrogen.''} In \emph{Proc. Of 15th Int. Symp. On Plasma Chemistry (Orl?ans, France, 10-13 July 2001) Vol VIII p 3239-3244}. \url{http://optics.phys.spbu.ru/~golub/articles/DBD/_ISPC15.pdf}.
+
+\leavevmode\hypertarget{ref-Golub02}{}%
+Golubovskii, Yu. B., V. A. Maiorov, J. Behnke, and J. F. Behnke. 2002. {``Some Aspects of the Modeling of an Uniform Barrier Discharge in Nitrogen.''} In \emph{Proc. Of 16th ESCAMPIG/5th ICRP (Grenoble, France, 14-18 July 2002), Vol. 1, p. 233-234}. \url{http://optics.phys.spbu.ru/~golub/articles/DBD/_N2/_16ESCAMPIG.pdf}.
+
+\leavevmode\hypertarget{ref-Golub03}{}%
+Golubovskii, Yu.B., V. A. Maiorov, J. Behnke, and J. F. Behnke. 2003. {``Modelling of the Homogeneous Barrier Discharge in Helium at Atmospheric Pressure.''} \emph{J. Phys. D: Appl. Phys.} 36: 39--49. \url{https://doi.org/10.1088/0022-3727/36/1/306}.
+
+\leavevmode\hypertarget{ref-GolubWeb}{}%
+Golubovskii, Yu. B., and others. n.d. {``Homogeneous Barrier Discharge.''} Internet: http://optics.phys.spbu.ru/\textasciitilde golub/english/barrier.html. \url{http://optics.phys.spbu.ru/~golub/english/barrier.html}.
+
+\leavevmode\hypertarget{ref-Goos1998}{}%
+Goossens, A., E. L. Maloney, and J Schoonman. 1998. {``Gas-Phase Synthesis of Nanostructured Anatase \(\mathrm{TiO_2}\).''} \emph{Chemical Vapor Deposition} 4 (3): 109--14. \url{https://doi.org/10.1002/(SICI)1521-3862(199805)04:03\%3C109::AID-CVDE109\%3E3.0.CO;2-U}.
+
+\leavevmode\hypertarget{ref-Graz08}{}%
+Graz, I., A. Ebner, S. Bauer, C. Romanin, and H. Gruber. 2008. {``Micropatterned Atmospheric Pressure Discharge Surface Modification of Fluorinated Polymer Films for Mammalian Cell Adhesion and Protein Binding.''} \emph{Appl. Phys. A} 92: 547--55. \url{https://doi.org/10.1007/s00339-008-4614-z}.
+
+\leavevmode\hypertarget{ref-Han04}{}%
+Han, M., W. Lee, S.-K. Lee, and S. S. Lee. 2003. {``{3D microfabrication with inclined/rotated UV lithography}.''} \emph{Sensors and Actuators A} 111: 14--20. \url{https://doi.org/10.1016/j.sna.2003.10.006}.
+
+\leavevmode\hypertarget{ref-Hand00}{}%
+Handique, K., D. T. Burke, C. H. Mastrangelo, and M. A. Burns. 2000. {``{Nanoliter liquid metering in microchannels using hydrophobic patterns}.''} \emph{Anal. Chem.} 72 (17): 4100--4109. \url{https://doi.org/10.1021/ac000064s}.
+
+\leavevmode\hypertarget{ref-Hei04}{}%
+Heise, M., W. Neff, O. Franken, P. Muranyi, and J. Wunderlich. 2004. {``Sterilization of Polymer Foils with Dielectric Barrier Discharges at Atmospheric Pressure.''} \emph{Plasmas Polym.} 9: 23--33. \url{https://doi.org/10.1023/B:PAPO.0000039814.70172.c0}.
+
+\leavevmode\hypertarget{ref-Hens07}{}%
+Hensel, K., and others. 2007. {``Electrical and Optical Properties of {AC} Microdischarges in Porous Ceramics.''} \emph{Plasma Process. Polym.} 4: 682--93. \url{https://doi.org/10.1002/ppap.200700022}.
+
+\leavevmode\hypertarget{ref-Heul04}{}%
+Heule, M., U. P. Sch?nholzer, and L. J. Gauckler. 2003. {``Patterning Colloidal Suspensions by Selective Wetting of Microcontact-Printed Surfaces.''} \emph{J. Eur. Ceram. Soc.} 24: 2733--39. \url{https://doi.org/10.1016/j.jeurceramsoc.2003.09.011}.
+
+\leavevmode\hypertarget{ref-Heusch1998}{}%
+Heuschkel, M. O., L. Gu?rin, B. Buisson, D. Bertrand, and P. Renaud. 1998. {``Buried Microchannels in Photopolymer for Delivering of Solutions to Neurons in a Network.''} \emph{Sensors and Actuators B} 48: 356--61. \url{https://doi.org/10.1016/S0925-4005(98)00071-9}.
+
+\leavevmode\hypertarget{ref-Ho04}{}%
+Ho, K. H., S. T. Newman, S. Rahimifard, and R. D. Allen. 2004. {``State of the Art in Wire Electrical Discharge Machining {(WEDM)}.''} \emph{Int. J. Mach. Tool. Manufact.} 44 (12 - 13): 1247--59. \url{https://doi.org/10.1016/j.ijmachtools.2004.04.017}.
+
+\leavevmode\hypertarget{ref-incoterm2010}{}%
+ICC. 2010. \emph{INCOTERM}. International Chember of Commerce, Paris. \href{https://www.icc.fr}{www.icc.fr}.
+
+\leavevmode\hypertarget{ref-Inag1998}{}%
+Inagaki, N., S. Tasaka, and M. Makino. 1998. {``Plasma Polymer Deposition from Mixture of Tetramethoxysilane and Oxygen on {PET} Films and Their Oxygen Gas Barrier Properties.''} \emph{J. Appl. Polym. Sci.} 64 (6): 1031--39. \url{https://doi.org/10.1002/\%28SICI\%291097-4628\%2819970509\%2964\%3A6\%3C1031\%3A\%3AAID-APP1\%3E3.0.CO\%3B2-M}.
+
+\leavevmode\hypertarget{ref-publicprocurementact}{}%
+India. 2012. {``Public Procurement Act Bill.''} Government of India.
+
+\leavevmode\hypertarget{ref-ISO10780}{}%
+\emph{{ISO}~10780:1994, Stationary Source Emissions -- Measurement of Velocity and Volume Flowrate of Gas Streams in Ducts}. n.d. ISO. \url{http://www.iso.org/iso/catalogue/_detail.htm?csnumber=18855}.
+
+\leavevmode\hypertarget{ref-ISO4003}{}%
+\emph{{ISO}~4003:1977, Permeable Sintered Metal Materials -- Determination of Bubble Test Pore Size}. n.d. ISO. \url{/newline\%20http://www.iso.org/iso/catalogue/_detail.htm?csnumber=9678}.
+
+\leavevmode\hypertarget{ref-ISO4287}{}%
+\emph{{ISO}~4287~(1997), Geometrical Product Specifications Surface Texture Profile Method Terms, Definitions and Surface Texture Parameters}. n.d. ISO. \url{http://www.iso.org/iso/catalogue/_detail.htm?csnumber=10132}.
+
+\leavevmode\hypertarget{ref-Ito07}{}%
+Ito, T., and others. 2007. {``Characterization of a Microfluidic Device Fabricated Using a Photosensitive Sheet.''} \emph{J. Micromech. Microeng.} 17: 432--38. \url{https://doi.org/10.1088/0960-1317/17/3/003}.
+
+\leavevmode\hypertarget{ref-Jack01}{}%
+Jackman, R. J., T. M. Floyd, R. Ghodssi, M. A. Schmidt, and K. F. Jensen. 2001. {``Microfluidic Systems with on-Line UV Detection Fabricated in Photodefinable Epoxy.''} \emph{J. Micromech. Microeng.} 11: 1--8. \url{https://doi.org/10.1088/0960-1317/11/3/316}.
+
+\leavevmode\hypertarget{ref-Jens02}{}%
+Jensen, K. L. 2002. {``Theory of Field Emission.''} \emph{Vacuum Microelectronics} Chapter 3: 33--104. \url{https://doi.org/10.1002/0471224332.ch3}.
+
+\leavevmode\hypertarget{ref-Jens03}{}%
+---------. 2003. {``Electron Emission Theory and Its Application: Fowler--Nordheim Equation and Beyond.''} \emph{J. Vac. Sci. Technol. B} 21(4): 1528--44. \url{https://doi.org/10.1116/1.1573664}.
+
+\leavevmode\hypertarget{ref-Jide06}{}%
+Jidenko, N., M. Petit, and J. P. Borra. 2006. {``Electrical Characterization of Microdischarges Produced by Dielectric Barrier Discharge in Dry Air at Atmospheric Pressure.''} \emph{J. Phys. D: Appl. Phys.} 39 (2): 281--93. \url{https://doi.org/10.1088/0022-3727/39/2/008}.
+
+\leavevmode\hypertarget{ref-Jigu06}{}%
+Jigueta, S., M. Judelewicza, S. Mischlerb, A. Bertchc, and P. Renaudc. 2006. {``Effect of Filler Behavior on Nanocomposite {Su8} Photoresist for Moving Micro-Parts.''} \emph{Microelectron. Eng.} 83: 1273--76. \url{https://doi.org/10.1016/j.mee.2006.01.068}.
+
+\leavevmode\hypertarget{ref-Kang03}{}%
+Kang, W. S., J. M. Park, Y. Kim, and S. H. Hong. 2003. {``Numerical Study on Influences of Barrier Arrangements on Dielectric Barrier Discharge Characteristics.''} \emph{IEEE Trans. Plasma Sci.} 31 (4): 504--10. \url{https://doi.org/10.1109/TPS.2003.815469}.
+
+\leavevmode\hypertarget{ref-Kawa1969}{}%
+Kawauchi, H., K. Tuzimura, H. Maeda, and N. Ishida. 1969. {``Reaction of Fluorescein-Isothiocyanate with Proteins and Amino Acids: {II.} Preparation of FIuorescein-Thiohydantoin Amino Acids and Their Thin-Layer Chromatography.''} \emph{Journal of Biochemistry} 66 (6): 783--89. \url{http://jb.oxfordjournals.org/cgi/content/abstract/66/6/783}.
+
+\leavevmode\hypertarget{ref-Kien04}{}%
+Kieninger, J., G. Jobst, G. Igel, I. Moser, and G. Urban. 2004. {``{3d} Polymer Microstructures by Laminating {SU-8} Films.''} In \emph{{Proceedings of {}TAS 2004}}, 2:363--65.
+
+\leavevmode\hypertarget{ref-Kim04}{}%
+Kim, K., and others. 2004. {``{A tapered hollow metallic microneedle array using backside exposure of SU-8}.''} \emph{J. Micromech. Microeng.} 14: 597--603. \url{https://doi.org/10.1088/0960-1317/14/4/021}.
+
+\leavevmode\hypertarget{ref-Kim03}{}%
+Kim, S.-O., and J. G. Eden. 2005. {``Arrays of Microplasma Devices Fabricated in Photodefinable Glass and Excited {AC or DC} by Interdigitated Electrodes.''} \emph{IEEE Photonics Technology Letters} 17: 1543--45. \url{https://doi.org/10.1109/LPT.2005.848260}.
+
+\leavevmode\hypertarget{ref-Kim08}{}%
+Kim, Y. K., and D. J. Kim. 2008. {``Deposition of Super Hydrophobic {a-C:F} Films by Dielectric Barrier Discharge at Atmospheric Pressure.''} In \emph{Book of Abstract of 11th International Conference on Plasma Surface Engineering PSE 2008}. \url{http://www.pse2008.net/pdf/_edit/tmp/PO1063-PSE2008-2f1418.pdf}.
+
+\leavevmode\hypertarget{ref-Klag07-2}{}%
+Klages, C. P., C. Berger, M. Eichler, and M. Thomas. 2007. {``Microplasma-Based Treatment of Inner Surfaces in Microfluidic Devices.''} \emph{Contributions to Plasma Physics} 47: 49--56. \url{https://doi.org/10.1002/ctpp.200710008}.
+
+\leavevmode\hypertarget{ref-Klag00}{}%
+Klages, C. P., K. H?pfner, N. Kl?ke, and R. Thyen. 2000. {``Surface Functionalization at Atmospheric Pressure by {DBD}-Based Pulsed Plasma Polymerization.''} \emph{Plasmas and Polymers} 5 (2): 79--89. \url{https://doi.org/10.1023/A:1009583815474}.
+
+\leavevmode\hypertarget{ref-Klag07}{}%
+Klages, C. P., and others. 2007. {``Surface Technology with Cold Microplasmas.''} \emph{Plasma Process. Polym.} 4 (3): 208--18. \url{https://doi.org/10.1002/ppap.200600116}.
+
+\leavevmode\hypertarget{ref-Kogel02}{}%
+Kogelschatz, U. 2002. {``Filamentary, Patterned, and Diffuse Barrier Discharges.''} \emph{IEEE Trans. Plasma Sci.} 30 (4): 1400--1408. \url{https://doi.org/10.1109/TPS.2002.804201}.
+
+\leavevmode\hypertarget{ref-Kogel03}{}%
+---------. 2003. {``Dielectric-Barrier Discharges: Their History, Discharge Physics, and Industrial Applications.''} \emph{Plasma Chem. Plasma Process.} 23: 1--46. \url{https://doi.org/10.1023/A:1022470901385}.
+
+\leavevmode\hypertarget{ref-Koid07}{}%
+Koida, T., H. Fujiwara, and M. Kondo. 2007. {``Hydrogen-Doped \(\mathrm{In_{2}O_{3}}\) as High-Mobility Transparent Conductive Oxide.''} \emph{Jpn. J. Appl. Phys.} 46 (28): L685--87. \url{https://doi.org/10.1143/JJAP.46.L685}.
+
+\leavevmode\hypertarget{ref-Kozl05}{}%
+Kozlov, K. V., and others. 2005. {``Barrier Discharges in {N2/O}2 Mixtures.''} \emph{J. Phys. D: Appl. Phys.} 38: 518--29. \url{https://doi.org/10.1088/0022-3727/38/4/003}.
+
+\leavevmode\hypertarget{ref-Krei05}{}%
+Kreitz, S., C. Penache, M. Thomas, and C.-P. Klages. 2005. {``Patterned {DBD} Treatment for Area-Selective Metallization of Polymers-Plasma Printing.''} \emph{Surf. Coat. Technol.} 200: 676--79. \url{https://doi.org/10.1016/j.surfcoat.2005.01.085}.
+
+\leavevmode\hypertarget{ref-Kukh03}{}%
+Kukharenka, E., M. M. Farooqui, L. Grigore, M. Kraft, and N. Hollinshead. 2003. {``Electroplating Moulds Using Dry Film Thick Negative Photoresist.''} \emph{J. Micromech. Microeng.} 13: S67--74. \url{https://doi.org/10.1088/0960-1317/13/4/311}.
+
+\leavevmode\hypertarget{ref-gopal2014}{}%
+Kumar, Gopal. 2014. \emph{Master Compendium of Useful Information}. Edited by Gopal Kumar. None so far.
+
+\leavevmode\hypertarget{ref-Kunh00}{}%
+Kunhardt, E. E. 2000. {``Generation of Large-Volume, Atmospheric-Pressure, Nonequilibrium Plasmas.''} \emph{IEEE Trans. Plasma Sci.} 28: 189--200. \url{https://doi.org/10.1109/27.842901}.
+
+\leavevmode\hypertarget{ref-Kwak03}{}%
+Kwak, M. G., and others. 2003. {``Improvement of Luminance Efficiency in Xenon Dielectric Barrier Discharge Flat Lamp.''} \emph{IEEE Trans. Plasma Sci.} 31: 176--78. \url{https://doi.org/10.1109/TPS.2003.808867}.
+
+\leavevmode\hypertarget{ref-Lang05}{}%
+Langowski, B. A., and K. E. Uhrich. 2005. {``Microscale Plasma-Initiated Patterning ({PIP}).''} \emph{Langmuir} 21: 10509--14. \url{https://doi.org/10.1021/la052222m}.
+
+\leavevmode\hypertarget{ref-Lede08}{}%
+Ledernez, L., F. Olcaytug, G. Urban, and H. Yasuda. n.d. {``Influence of the Electrode Material on the Electrical Breakdown of Argon.''}
+
+\leavevmode\hypertarget{ref-Leve1944}{}%
+Levenberg, K. 1944. {``A Method for the Solution of Certain Non-Linear Problems in Least Squares.''} \emph{Q. Appl. Math} 2 (2): 164--68.
+
+\leavevmode\hypertarget{ref-CRC07}{}%
+Lide, David R., ed. 2007. \emph{CRC Handbook of Chemistry and Physics}. 87th ed. Taylor; Francis. \href{https://http:/www.hbcpnetbase.com}{http:/www.hbcpnetbase.com}.
+
+\leavevmode\hypertarget{ref-Lu07}{}%
+Lu, M., S.-J. Park, B. T. Cunningham, and J. G. Eden. 2007. {``Microcavity Plasma Devices and Arrays Fabricated by Plastic-Based Replica Molding.''} \emph{J. Microelectromech. Syst.} 16: 1397--1402. \url{https://doi.org/10.1109/JMEMS.2006.886034}.
+
+\leavevmode\hypertarget{ref-Lu08}{}%
+---------. 2008. {``Low Temperature Plasma Channels Generated in Microcavity Trenches with Widths of 20 - 150 {}m and Aspect Ratios as Large as 10\textsuperscript{4} : 1.''} \emph{Appl. Phys. Lett.} 92: 1397--1402. \url{https://doi.org/10.1063/1.2827197}.
+
+\leavevmode\hypertarget{ref-Luca09}{}%
+Lucas, N. 2009. {``Microplasma Stamps - an Atmospheric-Pressure Plasma Source for the Area-Selective Modification of Surfaces.''} PhD thesis, Institute for Microtechnology, TU Braunschweig. \url{http://www.shaker.de/Online-Gesamtkatalog/details.asp?ID=8983398\&CC=3631\&ISBN=3-8322-8008-1}.
+
+\leavevmode\hypertarget{ref-Luca08-2}{}%
+Lucas, N., V. Ermel, M. Kurrat, and S. B?ttgenbach. 2008. {``Microplasma Stamps for Selective Surface Modification: Design and Characterization.''} \emph{J. Phys. D: Appl. Phys.} 41: 215202 (7pp). \url{https://doi.org/10.1088/0022-3727/41/21/215202}.
+
+\leavevmode\hypertarget{ref-Luca08-1}{}%
+Lucas, N., A. Hinze, C.-P. Klages, and S. B?ttgenbach. 2008. {``Design and Optimization of Dielectric Barrier Discharge Microplasma Stamps.''} \emph{J. Phys. D: Appl. Phys.} 41: 194012 (5pp). \url{https://doi.org/10.1088/0022-3727/41/19/194012}.
+
+\leavevmode\hypertarget{ref-Muel1999}{}%
+M?ller, I., C. Punset, E. Ammelt, H.-G. Purwins, and J. P. Boeuf. 1999. {``Self-Organized Filaments in Dielectric Barrier Glow Discharges.''} \emph{IEEE Trans. Plasma Sci.} 27: 20--21. \url{https://doi.org/10.1109/27.763004}.
+
+\leavevmode\hypertarget{ref-Malk08}{}%
+Malkov, G. S., and others. 2008. {``Pulsed-Plasma-Induced Micropatterning with Alternating Hydrophilic and Hydrophobic Surface Chemistries.''} \emph{Plasma Process. Polym.} 5 (2): 129--45. \url{https://doi.org/10.1002/ppap.200700118}.
+
+\leavevmode\hypertarget{ref-Marq1963}{}%
+Marquardt, Donald W. 1963. {``An Algorithm for Least-Squares Estimation of Nonlinear Parameters.''} \emph{SIAM Journal on Applied Mathematics} 11 (2): 431--41. \url{https://doi.org/10.1137/0111030}.
+
+\leavevmode\hypertarget{ref-Mart04}{}%
+Martin, C. R., and I. A. Aksay. 2004. {``Submicrometer-Scale Patterning of Ceramic Thin Films.''} \emph{J. Of Electroceramics} 12 (1): 53--68. \url{https://doi.org/10.1023/B:JECR.0000034001.15359.98}.
+
+\leavevmode\hypertarget{ref-Mart1997}{}%
+Martinet, C., V. Paillard, A. Gagnaire, and J. Joseph. 1997. {``Deposition of \(\mathrm{SiO_2}\) and \(\mathrm{TiO_2}\) Thin Films by Plasma Enhanced Chemical Vapor Deposition for Antireflection Coating.''} \emph{J. Non-Cryst. Solids} 216: 77--82. \url{https://doi.org/10.1016/S0022-3093(97)00175-0}.
+
+\leavevmode\hypertarget{ref-Mass01}{}%
+Massines, F., and others. 2001. {``The Role of Dielectric Barrier Discharge Atmosphere and Physics on Polypropylene Surface Treatment.''} \emph{Plasmas and Polymers} 6 (1): 35--49. \url{https://doi.org/10.1023/A:1011365306501}.
+
+\leavevmode\hypertarget{ref-Masu1998}{}%
+Masuzawa, T., and T. Takawashi. 1998. {``{Recent trends in EDM/ECM technologies in Japan}.''} \emph{VDI BERICHTE} 1405: 1--16.
+
+\leavevmode\hypertarget{ref-Mata06}{}%
+Mata, A., A. J. Fleischmann, and S. Roy. 2006. {``Fabrication of Multi-Layer {SU-8} Microstructures.''} \emph{J. Micromech. Microeng.} 16: 276--84. \url{https://doi.org/10.1088/0960-1317/16/2/012}.
+
+\leavevmode\hypertarget{ref-Melz1996}{}%
+Melzak, K. A., C. S. Sherwood, R. F. B. Turner, and C. A. Haynes. 1996. {``Driving Forces for {DNA} Adsorption to Silica in Perchlorate Solutions.''} \emph{J. Colloid Interface Sci.} 181 (2): 635--44. \url{https://doi.org/10.1006/jcis.1996.0421}.
+
+\leavevmode\hypertarget{ref-Menz02}{}%
+Menz, W., R. F?rster, A. Schoth, and C. M?ller. 2002. {``Non-Conventional Machining for Microsystems.''}
+
+\leavevmode\hypertarget{ref-PurchaseManualGOI2006}{}%
+Ministry of Finance, Government of India. 2006. \emph{MANUAL ON POLICIES AND PROCEDURES FOR PURCHASE OF GOODS}.
+
+\leavevmode\hypertarget{ref-Mira00}{}%
+Mirala?, S. F., and others. 2000. {``Electrical and Optical Diagnostics of Dielectric Barrier Discharges {(DBD) in He and N2} for Polymer Treatment.''} \emph{Plasmas and Polymers} 5 (2): 63--77. \url{https://doi.org/10.1023/A:1009531831404}.
+
+\leavevmode\hypertarget{ref-TOK06}{}%
+Misumi, K., and others. 2006. {``Faster Sensitivity and Non-Antimonite Permanent Photoresist for {MEMS}.''} In \emph{Advances in Resist Technology and Processing XXIII}, edited by Qinghuang Lin, 6153:61534F. Proceedings of SPIE. SPIE. \url{https://doi.org/10.1117/12.656249}.
+
+\leavevmode\hypertarget{ref-TOK06-2}{}%
+Misumi, K., K. Saito, A. Yamanouchi, T. Senzaki, and H. Honma. 2006. {``Minute Tunnel Structure Formation with Permanent Film Photoresist.''} \emph{J. Photopolym. Sci. Technol.} 19: 57--62. \url{https://doi.org/10.2494/photopolymer.19.57}.
+
+\leavevmode\hypertarget{ref-Mull1988}{}%
+Mullins, W. M., and B. L. Averbach. 1988. {``Surface Properties of Silicon and Aluminum Oxide Powders.''} \emph{Surface Science} 206 (1-2): 41--51. \url{https://doi.org/10.1016/0039-6028(88)90013-1}.
+
+\leavevmode\hypertarget{ref-Murp1956}{}%
+Murphy, E. L., and R. H. Good, Jr. 1956. {``Thermionic Emission, Field Emission, and the Transition Region.''} \emph{Phys. Rev.} 102: 1464--73. \url{https://doi.org/10.1103/PhysRev.102.1464}.
+
+\leavevmode\hypertarget{ref-Naka01}{}%
+Nakajima, A., K. Hashimoto, and T. Watanabe. 2001. {``Recent Studies on Super-Hydrophobic Films.''} \emph{Monatshefte f?r Chemie / Chemical Monthly} 132: 31--41. \url{https://doi.org/10.1007/s007060170142}.
+
+\leavevmode\hypertarget{ref-Niem1995}{}%
+Niemeyer, L. 1995. {``A Generalized Approach to Partial Discharge Modeling.''} \emph{IEEE Transactions on Dielectrics and Electrical Insulation} 2 (4): 510--28. \url{https://doi.org/10.1109/94.407017}.
+
+\leavevmode\hypertarget{ref-Noes04}{}%
+Noeske, M., J. Degenhardt, S. Strudthoff, and U. Lommatzsch. 2004. {``Plasma Jet Treatment of Five Polymers at Atmospheric Pressure: Surface Modifications and the Relevance for Adhesion.''} \emph{International Journal of Adhesion \& Adhesives} 24: 171--77. \url{https://doi.org/10.1016/j.ijadhadh.2003.09.006}.
+
+\leavevmode\hypertarget{ref-Nord1928}{}%
+Nordheim, L. 1928. {``Zur Theorie Der Thermischen Emission Und Der Reflexion von Elektronen an Metallen.''} \emph{Zeitschrift f?r Physik A Hadrons and Nuclei} 46 (11 - 12): 833--55. \url{https://doi.org/10.1007/BF01391020}.
+
+\leavevmode\hypertarget{ref-Nuss09}{}%
+Nu?baum, D., D. Herrmann, T. Knoll, and T. Velten. 2009. {``Micromixing Structures for Lab-on Chip Applications: Fabrication and Simulation of 90? Zigzag Microchann Els in Dry Film Resist.''} \url{https://doi.org/10.1243/17547164C0012009041}.
+
+\leavevmode\hypertarget{ref-Obri01}{}%
+O'Brien, J. 2001. {``Advanced Photoresist Technologies for Microsystems.''} \emph{J. Micromech. Microeng.} 11: 353--58. \url{https://doi.org/10.1088/0960-1317/11/4/312}.
+
+\leavevmode\hypertarget{ref-Ohl1999}{}%
+Ohl, A., and K. Schr?der. 1999. {``Plasma-Induced Chemical Micropatterning for Cell Culturing Applications: A Brief Review.''} \emph{Surf. Coat. Technol.} 116: 820--30. \url{https://doi.org/10.1016/S0257-8972(99)00150-4}.
+
+\leavevmode\hypertarget{ref-Olss1998}{}%
+Olsson, Anders. 1998. {``Valve-Less Diffuser Micropumps.''} PhD thesis, School of Electrical Engineering, Royal Institute of Technology, Stockholm, Sweden. \url{http://www.s3.kth.se/instrlab/research/dissertations/pdf/andersodoc.pdf}.
+
+\leavevmode\hypertarget{ref-Pan02}{}%
+Pan, C.-T., H. Yang, S.-C. Shen, M.-C. Chou, and H.-P. Chou. 2002. {``A Low-Temperature Wafer Bonding Technique Using Patternable Materials.''} \emph{J. Micromech. Microeng.} 12: 611--15. \url{https://doi.org/10.1088/0960-1317/12/5/315}.
+
+\leavevmode\hypertarget{ref-Park01}{}%
+Park, J., I. Henins, H. W. Herrmann, and G. S. Selwyn. 2001. {``Discharge Phenomena of an Atmospheric Pressure Radio-Frequency Capacitive Plasma Source.''} \emph{J. Appl. Phys.} 89: 20--28. \url{https://doi.org/10.1063/1.1323753}.
+
+\leavevmode\hypertarget{ref-Park05}{}%
+Park, S.-J., K. S. Kim, and J. G. Eden. 2005. {``Nanoporous Alumina as a Dielectric for Microcavity Plasma Devices: Multilayer {Al/AlO} Structures.''} \emph{Appl. Phys. Lett.} 86: 221501. \url{https://doi.org/10.1063/1.1923747}.
+
+\leavevmode\hypertarget{ref-Pasc1889}{}%
+Paschen, F. 1889. {``{Ueber die zum Funken?bergang in Luft, Wasserstoff und Kohlens?ure bei verschiedenen Drucken erforderliche Potentialdifferenz}.''} \emph{Annalen Der Physik} 273 (5): 69--96. \url{https://doi.org/10.1002/andp.18892730505}.
+
+\leavevmode\hypertarget{ref-Payn02}{}%
+Payne, W. G., B. W. James, and I. S. Falconer. 2002. {``The Growth and Decay of Miniature Dielectric Barrier Discharges in Helium, Neon, and Argon.''} \emph{IEEE Trans. Plasma Sci.} 30: 170--71. \url{https://doi.org/10.1109/TPS.2002.1003978}.
+
+\leavevmode\hypertarget{ref-PCI}{}%
+PCI-SIG. n.d. {``{PCI} Conventional Specifications.''} Internet:{}http://www.pcisig.com/specifications/conventional (accessed 08-01-2010). \url{http://www.pcisig.com/specifications/conventional}.
+
+\leavevmode\hypertarget{ref-Pena04}{}%
+Penache, C., C. Gessner, T. Betker, V. Bartels, and C.-P. Klages. 2004. {``Plasma Printing: Patterned Surface Functionalisation and Coating at Atmospheric Pressure.''} \emph{IEE Proc.-Nanobiotechnol.} 151: 139--44. \url{https://doi.org/10.1049/ip-nbt:20040836}.
+
+\leavevmode\hypertarget{ref-Phel1999}{}%
+Phelps, A. V., and Z.Lj. Petrovic. 1999. {``Cold-Cathode Discharges and Breakdown in Argon: Surface and Gas Phase Production of Secondary Electrons.''} \emph{Plasma Sources Sci. Technol.} 8: 21--44. \url{https://doi.org/10.1088/0963-0252/8/3/201}.
+
+\leavevmode\hypertarget{ref-Rada07}{}%
+Radadia, A. D., L. Cao, H.-K. Jeong, M. A. Shannon, and R. I. Masel. 2007. {``A {3d} Micromoxer Fabricated with Dry Film Resist.''} In \emph{Proc. Of MEMS 2007}, 361--64. \url{https://doi.org/10.1109/MEMSYS.2007.4433110}.
+
+\leavevmode\hypertarget{ref-Radm07}{}%
+Radmilovic-Radjenovic, M., Z. L. Petrovic, and B. Radjenovic. 2007. {``Modelling of Breakdown Behavior by {PIC/MCC} Code with Improved Secondary Emission Models.''} \emph{J. Phys.: Conf. Ser.} 71 (1): 012007. \url{https://doi.org/10.1088/1742-6596/71/1/012007}.
+
+\leavevmode\hypertarget{ref-Radu03}{}%
+Radu, I., R. Bartnikas, G. Czeremuszkin, and M. R. Wertheimer. 2003. {``Diagnostics of Dielectric Barrier Discharges in Noble Gases: Atmospheric Pressure Glow and Pseudoglow Discharges and Spatio-Temporal Patterns.''} \emph{IEEE Trans. Plasma Sci.} 31 (3): 411--21. \url{https://doi.org/10.1109/TPS.2003.811647}.
+
+\leavevmode\hypertarget{ref-Radu05}{}%
+Radu, I., R. Bartnikas, and M. R. Wertheimer. 2005. {``Diagnostics and Modelling of Noble Gas Atmospheric Pressure Dielectric Barrier Discharges in Homogeneous or Diverging Electric Fields.''} \emph{J. Phys. D: Appl. Phys.} 38: 539--46. \url{https://doi.org/10.1088/0022-3727/38/4/005}.
+
+\leavevmode\hypertarget{ref-Rao05}{}%
+Rao, R. B., K. L. Krafcik, A. M. Morales, and J. Lewis. 2005. {``Microfabricated Deposition Nozzles for Direct-Write Assembly of Three-Dimensional Periodic Structures.''} \emph{Adv. Mater.} 17 (3): 289--93. \url{https://doi.org/10.1002/adma.200400514}.
+
+\leavevmode\hypertarget{ref-Rich1921}{}%
+Richardson, O. W. 1921. \emph{The Emission of Electricity from Hot Bodies}. Longmans, Green; co. \url{http://www.worldcat.org/wcpa/oclc/946804}.
+
+\leavevmode\hypertarget{ref-SOP2013RITES}{}%
+RITES. 2013. \emph{Sop2013}. 2013th ed. RITES Bhawan, Plot 1, Sector 29, Gurgaon: RITES Limited. \href{https://www.rites.com}{www.rites.com}.
+
+\leavevmode\hypertarget{ref-Sarr06}{}%
+Sarra-Bournet, C., S. Turgeon, D. Mantovani, and G. Laroche. 2006. {``A Study of Atmospheric Pressure Plasma Discharges for Surface Functionalization of {PTFE} Used in Biomedical Applications.''} \emph{J. Phys. D: Appl. Phys.} 39 (16): 3461--69. \url{https://doi.org/10.1088/0022-3727/39/16/S03}.
+
+\leavevmode\hypertarget{ref-Sawa1995}{}%
+Sawada, Y., S. Ogawa, and M. Kogoma. 1995. {``Synthesis of Plasma-Polymerized Tetraethoxysilane and Hexamethyldisiloxane Films Prepared by Atmospheric Pressure Glow Discharge.''} \emph{J. Phys. D: Appl. Phys.} 28: 1661--61. \url{https://doi.org/10.1088/0022-3727/28/8/015}.
+
+\leavevmode\hypertarget{ref-Scho1999}{}%
+Sch?nholzer, U. P, and L. J. Gauckler. 1999. {``Ceramic Parts Patterned in the Micrometer Range.''} \emph{Adv. Mater.} 11 (8): 630--32. \url{/href\%7Bhttp://www.cheric.org/research/tech/periodicals/doi.php?art_seq=646499\%7D\%7Bhttp://www.cheric.org/research/tech/periodicals/doi.php?art/_seq=/newline\%20646499\%7D}.
+
+\leavevmode\hypertarget{ref-Sche07}{}%
+Schenk, A., and others. 2007. {``Microstructured Electrode Arrays: Optical Analysis of the Glow Discharge in a Magnified Electrode Gap.''} \emph{Plasma Process. Polym.} 4: S927--30. \url{https://doi.org/10.1002/ppap.200732301}.
+
+\leavevmode\hypertarget{ref-Scho04}{}%
+Schoenbach, K. H., M. Moselhy, and W. Shi. 2004. {``Self-Organization in Cathode Boundary Layer Microdischarges.''} \emph{Plasma Sources Sci. Technol.} 13 (1): 177--85. \url{https://doi.org/10.1088/0963-0252/13/1/023}.
+
+\leavevmode\hypertarget{ref-Smit00}{}%
+Smith, R. C., and others. 2000. {``Chemical Vapour Deposition of the Oxides of Titanium, Zirconium and Hafnium for Use as High-k Materials in Microelectronic Devices. A Carbon-Free Precursor for the Synthesis of Hafnium Dioxide.''} \emph{Adv. Mater. Opt. And Electron.} 10 (3-5): 105--14. \url{https://doi.org/10.1002/1099-0712(200005/10)10:3/5\%3C105::AID-AMO402\%3E3.0.CO;2-J}.
+
+\leavevmode\hypertarget{ref-Socr1994}{}%
+Socrates, G. 1994. \emph{Infrared and Raman Characteristic Group Frequencies: Tables and Charts}. 2nd ed. John Wiley \& Sons.
+
+\leavevmode\hypertarget{ref-Lightning}{}%
+Southern, J. R. n.d. {``Toronto Thunderstorm.''} Internet: {}http://en.wikipedia.org/wiki/File:Krunkwerke\_-\_IMG\_4515\_\%28by-sa\%29.jpg (accessed 07-09-2009). \url{http://en.wikipedia.org/wiki/File:Krunkwerke_-_IMG_4515_\%28by-sa\%29.jpg}.
+
+\leavevmode\hypertarget{ref-Stoe10}{}%
+St?hr, U., and others. 2010. {``Porous Photoresist Stamps for Selective Plasma Treatment.''} \emph{Plasma Processes Polym.} 7 (1): 9--15. \url{https://doi.org/10.1002/ppap.200900063}.
+
+\leavevmode\hypertarget{ref-Stoe08}{}%
+St?hr, U., P. Vulto, P. Hoppe, G. Urban, and H. Reinecke. 2008. {``High-Resolution Permanent Photoresist Laminate for Microsystem Applications.''} \emph{J. Micro/Nanolith. MEMS MOEMS} 7: 033009. \url{https://doi.org/10.1117/1.2964217}.
+
+\leavevmode\hypertarget{ref-Stoe09}{}%
+St?hr, Uwe, and others. 2009. {``Multilayer Photoresist Stamps for Selective Plasma Treatment in Micrometer Scales.''} \emph{Plasma Process. Polym.} 6 (4): 228--33. \url{https://doi.org/10.1002/ppap.200800217}.
+
+\leavevmode\hypertarget{ref-Stal07}{}%
+Stalter, O., B. Burger, and S. Lehrmann. 2007. {``{Silicon Carbide (SiC) D-MOS for grid-feeding solar-inverters}.''} \url{https://doi.org/10.1109/EPE.2007.4417654}.
+
+\leavevmode\hypertarget{ref-Star06}{}%
+Starikovskaia, S. M. 2006. {``Plasma Assisted Ignition and Combustion.''} \emph{J. Phys. D: Appl. Phys.} 39 (16): R265--99. \url{https://doi.org/10.1088/0022-3727/39/16/R01}.
+
+\leavevmode\hypertarget{ref-Step07}{}%
+Stephan, K., and others. 2007. {``Fast Prototyping Using a Dry Film Photoresist: Microfabrication of Soft-Lithography Masters for Microfluidic Structures.''} \emph{J. Micromech. Microeng.} 17: N69--74. \url{https://doi.org/10.1088/0960-1317/17/10/N01}.
+
+\leavevmode\hypertarget{ref-Suk07}{}%
+Suk, J. W., and J. Cho. 2007. {``Capillary Flow Control Using Hydrophobic Patterns.''} \emph{J. Micromech. Microeng.} 17 (4): N11--15. \url{https://doi.org/10.1088/0960-1317/17/4/N01}.
+
+\leavevmode\hypertarget{ref-Tan06}{}%
+Tan, H. M. L., T. Akagi, and T. Ichiki. 2006. {``Localized Plasma Treatment of Poly(dimethylsiloxane) Surfaces and Its Application to Controlled Cell Cultivation.''} \emph{J. Photopolym. Sci. Technol.} 19: 245--50. \url{https://doi.org/10.2494/photopolymer.19.245}.
+
+\leavevmode\hypertarget{ref-LyX}{}%
+The LyX Team. n.d. {``LyX 1.6.x.''} Internet: http://www.lyx.org. \url{http://www.lyx.org}.
+
+\leavevmode\hypertarget{ref-Ther03}{}%
+Therriault, D., S. R. White, and J. A. Lewis. 2003. {``Chaotic Mixing in Three-Dimensional Microvascular Networks Fabricated by Direct-Write Assembly.''} \emph{Nature Materials} 2 (4): 265--71. \url{https://doi.org/10.1038/nmat863}.
+
+\leavevmode\hypertarget{ref-Thom06}{}%
+Thomas, M., M. Eichler, and C.-P. Klages. 2006. {``Coating with Atmospheric Pressure Plasma Processes: From Large Area to {}-Structures.''} In \emph{49th Annual Technical Conference Proceedings}. Society of Vacuum Coaters. \url{http://tinyurl.com/Thomas06}.
+
+\leavevmode\hypertarget{ref-Thom07}{}%
+Thomas, M., M. von Hausen, C.-P. Klages, and P. Baumhof. 2007. {``Generation of Stable Coatings with Carboxylic Groups by Copolymerization of {MAA} and {VTMS} Using {DBD} at Atmospheric Pressure.''} \emph{Plasma Process. Polym.} 4: S475--81. \url{https://doi.org/10.1002/ppap.200731210}.
+
+\leavevmode\hypertarget{ref-Town1910}{}%
+Townsend, J. S. 1910. \emph{The Theory of Ionization of Gases by Collision}. Constable. \url{http://www.worldcat.org/wcpa/oclc/8460026}.
+
+\leavevmode\hypertarget{ref-Town1915}{}%
+---------. 1915. \emph{Electricity in Gases}. Clarendon Press. \url{http://www.worldcat.org/wcpa/oclc/4294747}.
+
+\leavevmode\hypertarget{ref-Tsai06-2}{}%
+Tsai, Y.-C., H.-P. Jen, K.-W. Lin, and Y.-Z. Hsie. 2006. {``Fabrication of Microfluidic Devices Using Dry Film Photoresist for Microchip Capillary Electrophoresis.''} \emph{J. Chromatogr. A} 1111: 267--71. \url{https://doi.org/0.1016/j.chroma.2005.12.003}.
+
+\leavevmode\hypertarget{ref-Tsai06-1}{}%
+Tsai, Y.-C., S.-J. Yang, H.-T. Lee, H.-P. Jen, and Y.-Z. Hsieh. 2006. {``Fabrication of a Flexible and Disposable Microreactor Using a Dry Film Photoresist.''} \emph{J. Chin. Chem. Soc.} 53: 683--88. \url{http://nr.stpi.org.tw/ejournal/ChiChemSociety/2006/EJ52-2006-683.pdf}.
+
+\leavevmode\hypertarget{ref-Uden1972}{}%
+Udenfriend, S., and others. 1972. {``Fluorescamine: A Reagent for Assay of Amino Acids, Peptides, Proteins, and Primary Amines in the Picomole Range.''} \emph{Science} 178: 871--72. \url{https://doi.org/10.1126/science.178.4063.871}.
+
+\leavevmode\hypertarget{ref-Velt05}{}%
+Velten, T., and others. 2005. {``Packaging of Bio-MEMS: Strategies, Technologies, and Applications.''} \emph{IEEE Trans. Adv. Packag.} 28: 533--46. \url{https://doi.org/10.1109/TADVP.2005.858427}.
+
+\leavevmode\hypertarget{ref-Vora05}{}%
+Vora, K. D., B. Y. Shew, E. C. Harvey, J. P. Hayes, and A. G. Peele. 2005. {``{Specification of mechanical support structures to prevent SU-8 stiction in high aspect ratio structures}.''} \emph{J. Micromech. Microeng.} 15: 978--83. \url{https://doi.org/10.1088/0960-1317/15/5/012}.
+
+\leavevmode\hypertarget{ref-Vult07}{}%
+Vulto, P., G. Igel, and G. A. Urban. 2007. {``Full Wafer Fabrication Process for Microfluidic Glass Chips with Electroplated Electrodes.''} \emph{Solid-State Sensors, Actuators and Microsystems Conference, 2007. TRANSDUCERS 2007.} \url{https://doi.org/10.1109/SENSOR.2007.4300085}.
+
+\leavevmode\hypertarget{ref-Vult06-2}{}%
+Vulto, P., C. Klaunick, G. Igel, and G. Urban. 2006. {``{tmRNA} Purification by Electrophoretic Filtration for Genomic Identification of Bacteria on-a-Chip.''} In \emph{Proceedings of {}TAS 2006}, 2:377--79.
+
+\leavevmode\hypertarget{ref-Vult05}{}%
+Vulto, P., and others. 2005. {``Microfluidic Channel Fabrication in Dry Film Resist for Production and Prototyping of Hybrid Chips.''} \emph{Lab on a Chip} 5: 158--62. \url{https://doi.org/10.1039/b411885e}.
+
+\leavevmode\hypertarget{ref-Vult06}{}%
+---------. 2006. {``Selective Sample Recovery of DEP-Separated Cells and Particles by Phaseguide-Controlled Laminar Flow.''} \emph{J. Micromech. Microeng.} 16: 1847--53. \url{https://doi.org/10.1088/0960-1317/16/9/013}.
+
+\leavevmode\hypertarget{ref-Wang06}{}%
+Wang, C., and X. He. 2006. {``Polypropylene Surface Modification Model in Atmospheric Pressure Dielectric Barrier Discharge.''} \emph{Surface \& Coatings Technology} 201 (6): 3377--84. \url{https://doi.org/10.1016/j.surfcoat.2006.07.205}.
+
+\leavevmode\hypertarget{ref-Wash05}{}%
+Washio, Y., and others. 2005. {``Multilayer Ultra Thick Resist Development for {MEMS}.''} \url{https://doi.org/10.1117/12.600227}.
+
+\leavevmode\hypertarget{ref-Will04}{}%
+Williams, J. D., and W. Wang. 2004. {``Microfabrication of an Electromagnetic Power Relay Using {SU-8 based UV-LIGA} Technology.''} \emph{Microsystem Technologies} 10: 699--705. \url{https://doi.org/10.1007/s00542-004-0396-1}.
+
+\leavevmode\hypertarget{ref-xie2015}{}%
+Xie, Yihui. 2015. \emph{Dynamic Documents with {R} and Knitr}. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. \url{http://yihui.name/knitr/}.
+
+\leavevmode\hypertarget{ref-Xu07}{}%
+Xu, X., L. Li, S. Wang, L. Zhao, and T. Ye. 2007. {``Deposition of \(\mathrm{SiO_x}\) Films with a Capacitively-Coupled Plasma at Atmospheric Pressure.''} \emph{Plasma Sources Sci. Technol.} 16 (2): 372--76. \url{https://doi.org/10.1088/0963-0252/16/2/021}.
+
+\leavevmode\hypertarget{ref-Yama1996}{}%
+Yamada, K., T. Haraguchi, and T. Kajiyama. 1996. {``Plasma-Graft Polymerization of Vinyl Monomers with Reactive Groups onto a Surface of Poly (p-Phenylene Terephthalamide) Fiber.''} \emph{J. Appl. Polym. Sci.} 60 (11): 1847--53. \url{https://doi.org/10.1002/(SICI)1097-4628(19960613)60:11\%3C1847::AID-APP8\%3E3.0.CO;2-L}.
+
+\leavevmode\hypertarget{ref-Yasu05}{}%
+Yasuda, Hirotsugu. 2005. \emph{Luminous Chemical Vapor Deposition and Interface Engineering}. Edited by Arthur T. Hubbard. 1st ed. Vol. 122. Surfactant Science Series. Marcel Dekker.
+
+\leavevmode\hypertarget{ref-Yu06}{}%
+Yu, L., and others. 2006. {``Adhesive Bonding with SU-8 at Wafer Level for Microfluidic Devices.''} \emph{J. Phys.: Conf. Ser.} 34: 776--81. \url{https://doi.org/10.1088/1742-6596/34/1/128}.
+
+\leavevmode\hypertarget{ref-Zhan04}{}%
+Zhang, J., M. B. Chan-Park, and S. R. Conner. 2004. {``Effect of Exposure Dose on the Replication Fidelity and Profile of Very High Aspect Ratio Microchannels in {SU-8}.''} \emph{Lab on a Chip} 4: 646--53. \url{https://doi.org/10.1039/b403304c}.
+
+\leavevmode\hypertarget{ref-Zhan1995}{}%
+Zhang., J., K. Kato, Y. Uyama, and Y. Ikada. 1995. {``Surface Graft Polymerization of Glycidyl Methacrylate onto Polyethylene and the Adhesion with Epoxy Resin.''} \emph{J. Polymer Sci. Polymer Chem.} 33 (15): 2629--38. \url{https://doi.org/10.1002/pola.1995.080331509}.
+
+\leavevmode\hypertarget{ref-Zhao1999}{}%
+Zhao, Y., and M.-W. Urban. 1999. {``Spectroscopic Studies of Microwave Plasma Reactions of Maleic Anhydride on Poly (Vinylidene Fluoride) Surfaces: Crystallinity and Surface Reactions.''} \emph{Langmuir} 15 (10): 3538--44. \url{https://doi.org/10.1021/la981310m}.
+
+\leavevmode\hypertarget{ref-Zou01}{}%
+Zou, X. P., E. T. Kang, K. G. Neoh, C. Q. Cui, and T. B. Lim. 2001. {``Surface Modification of Poly (Tetrafluoroethylene) Films by Plasma Polymerization of Glycidyl Methacrylate for Adhesion Enhancement with Evaporated Copper.''} \emph{Polymer} 42 (15): 6409--18. \url{https://doi.org/10.1016/S0032-3861(01)00113-6}.
+
+\end{CSLReferences}
+
+\end{document}

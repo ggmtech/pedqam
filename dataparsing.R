@@ -1,4 +1,4 @@
-# YUAM
+# UVAM data parse
 #
 # tidyverse # ggplot2, dplyr, tidyr,stringr, readr(csv,tsv,fwf), purrr, tibble, forcats
 # liberary(DBI,  readxl, googlesheets4, googledrive , lubridate, hms, glue
@@ -15,25 +15,14 @@
 #  dd-mm-yyyy format  ^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$
 
 library(stringr, lubridate)
+
 string <- "<13>1 2018-04-18T10:29:00.581243+10:00 KOI-QWE-HUJ vmon 2318 - -  Some Description..."
+
 string %>% str_extract("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}") %>% ymd_hms() # YYYY-mm-dd HMSS
 
 
 waldo::compare(df1,df2)
 
-install.packages("prophet")  # with strong seasonal effects and historical data. robust to missing data and shifts in the trend, and typically handles outliers well.
-library(prophet)
-library(readr)
-df <- readr::read_csv('../tests/testthat/data.csv')
-m <- prophet(df, seasonality=TRUE)        # seasonality=TRUE for disabling daily seasonality
-future <- make_future_dataframe(m, periods = 365)
-
-forecast <- predict(m, future)  # predict function to get our forecast:
-head(forecast)
-tail(forecast[c('ds', 'yhat', 'yhat_lower', 'yhat_upper')])
-
-plot(m, forecast)
-prophet_plot_components(m, forecast)  # plot seasonality components
 
 
 

@@ -1,12 +1,12 @@
 # GIS book  # sf is df+spatial extn  class(lnd_sf) # "sf"   "data.frame", data analysis capabilities
 # geo raster data model has raster header and equally spaced cells / pixels matrix (rows/columns) 
-# raster header defines: crs, extent and origin (or starting point frequently lower-left corner.
+# raster header defines: crs, extent and origin (starting point frequently lower-left corner.)
 # matrix and map algebra makes raster processing efficient and faster than vector data processing.
 # terra package for raster datasets - create, read, export, manipulate and process raster datasets
 # sf widely used in QGIS and PostGIS. cross-transferable
 # sf objects is data frames in most operations and fn starts with st_**
 
-# All the packages needed for  book can be installed with the following command: 
+# All the packages for  book can be installed with the following command: 
 # remotes::install_github("geocompr/geocompkg"). 
 
 # spatial element "geom or geometry" added as ‘list columns’ of class sfc "simple feature column"
@@ -14,7 +14,7 @@
 
 # devtools::install_github("spatialstatisticsupna/rsat", build_vignettes=TRUE)
 
-# rsat  # register  reqd USGS ( Modis Images) , EarthData (NASA), SciHub (Copernicus) # use same id pwd
+# rsat  # register  for USGS ( Modis Images) , EarthData (NASA), SciHub (Copernicus) # keep same id pwd
 # username 4 char with a period, number or underscore. password 12 char with capital + numbers.
 # set_credentials("rsat.package","UpnaSSG.2021", "scihub")
 # set_credentials("rsat.package","UpnaSSG.2021", "earthdata")
@@ -32,12 +32,32 @@ class(rcd)
 # Process # vignette("rsat4_process", package = "rsat")
 
 
+
+
+
+######
+
+#install.packages(c("rgeoboundaries", "leaflet"))
+install.packages(c("rgeoboundaries"))
+library(rgeoboundaries)
+library(leaflet)
+
+# Country boundaries of Nigeria and Chad
+nigeria_chad_boundaries <- geoboundaries(c("Nigeria", "Chad"))
+
+nigeria_chad_boundaries %>% leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(label = nigeria_chad_boundaries$shapeName)
+
+#print
+pp
+
 # https://finnstats.com/
 
-# ggraph Everything has some limitations, so is an extension of ggplot2 
-# tidyquant financial quantitative financial analysis  for importing, analyzing, and visualizing data
+# ggraph an extension of ggplot2 
+# tidyquant  quantitative financial analysis  for importing, analyzing, and visualizing data
 # shiny interactive and beautiful web interface customizable slider widget built-in animation support.
-# caret classification and regression  CaretEnsemble for combining different models.
+# caret classification and regression  Caret Ensemble for combining different models.
 # e1071    clustering, Fourier Transform, Naive Bayes, SVM, 
 # plotly interactive and high-quality graphs JavaScript library embedding graphs
 # mlr3 machine learning oo ‘R6’ objects clustering, regression, classification, and survival analysis, etc…
@@ -55,7 +75,7 @@ class(rcd)
 # clean %>% tabyl(employee_status, full_time) %>% adorn_totals(where = "col")
 # clean %>% tabyl(employee_status, full_time) %>% adorn_totals(where = c("row","col"))
 # clean %>% tabyl(employee_status, full_time) %>% adorn_totals("row") %>%   adorn_percentages("row") %>% adorn_pct_formatting() %>% adorn_ns("front")
-# clean_x<-clean %>% remove_empty(whic=c("rows"))
+# clean_x <- clean %>% remove_empty(whic=c("rows"))
 # clean %>% get_dupes(first_name,certification)
 # excel_numeric_to_date(41103)
 
@@ -69,7 +89,7 @@ class(rcd)
 library(stringr) # for working with strings (pattern matching)
 library(tidyr)   # for unite() and separate()
 
-library(sf) # classes and functions for vector data #> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
+library(sf)      # classes, functions for vector data #> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 library(terra)      # classes and functions for raster data
 
 library(spData)        # load geographic data
@@ -92,7 +112,7 @@ methods(class = "sf") # methods for sf objects, first 12 shown
 world %>% View()
 names(world)
 
-# The geom column give sf objects their spatial powers: world$geom is ‘list column’ that contains all the coordinates of the country polygons. # The sf has plot() for visualizing 
+# geom column give sf objects their spatial powers: world$geom is ‘list column’ containing all country polygons. # sf has plot() for visualizing 
 plot(world)   # multiple maps, one for each variable in the world datasets, non interactive
 
 # GIS in dataframe by sf has advantage eg summary(world["lifeExp"]). geometry retained unless removed
@@ -109,8 +129,9 @@ world_mini
 # many poackge tmap, mapview and tidycensus started adding support for sf. Others used by converting
 library(sp) # sp functions ...
 world_sp = as(world, Class = "Spatial")
-# converted back to sf in the same way or with st_as_sf():
-world_sf = st_as_sf(world_sp)
+world_sp %>% View()
+world_sf = st_as_sf(world_sp)  # converted back to sf in the same way or with st_as_sf():
+
 
 # Basic maps with plot() as multi-panel plot (like sp’s spplot()) for each variable of the object
 # legend or ‘key’ with a continuous color is produced if the object to be plotted has a single variable
@@ -121,7 +142,7 @@ world_sf = st_as_sf(world_sp)
 plot(world[3:6])
 plot(world["pop"])
 
-world_asia = world[world$continent == "Asia", ]
+world_asia = world[world$continent == "Asia",   ]
 asia = st_union(world_asia)
 
 # plot the Asian continent over a map of the world using add = TRUE. first plot must only have one facet.
@@ -575,6 +596,8 @@ data <- data.frame(Location = c("Strait of Hormuz", "Strait of Malacca",
                    Barrels = c(18.5,16, 5.5, 4.8, 3.2, 2.4, 0.9, 5.8), 
                    Lat = c(26.5667, 1.43, 30.455, 12.5833, 56, 40.7225, 9.38743, -34.3548), 
                    Lon = c(56.25, 102.89, 32.35, 43.3333, 11, 28.2247, -79.91863, 18.4698))
+data
+
 # The Graph
 #use cairo_ps to save the output locally as a postscript file. 
 # The additions to achieve the radial gradient are grid::radialGradient() and gggrid::grid_panel().
@@ -585,46 +608,226 @@ data <- data.frame(Location = c("Strait of Hormuz", "Strait of Malacca",
 graphics.off()
 #grad <- radialGradient(c(rgb(0,0,0,0), "black"), r2=.6,  stops = c(.45, 1), extend = "pad")
 #title <- "<b style='color:#FF0000'>IRAN</b> <b style='color:#FFFFFF'>BORDERS<br> KEY OIL PATHWAY</b>"
+#
 ggplot(data = world) +
     geom_sf(fill = "#2B47E3", color = "black", size = 0.2) +
 
-   # grid_panel(rectGrob(gp=gpar(fill=grad)))# +
+   # grid_panel(rectGrob(gp=gpar(fill=grad)))   +   # need gggrid
 
     geom_sf(data = subset(world, geounit == "Iran"), fill = "red", color = "black", size = 0.2) + # Iran
   
     geom_point(data = data, aes(x =Lon, y=Lat, size = Barrels),
                shape = 21, fill = "goldenrod2", color = "white", show.legend = F)  +   # circles
   
-    geom_text(data = data, aes(x =Lon, y=Lat, label = Location), color = "white", size = 3.5,
-              vjust = c(-1, -1, -1, -1, -1, -1, -1.8, -1), 
-              hjust = c(-0.25, 1.25, 1.1, 1.2, -0.18, -0.27, -0.14, 1.2),
-              fontface = "bold")    +   # text labels
+    geom_text(data = data, 
+              aes(x =Lon, y=Lat, label = Location), color = "white",  size = 3.5,
+              vjust = c(-1,    -1,   -1,  -1,  -1,    -1,    -1.8, -1   ), 
+              hjust = c(-0.25, 1.25, 1.1, 1.2, -0.18, -0.27, -0.14, 1.2 ),
+              fontface = "bold")    +    # text labels
   
-    geom_text(data = data, aes(x =Lon, y=Lat, label = Barrels), color = "goldenrod2", size = 3.5,
+    geom_text(data = data, 
+              aes(x =Lon, y=Lat, label = Barrels), color = "goldenrod2", size = 3.5,
               vjust = c(.5, .5, .5, .5, .5, .5, -.5, .5), 
               hjust = c(-1.0, 2.7, 2.0, 2.0, -1.0, -1.0, -0.6, 2.1),
               fontface = "bold")   +    # qty lables
   
-    scale_size_continuous(range = c(3, 15))    +
+    scale_size_continuous( range = c(3, 15) )    +
 
     annotate("text", x = -95, y = 60, 
              label = "MILLION BARRELS\nOF OIL MOVED PER\nDAY, 2016 DATA", 
              size = 4.0, color = "goldenrod2", fontface= "bold", hjust = 0, lineheight = 1) +
-    annotate("text", x = -45, y = -50, label = "SOURCE U.S. ENERGY", 
+    annotate("text", x = -45, y = -50, 
+             label = "SOURCE U.S. ENERGY", 
              size = 3.0, color = "white")   +
   
-    geom_richtext(x = 10, y = 80, label = title, size = 9, fill = NA, label.color = NA, lineheight = 0.33)   +
+    geom_richtext(x = 10, y = 80, 
+             label = title, 
+             size = 9, fill = NA, label.color = NA, lineheight = 0.33)   +
   
     geom_curve(aes(x = 70, y = 82, xend = 65, yend = 38), color = "red", 
                arrow = arrow(type = "open", length = unit(0.15, "inches")), 
                curvature = -0.75, angle = 100, ncp =10)    +
   
     theme(panel.background = element_rect(fill = "black"),
-          panel.grid = element_blank(), axis.title = element_blank(), 
-          axis.ticks = element_blank(),
-          axis.text = element_blank(), aspect.ratio = 1)  +
+          panel.grid   = element_blank(), 
+          axis.title   = element_blank(), 
+          axis.ticks   = element_blank(),
+          axis.text    = element_blank(), 
+          aspect.ratio = 1               )    +
 
     xlim(-95.00, 110.00) +
     ylim(-55, 90)
     
 # dev.off()
+# 
+# 
+# 
+# 
+# ########################################################
+# install.packages("remotes")
+# remotes::install_gitlab("dickoa/rgeoboundaries")
+# remotes::install_github("wmgeolab/rgeoboundaries") Both bot working
+
+# library(rgeoboundaries)
+# library(sf)
+# 
+# mli_sen <- gb_adm0(c("mali", "senegal"), type = "sscgs")
+# plot(st_geometry(mli_sen))
+# 
+# egy <- gb_adm1("EGY")
+# egy <- gb_adm1("IND")
+# plot(st_geometry(egy),  col = rgb(red = 1, green = 0, blue = 0, alpha = 0.5), axes = TRUE, graticule = TRUE)
+# 
+# 
+# # to access the global administrative zones, you just need to skip the country argument (i.e set it to NULL) or specify type = "CGAZ".
+# 
+# world <- gb_adm1()
+# world_lambert <- st_transform(world, "+proj=laea +x_0=0 +y_0=0 +lon_0=0 +lat_0=0")
+# par(bty = "n")
+# plot(st_geometry(world_lambert),
+#      col = "#E39d57",
+#      graticule = TRUE, lwd = 0.3)
+# 
+# knitr::kable(gb_metadata(c("mali", "senegal"), "adm1")) # metadata for  country and administrative level
+
+##################################################
+##################################################
+
+# 3 Attribute data operations
+library(sf)
+library(terra)
+library(dplyr)
+library(stringr) # for working with strings (pattern matching)
+library(tidyr)   # for unite() and separate()
+library(spData)
+
+methods(class = "sf") # methods for sf objects, first 12 shown
+
+# The geometry column of sf objects is typically called geometry but any name can be used. 
+# The following command, for example, creates a geometry column named g:
+st_sf(data.frame(n = world$name_long), g = world$geom)
+#Extracting the attribute data of an sf object is the same as removing its geometry:
+world_df = st_drop_geometry(world)
+class(world_df)
+
+
+# tidyverse select(), slice(), filter() and pull().
+# or base 
+world[, 1:3] # subset columns by position
+world[, c("name_long", "lifeExp")] # subset columns by name
+world5 = world[, c("name_long", "pop")] # subset columns by name
+names(world5)[names(world5) == "pop"] = "population" # rename column manually
+# To extract a single vector, one has to explicitly use the pull() command. 
+# cf subsetting operator in base R (see ?[), tries to return objects in the lowest possible dimension unless set the drop argument to FALSE.
+# slice() is the row-equivalent of select()
+slice(world, 3:5)
+
+small_countries = world[world$area_km2 < 10000, ]
+
+small_countries = subset(world, area_km2 < 10000) # using base subset
+
+#left_join() and inner_join()
+world_coffee = left_join(world, coffee_data)  # Joining, by = "name_long" common name
+names(world_coffee)
+plot(world_coffee["coffee_production_2017"])
+
+# if name unmatched
+coffee_renamed = rename(coffee_data, nm = name_long) # either rename to match or use by = c()
+world_coffee2 = left_join(world, coffee_renamed, by = c(name_long = "nm"))
+world_coffee_inner = inner_join(world, coffee_data)
+setdiff(coffee_data$name_long, world$name_long) #> [1] "Congo, Dem. Rep. of" "Others"
+
+# If starting with non-spatial dataset and adding variables from sf object, 
+# the result is not another sf object but non-spatial data frames with a geometry list column 
+# this can be coaerced  st_as_sf(coffee_world)
+coffee_world = left_join(coffee_data, world) #> Joining, by = "name_long"
+class(coffee_world)  # [1] "tbl_df"     "tbl"        "data.frame"
+coffee_world
+names(coffee_world)
+
+st_as_sf(coffee_world)
+
+
+world_separate = world_unite %>%   separate(con_reg, c("continent", "region_un"), sep = ":")
+
+
+
+
+#######################
+#NOT RUN {
+if (require("maps")) {
+  states <- map_data("state")
+  arrests <- USArrests
+  names(arrests) <- tolower(names(arrests))
+  arrests$region <- tolower(rownames(USArrests))
+  
+  choro <- merge(states, arrests, sort = FALSE, by = "region")
+  choro <- choro[order(choro$order), ]
+  ggplot(choro, aes(long, lat)) +
+    geom_polygon(aes(group = group, fill = assault)) +
+    coord_map("albers",  lat0 = 45.5, lat1 = 29.5)
+}
+
+if (require("maps")) {
+  ggplot(choro, aes(long, lat)) +
+    geom_polygon(aes(group = group, fill = assault / murder)) +
+    coord_map("albers",  lat0 = 45.5, lat1 = 29.5)
+}
+# }
+# 
+# 
+library(ggplot2)
+library(dplyr)
+require(maps)
+require(viridis)
+theme_set( theme_void() )
+# Create a simple map World map
+# Retrieve the world map data:
+  
+
+
+world_map <- map_data("world")
+as_tibble(world_map) %>% View()
+
+ggplot(world_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill="lightgray", colour = "white")
+
+
+#?world_map <- map_data("states")
+#
+# Some EU Contries
+some.eu.countries <- c(
+  "Portugal", "Spain", "France", "Switzerland", "Germany",
+  "Austria", "Belgium", "UK", "Netherlands",
+  "Denmark", "Poland", "Italy", 
+  "Croatia", "Slovenia", "Hungary", "Slovakia",
+  "Czech republic", "India"
+)
+# Retrievethe map data
+some.eu.maps <- map_data("world", region = some.eu.countries)
+
+# Compute the centroid as the mean longitude and lattitude
+# Used as label coordinate for country's names
+region.lab.data <- some.eu.maps %>%
+  group_by(region) %>%
+  summarise(long = mean(long), lat = mean(lat))
+# Visualize
+ggplot(some.eu.maps, aes(x = long, y = lat)) +
+  geom_polygon(aes( group = group, fill = region))+
+  geom_text(aes(label = region), data = region.lab.data,  size = 3, hjust = 0.5)+
+  scale_fill_viridis_d()+
+  theme_void()+
+  theme(legend.position = "none")
+
+# choropleath map
+library("WHO")
+library("dplyr")
+life.exp <- get_data("WHOSIS_000001")             # Retrieve the data
+life.exp <- life.exp %>%
+  filter(year == 2015 & sex == "Both sexes") %>%  # Keep data for 2015 and for both sex
+  select(country, value) %>%                      # Select the two columns of interest
+  rename(region = country, lifeExp = value) %>%   # Rename columns
+  # Replace "United States of America" by USA in the region column
+  mutate(
+    region = ifelse(region == "United States of America", "USA", region)
+  )                                     

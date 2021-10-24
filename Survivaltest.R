@@ -514,3 +514,93 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 last_animation()
 anim_save()
 
+
+
+########################################
+########################################
+#Analysing seed germination and emergence data with R (a tutorial). Part 2
+# time-to-event data are affected by a peculiar form of uncertainty, which takes the name of censoring
+# simulate the number of germinated seeds, assuming a binomial distribution with a proportion of successes equal to 0.85. We use the random number generator rbinom():
+
+#Monte Carlo simulation - Step 1
+d <- 0.85
+set.seed(1234)
+nGerm <- rbinom(1, 100, d)
+nGerm
+# simulate the germination times for these 89 germinable seeds, 
+# by drawing from a log-logistic distribution with 𝑏=1.6 and 𝑒=4.5. 
+# To this aim, we use the rllogis() function in the actuar package
+#Monte Carlo simulation - Step 2
+library(actuar)
+b <- 1.6; e <- 4.5 
+Gtimes <- rllogis(nGerm, shape = b, scale = e)
+Gtimes <- c(Gtimes, rep(NA, 100 - nGerm))
+Gtimes
+
+obsT <- seq(1, 40, by=1) #Observation schedule
+count <- table( cut(Gtimes, breaks = c(0, obsT)) )
+count
+
+counts <- as.numeric( table( cut(Gtimes, breaks = c(0, obsT)) ) )
+propCum <- cumsum(counts)/100
+df <- data.frame(time = obsT, counts = counts, propCum = propCum) 
+df
+
+library(drc)
+mod <- drm(propCum ~ time, data = df, fct = LL.3() )
+plot(mod, log = "",
+     xlab = "Time (days)",
+     ylab = "Proportion of germinated seeds")
+
+df <- data.frame(timeBef = c(0, obsT), timeAf = c(obsT, Inf), counts = c(as.numeric(counts), 100 - sum(counts)) )
+df
+
+#Time-to-event model
+library(drcte)
+# modTE <- drm(counts ~ timeBef + timeAf, data = df, 
+#            fct = LL.3(), type = "event")
+modTE <- drmte(counts ~ timeBef + timeAf, data = df,  fct = LL.3())
+summary(modTE)
+
+GermSampling <- function(nSeeds, timeLast, stepOss, e, b, d){
+    
+    #Draw a sample as above
+    nGerm <- rbinom(1, nSeeds, d)
+    Gtimes <- rllogis(nGerm, shape = b, scale = e)
+    Gtimes <- c(Gtimes, rep(Inf, 100 - nGerm))
+    
+    #Generate the observed data
+    obsT <- seq(1, timeLast, by=stepOss) 
+    counts <- as.numeric( table( cut(Gtimes, breaks = c(0, obsT)) ) )
+    propCum <- cumsum(counts)/nSeeds
+    timeBef <- c(0, obsT)
+    timeAf <- c(obsT, Inf)
+    counts <- c(counts, nSeeds - sum(counts))
+    
+    #Calculate the T50 with two methods
+    mod <- drm(propCum ~ obsT, fct = LL.3() )
+    modTE <- drm(counts ~ timeBef + timeAf, 
+                 fct = LL.3(), type = "event")
+    c(b1 = summary(mod)[[3]][1,1],
+      ESb1 = summary(mod)[[3]][1,2],
+      b2 = summary(modTE)[[3]][1,1],
+      ESb2 = summary(modTE)[[3]][1,2],
+      d1 = summary(mod)[[3]][2,1],
+      ESd1 = summary(mod)[[3]][2,2],
+      d2 = summary(modTE)[[3]][2,1],
+      ESd2 = summary(modTE)[[3]][2,2],
+      e1 = summary(mod)[[3]][3,1],
+      ESe1 = summary(mod)[[3]][3,2],
+      e2 = summary(modTE)[[3]][3,1],
+      ESe2 = summary(modTE)[[3]][3,2] )
+}
+set.seed(1234)
+result <- data.frame()
+for (i in 1:1000) {
+    res <- GermSampling(100, 40, 1, 4.5, 1.6, 0.85)
+    result <- rbind(result, res)
+} 
+names(result) <- c("b1", "ESb1", "b2", "ESb2",
+                   "d1", "ESd1", "d2", "ESd2",
+                   "e1", "ESe1", "e2", "ESe2")
+result <- result[result$d2 > 0,]

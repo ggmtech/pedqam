@@ -230,18 +230,3 @@ for(i in 1:length(pp$x$data)){
 
 
 
-
-#install.packages(c("rgeoboundaries", "leaflet"))
-install.packages(c("rgeoboundaries"))
-library(rgeoboundaries)
-library(leaflet)
-
-# Country boundaries of Nigeria and Chad
-nigeria_chad_boundaries <- geoboundaries(c("Nigeria", "Chad"))
-
-nigeria_chad_boundaries %>% leaflet() %>% 
-  addTiles() %>% 
-  addPolygons(label = nigeria_chad_boundaries$shapeName)
-
-#print
-pp
