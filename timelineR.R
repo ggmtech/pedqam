@@ -1,54 +1,136 @@
 #devtools::install_github("daheelee/timelineS")
-
+library(timelineS)
 ## This package contains five functions as below.
 # timelineS: Plots a horizontal timeline with event descriptions at corresponding dates.
 # timelineG: Plots faceted timelines for grouped data.
-# durPlot: Plots boxplot, histogram, density plot, scatter plot, line plot and prints summary statistics for date duration data.
+# durPlot: Plots boxplot, histogram, density plot, scatter plot,line plot and prints summary statistics for date duration data.
 # durCalc: Calculates the duration between two dates, use it as a filter to select rows that satisfy the length criteria. Returns the dataset with additional columns regarding the length of durations in different units.
 # durSummary: Returns summary statistics for date duration data.
 
-
+#Timeline with Event Labels
+#timelineS(df, main = NA, xlab = NA, buffer.days = 600,
+# line.width = 5, line.color = "gray44",
+# scale = "year", scale.format = "%Y", scale.font = 2, scale.orient = 1,
+# scale.above = FALSE, scale.cex = 1, scale.tickwidth = 2,
+# labels = paste(df[[1]], df[[2]]), label.direction = "downup",
+# label.length = c(0.5,0.5,0.8,0.8), label.position = c(1,3),
+# label.color = "gray44", label.cex = 0.8, label.font = 1, label.angle = 0,
+# pch = 20, point.cex = 1, point.color = "gray44")
+# df:  Data frame for events and dates. First column for event names and second column for dates 
+# buffer.days	: Additional days  before and after  event dates on the timeline. Default 600 days.
+# line.width	: Timeline width; default 5
+# line.color	: Timeline color.
+# scale	: Scale on timeline. One of "year","quarter", "month", "week" or "day". See seq.Date.
+# scale.format	: Scale format; default "%Y".
+# scale.font	: Integer values Default is 2. (1:plain, 2:bold, 3:italic, 4:bold italic, 5:symbol).
+# scale.orient	: Orientation of scale; default 1(upright)
+# scale.above	: If TRUE, the scale shows above the line.
+# scale.cex	: Scale font size relative to cex.
+# scale.tickwidth	: Width of scale tick; default 2.
+# labels	: Event labels. Events and corresponding dates as default.
+# label.direction	:  "downup","updown","up", or "down", default is "downup". See details.
+# label.length	: Distance from timeline. single/vector of lengths. Default c(0.5, 0.5, 0.8, 0.8). 
+# label.position	: Integer specifying label positions; default c(1,3). See details.
+# label.color	: Label color(s).
+# label.cex	: Font size(s) of event labels; default 0.8.
+# label.font	: Integer specifying label font; default 1.
+# label.angle	: Angle of text in the label.
+# pch	: End point symbol(s).
+# point.cex	:  End points size(s).
+# point.color	: End points color(s).
 
 library(timelineS)
-timelineS(mj_life, main = "Life of Michael Jackson")
 mj_life
+## simplest
+timelineS(mj_life, main = "Life of Michael Jackson")
 
-
-timelineS(mj_life, main = "Life of Michael Jackson", 
-          label.direction = "up", label.length = c(0.2,0.8,0.4,1.2), label.position = 3, 
+## Labels above timeline and other change in aesthetics
+timelineS(mj_life, 
+          main = "Life of Michael Jackson", 
+          label.direction = "up", 
+          label.length = c(0.2,  0.8,  0.4,  1.2),  label.position = 3, 
           line.color = "blue", label.color = "blue", point.color = "blue", pch = "-")
 
+life_country
+# timelineG(df, start, end, names, phase = NA, group1 = NA, group2 = NA,
+#           width = 2, color = "grey", theme = NULL, other = NULL)
+# names	: Column in df for names of each timeline
+# phase	: Column in df for phases.
+# group1	:Column in df for groups as rows. Default is NA.
+# group2	:Column in df for groups as the columns. Default is NA.
+# width	: Width of each timeline. Default is 2.
+# color	: Color of timelines, only used when phase is not provided.
+# theme	: Add theme elements if needed.
+# other	: Add other elements if needed.
 
 
+### Plot timelines, no group
+timelineG(df = life_country, start = "Start", end = "End", phase="Phase",names = "Name",color = "grey") # color if no phase
+### Plot timelines row-grouped by "Country"
+timelineG(df = life_country, start = "Start", end = "End", names = "Name",
+          phase = "Phase", group1 = "Country")
+### Plot timelines row-grouped by "Country" and column-grouped by "Gender"
+timelineG(df=life_country,         # Grouped Data Faceted Timelines
+          names="Name",  phase="Phase",   start="Start", end="End",    # name, colour seg, timeseg
+          group1="Country",      # row-grouped by "Countr       # y axis facet
+          group2="Gender"        # column-grouped by "Gender"    # x axis facet
+)     + theme_bw()
 
-timelineG(df=life_country, 
-          start="Start", end="End", names="Name", 
-          phase="Phase", 
-          group1="Country", group2="Gender" )    # + theme_bw()
 
 # durPlot function gives five different plots by default. 
-# You can set facet=TRUE to get faceted plots.
+# durPlot(df, start, end, group = NA, timeunit = "days", plot_type = "all",
+# facet = FALSE, facet.nrow = NULL, theme = NULL, other = NULL,
+# fill_color = "black", line_color = "black", groupcolor = TRUE,
+# point_size = 2, alpha = NA, binwidth = 0.5, show_legend = TRUE,
+# title=FALSE, title_boxplot = "Boxplot", title_histogram = "Histogram",
+# title_density = "Density Plot", title_scatter = "Scatter Plot",
+# title_line = "Line Plot")
+
+# Set facet=TRUE to get faceted plots.
+# df	: Dataframe with start dates, end dates and groups.
+# start/end	: # Column in df for start/end dates.
+# group	:Column in df for groups. Default is NA.
+# timeunit : "day(s)", "week(s)", "month(s)", "quarter(s)", "semiannual", "halfyear",or "year(s)".
+# plot_type	: "all", "boxplot", "histogram", "density", "scatter", "line"
+# facet	:If TRUE, wraps plots in group facets
+# facet.nrow	# Number of rows for facet wrap
+# theme	: Add theme elements if needed.
+# fill_color	# line_color	# groupcolor	
+# If FALSE, fill_color and line_color used for all groups. Default is TRUE.
+# point_size :  Point size for scatterplot
+# alpha	 # Color transparency [0,1]
+# binwidth	for histogram; default 0.5.
+# show_legend	: Default is TRUE
+# title	: # If TRUE, puts main titles for each plot
+# title_boxplot	:# Title for boxplot title
+# title_histogram	:# Title for histogram
+# title_density: # Title for density plot
+# title_scatter: # Title for scatter plot
+# title_line	 : # Title for line plot
 life_exp
 durPlot(life_exp, 
+        #plot_type= "histogram", "boxplot", "histogram", "density", "scatter", "line". Default: "all".
+        plot_type= "boxplot" ,
         start="Birth", end="Death", 
-        group="Country", timeunit="years", 
-         facet=TRUE, binwidth=3, alpha=0.7, title=TRUE , plot_type= "boxplot") # "all" ?
+        group="Country", 
+        timeunit="years", 
+        facet=TRUE, 
+        binwidth=3, alpha=0.7, title=TRUE, 
+        )   # 
 
-?durPlot()
-# plot_type	 One of "all", "boxplot", "histogram", "density", "scatter", "line". Default is "all".
-
-################      For interactive visualisation widget
+################################################################
+################################################################
+################################################################
+################################ For interactive visualisation widget
 #install.packages("timevis")
 #devtools::install_github("daattali/timevis")
-library(timevis)   
+library(timevis)   # timevis()
 
-timevis()
-
-timevis(  data.frame(id = 1:2,
+timevis::timevis(  data.frame(id = 1:2,
                      content = c("one", "two"),
                      start = c("2016-01-10", "2016-01-14"),
                      end = c("2016-01-13", "2016-01-16") )
-       )
+                 )
 
 
 
@@ -56,17 +138,17 @@ timevis(  data.frame(id = 1:2,
 data <- data.frame(
     id      = 1:4,
     content = c("Item one"  , "Item two"  ,"Ranged item", "Item four"),
-    start   = c("2016-01-10", "2016-01-11", "2016-01-20", "2016-02-14 15:00:00"),
-    end     = c(NA          ,           NA, "2016-02-04", NA)
+    start   = c("2012-01-11", "2016-01-11", "2016-01-20", "2016-02-14 15:00:00"),  #all needs start
+    end     = c(  "2016-01-10"        ,           NA, "2016-02-04", NA)
 )
-
+data
 timevis(data) # js based interactive?
 ###### Every item must have a content and a start variable. 
-###### If the item is a range rather than a single point in time, you can supply an end as well. 
-###### id is only required if you want to access or manipulate an item. 
+###### If item is a range , then you can supply an end as well. 
+###### id required if you want to access or manipulate an item. 
 ###### see ?timevis() 
 ?timevis() 
-
+timevis()
 # if editable = TRUE option, then the user will be able to add new items 
 # by double clicking, modify items by dragging, and delete items by selecting them.
 # You can use the groups feature to group together multiple items into different “buckets”
@@ -77,4 +159,106 @@ timevis() %>%
     centerItem("item1")
 
 
+#----------------------- Minimal data -----------------
+timevis( data.frame(id = 1:2,
+               content = c("one", "two"),
+               start = c("2016-01-10", "2016-01-12"))
+)
+
+#----------------------- Hide the zoom buttons, allow items to be editable -----------------
+timevis( data.frame(id = 1:2,
+         content = c("one", "two"),
+         start = c("2016-01-10", "2016-01-12")),
+         showZoom = FALSE,
+         options = list(editable = TRUE, height = "200px")
+       )
+
+#----------------------- You can use %>% pipes to create timevis pipelines -----------------
+timevis() %>%
+    setItems(data.frame(
+        id = 1:2,
+        content = c("one", "two"),
+        start = c("2016-01-10", "2016-01-12")
+    )) %>%
+    setOptions(list(editable = TRUE)) %>%
+    addItem(list(id = 3, content = "three", start = "2016-01-11")) %>%
+    setSelection("3") %>%
+    fitWindow(list(animation = FALSE))
+
+#------- Items can be a single point or a range, and can contain HTML -------
+timevis(  
+    data.frame(id = 1:2,
+               content = c("one", "two<br><h3>HTML is supported</h3>"),
+               start = c("2016-01-10", "2016-01-18"),
+               end = c("2016-01-14", NA),
+               style = c(NA, "color: red;")
+              )
+      )
+
+
+data.frame(    id = 1:2,
+               content = c("one", "two<br><h3>HTML is supported</h3>"),
+               style = c(NA, "color: red;"),
+              # type = c("point", "background"),
+               start = c("2016-01-10", "2016-01-18"),
+               end = c("2016-01-14", NA)
+         )  %>% timevis( )
+
+
+#----------------------- Alternative look for each item -----------------
+timevis(
+    data.frame(id = 1:2,
+               content = c("one", "two"),
+               start = c("2016-01-10", "2016-01-14"),
+               end = c(NA, "2016-01-18"),
+               type = c("point", "background") )
+)
+
+#----------------------- Using a function in the configuration options -----------------
+?timevis( data.frame(id = 1,
+                    content = "double click anywhere<br>in the timeline<br>to add an item",
+                    start = "2016-01-01"),
+                    options = list(
+                        editable = TRUE,
+                        onAdd = htmlwidgets::JS('function(item, callback) {
+                                           item.content = "Hello!<br/>" + item.content;
+                                            callback(item);
+                                          }')
+                        )
+         )
+#----------------------- Using groups -----------------
+timevis(data = data.frame(
+    start = c(Sys.Date(), Sys.Date(), Sys.Date() + 1, Sys.Date() + 2),
+    content = c("one", "two", "three", "four"),
+    group = c(1, 2, 1, 2)),
+    groups = data.frame(id = 1:2, content = c("G1", "G2"))
+)
+
+
+#----------------------- Getting data out of the timeline into Shiny -----------------
+if (interactive()) { library(shiny)
+    data <- data.frame(
+        id = 1:3,
+        start = c("2015-04-04", "2015-04-05 11:00:00", "2015-04-06 15:00:00"),
+        end = c("2015-04-08", NA, NA),
+        content = c("<h2>Vacation!!!</h2>", "Acupuncture", "Massage"),
+        style = c("color: red;", NA, NA)
+    )
+    
+    ui <- fluidPage(
+        timevisOutput("appts"),
+        div("Selected items:", textOutput("selected", inline = TRUE)),
+        div("Visible window:", textOutput("window", inline = TRUE)),
+        tableOutput("table")
+    )
+    
+    server <- function(input, output) {
+        output$appts <- renderTimevis( timevis( data, options = list(editable = TRUE, multiselect = TRUE, align = "center") )  )
+    
+        output$selected <- renderText( paste(input$appts_selected, collapse = " ") )
+        output$window <- renderText( paste(input$appts_window[1], "to", input$appts_window[2]) )
+        output$table <- renderTable( input$appts_data )
+    }
+    shinyApp(ui, server)
+}
 

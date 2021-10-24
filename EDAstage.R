@@ -1,16 +1,15 @@
 library(tidyverse)
 ###########################################
-# plain plots
 
 data <- data.frame( A = rpois(900, 3),
                     B = rnorm(900),
                     C = runif(900) )
-
+# plain plots
 boxplot(data)
-
 
 head(ToothGrowth)
 boxplot(ToothGrowth)
+
 boxplot(len~supp,
         data= ToothGrowth,
         main="ToothGrowth ",
@@ -34,6 +33,39 @@ ToothGrowth %>% ggplot(   aes(x=as.character(supp), y=len)  ) +
                 geom_boxplot(  fill="orange"   ) +
                 labs(title=" ToothGrowth ", x="Supp", y="len") + theme_bw()
 
+###############
+###############
+###############
+#outlier would be a point below [Q1- (1.5)IQR] or above [Q3+(1.5)IQR].
+#install.packages("ggstatsplot")
+library(ggstatsplot)
+data("warpbreaks") # Load the dataset 
+boxplot(warpbreaks)$out             # Create a boxplot , outliers are shown as two distinct points
+ggbetweenstats(warpbreaks, wool, breaks, outlier.tagging = TRUE ) #Create a boxplot that labels the outliers  
+
+# find the 25th and the 75th percentile and the IQR() gives difference of the 75th and 25th percentiles.
+Q <- quantile(warpbreaks$breaks, probs=c(.25, .75), na.rm = FALSE)
+iqr <- IQR(warpbreaks$breaks)
+up <-  Q[2]+1.5*iqr # Upper Range  
+low<- Q[1]-1.5*iqr # Lower Range﻿
+
+
+# Eliminating Outliers using subset() 
+eliminated <- subset(warpbreaks, warpbreaks$breaks > (Q[1] - 1.5*iqr) & warpbreaks$breaks < (Q[2]+1.5*iqr))
+
+#The boxplot without outliers can now be visualized:
+ggbetweenstats(eliminated, wool, breaks, outlier.tagging = TRUE) 
+
+# alt way
+boxplot(warpbreaks$breaks, plot=FALSE)$out
+# Then save the outliers in a vector:
+outliers <- boxplot(warpbreaks$breaks, plot=FALSE)$out
+x<-warpbreaks 
+x<- x[-which(x$breaks %in% outliers),]
+
+
+
+###############
 ###############
 library(ggplot2)
 theme_set(   theme_classic()   +   theme(legend.position = "top")   )
@@ -87,13 +119,12 @@ df
 # Basic 3D Scatter Plot
 # Create the plot
 p <- plot_ly( df, x = ~wt, y = ~hp, z = ~qsec, 
-              color = ~am, colors = c('#BF382A', '#0C4B8E')
-            ) %>%
+              color = ~am, colors = c('#BF382A', '#0C4B8E') ) %>%
       add_markers() %>%
       layout( scene  = list(xaxis = list(title = 'Weight'),
                yaxis = list(title = 'Gross horsepower'),
-               zaxis = list(title = '1/4 mile time'))
-  )
+               zaxis = list(title = '1/4 mile time') )
+       )
 p
 
 
@@ -120,8 +151,7 @@ theme_icon <- function () {
 
 # Create an icon form a ggplot graphic
 p <- ggplot(iris, aes(Species, Sepal.Length)) + 
-  geom_boxplot(color = "#478bca", fill = "transparent") +
-  theme_icon()
+  geom_boxplot(color = "#478bca", fill = "transparent")   # +  theme_icon()
 p
 
 # Save into a 72x72 pixel png or svg format for the icon:
@@ -133,8 +163,7 @@ ggsave(  filename = "test.png", p,  dpi=72, width = 1, height = 1, bg = "transpa
 #  Hex sticker
 library(hexSticker)
 p <- ggplot(iris, aes(Species, Sepal.Length)) + 
-     geom_boxplot(color = "white", fill = "transparent") +
-     theme_icon()  # defined above fn
+     geom_boxplot(color = "white", fill = "transparent") # +   theme_icon()  # defined above fn
 p
 p.sticker <- sticker( p,  package=" ", p_size=3, 
                       s_x=1, s_y=1.1, s_width=1.3, s_height=1.5,
@@ -169,7 +198,7 @@ ggvenn( x,
 
 
 # if (!require(devtools)) install.packages("devtools")  
-devtools::install_github("gaospecial/ggVennDiagram")  ## Use ggVennDiagram
+#devtools::install_github("gaospecial/ggVennDiagram")  ## Use ggVennDiagram
 library("ggVennDiagram")
 ggVennDiagram(x, label_alpha = 0.2)
 
@@ -181,7 +210,7 @@ venn.diagram(x, filename = "venn-4-dimensions.png")
 # check https://www.datanovia.com/en/fr/blog/diagramme-de-venn-avec-r-ou-rstudio-un-million-de-facons/
 
 # basic functions
-data = mtcars[5]
+data = mtcars[[5]]
 mean(data)
 median(data)
 sd(data)
@@ -237,13 +266,17 @@ length()
 
 
 # moving average
+df
 df %>%
   ggplot(aes(x = dt, y = AverageTemperature)) +
   geom_line() + 
   tidyquant::geom_ma(ma_fun = SMA, n = 30)  +                 # Plot 30-day SMA
   tidyquant::geom_ma(ma_fun = SMA, n = 365, color = "red") +  # Plot 365-day SMA
   coord_x_date(xlim = c("1999-01-01", "2013-08-01")) + # Zoom in
-  labs(x = "Year", y = "Average Temperature", title = "Temperature by Year", subtitle = "Copenhagen") +
+  labs( x = "Year", 
+        y = "Average Temperature", 
+        title = "Temperature by Year", 
+        subtitle = "Copenhagen"    ) +
   theme_minimal() +
   theme(text = element_text(size = 20))
 
@@ -298,25 +331,24 @@ prop.table(table(mobileBanking.Df$Gender))
 
 
 #install.packages("DataExplorer")
-library(DataExplorer)
 web <- mtcars
 glimpse(web)
  
 library(DataExplorer)
+airquality
 DataExplorer::create_report(airquality)
 DataExplorer::create_report(diamonds, y = "price")
-# Instead of running create_report, you may also run each function individually for your analysis, e.g.,
-
+# create_report or can also run each function individually, e.g.,
 DataExplorer::introduce(web)
-
 DataExplorer::plot_intro(web)
-DataExplorer::plot_intro(web, ggtheme = theme_minimal(), title = "Automated EDA with Data Explorer", )
+DataExplorer::plot_intro(web, 
+                         ggtheme = theme_minimal(), 
+                         title = "Automated EDA with Data Explorer", 
+                         )
 
 DataExplorer::plot_bar(diamonds, with = "price")
 DataExplorer::plot_bar(diamonds, by = "cut")
 DataExplorer::plot_qq(diamonds)
-
-
 DataExplorer::plot_missing(web)
 DataExplorer::plot_histogram(web)
 DataExplorer::plot_density(web)
@@ -325,29 +357,13 @@ DataExplorer::plot_correlation(web, cor_args = list( 'use' = 'complete.obs'))
 DataExplorer::plot_correlation(web, type = 'c',cor_args = list( 'use' = 'complete.obs'))
 DataExplorer::plot_bar(web,maxcat = 20, parallel = TRUE)
 
-DataExplorer::plot_bar(web,with = c("home"), maxcat = 20, parallel = TRUE)
-
-DataExplorer::create_report(web)
-
-
-
-library(tidyverse)
-starwars
-starwars %>% group_by(eye_color) %>% tally() # or
-starwars %>% count(sex, eye_color)
-starwars %>% add_count(eye_color, wt = birth_year) # mutating add_count
-starwars %>% add_tally(wt = birth_year)
-
+#x DataExplorer::plot_bar(web,with = c("home"), maxcat = 20, parallel = TRUE)
+DataExplorer::create_report(web) # All in one
 
 #if (!require(devtools)) install.packages("devtools")
-devtools::install_github("boxuancui/DataExplorer")
-library(DataExplorer)
-create_report(airquality)              # To get a report for the airquality dataset:
-create_report(diamonds, y = "price")   # To get a report for the diamonds dataset with response variable price:
+#devtools::install_github("boxuancui/DataExplorer")
 
-# You may also run each function individually for your analysis, e.g.,
-
-
+# can also run each function individually  e.g.,
 introduce(airquality)           ## View basic description for airquality data
 plot_intro(airquality)          ## Plot basic description for airquality data
 plot_missing(airquality)        ## View missing value distribution for airquality data
@@ -382,6 +398,17 @@ update_columns(airquality, 1L, function(x) x^2)
 ## Drop columns
 drop_columns(diamonds, 8:10)
 drop_columns(diamonds, "clarity")
+
+
+
+
+library(tidyverse)
+starwars
+starwars %>% group_by(eye_color) %>% tally() # or
+starwars %>% count(sex, eye_color)
+starwars %>% add_count(eye_color, wt = birth_year) # mutating add_count
+starwars %>% add_tally(wt = birth_year)
+
 
 ###########
 library(tidyverse)
@@ -441,9 +468,6 @@ gss_cat %>%
                 )  # OK fine
 
 
-
-
-
 library(tidyverse, tidytext)
-data %>% unnest_tokens(word, line) %>% anti_join(stop_words) %>% count(word, sort = TRUE)
+data %>% tidytext::unnest_tokens(word, line) %>% anti_join(stop_words) %>% count(word, sort = TRUE)
 

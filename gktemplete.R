@@ -1,5 +1,12 @@
 #gktemplete
 
+rmarkdown::render('/Users/gk/gkgit/pedqam/example-beamer.Rmd',  encoding = 'UTF-8')
+
+install.packages("webshot")
+webshot::install_phantomjs()
+
+
+
 setwd("/Users/gk/gkgit/pedqam")
 library(here)
 here()

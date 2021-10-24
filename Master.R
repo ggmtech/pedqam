@@ -24,6 +24,37 @@ if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstud
 #rmarkdown::powerpoint_presentation()
 # browseURL("bookdown/_book/bookdown.docx") ?
 ############################
+# Now pattern matching
+# > gregexpr(pattern, text, ignore.case = FALSE, perl = FALSE,          fixed = FALSE, useBytes = FALSE)
+# > gsub("(\\w)(\\w*)", "\\U\\1\\L\\2", txt, perl=TRUE)
+# > strings <- c(  "apple",   "219 733 8965",   "329-293-8753",  "Work: 579-499-7527; Home: 543.355.3679" )
+# 
+# > phone <- "([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})"
+# > str_detect(strings, phone) : Logical :  [1] FALSE  TRUE  TRUE  TRUE : str_count() 
+# > str_subset(strings, phone) : string:  [1] "219 733 8965" [2] "329-293-8753"  [3] "Work: 579-499-7527; Home: 543.355.3679"
+# 
+# > str_locate_all(strings, phone)  ;location of match position
+# > str_extract(strings, phone)  [1] NA  "219 733 8965" "329-293-8753" "579-499-7527"
+# > str_extract_all(strings, phone)
+# What are the phone numbers?
+# str_extract(strings, phone)
+# #> [1] NA    "219 733 8965" "329-293-8753" "579-499-7527"
+# 
+# > str_extract_all(strings, phone, simplify = TRUE) : better  simple list
+# 
+# 
+# > str_match_all() extracts capture groups from all matches and returns a list of character matrices like regmatches().
+# 
+# > str_replace() replaces the first matched pattern and returns a character vector. 
+# > str_replace_all() replaces all matches with second "string". Similar to sub() , gsub().
+# > str_replace(strings, phone, "XXX-XXX-XXXX")  : "Work: XXX-XXX-XXXX; Home: 543.355.3679"
+# > str_replace_all(strings, phone, "XXX-XXX-XXXX")
+# 
+# > str_split("a-b-c", "-") : "a" "b" "c"
+# > str_split_fixed("a-b-c", "-", n = 2) : fixed 2 only as : "a"  "b-c"
+
+
+
 
 # load libraries
 packages <- c("tidyverse", 
@@ -86,7 +117,7 @@ sheet_names(ss)
 # googlesheets4::read_sheet( ss, sheet = NULL, range = NULL, col_names = TRUE, col_types = NULL, skip = 0, na = "", trim_ws = TRUE )
     # , n_max = Inf  ,  guess_max = min(1000, n_max),  .name_repair = "unique" )
 
-ItemMaster2021 <-   googlesheets4::read_sheet(ss, sheet = "ItemMaster2021" , col_types = "c"  )  # col_types = "ccilDD"
+ItemMaster2021 <-   googlesheets4::read_sheet(ss, sheet = "RDSO_ItemMaster2021" , col_types = "c"  )  # col_types = "ccilDD"
 VR2021Jan      <-   googlesheets4::read_sheet(ss, sheet = "VR2021Jan"      , col_types = "c"  ) 
 ItemMaster2021
 mydata1 <- ItemMaster2021
@@ -134,7 +165,6 @@ itemmaster_civil %>%
 
 library(sqldf)
 
-
 df3 <- sqldf("SELECT CustomerId, Product, State 
               FROM df1
               JOIN df2 USING(CustomerID)")    ## inner join
@@ -160,29 +190,6 @@ df4 <- sqldf("SELECT CustomerId, Product, State
 # gather(), spread(), separate(), unit()
 # separate(data, col, into, sep= "", remove = TRUE)  #-into: The name of the new variables
 # unit(data, col, conc ,sep= "", remove = TRUE)
-(spec <- table(iris$Species))
-waffle::waffle(spec)
-waffle::waffle(spec, rows = 3, legend_pos = "bottom")
-waffle::waffle(spec, rows = 15, colors = c("lightgrey", "darkgrey", "red"))
-waffle::waffle(spec / 10, rows = 5, xlab = "1 square = 10 flowers")# do not forget to annotate 1 sq = 10 units!
-
-waffle::iron( waffle::waffle(spec / 5, rows = 5, title = "iron() combines waffles"),
-              waffle::waffle(spec / 10, rows = 5, xlab = "1 square = 10 flowers")  )  # combiing waffles with waffle::iron
-
-#  replace the tiles by pictures from the extrafont package. Plus ggwaffle developed now
-#  swarmplot, or beeswarmplot, and is already hosted on CRAN in the form of the ggbeeswarm package
-# install.packages("ggbeeswarm")
-library(ggbeeswarm)  # geom_quasirandom and geom_beeswarm, official ggplot2
-#### theme_set(theme_light()) # sets a default ggplot theme
-ggplot(iris, aes(Species, Sepal.Length)) + ggbeeswarm::geom_beeswarm()
-ggplot(iris, aes(Species, Sepal.Length, col = Species)) + geom_beeswarm(size = 2)
-ggplot(iris, aes(Species, Sepal.Length, col = Species)) + geom_beeswarm(size = 3, cex = 3)  # cex to adjust spacing for large data
-#  geom_beeswarm(groupOnX = FALSE)  to turn off separation
-# For another grouping variable besides those on the axis,  consider using the dodge.width
-ggplot(iris, aes(Species, Sepal.Length, col = Sepal.Length > 5)) + geom_beeswarm(dodge.width = 0.5)
-# geom_quasirandom, alternative geom_jitter
-ggplot(iris, aes(Species, Sepal.Length, col = Species)) + geom_quasirandom()
-ggplot(iris, aes(Species, Sepal.Length, col = Species)) + geom_quasirandom(size = 2, method = "smiley") # !! it allows many patterns!
 
 
 joined.dt1.dt.2 <- dt1[dt2]
