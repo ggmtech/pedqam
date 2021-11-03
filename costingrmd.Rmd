@@ -1,23 +1,45 @@
 ---
 title: Cost estimation of RDSO controlled items
-author: "QA RDSO"
+author: 
+  - John Doe^[Institution One, john@example.org]
+  - Jane Doe^[Institution Two, jane@example.org]
+  - Jane Doe^[Institution Three, jane@example.org]
 #date: "17MAR2021"
 date: "`r format(Sys.time(), '%d/%m/%Y')`"
-classoption: twoside
-fontsize: 10pt
+classoption: twoside # oneside
+# lang: en
+fontsize: 11pt #	Font size (e.g., 10pt, 11pt, or 12pt)
+# documentclass:article  # book
+# mainfont: #(only with xelatex and lualatex)
+# sansfont: #(only with xelatex and lualatex)
+# monofont: #(only with xelatex and lualatex)
+# mathfont:	#(only with xelatex and lualatex)
+linkcolor: "pink"
+urlcolor: "blue"
+citecolor: "red"
+keywords:
+  - key, QAM, Railway, RDSO
+  - dictionary
+  - word
+linestretch: 1.5
+geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
+# geometry:	margin=1in # options
 output:
-  officedown::rdocx_document:
-    reference_docx: costingrmd.docx # testrmd.docx # template.docx
-    toc: yes
-    toc_depth: 4
-    number_sections: true
-
   bookdown::pdf_document2:  # unicode need xeletex
     latex_engine: xelatex
     keep_tex: true
+    number_sections: true
     toc: true
     toc_depth: 3
     df_print: kable  # default table style
+#    citation_package: biblatex #natbib #cause error
+  officedown::rdocx_document:
+    number_sections: true
+    reference_docx: costingrmd.docx # testrmd.docx # template.docx
+    toc: yes
+    toc_depth: 2
+  html_document:
+    number_sections: true
    # reference_docx: pandoc_template.docx
     tables:
       style: Table
@@ -61,14 +83,9 @@ output:
     reference_num: true
 abstract: |
  DG directed setting up of a committee of 3 PED’s to examine the recommended system improvement to examine the recommended system improvement at para “e” / NP3 , which is reproduced as: Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd. Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021. The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
-keywords:
-  - key, QAM, Railway, RDSO
-  - dictionary
-  - word
-linestretch: 1.5
-geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
-bibliography: ../gkbookdown/book.bib
-#bibliography: ../pedqam/GKBibMaster.bib
+citation_package: biblatex # natbib or biblatex 
+#bibliography: ../gkbookdown/book.bib
+bibliography: ../pedqam/GKBibMaster.bib
 csl         : "etransportation.csl"
 nocite: |
   @*    # or   @item1, @item2 @* is a wildcard for all references.
@@ -111,8 +128,8 @@ update_geom_font_defaults(font_rc)
 <!-- # Abstract {-} --->
 
 
-```{r myimage, eval = TRUE, include=FALSE, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
-knitr::include_graphics("RDSO_Logo1.jpg") #flowery.png")
+```{r myimage, eval = TRUE, error =TRUE, include=FALSE, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
+#knitr::include_graphics("-/flowery.png") #RDSO_Logo1.jpg") #
 ```
 
 \tableofcontents
@@ -138,6 +155,9 @@ Accordingly, the committee of the following officers has been nominated by Spl.D
  * Gopal Kumar, PED/QA(Mech) - Convener
  * Sunit Kumar, PED(EL)
  * Alok Mathur, PED/QA(Elec)
+
+
+# This section is unnumbered {-}
 
 The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
 
