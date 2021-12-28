@@ -1,3 +1,27 @@
+
+#install.packages("exams", dependencies = TRUE)
+library("exams")
+exams_skeleton(markup = "markdown", encoding = "UTF-8",
+               writer = c("exams2html", "exams2pdf", "exams2moodle"))
+# This copies all R/Markdown files to the pwd along with demo script demo ofexams2html() and exams2pdf() for customizable HTML and PDF output, respectively, along with Moodle output via exams2moodle().
+dir()
+## [1] "demo-all.R"    "demo-html.R"   "demo-moodle.R" "demo-pdf.R"
+## [5] "exercises"     "templates"
+# Simply open the demo script demo-all.R for the first steps and then continue with more details in demo-html.R, demo-pdf.R, or demo-moodle.R, respectively. More information about all the exercises can be found in the exercise template gallery online.
+
+
+#exams2html("swisscapital.Rmd")
+exams2pdf("swisscapital.Rmd")
+
+getwd()
+dir()
+
+
+
+
+
+
+
 # biber  external programs to process bibliography info from .bib file for LaTeX document.
 # biblatex LaTeX packages  format citations and bibliographies;  both bibtex and biber.
 
