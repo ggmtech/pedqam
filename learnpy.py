@@ -1,4 +1,11 @@
 # comments start with a number symbol but multiline comments and for online doc with """ """.
+# global interpreter lock (GIL),  prevents > one Python instruction at a time. 
+# Num Py, 	array object ndarray Linear algebra operations, Fourier transform ,  container for data  reshape, slice and dice, perform aggregations, and select subsets of data 
+
+# * panel data, an econometrics term for multidi‐ mensional structured datasets, and a play on the phrase Python data analysis 
+
+
+
 
 """ Multiline strings can be written
     using three "s, and are often used  as documentation.

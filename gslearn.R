@@ -1,3 +1,51 @@
+####### first google drive
+####### 
+#install.packages("googledrive")
+library("googledrive")
+# prefix drive_   Auto-complete ~ find, ls, mv, cp, mkdir, and rm.
+# returns dribble, a “Drive tibble”  data frame with one row per file. 
+# gives file name, Track API  file ID, Hold  metadata of API, pipe-friendly” 
+
+drive_find(n_max = 30)
+drive_find(pattern = "ped")
+drive_find(type = "spreadsheet")     ## Google Sheets!
+drive_find(type = "csv")             ## MIME type = "text/csv"
+drive_find(type = "application/pdf") ## MIME type = "application/pdf"
+#refine the search using the q query parameter.
+(files <- drive_find(q = c("starred = true", "visibility = 'anyoneWithLink'")))
+
+# drive_find() searches by file properties,  also identify files by name (path, really) or by Drive file id using drive_get().
+(x <- drive_get("~/abc/def/googledrive-NEWS.md"))
+
+
+# upload any file type.
+
+(chicken <- drive_upload( drive_example_local("chicken.csv"), "index-chicken.csv")  )
+
+drive_rm(chicken)
+# example of using a dribble as input
+chicken_sheet <- drive_example_local("chicken.csv") %>% 
+  drive_upload(  name = "index-chicken-sheet", type = "spreadsheet")
+
+chicken_sheet %>%   drive_reveal("permissions")  # sharing permissions
+
+
+#Clean up
+file.remove(c( "index-chicken-sheet.csv", "index-chicken-sheet.xlsx", "chicken.txt"))
+#> [1] TRUE TRUE TRUE
+drive_find("index-chicken") %>% drive_rm()
+
+
+
+##########
+##########
+library(spelling)
+spelling::spell_check_files('README.md', lang = 'en_US')
+
+
+
+
+
 
 
 

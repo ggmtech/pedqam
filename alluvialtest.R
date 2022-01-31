@@ -2,11 +2,16 @@
 #install.packages(alluvial)
 library(tidyverse)    # for %>%
 library(alluvial)
+# 
+# tidyr::replace_na(): Missing values turns into a value (NA –> -99)
+# naniar::replace_with_na(): Value becomes a missing value (-99 –> NA)
+
 
 tit <- as.data.frame(Titanic, stringsAsFactors = FALSE)
 head(tit)
 glimpse(tit)
-
+tit %>% View()
+####### as.tibble(tit)  %>% alluvial(    freq   = tit$Freq  )
 # Plain and simple
 alluvial(  tit[,1:4],   freq   = tit$Freq  )
 
@@ -169,13 +174,13 @@ nodes = data.frame("name" =    c("Node A",       # Node 0
                                 "Nodes E"
                                 ))       
 
-links = as.data.frame(  matrix(
-                                c(  0, 1, 5,           # Each row represents a link. The first number
-                                    0, 2, 20,          # represents the node being conntected from. 
-                                    1, 3, 30,          # the second number represents the node connected to.
-                                    2, 3, 40,          # The third number is the value of the node
-                                    3, 4, 25),
-                                    byrow = TRUE, ncol = 3))
+links = as.data.frame(  
+    matrix(      c(  0, 1, 5,           # Each row represents a link. The first number
+                     0, 2, 20,          # represents the node being conntected from. 
+                     1, 3, 30,          # the second number represents the node connected to.
+                     2, 3, 40,          # The third number is the value of the node
+                     3, 4, 25),
+                                byrow = TRUE, ncol = 3) )
 
 names(links) = c("source", "target", "value")
 

@@ -49,14 +49,11 @@ centeredP <- fp_par(text.align = "center")
 
 # Introduction
 
-The aim of this document is to introduce a way to generate word reports from R using Rmarkdown with programmatically inserted headings, outputs and Word cross-references. 
-See https://towardsdatascience.com/awesome-r-markdown-word-report-with-programmatically-inserted-headings-outputs-and-19ad0de29a22 to understand the context of this example.
+The aim of this document is to introduce a way to generate word reports from R using Rmarkdown with programmatically inserted headings, outputs and Word cross-references. See <https://towardsdatascience.com/awesome-r-markdown-word-report-with-programmatically-inserted-headings-outputs-and-19ad0de29a22> to understand the context of this example.
 
-# Data 
+# Data
 
-We will use the built-in iris dataset as an example.
-This dataset consists in Petal and Sepal width and length measurements for three iris species.
-Table `r run_reference("summaryTable")` shows summary statistics.
+We will use the built-in iris dataset as an example. This dataset consists in Petal and Sepal width and length measurements for three iris species. Table `r run_reference("summaryTable")` shows summary statistics.
 
 ```{r data, eval = FALSE, echo = FALSE}
 # this chunk is a normal chunk compared to the next one

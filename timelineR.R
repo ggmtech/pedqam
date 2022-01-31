@@ -1,7 +1,9 @@
 #devtools::install_github("daheelee/timelineS")
 
-library(timelineS)
-# 5 fucntions
+library(timelineS) # 5 fn: timelineS, timelineG, durPlot, durCalc, durSummary
+mj_life
+timelineS(  mj_life,    main = "Life of Michael Jackson" )   ## simplest !
+
 # timelineS:  horizontal timeline with event descriptions at corresponding dates.
 # timelineG:  faceted timelines for grouped data.
 # durPlot: Plots boxplot, histogram, density plot, scatter plot, line plot and prints summary statistics for date duration data.
@@ -43,16 +45,22 @@ library(timelineS)
 
 library(timelineS)
 mj_life
-## simplest
-timelineS(mj_life, main = "Life of Michael Jackson")
-
+timelineS(  mj_life,   main = "Life of Michael Jackson")  # ## simplest
 
 ## Labels above timeline and other change in aesthetics
 timelineS(mj_life, 
-          main = "Life of Michael Jackson", 
+          main = "Life of \n Michael Jackson", 
           label.direction = "up", 
-          label.length = c(0.2,  0.8,  0.4,  1.2),  label.position = 3, 
-          line.color = "blue", label.color = "blue", point.color = "blue", pch = "-")
+          label.length = c(0.25,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,   0.9 ),  
+          label.position = 4,  #default c(1,3)
+          line.color = "blue",   # main line scale
+          line.width	= 8,
+          scale = "year", scale.format = "%b-%Y", scale.font = 1,scale.cex = .8, scale.orient = 2,
+          label.color = "red",   # leader line
+          label.angle = 90,      # text rotation
+          point.color = "green", pch = "*"  , point.cex= 2     # leader end point
+          )
+
 
 life_country
 # timelineG(df, start, end, names, phase = NA, group1 = NA, group2 = NA,
@@ -68,16 +76,16 @@ life_country
 
 
 ### Plot timelines, no group
-timelineG(df = life_country, start = "Start", end = "End", phase="Phase",names = "Name",color = "grey") # color if no phase
+timelineG(df = life_country, 
+          names = "Name", start = "Start", end = "End",  phase="Phase", color = "grey") # color, if no phase
 ### Plot timelines row-grouped by "Country"
-timelineG(df = life_country, start = "Start", end = "End", names = "Name",
-          phase = "Phase", group1 = "Country")
+timelineG(df = life_country, start = "Start", end = "End", names = "Name", phase = "Phase", group1 = "Country")
 ### Plot timelines row-grouped by "Country" and column-grouped by "Gender"
 timelineG(df=life_country,         # Grouped Data Faceted Timelines
           names="Name",  phase="Phase",   start="Start", end="End",    # name, colour seg, timeseg
           group1="Country",      # row-grouped by "Countr       # y axis facet
           group2="Gender"        # column-grouped by "Gender"    # x axis facet
-)     + theme_bw()
+)    # + theme_bw() #no ggplot thene
 
 
 timelineS(mj_life, main = "Life of Michael Jackson")
@@ -124,6 +132,8 @@ timelineG(df=life_country,
           group1="Country", group2="Gender"    
           )    # + theme_bw()
 
+
+# durPlot
 # durPlot function gives five different plots by default. 
 # durPlot(df, start, end, group = NA, timeunit = "days", plot_type = "all",
 # facet = FALSE, facet.nrow = NULL, theme = NULL, other = NULL,
@@ -165,7 +175,23 @@ durPlot(life_exp,
         binwidth=3, alpha=0.7, title=TRUE, 
         )   # 
 
-################################################################
+
+
+## durCalc()
+
+### Filter people who lived longer than 85 years
+durCalc(life_exp, start = "Birth", end = "Death",     timeunit = "years",  filterlength = 85 )
+
+### How old each person would be as of January 1, 2000 if they were alive
+durCalc(life_exp, start = "Birth", end = as.Date("2000-1-1"),       timeunit = "years")
+
+### Use as unit-converter between two dates
+durCalc(start = as.Date("2010-12-1"), end = as.Date("2015-4-26"),   timeunit = "weeks")
+
+
+#durSummary()
+durSummary(life_exp, start = "Birth", end = "Death",  group = "Country",  timeunit = "years")
+
 ################################################################
 ################################################################
 ################################ For interactive visualisation widget
@@ -174,9 +200,9 @@ durPlot(life_exp,
 library(timevis)   # timevis()
 
 timevis::timevis(  data.frame(id = 1:2,
-                     content = c("one", "two"),
-                     start = c("2016-01-10", "2016-01-14"),
-                     end = c("2016-01-13", "2016-01-16") )
+                     content = c("one",        "two"       ),
+                     start   = c("2016-01-10", "2016-01-14"),
+                     end     = c("2016-01-13", "2016-01-16") )
                  )
 
 
@@ -184,18 +210,17 @@ timevis::timevis(  data.frame(id = 1:2,
 #add dataframe
 data <- data.frame(
     id      = 1:4,
-    content = c("Item one"  , "Item two"  ,"Ranged item", "Item four"),
-    start   = c("2012-01-11", "2016-01-11", "2016-01-20", "2016-02-14 15:00:00"),  #all needs start
-    end     = c(  "2016-01-10"        ,           NA, "2016-02-04", NA)
-)
+    content = c("Item one"   , "Item two"  ,"Ranged item", "Item four"),
+    start   = c("2012-01-11" , "2016-01-11", "2016-01-20", "2016-02-14 15:00:00"),  #all needs start
+    end     = c( "2016-01-10" ,   NA ,       "2019-02-04",                    NA)   # endpoint time
+                   )
 data
-timevis(data) # js based interactive?
-###### Every item must have a content and a start variable. 
-###### If item is a range , then you can supply an end as well. 
+timevis::timevis(data) # js based interactive range plot
+# timevis()
+###### Every item must have a content and a start variable, end also it it is a time range
 ###### id required if you want to access or manipulate an item. 
-###### see ?timevis() 
 ?timevis() 
-timevis()
+
 # if editable = TRUE option, then the user will be able to add new items 
 # by double clicking, modify items by dragging, and delete items by selecting them.
 # You can use the groups feature to group together multiple items into different “buckets”
@@ -221,8 +246,8 @@ timevis( data.frame(id = 1:2,
        )
 
 #----------------------- You can use %>% pipes to create timevis pipelines -----------------
-timevis() %>%
-    setItems(data.frame(
+timevis() %>% setItems(
+                data.frame(
         id = 1:2,
         content = c("one", "two"),
         start = c("2016-01-10", "2016-01-12")

@@ -1,18 +1,13 @@
 #gktemplete
+#rmarkdown::render('/Users/gk/gkgit/pedqam/example-beamer.Rmd',  encoding = 'UTF-8')
 
-rmarkdown::render('/Users/gk/gkgit/pedqam/example-beamer.Rmd',  encoding = 'UTF-8')
-
-install.packages("webshot")
-webshot::install_phantomjs()
-
-
+#install.packages("webshot")
+#webshot::install_phantomjs()
 
 setwd("/Users/gk/gkgit/pedqam")
 
-
 library(here)
-load(here(), loadinglibs.R)
-
+load( here(), loadinglibs.R )
 
 # loadingkubs.R for loading inital packages various means
 # rnotes.R  small learning notes
@@ -29,7 +24,6 @@ load(here(), loadinglibs.R)
 # dplyr joins
 inner_join(superheroes, publishers)    # All colums of x, y   but of rows of x having matchings in Y
 inner_join(publishers, superheroes)
-
 semi_join(superheroes, publishers)     # Only columns from x,  and filtred x  also in y, and unrepeated
 semi_join(publishers, superheroes)
 

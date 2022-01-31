@@ -1,9 +1,9 @@
 ---
 title: Cost estimation of RDSO controlled items
 author: 
-  - John Doe^[Institution One, john@example.org]
-  - Jane Doe^[Institution Two, jane@example.org]
-  - Jane Doe^[Institution Three, jane@example.org]
+  - John1 Doe^[Institution One, john@example.org]
+  - Jane2 Doe^[Institution Two, jane@example.org]
+  - Jane3 Doe^[Institution Three, jane@example.org]
 #date: "17MAR2021"
 date: "`r format(Sys.time(), '%d/%m/%Y')`"
 classoption: twoside # oneside
