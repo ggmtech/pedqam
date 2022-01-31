@@ -1,33 +1,23 @@
-\documentclass{article}
-\usepackage{fontspec}
-\newfontfamily\hindifont{Utsaah}[Script=Devanagari] % Use any Devanagari font on your system
-
-\begin{document}
-This is Latin script and {\hindifont यह है देवनागरी}.
-\end{document}
-
-
-
-
-
-
-
-
+% exam question paper
 \title{exam questionnaire}
 \documentclass[a4paper,10pt,BCOR10mm,oneside,headsepline]{article} %scrartcl}
 
-\usepackage[ngerman]{babel}
-\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+%\usepackage[utf8]{inputenc}
+
+\usepackage{fontspec}
+\newfontfamily\hindifont{Utsaah}[Script=Devanagari] % Use any Devanagari font on your system
 
 \usepackage{wasysym}    % provides \ocircle and \Box
 \usepackage{enumitem}   % easy control of topsep and leftmargin for lists
 \usepackage{color}      % used for background color
 \usepackage{forloop}    % used for \Qrating and \Qlines
 \usepackage{ifthen}     % used for \Qitem and \QItem
+
 \usepackage{typearea}
 \areaset{17cm}{26cm}
-
 \setlength{\topmargin}{-1cm}
+
 %\usepackage{scrpage2}
 \usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
@@ -40,28 +30,23 @@ This is Latin script and {\hindifont यह है देवनागरी}.
 %% Beginning of questionnaire command definitions %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% 2012 by Sven Hartenstein  mail@svenhartenstein.de
-%% http://www.svenhartenstein.de
-%%  small collection of LaTeX commands that I found useful when creating a
-%% questionnaire. Feel free to copy and adjust any parts you like.
-%% Most probably, you will want to change the commands, so that they
-%% fit your taste.  suggestion to put \noindent  %% before \rule!
+%% 2012 by Sven Hartenstein  mail@svenhartenstein.de %% http://www.svenhartenstein.de
+%% put \noindent  %% before \rule!
+%% \Qq = Questionaire question. easy to globally change
 
-%% \Qq = Questionaire question. Oh, this is just too simple. It helps
-%% making it easy to globally change the appearance of questions.
+
 \newcommand{\Qq}[1]{\textbf{#1}}
 
 %% \QO = Circle or box to be ticked. Used both by direct call and by
 %% \Qrating and \Qlist.
 \newcommand{\QO}{$\Box$}% or: $\ocircle$
 
-%% \Qrating = Automatically create a rating scale with NUM steps, like
-%% this: 0--0--0--0--0.
+%% \Qrating = create a rating scale with NUM steps, like 0--0--0--0--0.
 \newcounter{qr}
 \newcommand{\Qrating}[1]{\QO\forloop{qr}{1}{\value{qr} < #1}{---\QO}}
 
-%% \Qline = Again, this is very simple. It helps setting the line
-%% thickness globally. Used both by direct call and by \Qlines.
+
+%% \Qline = setting the line thickness globally. Used both by direct call and by \Qlines.
 \newcommand{\Qline}[1]{\noindent\rule{#1}{0.6pt}}
 
 %% \Qlines = Insert NUM lines with width=\linewith. You can change the
@@ -122,11 +107,19 @@ This is Latin script and {\hindifont यह है देवनागरी}.
 }
 }
 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% End of questionnaire command definitions %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
 \begin{document}
+
+This is Latin script and {\hindifont यह है देवनागरी}
+%\begin{hindi} हिन्दी संस्करण ।    \end{hindi}
 
 \begin{center}
 \textbf{\huge Example questionnaire created with \LaTeX}

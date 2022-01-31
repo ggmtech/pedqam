@@ -1,21 +1,56 @@
 ---
 title: Cost estimation of RDSO controlled items
-author: "QA RDSO"
+author: 
+  - John Doe^[Institution One, john@example.org]
+  - Jane Doe^[Institution Two, jane@example.org]
+  - Jane Doe^[Institution Three, jane@example.org]
 #date: "17MAR2021"
 date: "`r format(Sys.time(), '%d/%m/%Y')`"
-classoption: twoside
-fontsize: 10pt
+classoption: twoside # oneside
+# lang: en
+fontsize: 11pt #	Font size (e.g., 10pt, 11pt, or 12pt)
+# documentclass:article  # book
+# mainfont: #(only with xelatex and lualatex)
+# sansfont: #(only with xelatex and lualatex)
+# monofont: #(only with xelatex and lualatex)
+# mathfont:	#(only with xelatex and lualatex)
+linkcolor: "pink"
+urlcolor: "blue"
+citecolor: "red"
+keywords:
+  - key, QAM, Railway, RDSO
+  - dictionary
+  - word
+linestretch: 1.5
+geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
+# geometry:	margin=1in # options
 output:
+<<<<<<< HEAD
   pdf_document:
     toc: true
     toc_depth: 2
+=======
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
   bookdown::pdf_document2:  # unicode need xeletex
     latex_engine: xelatex
     keep_tex: true
+    number_sections: true
     toc: true
     toc_depth: 3
     df_print: kable  # default table style
+<<<<<<< HEAD
 #    reference_docx: costingrmd.doc #pandoc_template.docx
+=======
+#    citation_package: biblatex #natbib #cause error
+  officedown::rdocx_document:
+    number_sections: true
+    reference_docx: costingrmd.docx # testrmd.docx # template.docx
+    toc: yes
+    toc_depth: 2
+  html_document:
+    number_sections: true
+   # reference_docx: pandoc_template.docx
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
     tables:
       style: Table
       layout: autofit
@@ -56,6 +91,7 @@ output:
       footer: 0.5
       gutter: 0.5
     reference_num: true
+<<<<<<< HEAD
 #abstract: |
 # DG directed setting up of a committee of 3 PED’s to examine the recommended system improvement to examine the recommended system improvement at para “e” / NP3 , which is reproduced as: Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd. Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021. The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
 keywords:
@@ -69,6 +105,13 @@ parms:
 geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
 bibliography: book.bib
 #bibliography: ../pedqam/GKBibMaster.bib
+=======
+abstract: |
+ DG directed setting up of a committee of 3 PED’s to examine the recommended system improvement to examine the recommended system improvement at para “e” / NP3 , which is reproduced as: Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd. Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021. The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
+citation_package: biblatex # natbib or biblatex 
+#bibliography: ../gkbookdown/book.bib
+bibliography: ../pedqam/GKBibMaster.bib
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
 csl         : "etransportation.csl"
 nocite: |
   @*    # or   @item1, @item2 @* is a wildcard for all references.
@@ -111,8 +154,14 @@ update_geom_font_defaults(font_rc)
 
 <!-- # Abstract {-} --->
 
+<<<<<<< HEAD
 ```{r myimage, eval = TRUE, include=FALSE, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
 #knitr::include_graphics("RDSO_Logo1.jpg") #flowery.png")
+=======
+
+```{r myimage, eval = TRUE, error =TRUE, include=FALSE, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
+#knitr::include_graphics("-/flowery.png") #RDSO_Logo1.jpg") #
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
 ```
 
 \tableofcontents
@@ -123,7 +172,22 @@ Based on a complaint by M/s Prag industries , Lucknow to Member(RS) Railway Boar
 
 > Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd.
 
+<<<<<<< HEAD
 > CVO view that indicative costing of the items should be done by concerned directorate with finance vetting by invoking book examination clause, if need be,, as a result of discrete value analysis to preclude the possibility of revenue loss. It is also hightime where RDSO may consider setting up of value analysis cell for this purpose,
+=======
+Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021
+
+ * Gopal Kumar, PED/QA(Mech) - Convener
+ * Sunit Kumar, PED(EL)
+ * Alok Mathur, PED/QA(Elec)
+
+
+# This section is unnumbered {-}
+
+The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
+
+<!--- It is seen that DG/RDSO has already accepted the recommendations for working out financial  implications, including financial vetting of the costing at NP4 of the file RDSO/20/Vig/05/CT/39. 
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
 
 DG directed setting up of a committee of 3 PED's to examine the recommended system improvement to examine the recommended system improvement at para "e" / NP3 , which is reproduced as :
 
