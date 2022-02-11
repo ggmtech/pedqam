@@ -24,11 +24,306 @@ snakecase::to_any_case(string)                  # convert to snake case or with 
 snakecase::to_any_case(string, case = "parsed") # "simply "parsed" case:
 snakecase::to_snake_case(c("SomeBAdInput", "someGoodInput")) %>% dput()    ## c("some_b_ad_input", "some_good_input")
 
+###########
+plot_missing(mtcars,
+            ggtheme = theme_tq(),
+            title = str_glue( 'Exploring Missing Data (N = { count(mtcars) }   )' )    
+            )
+
+###########
+###########
+# explore package simplifies EDA with less code !!!
+library(dplyr)
+library(explore)
+explore(iris)
+  
 
 
 
+###########
+# explore  :
+# Interactive data exploration (univariat, bivariat, multivariat)
+# Generate an Automated Report with one line of code. The target can be binary, categorical or numeric.
+# Manual exploration  four main verbs. 
+# explore() to grafically explore a variable or table, 
+# describe() to describe a variable or table, 
+# explain_tree() to create a simple decision tree that explains a target. 
+# report() to generate an automated report of all variables.
+library(explore)
+explore(iris)
+
+
+# report of all variables
+iris %>% report(output_file = "report.html", output_dir = tempdir())
+
+
+# report of all variables and their relationship with a binary target
+iris$is_versicolor <- ifelse(iris$Species == "versicolor", 1, 0)
+iris %>% 
+  report(output_file = "report.html", 
+         output_dir = tempdir(),
+         target = is_versicolor)
+
+# Grow a decision tree with one line of code:
+
+iris %>% explain_tree(target = Species)
+
+iris$is_versicolor <- ifelse(iris$Species == "versicolor", 1, 0)
+iris %>% select(-Species) %>% explain_tree(target = is_versicolor)
+iris %>% explain_tree(target = Sepal.Length)
+iris %>% explore_tbl()
+
+###########
+
+# install.packages('nortest')
+library(nortest)
+# ad.test(x)  Anderson Darling Test   for distributions x:- a numeric vector N> 7, NA OK.
+# if mpg normal with ad.test(x)
+hist(mtcars$mpg, col = 'red', main = 'Distribution of mpg',xlab = 'MPG')
+ad.test(mtcars$mpg) # Not enough evidence to reject H0 and infer mpg normal dist as p> n 0.05.
+
+
+################
+################
+################
+library(dataCompareR)
+# run the comparison
+compIris <- rCompare(iris, iris2)
+summary(compIris)  # Check the results
+saveReport(compIris, reportName = 'compIris') # Or save report using saveReport
+
+
+compPressure <- rCompare(pressure, pressure2, keys = 'temperature') # run the comparison with key
+print(compPressure) # use print for a quick summary
+
+# use generateMismatchData to pull out the mismatching rows from each table
+mismatches <- generateMismatchData(compPressure, pressure, pressure2)
+
+mismatches
+
+# dataCompareR:::functionName use ::: for internal function call
+
+
+
+################
+library(naniar)
+vis_miss(airquality)
+gg_miss_upset(airquality)
+gg_miss_upset(riskfactors)
+n_var_miss(riskfactors)  # how many missings?
+gg_miss_upset(riskfactors, nsets = n_var_miss(riskfactors))
+gg_miss_upset(riskfactors, nsets = 10, nintersects = 50)
+gg_miss_upset(riskfactors, nsets = 10, nintersects = NA)
+
+# Rxplore geom_miss_point
+# you start
+summary()
+str()
+skimr::skim()
+dplyr::glimpse()
+# visdat # provides a visualisation of an entire data frame at once,
+library(visdat)
+visdat::vis_dat(airquality)
+vis_miss(airquality)
+
+#miss_var_summary providing the dataframe that gg_miss_var() is based on.
+
+tidyr::replace_na
+naniar::replace_with_na
+
+
+as_shadow(airquality)
+
+pedestrian %>% miss_var_summary()
+
+pedestrian %>%
+  group_by(month) %>%
+  miss_var_summary() %>%
+  filter(variable == "hourly_counts")
+
+airquality %>% add_prop_miss() %>%  head()
+
+library(rpart)
+library(rpart.plot)
+airquality %>%
+  add_prop_miss() %>%
+  rpart(prop_miss_all ~ ., data = .) %>%
+  prp(type = 4, extra = 101, prefix = "Prop. Miss = ")
+
+
+
+library(ggplot2)
+# using regular geom_point()
+ggplot(airquality,   aes(x = Ozone,  y = Solar.R)) +  geom_point()
+ggplot(airquality,   aes(x = Ozone,  y = Solar.R)) + naniar::geom_miss_point() +  facet_wrap(~Month)
+
+gg_miss_var(airquality)
+gg_miss_var(airquality, show_pct = TRUE)
+gg_miss_var(airquality, facet = Month)
+gg_miss_case(airquality, facet = Month)
+gg_miss_case_cumsum(airquality)
+gg_miss_case_cumsum(riskfactors, breaks = 50) + theme_bw()
+
+
+
+###########
+library(tabxplor)  # tabular crosstab
+set_color_style(type = "text", theme = "light")
+forcats::gss_cat %>% tabxplor::tab( marital, race)
+
+forcats::gss_cat %>% 
+         tabxplor::tab(marital, race, 
+            # pct = "row", 
+             na = "drop", 
+             subtext = gss,
+             rare_to_other = TRUE, 
+             n_min = 1000, 
+             other_level = "Custom_other_level_name"  # Source
+             )
+# When a third variable is provided, tab makes a table with as many subtables as it has levels
+# With several tab_vars, it makes a subtable for each combination of their levels
+# Colors highlight over-represented and under-represented cells, default color = "diff",
+
+data <- forcats::gss_cat %>% 
+        dplyr::filter(year %in% c(2000, 2006, 2012), !marital %in% c("No answer", "Widowed"))
+
+gss  <- "Source: General social survey 2000-2014"
+gss2 <- "Source: General social survey 2000, 2006 and 2012"
+
+tabxplor::tab(data, race, marital,   year,   # Year as grouping var
+              subtext = gss2, 
+              pct = "row", 
+             # ci = "cell",
+              color = "diff")
+
+
+
+# print confidence intervals for each cell:
+  
+tabxplor::tab(forcats::gss_cat, race, marital, 
+              pct = "row", 
+              ci = "cell")
+
+
+# With color = "diff_ci", the cells are only colored if the confidence interval 
+tabxplor::tab(forcats::gss_cat, race, marital, 
+              pct = "row", 
+              color = "diff_ci")
+
+###########
+###########
+# install.packages("tidycharts")
+library(tidycharts)
+mtcars %>%
+bar_chart( cat = mtcars$cyl, series = 'qsec' ) %>% 
+   add_title('The company XYZ', 'Profit', 'in mEUR', 'by departments, 2020') %>% 
+   SVGrenderer()
+
+# etc
+
+data(palmerpenguins)
+#Line charts - data in time
+p <- penguins_raw %>%
+  mutate(species = map_chr(str_split(Species, ' '), function(row) row[[1]])) %>%
+  group_by(`Date Egg`, species) %>% 
+  count() %>% 
+  pivot_wider(names_from = species, values_from = n, values_fill = list(n = 0)) %>% 
+  group_by(week = lubridate::week(`Date Egg`), year = lubridate::year(`Date Egg`)) %>% 
+  summarise(across(c('Adelie', 'Gentoo', 'Chinstrap'), sum)) %>% 
+  mutate(date = paste(paste0('W',week), year, sep = '\n')) %>% 
+  arrange(year, week) %>% 
+  as.data.frame()
+
+
+line_chart_stacked(p, p$date, 
+                   series = c('Adelie', 'Gentoo', 'Chinstrap'), 
+                   series_labels = c('Adelie', 'Gentoo', 'Chinstrap'), 
+                   show_labels = rep(NA, length.out = 14),
+                   interval = 'weeks') %>%
+  add_title('Palmer penguins sampling expedition', 'Number of new eggs observed', '', '2007...2009') %>% 
+  SVGrenderer()
+
+#############
+# install.packages("blandr")
+library(blandr)
+load(file="Data/bland.altman.PEFR.1986.rda")
+blandr.display( bland.altman.PEFR.1986$WrightFirst , 
+                bland.altman.PEFR.1986$MiniWrightFirst , 
+                sig.level=0.95 )
+blandr.draw( bland.altman.PEFR.1986$WrightFirst , 
+             bland.altman.PEFR.1986$MiniWrightFirst )
+
+###########
+#install.packages("sankeywheel")
+library(sankeywheel)
+
+DT::datatable(sankeydf)
+
+sankeywheel(from = sankeydf$from,
+            to = sankeydf$to,
+            weight = sankeydf$weight,
+            type = "dependencywheel",   # "sankey", 
+            width = "100%")
+
+sankeywheel(from   = sankeydf$from,
+            to     = sankeydf$to,
+            weight = sankeydf$weight,
+            type = "sankey", 
+            width = "100%")
+
+# complete lists
+sankeywheel(from = sankeydf$from,
+            to = sankeydf$to,
+            weight = sankeydf$weight,
+            
+            type = "dependencywheel",  # "dependencywheel",   # "sankey", 
+            
+            seriesName = "Random data: ",
+            width = "100%", 
+            height = "400px",
+            theme = "sunset", # sandsignika darkgreen darkblue avocado darkunica gray gridlight grid sunset
+            title = "SUNSET",
+            titleAlign = "center",
+            titleSize = "18px",
+            titleColor = "black",
+            subtitle = "czxa.top",
+            subtitleAlign = "center",
+            subtitleSize = "14px",
+            subtitleColor = "black")
+
+
+??combineWidgets(
+  sankeywheel(from = sankeydf$from,
+              to = sankeydf$to,
+              weight = sankeydf$weight,
+              type = "sankey", 
+              width = "100%",
+              theme = "sunset",
+              title = "SUNSET"),
+  sankeywheel(from = sankeydf$from,
+              to = sankeydf$to,
+              weight = sankeydf$weight,
+              type = "dependencywheel", 
+              width = "100%", 
+              theme = "sunset",  
+              title = "SUNSET"),
+  byrow = TRUE, ncol = 2, width = "100%", height = "300px"
+)
+
+
+#############
 library(tidyverse)
-
+library(tidyquant)
+library(recipes)
+library(rsample)
+library(knitr)
+library(janitor) # Data Cleaning
+# EDA
+library(skimr)
+library(DataExplorer)
+# ggplot2 Helpers
+library(scales)
+theme_set(theme_tq())
 ###########################################
 
 data <- data.frame( A = rpois(900, 3),
@@ -66,11 +361,12 @@ starwars %>% add_tally(wt = birth_year)
 
 
 # Data Exploration
-#if (!require(devtools)) install.packages("devtools")
-devtools::install_github("boxuancui/DataExplorer")
+# if (!require(devtools)) install.packages("devtools")
+# devtools::install_github("boxuancui/DataExplorer")
 library(DataExplorer)
-DataExplorer::create_report(airquality)              # To get a report for the airquality dataset:
-DataExplorer::create_report(diamonds, y = "price")   # To get a report for the diamonds dataset with response variable price:
+DataExplorer::create_report(airquality)            # Get full report for airquality dataset:
+DataExplorer::create_report(diamonds, y = "price") # report for diamonds df - response price:
+
 # itemwise function instead of complete report
 DataExplorer::introduce(airquality)              ## View basic description for airquality data
 DataExplorer::plot_intro(airquality)             ## Plot basic description for airquality data
@@ -81,9 +377,9 @@ DataExplorer::plot_bar(diamonds, by = "cut")     ## View frequency distribution 
 DataExplorer::plot_histogram(diamonds)           ## View histogram of all continuous variables
 DataExplorer::plot_density(diamonds)## estimated density distribution of all continuous variables
 DataExplorer::plot_qq(diamonds)## View quantile-quantile plot of all continuous variables
-DataExplorer::plot_qq(diamonds, by = "cut")                ## View quantile-quantile plot of all continuous variables by feature `cut`
-DataExplorer::plot_correlation(diamonds)                   ## View overall correlation heatmap
-DataExplorer::plot_boxplot(diamonds, by = "cut")           ## View bivariate continuous distribution based on `cut`
+DataExplorer::plot_qq(diamonds, by = "cut")       ## View quantile-quantile plot of all continuous variables by feature `cut`
+DataExplorer::plot_correlation(diamonds)          ## View overall correlation heatmap
+DataExplorer::plot_boxplot(diamonds, by = "cut")  ## View bivariate continuous distribution based on `cut`
 DataExplorer::plot_scatterplot(split_columns(diamonds)$continuous, by = "price", sampled_rows = 1000L)## Scatterplot `price` with all other continuous features
 DataExplorer::plot_prcomp(diamonds, maxcat = 5L)           ## Visualize principal component analysis
 
@@ -104,9 +400,9 @@ DataExplorer::drop_columns(diamonds, 8:10)
 DataExplorer::drop_columns(diamonds, "clarity")
 
 
+
 ###############
-###############
-###############
+##############################
 #outlier would be a point below [Q1- (1.5)IQR] or above [Q3+(1.5)IQR].
 #install.packages("ggstatsplot")
 library(ggstatsplot)
@@ -115,10 +411,10 @@ boxplot(warpbreaks)$out             # Create a boxplot , outliers are shown as t
 ggbetweenstats(warpbreaks, wool, breaks, outlier.tagging = TRUE ) #Create a boxplot that labels the outliers  
 
 # find the 25th and the 75th percentile and the IQR() gives difference of the 75th and 25th percentiles.
-Q <- quantile(warpbreaks$breaks, probs=c(.25, .75), na.rm = FALSE)
+Q   <- quantile(warpbreaks$breaks, probs=c(.25, .75), na.rm = FALSE)
 iqr <- IQR(warpbreaks$breaks)
-up <-  Q[2]+1.5*iqr # Upper Range  
-low<- Q[1]-1.5*iqr # Lower Range﻿
+up  <- Q[2]+1.5*iqr # Upper Range  
+low <- Q[1]-1.5*iqr # Lower Range﻿
 
 
 # Eliminating Outliers using subset() 
@@ -137,9 +433,9 @@ x<- x[-which(x$breaks %in% outliers),]
 
 
 ###############
-###############
 
-###########
+
+##########################
 library(timetk)
 timetk::walmart_sales_weekly
 
@@ -175,8 +471,9 @@ timetk::walmart_sales_weekly %>%
 # then sankey(nodes, flows),  but better 
 # sankey(nodes, flows, colors, legend=TRUE))
 
-library(pentarhei)
-nodes <- tibble::tribble( 
+#xlibrary(pentarhei)
+library(PantaRhei)
+pnodes <- tibble::tribble( 
     ~ID,     ~label,   ~x,   ~y,     ~dir,      ~label_pos,
     "in",    "Input",  0,   "0",     "right",   "left",
     "out",   "Output", 4,   "in",    "right",  "right",
@@ -199,9 +496,9 @@ colors <- tibble::tribble(
     "<any>",    "cornflowerblue",
 )
 
-
+library(tidyverse, readxl)
 # reallife
-nodes   <- read_xlsx("my_sankey_data.xlsx", "nodes")
+nodes   <- readxl::read_xlsx("my_sankey_data.xlsx", "nodes")
 flows   <- read_xlsx("my_sankey_data.xlsx", "flows")
 colors  <- read_xlsx("my_sankey_data.xlsx", "colors")
 
@@ -288,7 +585,7 @@ df %>%  ggplot(  aes(x = wt, y = mpg)  ) +
 # 3D plot
 library(plotly)
   
-  df <- mtcars %>%
+df <- mtcars %>%
   rownames_to_column() %>%
   as_tibble() %>%
   mutate(am = ifelse(am == 0, "Automatic", "Manual")) %>%
@@ -356,7 +653,7 @@ marker <- list(color = ~mpg, colorscale = c('#FFE1A1', '#683531'),   showscale =
 # Create the plot
 df %>%  plot_ly( x = ~wt, y = ~hp, z = ~qsec, marker = marker) %>%
      add_markers() %>%
-     layout(    scene = list(xaxis = list(title = 'Weight'),
+     layout(     scene = list(xaxis = list(title = 'Weight'),
                  yaxis = list(title = 'Gross horsepower'),
                  zaxis = list(title = '1/4 mile time') )
       )  
@@ -436,9 +733,6 @@ ggvenn( x,
        )
 
 # Utilisation du package R ggVennDiagram
-if (!require(devtools)) install.packages("devtools")
-devtools::install_github("gaospecial/ggVennDiagram")
-
 # if (!require(devtools)) install.packages("devtools")  
 #devtools::install_github("gaospecial/ggVennDiagram")  ## Use ggVennDiagram
 
@@ -446,12 +740,11 @@ library("ggVennDiagram")
 ggVennDiagram(x, label_alpha = 0.2)
 
 
-install.packages("VennDiagram")
-
+# install.packages("VennDiagram")
 library(VennDiagram)
 venn.diagram(x, filename = "venn-4-dimensions.png")
 
-# check https://www.datanovia.com/en/fr/blog/diagramme-de-venn-avec-r-ou-rstudio-un-million-de-facons/
+# see https://www.datanovia.com/en/fr/blog/diagramme-de-venn-avec-r-ou-rstudio-un-million-de-facons/
 
 # basic functions
 data = mtcars[[5]]
@@ -691,6 +984,16 @@ stargazer::stargazer(data, type = 'HTML', title = 'Table with stargazer')
 
 
 
+
+#########
+
+#########
+# summary using skimmer
+
+gss_cat   %>% skimr::skim()
+
+gss_cat   %>%   plot_bar(ggtheme = theme_tq(), ncol = 2, nrow = 4)
+
 ## another tutorial https://finnstats.com/index.php/2021/05/04/exploratory-data-analysis/
 library(tidyverse)
 library(DataExplorer)
@@ -707,14 +1010,38 @@ gss_cat  %>% plot_correlation()
 gss_cat  %>% plot_correlation(maxcat = 5) 
 
 # For complete html report you can make use below mentioned codes.
-gss_cat %>%
-  create_report( output_file = "gss_survey_data_profile_report",
-             #    output_dir = "D:/RStudio/EDA/",
-                           y = "rincome",
-                report_title = "EDA Report"
-                )  # OK fine
+gss_cat %>%  create_report( output_file = "gss_survey_data_profile_report",
+                        #    output_dir = "D:/RStudio/EDA/",
+                                     y = "rincome",
+                          report_title = "EDA Report"
+                        )  # OK fine
 
 
 library(tidyverse, tidytext)
 data %>% tidytext::unnest_tokens(word, line) %>% anti_join(stop_words) %>% count(word, sort = TRUE)
+
+
+####################
+# Data Visualization
+
+# Step 2 - Visualize Data
+df   %>% 
+  ggplot(aes(x = variable, y = pct, fill = name)) +   # Setup ggplot() canvas for plotting
+  geom_col() +
+  geom_label(aes(label = pct_text), fill = "white", hjust = "center") +
+  facet_wrap(~ name) +  # Facet: splits plot into multiple plots by a categorical feature
+  
+  # Flip coordinates for readable variable names
+  coord_flip() +
+  
+  # Formatting
+  theme_tq() +
+  scale_fill_tq() +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1.0)) +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold")) +
+  labs(#title = str_glue("Comparison of Educational Attainment ({year_f})"),
+       subtitle = str_glue("{county} vs. Overall National Statistics"),
+       caption  = "Census Data",
+       x = "", y = "") 
 

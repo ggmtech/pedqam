@@ -1,3 +1,30 @@
+GIS
+
+
+###########3
+
+# load rmapzen and run provider set-up functions
+library(rmapzen)
+mz_set_tile_host_nextzen()  # set source
+mz_set_search_host_geocode.earth()
+
+oakland_public <- mz_search("Oakland Public Library Branch", 
+                            size = 5,
+                            focus.point = mz_geocode("Oakland, CA"),
+                            boundary.country = mz_countries$USA)
+oakland_public
+
+
+uninstall.packages  ("rmapzen")
+
+
+##############
+##############
+
+
+
+
+
 # Plot india wrongmap
 library("ggmap")
 us <- c(left = -125, bottom = 25.75, right = -67, top = 49)

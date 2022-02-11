@@ -1,3 +1,12 @@
+# Type I errors :  False Positive, alpha error, False alarm, Producer’s risk 
+# Type II errors : False negative, beta error, Misdetection, Consumer’s risk
+
+# Type I error() is p of rejecting a true null hypothesis.
+# Type II error() is p of failing to reject a false null hypothesis.
+# Type I error() is p of telling you things are wrong, given that things are correct.
+# Type II error() is p of telling that things are correct, given they are wrong.
+
+
 # qa calibration
 # qcc is a contributed R package for statistical quality control charts which provides:
 # Shewhart quality control charts for continuous, attribute and count data
@@ -7,16 +16,22 @@
 # Pareto chart and cause-and-effect chart
 # Multivariate control charts.
 
+# MAD plot - John Tukey  or  Bland–Altman plot : both measure same parameter good corr
+# John Tukey (bit, FFT, boxplot, lambda distr, )
+
 library(qcc)
-
 data(pistonrings)
+pistonrings
 attach(pistonrings)
-diameter <- qcc.groups(diameter, sample)
+diameter <- qcc.groups(diameter, sample)  # This groups by sample by making them columns of one run
 diameter
-qcc(diameter[1:25,], type="xbar")
-qcc(diameter[1:25,], type="xbar", newdata=diameter[26:40,])
+qcc( diameter[1:25,  ], type="xbar" )
+qcc( diameter[1:25,  ], type="xbar",     newdata=diameter[26:40,]   )
 
-q <- qcc(diameter[1:25,], type="xbar", newdata=diameter[26:40,], plot=FALSE)
+grDevices::dev.off()
+q <- qcc( diameter[1:25,], type="xbar",  newdata=diameter[26:40,] ,   plot=TRUE )
+q
+plot(q)
 plot(q, chart.all=FALSE)
 qcc(diameter[1:25,], type="xbar", newdata=diameter[26:40,], nsigmas=2)
 qcc(diameter[1:25,], type="xbar", newdata=diameter[26:40,], confidence.level=0.99)
@@ -45,13 +60,13 @@ qcc(diameter[1:25,], type="S", newdata=diameter[26:40,])
 
 detach(pistonrings)
 
-##
+
 ##  Attribute data 
-##
+
 
 data(orangejuice)
 attach(orangejuice)
-qcc(D[trial], sizes=size[trial], type="p")
+qcc(  D[trial], sizes=size[trial], type="p" )
 
 # remove out-of-control points (see help(orangejuice) for the reasons)
 inc <- setdiff(which(trial), c(15,23))
@@ -262,12 +277,253 @@ str_to_title(statement)
 # apply family in r apply(), lapply(), sapply(), mapply() and tapply()
 
 
-
-
-
-
-
-
-
-
 ifelse( !dir.exists("Images") ,   dir.create("Images") ,  "Folder exists already" )
+
+
+
+
+
+
+
+
+
+
+
+####################
+
+
+### Load the Needed Libraries
+library(ggplot2)
+library(ggQC)
+
+### Make up some demo data (load your file here instead)
+set.seed(5555)
+Process_Data <-  data.frame(  Process=rep(c("A"), each = 30), #Process A 
+                              Run_Number=c(1:30),             #Run Order    
+                              Value = c(rnorm(n = 30, mean = 30.5, sd = 1)) #Process A Random Data
+                           )
+
+### Make the plot
+XmR_Plot <- 
+  ggplot(Process_Data, aes(x = Run_Number, y = Value)) + #init ggplot
+  geom_point() + geom_line() + # add the points and lines
+  stat_QC(method = "XmR",      # specify QC charting method
+          auto.label = T,      # Use Autolabels
+          label.digits = 2,    # Use two digit in the label
+          show.1n2.sigma = T   # Show 1 and two sigma lines
+  ) +  
+  scale_x_continuous(expand =  expansion(mult = .15))  # Pad the x-axis
+
+### Draw the plot - Done
+XmR_Plot
+
+#load your data
+Data4Pareto <- data.frame(
+  KPI = c("Customer Service Time", "Order Fulfillment", "Order Processing Time",
+          "Order Production Time", "Order Quality Control Time", "Rework Time",
+          "Shipping"),
+  Time = c(1.50, 38.50, 3.75, 23.08, 1.92, 3.58, 73.17)
+) 
+
+#make the plot
+ggplot(Data4Pareto, aes(x=KPI, y=Time)) +
+  stat_pareto(point.color = "red",
+              point.size = 3,
+              line.color = "black",
+              bars.fill = c("blue", "orange")
+  ) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=0.5))
+
+#done
+
+
+
+
+# Load Libraries ----------------------------------------------------------
+require(ggQC)
+require(ggplot2)
+
+# Setup Data --------------------------------------------------------------
+set.seed(5555)
+Process1 <- data.frame(processID = as.factor(rep(1,100)),
+                       metric_value = rnorm(100,0,1),
+                       subgroup_sample = rep(1:20, each=5),
+                       Process_run_id = 1:100)
+set.seed(5556)
+Process2 <- data.frame(processID = as.factor(rep(2,100)),
+                       metric_value = rnorm(100,5, 1),
+                       subgroup_sample = rep(1:10, each=10),
+                       Process_run_id = 101:200)
+
+Both_Processes <- rbind(Process1, Process2)
+
+#############################
+#  Example 1:  XmR Chart    #
+#############################
+
+
+EX1.1 <- ggplot(Both_Processes, aes(x=Process_run_id, y = metric_value)) +
+  geom_point() + geom_line() + stat_QC(method="XmR") +
+  stat_QC_labels(method="XmR", digits = 2) +
+  facet_grid(.~processID, scales = "free_x")
+#EX1.1
+
+EX1.2 <- ggplot(Both_Processes, aes(x=Process_run_id, y = metric_value)) +
+  stat_mR() + ylab("Moving Range") +
+  stat_QC_labels(method="mR", digits = 2) +
+  facet_grid(.~processID, scales = "free_x")
+#EX1.2
+
+#############################
+#  Example 2:  XbarR Chart  #
+#############################
+
+EX2.1 <- ggplot(Both_Processes, aes(x = subgroup_sample,
+                                    y = metric_value,
+                                    group = processID)) +
+  stat_summary(fun.y = "mean", color = "blue", geom = c("point")) +
+  stat_summary(fun.y = "mean", color = "blue", geom = c("line")) +
+  stat_QC(method = "xBar.rBar") + facet_grid(.~processID, scales = "free_x")
+#EX2.1
+
+EX2.2 <- ggplot(Both_Processes, aes(x = subgroup_sample,
+                                    y = metric_value,
+                                    group = processID)) +
+  stat_summary(fun.y = "QCrange", color = "blue", geom = "point") +
+  stat_summary(fun.y = "QCrange", color = "blue", geom = "line") +
+  stat_QC(method = "rBar") +
+  ylab("Range") +
+  facet_grid(.~processID, scales = "free_x")
+#EX2.2
+
+#############################
+#  Example 3:  p Chart      #
+#############################
+# p chart Setup -----------------------------------------------------------
+set.seed(5556)
+bin_data <- data.frame(
+  trial=1:30,
+  Num_Incomplete_Items = rpois(30, lambda = 30),
+  Num_Items_in_Set = runif(n = 30, min = 50, max = 100))
+bin_data$Proportion_Incomplete <- bin_data$Num_Incomplete_Items/bin_data$Num_Items_in_Set
+
+# Plot p chart ------------------------------------------------------------
+EX3.1 <- ggplot(data = bin_data, aes(x=trial,
+                                     y=Proportion_Incomplete,
+                                     n=Num_Items_in_Set)) +
+  geom_point() + geom_line() +
+  stat_QC(method = "p")
+#EX3.1
+
+#############################
+#  Example 4:  u Chart      #
+#############################
+# u chart Setup -----------------------------------------------------------
+set.seed(5555)
+bin_data <- data.frame(
+  trial=1:30,
+  Num_of_Blemishes = rpois(30, lambda = 30),
+  Num_Items_Inspected = runif(n = 30, min = 50, max = 100)
+)
+bin_data$Blemish_Rate <- bin_data$Num_of_Blemishes/bin_data$Num_Items_Inspected
+
+# Plot u chart ------------------------------------------------------------
+EX4.1 <- ggplot(data = bin_data, aes(x=trial,
+                                     y=Blemish_Rate,
+                                     n=Num_Items_Inspected)) +
+  geom_point() + geom_line() +
+  stat_QC(method = "u")
+#EX4.1
+
+#############################
+#  Example 5:  np Chart     #
+#############################
+# np chart Setup -----------------------------------------------------------
+set.seed(5555)
+bin_data <- data.frame(
+  trial=1:30,
+  NumNonConforming = rbinom(30, 30, prob = .50))
+Units_Tested_Per_Batch <- 60
+
+# Plot np chart ------------------------------------------------------------
+EX5.1 <- ggplot(data = bin_data, aes(trial, NumNonConforming)) +
+  geom_point() +
+  stat_QC(method = "np", n = Units_Tested_Per_Batch)
+#EX5.1
+
+#############################
+#  Example 6:  c Chart     #
+#############################
+# c chart Setup -----------------------------------------------------------
+set.seed(5555)
+Process1 <- data.frame(Process_run_id = 1:30,
+                       Counts=rpois(n = 30, lambda = 25),
+                       Group = "A")
+Process2 <- data.frame(Process_run_id = 1:30,
+                       Counts = rpois(n = 30, lambda = 5),
+                       Group = "B")
+
+all_processes <- rbind(Process1, Process2)
+# Plot C Chart ------------------------------------------------------------
+
+EX6.1 <- ggplot(all_processes, aes(x=Process_run_id, y = Counts)) +
+  geom_point() + geom_line() +
+  stat_QC(method = "c", auto.label = TRUE, label.digits = 2) +
+  scale_x_continuous(expand =  expand_scale(mult = .25)) +
+  facet_grid(.~Group)
+# EX6.1
+
+
+
+################## CUSUM chart
+
+library(tidyverse)
+library(data.table)
+library(cusumcharter)
+library(ggExtra)
+
+
+# make the link dynamic
+part1 <- "https://www.opendata.nhs.scot/dataset/"
+part2 <- "b318bddf-a4dc-4262-971f-0ba329e09b87/"
+part3 <- "resource/427f9a25-db22-4014-a3bc-893b68243055/"
+part4 <- "download/trend_ca_"
+part5 <- ".csv"
+today <- gsub('-','',as.character(Sys.Date()))
+
+link <- paste0(part1, part2, part3, part4, today, part5, sep = '')
+
+
+dates <- seq.Date(as.Date(Sys.Date()-27), as.Date(Sys.Date()), by = '1 day')
+
+DT <- data.table::fread(link)
+DT[, Date := as.character(Date)]
+DT[, Date := as.IDate(Date, format = "%Y%m%d")]
+positives <- DT[Date >= as.Date(Sys.Date() -28),.(Date, CAName, DailyPositive)][]
+
+
+ggplot(positives,aes(Date, DailyPositive)) + 
+  geom_line() + 
+  geom_point() +
+  facet_wrap(~ CAName, ncol = 4, scales = "free_y") + 
+  theme_minimal() + 
+  labs(x = NULL, y = NULL) + 
+  ggExtra::rotateTextX()
+
+
+
+p <- positives %>% 
+  group_by(CAName) %>% 
+  group_modify(~ cusum_control(.$DailyPositive), .keep = TRUE) %>% 
+  ungroup() %>% 
+  group_by(CAName) %>% 
+  mutate(Date = dates) %>% 
+  ungroup() %>% 
+  cusum_control_plot(.,
+                     xvar = Date,
+                     facet_var = CAName, 
+                     facet_scales = 'free_y',
+                     title_text = "CUSUM Rolling 28 Day Positive Cases")
+
+p <- p + facet_wrap(~CAName, ncol = 4, scales = 'free_y')
+print(p)

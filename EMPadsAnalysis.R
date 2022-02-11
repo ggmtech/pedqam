@@ -71,6 +71,7 @@ lapply(packages, library, character.only = TRUE) #%>% invisible()
 ##################################################################################
 ##################################################################################
 # Read EM pads supplies data from curated googlesheets
+gs4_deauth()
 
 ss1  = "https://docs.google.com/spreadsheets/d/1YUM-_wDrWpsG57imr2TG0J7QzV9atq28DgFcT5C5RKE" # EMpadsmaster2021
 EMPadDM  <-  googlesheets4::read_sheet( ss = ss1 ,  sheet = "EMpadDM", col_names = TRUE, trim_ws = TRUE,

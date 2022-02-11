@@ -29,16 +29,20 @@ ss = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-
 
 sheet_names(ss)  # see sheets names
 
-sheetnameUVAM  = "UVAMitems"
-sheetnamedeleted  = "MasterList RDSO Decontrol of Items"
+sheet163listitems = "List197Items"
+sheetnameMainItemsList = "listmain423"
+#sheetnameUVAM  = "UVAMitems"
+#sheetnamedeleted  = "MasterList RDSO Decontrol of Items"
 
-UVAMitemlist <- googlesheets4::read_sheet(ss, sheet = sheetnameUVAM , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+List423 <- googlesheets4::read_sheet(ss, sheet = sheetnameMainItemsList, col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
 
-UVAMitemlist
+List423
 
-RDSOdelproposed <- googlesheets4::read_sheet(ss, sheet = sheetnamedeleted , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
 
-RDSOdelproposed
+
+Retained163 <- googlesheets4::read_sheet(ss, sheet = sheet163listitems , col_names = TRUE,  col_types = "c"  , skip = 0, trim_ws = TRUE, na = "")  # col_types = "ccilDD"
+
+Retained163
 
 
 RDSOunionsheet <- left_join( UVAMitemlist, RDSOdelproposed, by = c( "Item Description" = "ITEM_DESCRIPTION") )

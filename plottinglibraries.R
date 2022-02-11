@@ -47,6 +47,48 @@ GGally::ggpairs(
    lower = list(continuous = "points",  combo = "dot_no_facet"))
 
 ###################
+###################
+
+# install.packages(tidycharts)
+library(tidycharts)
+data_barchart <- data.frame(
+  dep = c('Services', 'Production', 'Marketing', 'Purchasing'),
+  profit = c(12, 15, 2, -3),
+  operational = c(9, 7, 1.5, -0.4),
+  property = c(2, 4, 0.5, -0.6),
+  bonus = c(1, 4, 0, -2),
+  prev_year = c(10, 16, 4, -1),
+  plan = c(11, 13, 2, -2.5)
+)
+data_barchart
+
+# tab(data_barchart, dep, bonus, prev_year,   pct = "row", na = "drop", subtext = gss,  rare_to_other = TRUE, n_min = 1000, other_level = "Custom_other_level_name")
+
+bar_chart(data = data_barchart, cat = data_barchart$dep, series = 'profit') %>% 
+  add_title('The company XYZ', 'Profit', 'in mEUR', 'by departments, 2020') %>% 
+  SVGrenderer()
+
+bar_chart_normalized(data = data_barchart, cat = data_barchart$dep,
+                     series = c('operational', 'property', 'bonus')) %>%  SVGrenderer()
+
+
+bar_chart_reference(data = data_barchart,
+                    cat = data_barchart$dep, series = 'profit', 
+                    ref_val = 10, ref_label = 'PY best result') %>%  SVGrenderer()
+# Waterfall
+data_time_series %>% group_by(time) %>%
+  summarise(Sales = sum(Poland, Germany, Slovakia)) %>%
+  arrange(match(time, month.abb)) %>% 
+  mutate(Sales = round(cumsum(Sales), 2)) -> df_summarized
+
+column_chart_waterfall(df_summarized, x = 'time', series = 'Sales') %>% 
+  SVGrenderer()
+
+
+
+###################
+###################
+###################
 
 library(gapminder)
 data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
@@ -1485,4 +1527,821 @@ calendR(year = 2021,
         gradient = TRUE,
         legend.pos = "right",
         orientation = "portrait")
+
+
+
+
+############
+p <- ggplot(iris, aes(Sepal.Length, Sepal.Width))
+p + geom_point() # blank + geom layer # which is a short-hand for:
+
+p + layer(geom="point", stat="identity", position="identity")
+p + layer(geom="line", stat="identity", position="identity")
+# layer(geom = NULL,stat = NULL,data = NULL,mapping = NULL,position = NULL,
+#       params = list(), inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
+#       show.legend = NA,key_glyph = NULL, layer_class = Layer )
+
+# geom calls are just a short cut for layer
+ggplot(mpg, aes(displ, hwy)) + geom_point()
+# shortcut for
+ggplot(mpg, aes(displ, hwy)) +
+  layer(geom = "point", stat = "identity", position = "identity",
+        params = list(na.rm = FALSE)     )
+
+# use a function as data to plot a subset of global data
+ggplot(mpg, aes(displ, hwy)) +
+  layer(    geom = "point", stat = "identity", position = "identity",
+            data = head, params = list(na.rm = FALSE)     )
+
+p <- ggplot(iris,       aes(Species, Sepal.Width))
+class(p)
+
+p + geom_blank()
+p + geom_point()
+p + geom_boxplot()
+p + geom_violin()
+
+
+#Drawing lines
+p <- ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point(colour="gray")
+p + geom_abline(intercept=-0.4,slope=0.4)
+p + geom_smooth(method="lm")  # `geom_smooth()` using formula 'y ~ x'
+p + geom_hline(yintercept=0)
+p + geom_vline(xintercept=0)
+
+#Distribution by group
+p <- ggplot(iris, aes(Petal.Width, fill=Species))
+p + geom_dotplot()
+p + geom_histogram()
+p + geom_density()
+p + geom_freqpoly(aes(color=Species))
+# geom	Description
+geom_abline	# Reference lines: horizontal, vertical, and diagonal
+geom_bar	#Bar charts
+geom_bin2d #	Heatmap of 2d bin counts
+geom_blank	#Draw nothing
+geom_boxplot #	A box and whiskers plot (in the style of Tukey)
+geom_contour #	2d contours of a 3d surface
+geom_count	# Count overlapping points
+geom_density	#Smoothed density estimates
+geom_density_2d	#Contours of a 2d density estimate
+geom_dotplot	#Dot plot
+geom_errorbarh	#Horizontal error bars
+geom_hex #	Hexagonal heatmap of 2d bin counts
+geom_freqpoly	#Histograms and frequency polygons
+geom_jitter	#Jittered points
+geom_crossbar	#Vertical intervals: lines, crossbars & errorbars
+geom_map	#Polygons from a reference map
+geom_path	#Connect observations
+geom_point	#Points
+geom_polygon	#Polygons
+geom_qq_line	#A quantile-quantile plot
+geom_quantile	#Quantile regression
+geom_ribbon	#Ribbons and area plots
+geom_rug	#Rug plots in the margins
+geom_segment	#Line segments and curves
+geom_smooth	#Smoothed conditional means
+geom_spoke	#Line segments parameterised by location, direction and distance
+geom_label	#Text
+geom_raster	#Rectangles
+geom_violin	#Violin plot
+
+stat	#Description
+stat_count	#Bar charts
+stat_bin_2d	#Heatmap of 2d bin counts
+stat_boxplot	#A box and whiskers plot (in the style of Tukey)
+stat_contour	#2d contours of a 3d surface
+stat_sum	#Count overlapping points
+stat_density	#Smoothed density estimates
+stat_density_2d	#Contours of a 2d density estimate
+stat_bin_hex #	Hexagonal heatmap of 2d bin counts
+stat_bin	#Histograms and frequency polygons
+stat_qq_line	#A quantile-quantile plot
+stat_quantile	#Quantile regression
+stat_smooth	#Smoothed conditional means
+stat_spoke	#Line segments parameterised by location, direction and distance
+stat_ydensity	#Violin plot
+stat_sf	#Visualise sf objects
+stat_ecdf	#Compute empirical cumulative distribution
+stat_ellipse	#Compute normal confidence ellipses
+stat_function	#Compute function for each x value
+stat_identity	#Leave data as is
+stat_sf_coordinates	#Extract coordinates from 'sf' objects
+stat_summary_bin#	Summarise y values at unique/binned x
+stat_summary_2d	#Bin and summarise in 2d (rectangle & hexagons)
+stat_unique	#Remove duplicates
+
+# Statistical Tranformation
+head(iris[, c("Petal.Width", "Species")]) # raw data
+
+stat_bin(bins=7, mapping=aes(Petal.Width, fill=Species)) 
+# Under the hood, raw data is transformed into statistics and passed onto geom (here geom="bar" is default.)
+# Using stat with different geom object
+p <- ggplot(iris, aes(Petal.Width, fill=Species))
+p + stat_bin()
+p + stat_bin(geom="bar")
+p + stat_bin(geom="point")
+p + stat_bin(geom="line")
+
+
+
+##########################  failures
+EMpadlife3 %>% View()
+EMpadlife3 %>%  filter( MakeDate < as_date("2021-04-01"), MakeDate > as_date("2017-04-01") ,
+                        FailDate < as_date("2021-04-01"), FailDate > as_date("2017-04-01")  ) %>% # View()
+  group_by(MakeDate, Rly) %>% summarise( Rly, Qty = n() ) %>%                         #   View()
+  ggplot(aes(x=MakeDate, Qty))  + geom_point() + #geom_bar(stat = ?? ) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 12),  
+                     # minor_breaks = scales::pretty_breaks(n = 10), 
+                     limit=c(0, 110) , position = "right" ) +  
+  geom_col()  + facet_grid(Rly~1) # +  geom_smooth()
+
+####  good !! 
+EMpadlife3 %>% 
+  filter(  FailDate < as_date("2020-11-01"), FailDate > as_date("2017-04-01") ) %>% #View()
+  group_by(FailDate) %>% summarise( Rly,   Qty = n() ) %>%    #   View()
+  
+  ggplot() +  aes(x=FailDate, y= Qty) +  
+  #geom_point( ) +
+  geom_col(aes(x=FailDate, y= Qty))  +
+  
+  scale_x_date(breaks= scales::pretty_breaks(n = 20),  
+               date_minor_breaks = "7 days",
+               date_labels = "%Y %m ", 
+               limit=c(as.Date("2017-04-01"), as.Date("2021-03-31")) , 
+               position = "bottom" 
+  ) + 
+  
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 12),  
+                     minor_breaks = scales::pretty_breaks(n = 10), 
+                     limit=c(0, 110) , position = "right" ) +  
+  geom_col() + theme_bw()
+
+# ylim(0, 240)  +  # covered in scale
+#   scale_x_continuous(n.breaks = 10) +
+geom_smooth(aes(x=FailDate, y= Qty, fill= Rly))   +   theme_bw()
+
+## Excellent graph above makedate and fail date
+
+EMpadlife3 %>% glimpse()
+EMpadlife3 %>% group_by(MakeDate) %>% summarise(  Qty = n() ) %>% View()
+pivot_wider( id_cols = c(MakeDate),  
+             names_from = Rly, 
+             values_from = Qty, 
+             values_fn = sum  ) %>% View()
+EMpadlife3 %>% glimpse()
+
+df3 %>% left_join(EMpadlife3 , by = c( "DMdated2"  = "MakeDatef"  ) ) %>% View()   # by = c("a" = "b") 
+
+
+# Changing Color  many color palettes available, e.g.
+library(RColorBrewer)
+ggplot(iris, aes(Petal.Width,  fill=Species)) +  geom_dotplot() + 
+  scale_fill_brewer(palette="Set3")
+# scale_fill_grey() # grey sscale
+# scale_fill_manual( values=c("red","blue", "green"),
+#                     labels=c("setosa", "versicolor", "virginica"))
+#  scale_color_brewer(palette="Set1")  and color=Species # Color variable is factor   
+#  scale_color_distiller(palette="YlGnBu")  # Color variable is continuous
+#                  
+
+
+# good example
+library(agridat); library(dplyr)
+pearl.kernels
+(maize <- pearl.kernels %>% 
+    filter(ear=="Ear08" & obs=="Obs01") %>% 
+    select(ys, yt, ws, wt) %>% 
+    tidyr::gather("Type", "Count",   ys:wt)   %>%
+    
+    mutate(Color=case_when(
+      Type %in% c("ys", "yt") ~ "Yellow",
+      Type %in% c("ws", "wt") ~ "White"
+    ),Kernel=case_when(
+      Type %in% c("ys", "ws") ~ "Starchy",
+      Type %in% c("yt", "wt") ~ "Sweet")))
+
+p <- ggplot(maize, aes(Kernel, Count, fill=Color)) + 
+  geom_bar(stat="identity")
+p
+
+p <- ggplot(maize, aes(Kernel, Count, fill=Color)) + 
+  geom_bar(stat="identity", color="black") + 
+  scale_fill_manual(values=c("white", "yellow"), 
+                    label=c("White", "Yellow")) + 
+  guides(fill="none")
+
+# Position for geom_bar #  include arguments stat="identity" and color="black" also.
+p <- ggplot(maize, aes(Kernel, Count, fill=Color)) + 
+  #geom_bar(stat="identity", color="black") + 
+  scale_fill_manual(values=c("white", "yellow"), label=c("White", "Yellow")) + 
+  guides(fill="none")
+p + geom_bar()
+p + geom_bar(position="stack")
+p + geom_bar(position="dodge")
+p + geom_bar(position="fill")
+
+
+# Coordinate system   # stat="identity" and color="black".
+p2 <- ggplot(maize, aes(1, Count, fill=Type)) + guides(fill=FALSE) + theme_void()
+p + geom_bar()
+p + geom_bar() + coord_polar(theta="y")
+p + geom_bar() + coord_flip()
+p + geom_bar() + coord_polar(theta="y", direction=-1)
+
+# Overplotting
+g <- ggplot(pearl.kernels, aes(ear, ys, color=ear, size=3)) + xlab(NULL) + 
+  guides(color=FALSE, size=FALSE) + ylab("No. of Yellow\n Starchy Kernel")
+g + geom_point()
+g + geom_point(position="jitter")
+g + geom_point(alpha=1 / 3)
+g + geom_point(alpha=1 / 6)
+
+
+# Facet and grid
+
+
+# Patching Plots Together
+library(patchwork)
+ear8 + ear9 + ear10 + ear11 + plot_layout(ncol = 2)
+
+
+barley <- aastveit.barley.height %>% 
+  left_join(aastveit.barley.covs,  by="year")
+
+(maxh_df <- barley %>% 
+    select(year, height, gen, T4) %>% 
+    group_by(year) %>% 
+    filter(height==max(height)) %>% 
+    arrange(year))
+# Labels with geom_label
+g <- ggplot(barley, aes(T4, height)) + 
+  geom_point(size=4, aes(color=factor(year))) + 
+  guides(color=FALSE) + 
+  xlab("Avg temp (Celsius) in the 4-th period") + 
+  ylab("Height")
+g + geom_label(data=maxh_df, size=4, aes(T4, height, label=year))
+
+
+library(ggrepel)
+g + geom_label_repel( data=maxh_df, size=4, aes(T4, height, label=year))
+g + annotate("text",   x=12, y=100,   label="1974", size=5)  # Annotation Text
+# Annotation Rectangle
+g + annotate("rect", xmin=15, xmax=17,  ymin=-Inf, ymax=Inf,  alpha=0.2, fill="red")
+
+# Changing Labels
+g <- ggplot(vargas.wheat1.traits,  aes(NGS, yield)) + 
+  geom_point(size=2) + 
+  geom_point(aes(colour=gen)) + 
+  geom_smooth(se=F, method="lm") + 
+  facet_wrap(~year) + 
+  labs(colour="Genotype") +     # changes the label name for color legend
+  labs(x="Number of grains per spikelet") +     # same as xlab(..)
+  labs(y="Yield (kg/ha)")                 +     # same as ylab(..)
+  labs(title="Durum Wheat at Ciudad Obregon, Mexico 1990-1995") +  # same as ggtitle(..)
+  labs(subtitle="Source: Vargas et al. (1998) Interpreting Genotype x Environment Interaction in                      Wheat by Partial Least Squares Regression.")  # same as ggtitle(subtitle=..)
+g
+
+# Theme - customise the look
+g + theme(legend.position="bottom",   
+          plot.title=element_text(face="bold", size=15),
+          plot.subtitle=element_text(face="italic", size=8),
+          panel.background=element_rect(fill="white"),
+          panel.border=element_rect(colour="grey20", fill=NA),
+          panel.grid=element_line(colour="grey92"),
+          panel.grid.minor=element_line(size=rel(0.5)),
+          strip.background=element_rect(fill="grey85", colour="grey20"),
+          legend.key=element_rect(fill="white"))
+
+# or use a pre-defined theme:
+g +   theme_bw() +
+  theme(legend.position="bottom",   
+        plot.title=element_text(face="bold", size=14),
+        plot.subtitle=element_text(face="italic", size=8))
+
+
+# More Pre-Defined Themes
+g + theme_gray()
+g + theme_classic()
+g + theme_minimal()
+g + theme_dark()
+g + theme_void()
+g + theme_base()
+g + theme_bw()
+library(ggthemes) # Even More Pre-Defined Themes
+g + theme_stata() + scale_color_stata()
+g + theme_solarized() + scale_color_solarized()
+
+# plotly - interactive graphics
+library(plotly)
+g <- ggplot(iris, aes(Sepal.Length, Sepal.Width, color=Species)) + 
+  geom_point()
+ggplotly(g)
+
+# Simple animation with plotly
+g <- ggplot(vargas.wheat1.traits, 
+            aes(NGS, yield, frame=year)) +
+  geom_point(aes(color=gen)) + 
+  geom_smooth(method="lm")
+
+ggplotly(g)  # good !!
+
+
+#desplot - visualising designs for field trials
+library(desplot)
+
+desplot(yates.oats,  
+        gg=TRUE, # TRUE to use immature ggplot version of desplot
+        block ~ row + col,  
+        col=nitro, 
+        text=gen, 
+        cex=1, aspect=176/620,
+        out1  = block, 
+        out2  = gen, 
+        out2.gpar = list(  col = "gray50", lwd = 1, lty = 1 ) 
+)
+
+
+display.brewer.all()
+
+brewer.pal.info
+
+###################
+EMpadlife3 %>% View()
+#Kaplen Meier survival 
+lifefit0 <- survfit( Surv( lifedays, dcencer) ~ 1 , data = EMpadlife3 )
+lifefit1 <- survfit( Surv( lifedays, dcencer) ~ Make , data = EMpadlife3 )
+
+lifefit2 <- survfit( Surv( lifedays, dcencer) ~ Rly , data = EMpadlife3 )
+lifefit3 <- survfit( Surv( lifedays, dcencer) ~ SCY  , data = EMpadlife3 )
+lifefit4 <- survfit( Surv( lifedays, dcencer) ~ FCY  , data = EMpadlife3 )
+
+
+library(RColorBrewer)
+nb.cols <- 18  # Define the number of colors you want
+mycolors <- colorRampPalette(brewer.pal(8, 'Dark2'))(nb.cols)
+#xdisplay.brewer.pal(n = 8, name = 'Dark2')
+
+# empadlifefit %>%  
+dev.off()
+lifetable0 <-  lifefit0 %>%        
+  ggsurvplot(
+    #empadlifefit,            # survfit object with calculated statistics.
+    # fun = "event",         # function
+    # fun = "cumhaz",        # fun = function(y) y*100 ,
+    # linetype = "strata",   # change line type by groups
+    size = 1,                # change line size
+    ##data = EMpadlife,        # data used to fit survival curves.
+    date = lifefit, 
+    conf.int = TRUE,         # show confidence intervals for  point estimates of survival curves.
+    pval = TRUE,            # show p-value of log-rank test.
+    
+    #pval = "The hot p-value is: 0.031", or #pval = 0.03
+    #pval.coord = c(0, 0.03),
+    #pval.size = 4,
+    #pval.method = TRUE,
+    #pval.method.size = 3,
+    #log.rank.weights = "1",
+    conf.int.style = "ribbon",
+    #conf.int.alpha = 0.2,
+    
+    # ?conf.int.fill = "blue",
+    #palette = c("#E7B800", "#2E9FDF"), # custom color palette, match varibles
+    #palette = "Dark2",
+    palette = mycolors, # c("red", "green", "blue", "yellow","pink", "brown", "black", "blue","red",  "blue", "blue", "blue","red",  "blue"),
+    xlim = c(0, 1500),         # present narrower X axis, but not affect survival estimates.
+    xlab = "Failure Time in Days",   # customize X axis label.
+    break.time.by = 90,     # break X axis in time intervals by 500.
+    #ggtheme = theme_bw() , #theme_light(), # customize plot and risk table with a theme.
+    
+    #censor.shape="|", 
+    #censor.size = 4,
+    # ncensor.plot = TRUE,      # plot the number of censored subjects at time t
+    # ncensor.plot.height = 0.25,
+    # conf.int.style = "step",  # customize style of confidence intervals
+    
+    font.main = c(12, "bold", "darkblue"),
+    font.x = c(8, "bold.italic", "red"),
+    font.y = c(8, "bold.italic", "darkred"),
+    
+    #font.tickslab = c(12, "plain", "darkgreen"),
+    # legend = "bottom", 
+    #legend = c(0.2, 0.2),
+    #legend.title = "Sex",
+    #legend.labs = c("Male", "Female"),
+    
+    surv.median.line = "hv" , # add the median survival pointer. c("none", "hv", "h", "v")
+    # legend = "bottom" , 
+    # legend.labs =      c("Male", "Female"),    # change legend labels.
+    
+    risk.table = TRUE,       # show risk table.
+    # tables.theme = theme_cleantable(),
+    #risk.table.col = "strata" , 
+    #risk.table.y.text.col = T,# colour risk table text annotations.
+    risk.table.x.text.font = 5,# colour risk table text annotations.
+    #risk.table.height = 0.5 #, # the height of the risk table
+    #risk.table.y.text = FALSE # show bars instead of names in text annotations in legend of risk table.
+  )  
+
+lifetable0
+lifetable1
+lifetable3
+lifetable4 
+
+cowplot::plot_grid(print(lifetable3), print(lifetable4), labels = "AUTO", ncol = 1, nrow = NULL)
+
+
+
+# x gridExtra::grid.arrange(plot1, plot2, ncol=2)
+# pdf("foo.pdf") ; grid.arrange(plot1, plot2); dev.off()
+#  + facet_wrap(~myGroup)
+# cowplot::plot_grid(iris1, iris2, labels = "AUTO")
+# p <- plot_grid(iris1, iris2, labels = "AUTO")  or save_plot("plot.pdf", p, ncol = 2)
+# labs(title = "The Actual Long, Normal Title of Titliness", tag = "A")
+
+# difftime("2020-5-16", "2020-1-15", units = "weeks") #units: Days, weeks, months, etc.
+
+ggsave("plot.pdf", p)
+
+
+
+# Font for Risk Table
+ggsurv$table <- ggpar(      ggsurv$table,
+                            font.title    = c(10, "bold.italic", "green"),
+                            font.subtitle = c(10, "bold", "pink"),
+                            font.caption  = c(8, "plain", "darkgreen"),
+                            font.x        = c(8, "bold.italic", "orange"),
+                            font.y        = c(8, "bold.italic", "darkgreen"),
+                            font.xtickslab = c(8, "bold", "red")
+)
+
+
+
+EMpadlife3 %>%  ggsurvplot_facet( lifefit,   facet.by = "Make" )
+
+
+EMpadlife3
+
+summarise_by_time(.data = EMpadlife3,   
+                  .date_var = MakeDate,
+                  .by = "6 months"  , #  like "5 seconds", "week", or "3 months" second,  minute,hour, day, week, month, bimonth
+                  # quarter,  season,   halfyear year, lubridate::ceiling_date().
+                  .type =  "floor",     #c("floor", "ceiling", "round"),
+                  # ...,  # min(x), n(), or sum(is.na(y))., 
+                  # Sum: sum(), mean(), median(), sd(), var(), min(), max(), Count: dplyr::n(), dplyr::n_distinct()
+                  # Position: dplyr::first(), dplyr::last(), dplyr::nth(),  Correlation: cor(), cov()
+                  totals  = n(  ) # qty, first(qty1) # , r = railways
+)  -> tmp  #%>% str()
+tmp
+library(timetk)
+tmp %>% timetk::plot_time_series( MakeDate, totals  ) #,  .color_var = month(dmdate) #, .interactive = FALSE, .color_lab = year(dmdate) )
+
+tmp
+library(timetk)
+interactive <- FALSE  # Setup for the plotly charts (# FALSE returns ggplots)
+tmp %>% filter(!is.na(totals) ) %>% 
+  timetk::plot_time_series(MakeDate, totals   # .interactive = interactive,    .plotly_slider = TRUE
+  )
+
+
+
+
+kbl(text_tbl, booktabs = T) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = T, color = "red") %>%
+  column_spec(2, width = "30em")
+
+
+
+##################################################################################
+# unique(), rbind(,)
+# glimpse()  #View()
+# empadsup  %>%  DataExplorer::create_report()
+
+# scale_color_viridis(discrete = TRUE, option = "D") + scale_fill_viridis(discrete = TRUE) +
+#   geom_smooth(aes(color = Species, fill = Species), method = "lm") + 
+# barplot(1:10, col = viridis(10))
+# RColorBrewer::display.brewer.all()
+RColorBrewer::display.brewer.all(n = NULL, type = "all", select = NULL, colorblindFriendly = FALSE)
+
+# wesanderson ; names(wes_palettes)
+# discrete_scale("fill", "manual", palette_Dark2)  # scale pkg
+
+
+
+EMpadsupplies %>% janitor::clean_names() %>% 
+  dplyr::mutate( dmdate = dmy(d_mdate), qty1 =  as.numeric(qty) , syear = year(dmdate), smonth = month(dmdate),  
+                 # railway = fct_lump(railway, n = 18)
+  ) %>%
+  dplyr::select(dmdate,  qty1, firm, railway   )  %>%     # , everything()
+  na.omit(dmdate) -> empadsup
+empadsup %>%        View()
+fct_count(empadsup$railway)
+empadsup %>%   group_by(railway )  %>% summarise( railway, qty1 ) %>%   View()
+
+empadsup %>% # mutate( railway = as.factor(railway)) %>% 
+  mutate(railway = forcats::fct_collapse( railway, 
+                                          CR = c( "C.RLY"	, "Central Railway",	"CENTRAL RAILWAY"	, 
+                                                  "CR"	, "CR/W.Call"	, "CR/Warranty Call"	,	"CR/WARRANTY CALL") ,
+                                          ECR = c("E.C.RLY"	,	"East Central Railway"	,	"East Central Rly."	,
+                                                  "ECR/Warranty Call"),
+                                          ER = c("Eastern Railway", "ER"),
+                                          ECoR = c( "ECoR", 	"ECoR/Warranty Call", "East Coast Railway" ),
+                                          NER = c("NORTH EAST RAILWAY",	"North Eastern Railway", "North Frontier Railway"),
+                                          NWR = c("North Western Railway",	"NORTH WESTERN RAILWAY", "NWR/Warranty Call", "NWR/WarrantyCall", "N.W.RLY"),
+                                          
+                                          NR = c("Northern Railway", "NORTHERN RAILWAY", "Northern Rly.",	"NR", "NR/W.Call",
+                                                 "NR/Warranty", "NR/Warranty Call", "NR/WARRANTY CALL", "N. RLY", "N.RLY", "N.RLY"),
+                                          NCR = c("NCR","NCR/Warranty Call", "NCR/WARRANTY CALL", "North Central Railway", "N.C.RLY" ),
+                                          NFR = c("N. F. RLY", "N.F.RLY", "NFR/Warranty Call", "NORTH EAST FRONTIER RAILWAY"),
+                                          SCR = c( "SCR", "S.C.RLY", "SCR /Warranty Call", "SCR/Warranty Call", "SOUTH CENTRAL RAILWAY" , 
+                                                   "South Central Railway", "South Central Railway", "South Central Railway"),
+                                          SR = c("SR", "Southern Railway", "SOUTHERN RAILWAY", "S.RLY"),
+                                          SECR = c("S.E.C.RLY" , "SECR/Warranty Call", "South East Central Railway"),
+                                          SER = c("SER", "S.E.RLY", "S.E.RLY.", "SER/Warranty", "SER/Warranty Call", "SOUTH EASTERN RAILWAY",
+                                                  "South Eastern Railway", "SOUTH EASTERN RAILWAY" ),
+                                          SWR = c( "S.W.RLY", "South Western Railway"),
+                                          WCR = c("WCR", "W. C. RLY", "WCR/ Warranty Call", "WCR/Warranty Call", "WCR/WARRANTY CALL",
+                                                  "West Central Railway", "WEST CENTRAL RAILWAY"),
+                                          WR = c("WR", "Western Railway", "WR/W.Call", "WR/Warranty", "WR/Warranty Call", "WR/WARRANTY CALL"),
+                                          KR = c("Konkan Railway"),
+                                          
+                                          other_level = "Pvt misc"        
+  ) ) %>%
+  mutate(month = format(dmdate, "%m"), 
+         year = format(dmdate, "%Y"), 
+         Qtr = as_factor(lubridate::quarter(dmdate , fiscal_start = 4,with_year = TRUE ) )
+  ) %>%  # or can use date2 = format(date, "%Y-%m"))
+  mutate( Qtr = fct_reorder( Qtr , as.numeric(Qtr))  ) %>%
+  group_by(railway, year, Qtr , month) %>%
+  summarise(total = sum(qty1) ) -> empaddm  #%>% View() #
+empaddm %>% View()
+empaddm %>%   #group_by( railway, year,  Qtr ) %>%  #View()
+  ungroup()  %>%       select( -year) %>% #str()
+  # mutate( Qtr = fct_reorder( Qtr )  ) %>% View()
+  #expand_grid(Qtr) %>%
+  # summarise( across(starts_with(total), sum)) %>% #->  t
+  pivot_wider(names_from = fct_reorder(Qtr) ,  values_from = total) %>%
+  # pivot_wider(names_from = c(`year(dmdate)` ,  `month(dmdate)`), values_from = qty1) %>%
+  
+  # also summarise( across(qty1, sum) ) %>%
+  # summarise( across(starts_with('r'), sum)) %>%
+  # arrange(desc(qty1))  %>%
+  # rowwise() %>%  mutate( sum = sum(c_across(a:z)),   sd = sd(c_across(a:z))    )  %>%
+  View()
+
+t
+
+TKDlifetable  %>% mutate( Loco     = as.factor(Loco) ,  
+                          item     = as.factor(item), 
+                          Loc      = as.factor(Loc), 
+                          Make     = as.factor(Make), 
+                          Reason   = as.factor(Reason),
+                          datefit  = as.Date(datefit),
+                          faildate = as.Date(faildate),
+                          life     = as.numeric(life)      )       %>%    
+  mutate( item = fct_collapse(item,
+                              "Piston" = c( "P", "Piston" ),
+                              "Liner"  = c("L", "Liner" ),
+                              "LP"   = c("LP", "PA")     )      )   %>%  
+  mutate(uloc2 = paste(Loco, Loc) , uloc3 = paste(Loco, Loc, item)) %>% 
+  group_by(uloc2)                           %>% 
+  arrange(uloc2, datefit)                   %>%   
+  filter(!is.na(Loco)   )                   ->  TKDlifetable2     #    %>%    View()
+
+TKDlifetable2
+
+##################################################################################
+
+summarise_by_time(.data = empadsup,   
+                  .date_var = dmdate,
+                  #.by = "3 months"  , #  like "5 seconds", "week", or "3 months" second,  minute,hour, day, week, month, bimonth
+                  # quarter,  season,   halfyear year, lubridate::ceiling_date().
+                  .type =  "floor",     #c("floor", "ceiling", "round"),
+                  # ...,  # min(x), n(), or sum(is.na(y))., 
+                  # Sum: sum(), mean(), median(), sd(), var(), min(), max(), Count: dplyr::n(), dplyr::n_distinct()
+                  # Position: dplyr::first(), dplyr::last(), dplyr::nth(),  Correlation: cor(), cov()
+                  totals  = qty1 #first(qty1) # , r = railways
+)
+
+# plot 
+taylor_30_min
+taylor_30_min %>% plot_time_series(date, value, .color_var = week(date),  .interactive = FALSE, .color_lab = "Week")
+empadsup
+empadsup %>% plot_time_series(dmdate, qty1, 
+                              .color_var = month(dmdate) #, .interactive = FALSE, .color_lab = year(dmdate) 
+)
+
+
+walmart_sales_weekly
+walmart_sales_weekly %>%
+  group_by(Store, Dept) %>%
+  plot_anomaly_diagnostics(Date, Weekly_Sales, 
+                           .facet_ncol = 3, .interactive = FALSE)
+
+empadsup %>%  #group_by(firm, railway) %>%
+  plot_anomaly_diagnostics(dmdate, qty1,  .facet_ncol = 3,  .interactive = FALSE   )
+
+empadsup %>% plot_seasonal_diagnostics(dmdate, qty1, .interactive = FALSE)
+
+empadsup %>%  #group_by(railway) %>%
+  #summarise( across
+  # also summarise( across(qty1, sum) ) %>%
+  pivot_wider(names_from = firm, 
+              values_from =  qty1  )  %>%
+  group_by( year(dmdate)   )%>%
+  summarise( across( -dmdate , everything() ) ,  sum ) %>%
+  #arrange(desc(qty1))  %>%
+  View()
+
+# A tibble: 24 x 4
+
+
+##################################################################################
+
+##################################################################################
+#scale_color_viridis(): Change the color of points, lines and texts
+#scale_fill_viridis(): Change the fill color of areas (box plot, bar plot, etc)
+# viridis(n), magma(n), inferno(n) and plasma(n):
+
+
+failurs <- EMPadfailures
+
+str(failurs)
+failurs  %>% View()
+failurs %>% janitor::clean_names() %>% 
+  mutate( #datefail = dmy(date_of_replacement) ,  
+    datefail = parse_date_time(date_of_replacement, orders = c("dmy", "mdy", "Y-m-d") ),
+    #makedate =  dmy(paste( '01-', `date_of_manufacturing`  )  ),
+    # makedate =  parse_date_time( paste( '01-', `date_of_manufacturing`  ), orders = c("dmy") ) ,
+    makedate =  parse_date_time( paste( '01-', date_of_manufacturing  ), orders = c("dmy","mdy" ,"ymd"  ) ),
+    lifedays = datefail - makedate ,
+    life = as.numeric(lifedays),
+    make  =  as_factor(make_of_em_pad) 
+  )  ->  empaddays   #%>% View() #
+empaddays$status = 1
+empaddays %>% mutate( status = if_else( life > 2200, 0, 1) )  %>% 
+  select( make, life, status, makedate, datefail )   -> padslife         # %>%     View()
+
+padslife  %>%     View()
+
+empaddays    %>% filter(is.na(makedate))  %>% View()
+empaddays    %>% filter(!is.na(makedate)) %>% View()
+
+str(empaddays)
+
+##################################################################################
+
+
+# parse_date_time(date_time, orders = c("dmY HM", "mdY HM", "Ymd HMS"))
+# parse_date_time(c("2016.2", "2016-04"), orders = "Yq")
+# parse_date_time(c("2016", "2016-04"), orders = c("Y", "Ym")
+library(skimr)
+skimr::skim(empaddays)
+
+library(DataExplorer) # data %>%  DataExplorer::create_report()
+DataExplorer::create_report(failurs)
+DataExplorer::create_report(empaddays)
+plot_intro(empaddays)
+plot_intro # see ggplot code
+
+
+library(inspectdf) #devtools::install_github("alastairrushworth/inspectdf") or CRAN
+inspect_types(empaddays)
+inspect_mem(empaddays)
+#inspect_types(youngGrades, oldGrades, show_plot = TRUE)
+starwars %>% group_by(gender) %>% inspect_mem()
+inspect_cat(starwars) %>% show_plot(plot_type = 1 , high_cardinality > 100)
+
+# show_plot(x,text_labels = TRUE,alpha = 0.05,high_cardinality = 0,plot_layout = NULL,
+#  col_palette = 0, plot_type = 1, label_thresh = 0.1, label_angle = NULL,label_color = NULL,
+#  label_size = NULL )
+# inspect_types() summary of column types
+# inspect_mem() summary of memory usage of columns
+# inspect_na() columnwise prevalence of missing values
+# inspect_cor() correlation coefficients of numeric columns
+# inspect_imb() feature imbalance of categorical columns
+# inspect_num() summaries of numeric columns
+# inspect_cat() summaries of categorical columns
+
+inspect_na(empaddays) %>% show_plot() 
+show_plot(inspect_types(empaddays))
+inspect_num(empaddays) %>% show_plot()
+inspect_cat(empaddays) %>% show_plot()
+inspect_cor(empaddays) %>% show_plot()
+inspect_imb(empaddays) %>% show_plot()
+
+# .getPageLayout	Calculate page layout index
+# dummify	Dummify discrete features to binary columns
+# drop_columns	Drop selected variables
+# group_category	Group categories for discrete features
+# create_report	Create report
+# .ignoreCat	Truncate category
+# configure_report	Configure report template
+# plotDataExplorer.grid	Plot objects with gridExtra
+# .lapply	Parallelization
+# plot_intro	Plot introduction
+# plot_boxplot	Create boxplot for continuous features
+# plotDataExplorer.multiple	Plot multiple objects
+# plot_scatterplot	Create scatterplot for all features
+# plot_prcomp	Visualize principal component analysis
+# plot_qq	Plot QQ plot
+# plot_str	Visualize data structure
+# plot_correlation	Create correlation heatmap for discrete features
+# plotDataExplorer	Default DataExplorer plotting function
+# plot_density	Plot density estimates
+# introduce	Describe basic information
+# profile_missing	Profile missing values
+# plot_histogram	Plot histogram
+# split_columns	Split data into discrete and continuous parts
+# .getAllMissing	Get all missing columns
+# plot_missing	Plot missing value profile
+# update_columns	Update variable types or values
+# set_missing	Set all missing values to indicated value
+# plotDataExplorer.single	Plot single object
+# plot_bar	Plot bar chart
+
+##################################################################################
+
+# plot Air Temperature Data across 2009-2011 using daily data
+empadsup %>%  ggplot( )  +    
+  #  geom_point(na.rm=TRUE) + 
+  # geom_point(  aes(x = dmdate, y = qty1 , size = qty1 , fill = year(dmdate)),      na.rm=TRUE, color="blue",  pch=1) +
+  geom_bar( aes(x = dmdate, y = qty1 , size = qty1 , fill = year(dmdate)),    stat="identity", na.rm = TRUE) +
+  #ok stat_smooth(aes(x = dmdate, y = qty1 , size = qty1 , fill = year(dmdate)),  colour="green") +
+  #  scale_size_manual(1, 5) + 
+  scale_size_continuous(1,500) + 
+  (scale_x_date(breaks=scales::date_breaks("6 months"),   labels=scales::date_format("%b %y") )) +
+  ggtitle("EM pads supplies") +
+  xlab("Date") + ylab("Qty supplied") +
+  facet_wrap(~firm) + theme_bw()
+
+
+empadsup %>%  ggplot( aes( qty1),  stat_bin(qty1)  )  + 
+  geom_histogram(na.rm=TRUE, bins=5, binwidth = 2.5) +    # binwidth = 0.01
+  facet_wrap(~firm)
+# stat_count() or stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
+# binwidth = NULL,bins = NULL,center = NULL,boundary = NULL,breaks = NULL,closed = c("right", "left"),
+# pad = FALSE, na.rm = FALSE, orientation = NA, show.legend = NA, inherit.aes = TRUE )
+
+
+library(timetk)
+interactive <- FALSE  # Setup for the plotly charts (# FALSE returns ggplots)
+empadsup %>% timetk::plot_time_series(dmdate, qty1,       .interactive = interactive,    .plotly_slider = TRUE)
+
+EMpadsupplies %>% mutate(   )  %>% View()
+
+##################################################################################
+
+
+empaddays$status = 1
+empaddays  %>% View()
+empaddays$lifedays
+hist( as.numeric(empaddays$lifedays) , xlim = c(0, 2000), nclass = 1000 )#, xlab="Length of Survival Time", main="Histogram of Survial Time of EM Pads")
+# good plot highlighting ROH/POH
+str(empaddays)
+
+
+empaddays %>% select(lifedays, status, make) %>%   
+  # na.omit() %>% 
+  mutate( empaddays1 = as.character(empaddays),
+          empaddays2 = as.numeric(empaddays1)   ) -> empaddays
+
+empaddays  %>% na.omit() %>%  View()
+
+
+empadlifefit <- survfit( Surv( empaddays$lifedays, status) ~ 1                , data = empaddays )
+empadlifefit <- survfit( Surv( empaddays$life, status) ~ empaddays$make   , data = empaddays )
+
+
+padslife  %>% str() #View()
+padslife  %>%   mutate( make = fct_collapse(make, 
+                                            VRC = c("VRC", "VR"),
+                                            ARL = c("ARL", "ARL"),
+                                            ARYAN = c( "ARYAN"), 
+                                            TAYAL = c("TC"),
+                                            BASANT = c("BASANT", "BASAANT", "BRC"),
+                                            FAS = c("FAS"),
+                                            HFL = c("HFL"),
+                                            VRC = c("VRC"),
+                                            MGM = c("MGM"),
+                                            PRAG = c("PRAG"),
+                                            TC = c("TAYAL"),
+                                            Other = c( "VKC", "NV"),
+                                            other_level = NULL
+                                            
+) )   %>%  
+  mutate( make = fct_lump(make, 13) ) %>% 
+  group_by(make) -> padslife # %>%   count() %>% View()
+padslife
+
+#group_by(make) %>% filter(  count() < 100 )
+lifefit <- survfit( Surv( padslife$life, status) ~ padslife$make , data = padslife )
+lifefit
+
+print(empadlifefit)
+summary(empadlifefit)
+plot(empadlifefit)
+
+##################################################################################
 

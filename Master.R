@@ -1,6 +1,28 @@
 
 # keyboard shortcut  Cmd + Shift + F10.    # comments ctr sht c
 
+
+
+
+
+library(DT)
+DT::datatable(data = mtcars,
+              #colnames = c("Year", "Life expectancy (years)"),
+              caption = "Table shows (Source: GapMinder dataset)",
+              filter = "top"
+             )
+
+
+mtcars %>%  
+    kableExtra::kbl(caption = "Life expectancy in Poland over time") %>%
+    kableExtra::kable_material() %>%
+    kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+    kableExtra::footnote(general = "Source: GapMinder dataset")
+
+
+
+
+
 rm(list = ls(all.names = TRUE))  # will clear all objects includes hidden objects.
 rm(list = ls(all       = TRUE))
 #invisible( lapply( paste0('package:', names(sessionInfo()$otherPkgs)),  detach, character.only=TRUE, unload=TRUE )     )
@@ -17,7 +39,7 @@ if (!require("remotes")) install.packages("remotes", repos = "https://cran.rstud
 #remotes::install_github("rstudio/bookdown")
 #remotes::install_github("ismayc/thesisdown")
 
-remotes::install_github("davidgohel/officedown")
+#remotes::install_github("davidgohel/officedown")
 dir <- system.file(package = "officedown", "examples", "bookdown")
 file.copy(dir, getwd(), recursive = TRUE, overwrite = TRUE)
 rmarkdown::render_site("bookdown")

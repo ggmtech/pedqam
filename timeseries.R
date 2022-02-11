@@ -6,7 +6,11 @@
 # install.packages("prophet")  # with strong seasonal effects and historical data. robust to missing data and shifts in the trend, and typically handles outliers well.
 library(prophet)
 library(readr)
+
 df <- readr::read_csv('../tests/testthat/data.csv')
+m750 <- m4_monthly %>% filter(id == "M750")
+df <- select(m750, date   ,    value)
+df
 m <- prophet(df, seasonality=TRUE)        # seasonality=TRUE for disabling daily seasonality
 future <- make_future_dataframe(m, periods = 365)
 
@@ -26,10 +30,17 @@ library(timeSeries)
 library(tis)
 
 library(tsbox)
+fdeaths
+mdeaths
 x.ts <- ts_c(fdeaths, mdeaths)
+x.ts 
 x.xts <- ts_xts(x.ts)
+x.xts
+
 x.df <- ts_df(x.xts)
+x.df
 x.dt <- ts_dt(x.df)
+x.df
 x.tbl <- ts_tbl(x.dt)
 x.zoo <- ts_zoo(x.tbl)
 x.tsibble <- ts_tsibble(x.zoo)
@@ -114,7 +125,7 @@ ts_span(fdeaths, "-5 year")
 # ts_tslist() a list with ts objects
 
 # Default structure to store multiple time series in long data frames (or data tables, or tibbles)
-ts_df(ts_c(fdeaths, mdeaths))
+ts_df( ts_c(fdeaths,  mdeaths) )
 
 
 # RESHAPE
@@ -263,7 +274,7 @@ rect.hclust(hc, k=4)
 # Algorithms: Learn DeepAR, DeepVAR, NBEATS
 
 
-
+################################
 
 library(tidyverse)
 library(lubridate)

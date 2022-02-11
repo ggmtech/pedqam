@@ -1,9 +1,13 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+
+%
+=======
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
 \documentclass[
-  10pt,
+  11pt,
   twoside]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -45,6 +49,28 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[left=4cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+=======
+  pdfauthor={John1 Doe; Jane2 Doe; Jane3 Doe},
+  pdfkeywords={key, QAM, Railway, RDSO, dictionary, word},
+  colorlinks=true,
+  linkcolor=pink,
+  filecolor=Maroon,
+  citecolor=red,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[left=4cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -61,7 +87,11 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+<<<<<<< HEAD
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+=======
+\setcounter{secnumdepth}{5}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -87,6 +117,7 @@
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Cost estimation of RDSO controlled items}
+<<<<<<< HEAD
 \author{QA RDSO}
 \date{28/12/2021}
 
@@ -95,6 +126,20 @@
 
 {
 \setcounter{tocdepth}{2}
+=======
+\author{John1 Doe\footnote{Institution One, \href{mailto:john@example.org}{\nolinkurl{john@example.org}}} \and Jane2 Doe\footnote{Institution Two, \href{mailto:jane@example.org}{\nolinkurl{jane@example.org}}} \and Jane3 Doe\footnote{Institution Three, \href{mailto:jane@example.org}{\nolinkurl{jane@example.org}}}}
+\date{18/11/2021}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+DG directed setting up of a committee of 3 PED's to examine the recommended system improvement to examine the recommended system improvement at para ``e'' / NP3 , which is reproduced as: Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd. Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021. The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
+\end{abstract}
+
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 \tableofcontents
 }
 \setstretch{1.5}
@@ -103,6 +148,7 @@
 \hypertarget{history-of-the-case}{%
 \section{History of the case}\label{history-of-the-case}}
 
+<<<<<<< HEAD
 Based on a complaint by M/s Prag industries , Lucknow to Member(RS)
 Railway Board, and PED/Vigilance , Railway Board , etc, the case was
 investigated and Vigilance organisation recommended following system
@@ -141,6 +187,31 @@ Zonal Railways under the approval of rly.Bd.
 Accordingly, the committee of the following officers has been nominated
 by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated
 15.09.2021
+=======
+Based on a complaint by M/s Prag industries , Lucknow to Member(RS) Railway Board, and PED/Vigilance , Railway Board , etc, the case was investigated and Vigilance organisation recommended following system improvements.
+
+\begin{quote}
+\begin{quote}
+Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd.
+\end{quote}
+\end{quote}
+
+\begin{quote}
+\begin{quote}
+CVO view that indicative costing of the items should be done by concerned directorate with finance vetting by invoking book examination clause, if need be,, as a result of discrete value analysis to preclude the possibility of revenue loss. It is also hightime where RDSO may consider setting up of value analysis cell for this purpose,
+\end{quote}
+\end{quote}
+
+The committee noted that the then DG/RDSO also agreed on the recommendations
+
+DG directed setting up of a committee of 3 PED's to examine the recommended system improvement to examine the recommended system improvement at para ``e'' / NP3 , which is reproduced as :
+
+\begin{quote}
+Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd.
+\end{quote}
+
+Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \begin{itemize}
 \tightlist
@@ -152,16 +223,28 @@ by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated
   Alok Mathur, PED/QA(Elec)
 \end{itemize}
 
+<<<<<<< HEAD
 The committee has also gone through the case file RDSO/20/Vig/05/CT/39
 sent along with the nomination of the committee. It is also noted that
 then then DG/RDSO had also already princiapally agreed with the
 recommendations for working out financial implications, including
 financial vetting of the costing at NP4 of the file RDSO/20/Vig/05/CT/39
 and the costing is thus essentially required to be worked out by RDSO.
+=======
+\hypertarget{this-section-is-unnumbered}{%
+\section*{This section is unnumbered}\label{this-section-is-unnumbered}}
+\addcontentsline{toc}{section}{This section is unnumbered}
+
+The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
+
+\hypertarget{pattern-matching}{%
+\section{Pattern matching}\label{pattern-matching}}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \hypertarget{deliberations-of-committee}{%
 \section{Deliberations of committee}\label{deliberations-of-committee}}
 
+<<<<<<< HEAD
 Committee discussed the issue and also invited suggestions from the
 vendor dealing directorates in the WA group.
 
@@ -180,6 +263,18 @@ explained in para 603 onwards.
 
 \url{https://indianrailways.gov.in/railwayboard/uploads/codesmanual/MechDept/Final_6_DME.PDF}
 para 603 Job Costing System, (For Shop manufactured items),
+=======
+Committee discussed the issue and also invited suggestions from the vendor dealing directorates in the WA group.
+
+Committee examined the various methods for estimating the cost in the existing codes and practices.
+
+\hypertarget{estimation-of-manufacturing-cost-as-per-ir-rolling-stock-code}{%
+\subsection{Estimation of manufacturing cost as per IR Rolling Stock Code:}\label{estimation-of-manufacturing-cost-as-per-ir-rolling-stock-code}}
+
+Since, the costing has to be vetted, the finance is likely to vet against the standard policy issued in this regard. One such source is Indian Railway Rolling Stock code which has a chapter on the costing of Indian Railway workshop manufactured item - job costing system as explained in para 603 onwards.
+
+\url{https://indianrailways.gov.in/railwayboard/uploads/codesmanual/MechDept/Final_6_DME.PDF} para 603 Job Costing System, (For Shop manufactured items),
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \begin{quote}
 \begin{enumerate}
@@ -187,6 +282,7 @@ para 603 Job Costing System, (For Shop manufactured items),
 \setcounter{enumi}{604}
 \tightlist
 \item
+<<<<<<< HEAD
   Features of Job Costing System a For each item of manufacture there is
   Allowed time against each process of work. b Standard quantity of raw
   material to be drawn with the specification is also given. c The unit
@@ -213,6 +309,18 @@ environment of the industry.
 
 Manual for Procurement of Goods 2017 Ministry of Finance 16 Chapter -- 2
 Need assessment, formulation of Specifications and Procurement Planning
+=======
+  Features of Job Costing System a For each item of manufacture there is Allowed time against each process of work. b Standard quantity of raw material to be drawn with the specification is also given. c The unit cost of manufacture is arrived from cost sheet for the particular work order wherein, all elements of cost are charged to that work order. d Total cost divided by the quantity completed for that work order will give the unit cost of item manufactured. e The standard fixed helps comparison of unit cost with other shops or with trade cost.
+\end{enumerate}
+\end{quote}
+
+This process does not appear feasible in RDSO as this process requires a detailed set up of production , planning and control with time studies and working out of overheads as per the codes. In the current industrial scenarios, the production of Railway items is not generally planned as a sole production line but as a flexible manufacturing system and it would be difficult to attribute the overhead costs and costing is likely to be based on business decision of the company and the competitive environment of the industry.
+
+\hypertarget{manual-for-procurement-of-goods-2017}{%
+\subsection{Manual for Procurement of Goods 2017}\label{manual-for-procurement-of-goods-2017}}
+
+Manual for Procurement of Goods 2017 Ministry of Finance 16 Chapter -- 2 Need assessment, formulation of Specifications and Procurement Planning
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 The following is the para on the estimation of cost:
 
@@ -229,6 +337,7 @@ The following is the para on the estimation of cost:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
+<<<<<<< HEAD
   The estimated cost in the indent is a vital element in various
   procurement processes, approvals and establishing reasonableness of
   prices at the time of evaluation of the bids. Therefore, it should be
@@ -246,11 +355,17 @@ The following is the para on the estimation of cost:
   should be three quotes. However, there is need to have a time schedule
   for receipt of quotes to ensure some timeframe for this activity.
   Thus:
+=======
+  The estimated cost in the indent is a vital element in various procurement processes, approvals and establishing reasonableness of prices at the time of evaluation of the bids. Therefore, it should be worked out in a realistic and objective manner. The prevailing market price ascertained through a market survey or budgetary quotations from one or more prospective suppliers or published catalogues/Maximum Retail Price (MRP) printed on the item is the main source for establishing the estimated cost of items for which there no historic data available. It may be noted that MRPs usually include significant margins for distributors, wholesalers and retailers;
+\item
+  For equipment/craft which are uniquely custom-built to buyer's specifications, the best way to get a fair assessment of costs is by obtaining budgetary quotes from potential parties. Ideally, there should be three quotes. However, there is need to have a time schedule for receipt of quotes to ensure some timeframe for this activity. Thus:
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
   \begin{enumerate}
   \def\labelenumii{\alph{enumii})}
   \tightlist
   \item
+<<<<<<< HEAD
     An attempt should be made to obtain as many budgetary quotes as
     possible from reputed/potential firms and a time of 21 (twenty-one)
     days be indicated therefore. In the event of receipt of less than
@@ -270,6 +385,14 @@ The following is the para on the estimation of cost:
   rates should be compared with recent orders/purchases of similar
   equipment by other states/ Departments. Other methods for establishing
   the estimated cost in the indent and tender evaluation are:
+=======
+    An attempt should be made to obtain as many budgetary quotes as possible from reputed/potential firms and a time of 21 (twenty-one) days be indicated therefore. In the event of receipt of less than three budgetary quotes, two extensions of up to 10 (ten) days each may be considered; and
+  \item
+    In the event of non-availability of three quotes within the above extended period, the estimates should be prepared on the basis of the number of budgetary quote(s) received, which may even be one; and where more than one budgetary quote is received, the estimate should be framed on an average of the quotes which will reduce variations and fluctuations;
+  \end{enumerate}
+\item
+  In addition, wherever they are available Directorate General of Supplies and Disposals (DGS\&D) rates should be considered. Likewise rates should be compared with recent orders/purchases of similar equipment by other states/ Departments. Other methods for establishing the estimated cost in the indent and tender evaluation are:
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
   \begin{enumerate}
   \def\labelenumii{\alph{enumii})}
@@ -277,6 +400,7 @@ The following is the para on the estimation of cost:
   \item
     Estimated rate in past indents of the same goods;
   \item
+<<<<<<< HEAD
     Last purchase price of this or similar or nearly equivalent
     requirements;
   \item
@@ -290,11 +414,23 @@ The following is the para on the estimation of cost:
   \item
     As a last resort, rough assessment from the opportunity cost of not
     using this item at all;
+=======
+    Last purchase price of this or similar or nearly equivalent requirements;
+  \item
+    Costing analysis based on costs of various components/raw materials of the item;
+  \item
+    Rough assessment from the price of the assembly/machine of which the item is a part or vice versa;
+  \item
+    Through the internal or external expert costing agencies; and
+  \item
+    As a last resort, rough assessment from the opportunity cost of not using this item at all;
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
   \end{enumerate}
 
   \begin{enumerate}
   \def\labelenumii{\roman{enumii})}
   \setcounter{enumii}{3}
+<<<<<<< HEAD
   \item
     These methods are not mutually exclusive and can be supplemented
     with escalations to cater for inflation, price increases of raw
@@ -304,11 +440,18 @@ The following is the para on the estimation of cost:
     denomination of Indian Rupees. Price indices can be obtained from
     the following websites. Some may require prior free registration and
     some paid subscription:
+=======
+  \tightlist
+  \item
+    These methods are not mutually exclusive and can be supplemented with escalations to cater for inflation, price increases of raw materials, labour, energy, statutory changes, price indices, and so on, to make them usable in conditions prevailing currently. In case of foreign currencies, the rate should be reduced to a common denomination of Indian Rupees. Price indices can be obtained from the following websites.
+    Some may require prior free registration and some paid subscription:
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
     \begin{enumerate}
     \def\labelenumiii{\alph{enumiii})}
     \tightlist
     \item
+<<<<<<< HEAD
       For price indices of indigenous items:
       \url{http://www.eaindustry.nic.in/home.asp.in} (Ministry of
       Industry);
@@ -332,17 +475,35 @@ The following is the para on the estimation of cost:
       For organisation/chambers of commerce such as the (Indian
       Electrical and Electronics Manufacturer's Association):
       www.ieema.org;
+=======
+      For price indices of indigenous items: \url{http://www.eaindustry.nic.in/home.asp.in} (Ministry of Industry);
+    \item
+      For metals and other minerals: \url{http://www.mmronline.com/or} \url{http://www}. metalprices.com/index.asp or \url{http://www.asianmetal.com/};
+    \item
+      For price trends of nonferrous details; London Metal Exchange - \url{https://www.lme}. com/gives price trends of nonferrous details, which often show volatile trends;
+    \item
+      Other useful sites: \url{http://www.tradeintelligence.com/and} \url{http://www.cmie}. com/. (Centre for Monitoring Indian Economy);
+    \item
+      For price trends of different countries: \url{http://www.imf.org/external/pubs/ft/} weo/2015/01/(International Monetary Fund); and
+    \item
+      For organisation/chambers of commerce such as the (Indian Electrical and Electronics Manufacturer's Association): www.ieema.org;
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
     \end{enumerate}
   \end{enumerate}
 \end{enumerate}
 
 \hypertarget{provisions-in-existing-rdso-iso-apex-documents}{%
+<<<<<<< HEAD
 \subsection{Provisions in existing RDSO ISO apex
 documents}\label{provisions-in-existing-rdso-iso-apex-documents}}
+=======
+\subsection{Provisions in existing RDSO ISO apex documents}\label{provisions-in-existing-rdso-iso-apex-documents}}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
+<<<<<<< HEAD
   No cost aspect in RDSO ISO QO-D-8.1-1 Creation of the New RDSO
   Standard. Further no standards making body is known to be doing it.
   BIS who made RDSO a SDO , is also not doing it
@@ -357,6 +518,16 @@ documents}\label{provisions-in-existing-rdso-iso-apex-documents}}
   following questions.
 
   \begin{itemize}
+=======
+  No cost aspect in RDSO ISO QO-D-8.1-1 Creation of the New RDSO Standard. Further no standards making body is known to be doing it. BIS who made RDSO a SDO , is also not doing it
+\item
+  Old ISO: QO-D-8.1-1 Creation of new specification for items
+\item
+  Para 4.6 Approval for issue of specification The concerned officer dealing with the particular specification shall put up proposal for the new specification to directorate head for approval to initiate the creation. When putting up the file to the directorate head, the concerned officer shall prepare a self-contained note addressing the following questions.
+
+  \begin{itemize}
+  \tightlist
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
   \item
     Why the need for creation of new specification had arisen?
 
@@ -366,6 +537,7 @@ documents}\label{provisions-in-existing-rdso-iso-apex-documents}}
     \item
       Vendor base and action plan to develop new vendors.
     \item
+<<<<<<< HEAD
       Pricing of the item. Some quantitative estimation of pricing of
       the item shall be indicated in note for information
     \item
@@ -388,6 +560,20 @@ best effort basis without involving in protracted correspondence from
 field offices , as this would lead wastage of limited resource available
 with RDSO as RDSO has not been able to delver any substantial good due
 to such wastage of resources.}
+=======
+      Pricing of the item. Some quantitative estimation of pricing of the item shall be indicated in note for information
+    \item
+      A feedback format indicating specific parameters (for which feedback shall be collected) shall be prescribed along with the option to offer -- ``Any other remarks (other than those prescribed)''
+    \end{enumerate}
+  \end{itemize}
+\item
+  RDSO ISO Apex Document no QO-D-8.1-5 Application for Registration of Vendor - No cost requirement
+\end{enumerate}
+
+RDSO has no role in deciding the cost of the item. It has to be justified by the TEC which is the basic function of TEC.
+
+\emph{RDSO however can provide information which may be available at the best effort basis without involving in protracted correspondence from field offices , as this would lead wastage of limited resource available with RDSO as RDSO has not been able to delver any substantial good due to such wastage of resources.}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \hypertarget{costing-in-rdso}{%
 \section{Costing in RDSO}\label{costing-in-rdso}}
@@ -397,8 +583,12 @@ to such wastage of resources.}
 \#\# Costing for Improvement in existing specs:
 
 \hypertarget{difficulties-in-estimation-of-cost}{%
+<<<<<<< HEAD
 \subsection{Difficulties in estimation of
 cost}\label{difficulties-in-estimation-of-cost}}
+=======
+\subsection{Difficulties in estimation of cost}\label{difficulties-in-estimation-of-cost}}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 Cost cannot be given because of the following issues
 
@@ -413,6 +603,7 @@ Cost cannot be given because of the following issues
 \item
   Proportion of overhead assigned by the company to the particular item
 \item
+<<<<<<< HEAD
   Confusion and delays in procurement process in the Indian Railways due
   to excess variation in RDSO indicative rate and the rates received by
   the tendering agencies and excess work for RDSO in responding
@@ -428,22 +619,41 @@ industry}\label{pitfalls-in-cost-estimation-and-impact-on-industry}}
 
 Pitfalls in cost estimation and impact on industry is noted in annexure
 / para 7
+=======
+  Confusion and delays in procurement process in the Indian Railways due to excess variation in RDSO indicative rate and the rates received by the tendering agencies and excess work for RDSO in responding
+\item
+  RDSO does not have any wherewithal for estimating the costing
+  Costing of Signal and telecommunication and even in is even more difficult due to fast changing and niche technology.
+\end{itemize}
+
+\hypertarget{pitfalls-in-cost-estimation-and-impact-on-industry}{%
+\subsubsection{Pitfalls in cost estimation and impact on industry}\label{pitfalls-in-cost-estimation-and-impact-on-industry}}
+
+Pitfalls in cost estimation and impact on industry is noted in annexure / para 7
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \begin{itemize}
 \tightlist
 \item
   Fast change in technologies
 \item
+<<<<<<< HEAD
   Delay in issue of specifications due to need for assessment of the
   cost impacts.
 \item
   The public agencies like audit and CVC may mistake the indicative cost
   with absolute cost.
+=======
+  Delay in issue of specifications due to need for assessment of the cost impacts.
+\item
+  The public agencies like audit and CVC may mistake the indicative cost with absolute cost.
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 \item
   Quantity is not possible for all items
 \item
   Fast change of technology and process
 \item
+<<<<<<< HEAD
   Specs developed with a wide consultative process including industry -
   hence costing not critical as the views of existing vendors have
   recourse with speaking orders. Final agreement by majority. Further
@@ -467,6 +677,26 @@ approved by BIS.
 Costing may be required : - During product development - During review (
 taking consequential / subsequent financial implications) and - product
 development stage - To check overpricing of RDSO controlled item.
+=======
+  Specs developed with a wide consultative process including industry - hence costing not critical as the views of existing vendors have recourse with speaking orders. Final agreement by majority. Further uniform time for changeover is also given.
+\end{itemize}
+
+The anexxure also list failures in Costing process
+in DFMA.
+
+\hypertarget{suggestions-for-practical-system-of-costing-and-its-limitations}{%
+\subsection{Suggestions for practical system of costing and its limitations}\label{suggestions-for-practical-system-of-costing-and-its-limitations}}
+
+Though through costing is not possible by RDSO , the following workable costing can be done by establishing the following capacities in the RDSO if the same is inescapably required.
+
+The committee is aware that even BIS is not doing any costing for their standards/ specifications. Now RDSO is also a standards making body approved by BIS.
+
+Costing may be required :
+- During product development
+- During review ( taking consequential / subsequent financial implications) and
+- product development stage
+- To check overpricing of RDSO controlled item.
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \hypertarget{the-possible-solutions}{%
 \subsection{The possible solutions:}\label{the-possible-solutions}}
@@ -474,6 +704,7 @@ development stage - To check overpricing of RDSO controlled item.
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
+<<<<<<< HEAD
   Costing on pattern of Workshops / Production Units as given in Rolling
   code of Indian Railways alongwith costing standard cost estimating
   softwares ( eg\ldots)
@@ -484,6 +715,13 @@ development stage - To check overpricing of RDSO controlled item.
 \item
   Hiring the service of consultants / chartered cost accountants /
   Engineering firms
+=======
+  Costing on pattern of Workshops / Production Units as given in Rolling code of Indian Railways alongwith costing standard cost estimating softwares ( eg\ldots)
+\item
+  Outsourcing / Assigning the items for estimating to various Indian Railway workshops depending upon the core competencies of those workshops.
+\item
+  Hiring the service of consultants / chartered cost accountants / Engineering firms
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 \end{enumerate}
 
 \begin{itemize}
@@ -493,6 +731,7 @@ development stage - To check overpricing of RDSO controlled item.
 \item
   On specific costing works
 \item
+<<<<<<< HEAD
   Budgetary quotations from prospective vendors during specs
   development/ post specs development.
 \end{itemize}
@@ -589,11 +828,56 @@ modifications}\label{classify-the-modifications}}
 1 Minor impact or no impact or even reduction in cost due to change in
 specifications, and having an impact not more than +/-10\% of the cost.
 For such item no cost estimation exercise or review is required.
+=======
+  Budgetary quotations from prospective vendors during specs development/ post specs development.
+\end{itemize}
+
+Only for items having likely financial impact of over Rs 5 Crores.
+On date, following items have \ldots{} expected values over Rs Annexure \ldots. Excel table of values of RDSO controlled items.
+Cost of prototype sourced through GeM portal as the indicative cost.
+
+\hypertarget{issue-of-pl-numbers-and-cost-range}{%
+\subsubsection{Issue of PL Numbers and cost range}\label{issue-of-pl-numbers-and-cost-range}}
+
+Stores officer in RDSO to control and issue PL numbers Price List Numbers or PL Nos. and also to communicate on clarification on price and justifications so that design officers are free for regular design and development works.
+
+For items where it is possible to get specific rates, the RDSO may enter into rates contract that may be operated by the users as per GFR2017
+This is in confirmity with GFR.
+
+\begin{quote}
+Rule 156 (1) Purchase of goods directly under Rate Contract.
+In case a Ministry or Department directly procures Central PurchaseOrganisation (e.g.~DGS\&D)rate contracted goods from suppliers, the prices to be paid for such goods shall not exceed those stipulated the rate contract and the other salient terms and conditions of the purchase should be in line with those specified in the RateContract.TheMinistry or Department shall make its own arrangement for inspection and testing of such goods whatever required
+\end{quote}
+
+\begin{quote}
+Rule 156 (2) The Central Purchase Organisation (e.g.~DGS\&D) should host the specifications, prices and other salient details of different rate contracted items, appropriately updated, on the web sitefor use by the procuring Ministry or Department
+\end{quote}
+
+\begin{quote}
+Rule 148 Rate Contract. DGS\&D shall conclude rate contractswith the registeredsuppliers for suchgoods,whichare not available on GeM, and are identified as common use items and are needed on recurring basis by various Central GovernmentMinistries or Departments. DGS\&Dwill furnish and update all the relevant details of the rate contractson itswebsite. TheMinistriesor Departments shall follow those rate contractsto the maximum extent possible
+\end{quote}
+
+\begin{quote}
+Rule 150 Registration of Suppliers
+(i) With a view to establishing reliable sources for procurement of goods commonly required for Government use, the Central Purchase Organisation (e.g.~DGS\&D) will prepare and maintain item-wise lists of eligible and capable suppliers. Such approved suppliers will be known as ``RegisteredSuppliers.'' All Ministries or Departments may utilise these lists as and when necessary. Such registered suppliers are prima facie eligible for consideration for procurement of goods throug h LimitedTenderEnquiry.Theyare also ordinarily exempted from furnishing bid security along with their bids. A Headof Department May Also register suppliers of goods which are specifically required by that Department or Office, periodically. Registration of the supplier should be done following a fair, transparent and reasonable procedure and after giving due publicity.
+(ii) Credentials, manufacturing capability, quality control systems, past performance, after-sales service, financial background etc. of the supplier(s)should be carefully verified before registration.
+(iii) The supplier(s)will be registered for a fixed period (between 1 to 3 years) depending on the nature of the goods. At the end of this period, the registered supplier(s) willing to continue with registration are to apply afresh for renewal of registration. New supplier(s)may also be considered for registration at any time, provided they fulfil all the required conditions.
+(iv) Performance and conduct of every registered supplier is to be watched by the concerned Ministry Deportment. The registered supplier(s)are liable to be removed from the list of approved suppliers if they fail to abide by the terms and conditions of the registration or fail to supply the goods on time or supply substandard goods or make any false declaration to any Government Agency for any ground which, in the opinion of the Government,is not in public interest. (v) The list of registered suppliers for the subject matter of procurement be exhibited on the Central Public ProcurementPortaland websites of the Procuring Entity/ e-Procurementl portals.
+\end{quote}
+
+CRIS on UVAM portal to host all the items and the vendors should be enabled to keep their indicative rates published for a particular item as budgetary reference, in addition to the last purchase prices of the item.
+
+\hypertarget{classify-the-modifications}{%
+\subsection{Classify the modifications}\label{classify-the-modifications}}
+
+1 Minor impact or no impact or even reduction in cost due to change in specifications, and having an impact not more than +/-10\% of the cost. For such item no cost estimation exercise or review is required.
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{1}
 \item
+<<<<<<< HEAD
   Moderate impact with cost : For items expected to cause impacto of
   about 25\% and total railway procurement cost is expected to cause a
   difference of over 1 Crores, then only departmental estimate may be
@@ -602,14 +886,23 @@ For such item no cost estimation exercise or review is required.
   If the impact is likely to be more than Rs 5 Cores or over 25\%, a
   through costing through the dedication system should be required as
   mentioned in the reference. \ldots\ldots.
+=======
+  Moderate impact with cost : For items expected to cause impacto of about 25\% and total railway procurement cost is expected to cause a difference of over 1 Crores, then only departmental estimate may be required.
+\item
+  If the impact is likely to be more than Rs 5 Cores or over 25\%, a through costing through the dedication system should be required as mentioned in the reference. \ldots\ldots.
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 \end{enumerate}
 
 \hypertarget{conclusion}{%
 \section{Conclusion:}\label{conclusion}}
 
 \hypertarget{implementation-of-the-costing-system-in-rdso}{%
+<<<<<<< HEAD
 \subsection{Implementation of the costing system in
 RDSO}\label{implementation-of-the-costing-system-in-rdso}}
+=======
+\subsection{Implementation of the costing system in RDSO}\label{implementation-of-the-costing-system-in-rdso}}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -618,6 +911,7 @@ RDSO}\label{implementation-of-the-costing-system-in-rdso}}
   Budgetary quotation from vendors
 \end{enumerate}
 
+<<<<<<< HEAD
 (Rolling stock code/Mechanical Finance code) cost process code Last
 purchase price after some time
 
@@ -626,6 +920,13 @@ from purchase officers. RDSO will not entertain any reference on costs
 from Indian Railways and any other agency does take any responsibility
 for the correctness beyond providing facts based on which cost was
 estimated in first place.
+=======
+(Rolling stock code/Mechanical Finance code) cost process code
+Last purchase price after some time
+
+Purchase difficulties as RDSO may have to address various references from purchase officers.
+RDSO will not entertain any reference on costs from Indian Railways and any other agency does take any responsibility for the correctness beyond providing facts based on which cost was estimated in first place.
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -635,9 +936,13 @@ estimated in first place.
   Revision in Specifications
 \end{enumerate}
 
+<<<<<<< HEAD
 Specs -\textgreater{} Budgetary quotations from at least 3 registered
 vendors / prospective vendors in that order/ cost request during specs
 uploading -\textgreater{}
+=======
+Specs -\textgreater{} Budgetary quotations from at least 3 registered vendors / prospective vendors in that order/ cost request during specs uploading -\textgreater{}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 This is only a ballpark estimate of the prices.
 
@@ -657,6 +962,7 @@ This is only a ballpark estimate of the prices.
   BIS
 \end{enumerate}
 
+<<<<<<< HEAD
 \hypertarget{pattern-matching}{%
 \section{Pattern matching}\label{pattern-matching}}
 
@@ -680,6 +986,552 @@ guide. Chapman; Hall/CRC, Boca Raton, Florida.
 \leavevmode\hypertarget{ref-rmarkdown2020}{}%
 Xie, Y., Dervieux, C., Riederer, E., 2020. R markdown cookbook. Chapman;
 Hall/CRC, Boca Raton, Florida.
+=======
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-EMPad20}{}%
+Abgrall, P., Gu?, A.-M., 2007. Lab-on-chip technologies: Making a microfluidic network and coupling it into a complete microsystem---a review. J. Micromech. Microeng. 17, R15--R49. \url{https://doi.org/10.1088/0960-1317/17/5/R01}
+
+\leavevmode\hypertarget{ref-Abgr06}{}%
+Abgrall, P., others, 2006. A novel fabrication method of flexible and monolithic {3D microfluidic structures using lamination of SU-8} films. J. Micromech. Microeng. 16, 113--121. \url{https://doi.org/10.1088/0960-1317/16/1/016}
+
+\leavevmode\hypertarget{ref-Abol05}{}%
+Abolmasov, S.N., Shirafuji, T., Tachibana, K., 2005. Submillimeter dielectric barrier discharges at atmospheric pressure: Edge effect. IEEE Trans. Plasma Sci. 33, 941--948. \url{https://doi.org/10.1109/TPS.2005.845093}
+
+\leavevmode\hypertarget{ref-Akis03}{}%
+Akishev, Yu.S., Dem'yanov, A.V., Karal'nik, V.B., Monich, A.E., Trushkin, N.I., 2003. Comparison of the AC barrier corona with DC positive and negative coronas and barrier discharge. Plasma Physics Reports 29, 90--100. \url{https://doi.org/10.1134/1.1538505}
+
+\leavevmode\hypertarget{ref-ASTME1294}{}%
+{ASTM}~e~1294-89~(1999), standard test method for pore size characteristics of membrane filters using automated liquid porosimeter, n.d. ASTM International.
+
+\leavevmode\hypertarget{ref-Baba01}{}%
+Babayan, S.E., others, 2001. Deposition of silicon dioxide films with a non-equilibrium atmospheric-pressure plasma jet. Plasma Sources Sci. Technol. 10, 573--578. \url{https://doi.org/10.1088/0963-0252/10/4/305}
+
+\leavevmode\hypertarget{ref-Beck06}{}%
+Becker, K.H., Schoenbach, K.H., Eden, J.G., 2006. Microplasmas and applications. J. Phys. D: Appl. Phys. 39, R55--R70. \url{https://doi.org/10.1088/0022-3727/39/3/R01}
+
+\leavevmode\hypertarget{ref-Bile04}{}%
+Bilenberg, B., Nielsen, T., Clausen, B., Kristensen, A., 2004. PMMA to SU-8 bonding for polymer based lab-on-a-chip systems with integrated optics. J. Micromech. Microeng. 14, 814--818. \url{https://doi.org/10.1088/0960-1317/14/6/008}
+
+\leavevmode\hypertarget{ref-Blan04}{}%
+Blanco, F.J., others, 2004. Novel three-dimensional embedded {SU-8} microchannels fabricated using a low temperature full wafer adhesive bonding. J. Micromech. Microeng. 14, 1047--1056. \url{https://doi.org/10.1088/0960-1317/14/7/027}
+
+\leavevmode\hypertarget{ref-Boga02}{}%
+Bogaerts, A., Neyts, E., Gijbels, R., Mullen, J. van der, 2002. Gas discharge plasmas and their applications. Spectrochim. Acta. B Atom. Spectros. 57, 609--658. \url{https://doi.org/10.1016/S0584-8547(01)00406-2}
+
+\leavevmode\hypertarget{ref-Bohl1989}{}%
+Bohl, W., 1989. Technische str?mungslehre, 8th ed. Vogel-Verlag, W?rzburg.
+
+\leavevmode\hypertarget{ref-Bran07}{}%
+Brandenburg, R., others, 2007. Antimicrobial treatment of heat sensitive materials by means of atmospheric pressure {Rf}-driven plasma jet. Contrib. Plasma Phys. 47, 72--79. \url{https://doi.org/10.1002/ctpp.200710011}
+
+\leavevmode\hypertarget{ref-Bran05}{}%
+Brandenburg, R., Wagner, H.-E., Morozov, A.M., Kozlov, K.V., 2005. Axial and radial development of microdischarges of barrier discharges in {N2/O2} mixtures at atmospheric pressure. J. Phys. D: Appl. Phys. 38, 1649--1657. \url{https://doi.org/10.1088/0022-3727/38/11/003}
+
+\leavevmode\hypertarget{ref-Brea09}{}%
+Breadmore, M.C., Candish, E., Guijt, R.M., 2009. Dry film photoresist, saving time and money without compromising on performance.
+
+\leavevmode\hypertarget{ref-Brown14}{}%
+Brown, M.L., Donovan, T.M., Schwenk, W.S., Theobald, D.M., 2014. Predicting impacts of future human population growth and development on occupancy rates of forest-dependent birds. Biological Conservation 170, 311--320. \url{https://doi.org/10.1016/j.biocon.2013.07.039}
+
+\leavevmode\hypertarget{ref-Bruu08}{}%
+Bruus, H., 2008. Theoretical microfluidics. Oxford University Press.
+
+\leavevmode\hypertarget{ref-Bull01}{}%
+Bullett, N.A., others, 2001. Direct imaging of plasma-polymerized chemical micropatterns. Surf. Interface Anal. 31, 1074--1076. \url{https://doi.org/10.1002/sia.1146}
+
+\leavevmode\hypertarget{ref-Carl04}{}%
+Carlier, J., others, 2004. Integrated microfluidics based on multi-layered SU-8 for mass spectrometry analysis. J. Micromech. Microeng. 14, 619--624. \url{https://doi.org/10.1088/0960-1317/14/4/024}
+
+\leavevmode\hypertarget{ref-Carl1977}{}%
+Carlsson, D., Garton, A., Wiles, D., 1977. The weatherability of polypropylene monofilaments. Effects of fiber production conditions. Journal of Applied Polymer Science 21, 2963--2978. \url{https://doi.org/10.1002/app.1977.070211112}
+
+\leavevmode\hypertarget{ref-Carr1903}{}%
+Carr, W.R., 1903. On the laws governing electric discharges in gases at low pressures. Phil. Trans. Roy. Soc. Lond. Math. Phys. Sci. 201, 403--433. \url{https://doi.org/10.1098/rsta.1903.0020}
+
+\leavevmode\hypertarget{ref-Chang00}{}%
+Chang, H.-K., Kim, Y.-K., 2000. {UV-LIGA process for high aspect ratio structure using stress barrier and C-shaped etch hole}. Sensors and Actuators A 84, 342--350. \url{https://doi.org/10.1016/S0924-4247(00)00408-8}
+
+\leavevmode\hypertarget{ref-Char1967}{}%
+Charbonnier, F.M., Bennette, C.J., Swanson, L.W., 1967a. Electrical breakdown between metal electrodes in high vacuum. I. theory. J. Appl. Phys. 38, 627--633. \url{https://doi.org/10.1063/1.1709385}
+
+\leavevmode\hypertarget{ref-Char1967-2}{}%
+Charbonnier, F.M., Bennette, C.J., Swanson, L.W., 1967b. Electrical breakdown between metal electrodes in high vacuum. II. experimental. J. Appl. Phys. 38, 634--640. \url{https://doi.org/10.1063/1.1709386}
+
+\leavevmode\hypertarget{ref-Coog1996}{}%
+Coogan, J.J., Sappey, A.D., 1996. Distribution of {OH} within silent discharge plasma reactors. IEEE Trans. Plasma Sci. 24, 91--92. \url{https://doi.org/10.1109/27.491706}
+
+\leavevmode\hypertarget{ref-Cutl1993}{}%
+Cutler, P., 1993. Theory of electron emission in high fields from atomically sharp emitters: Validity of the fowler-nordheim equation. Progress in Surface Science 42, 169--185. \url{https://doi.org/10.1016/0079-6816(93)90068-7}
+
+\leavevmode\hypertarget{ref-Davi1998}{}%
+Davis, J.R., 1998. Metals handbook: Desk edition, 2nd ed. ASM International.
+
+\leavevmode\hypertarget{ref-Dikm04}{}%
+Dikmans, A.J., others, 2004. A new compact disc format of high density array synthesis applied to peptide nucleic acids and in situ {MALDI} analysis. Molecular diversity 8, 197--207. \url{https://doi.org/10.1023/B:MODI.0000036234.66238.4e}
+
+\leavevmode\hypertarget{ref-Dora02}{}%
+Dorai, R., 2002. Modeling of atmospheric pressure plasma processing of gases and surfaces (PhD thesis). University of Illinois at Urbana-Champaign.
+
+\leavevmode\hypertarget{ref-Dora03}{}%
+Dorai, R., Kushner, M.J., 2003. A model for plasma modification of polypropylene using atmospheric pressure discharges. J. Phys. D: Appl. Phys 36, 666--685. \url{https://doi.org/10.1088/0022-3727/36/6/309}
+
+\leavevmode\hypertarget{ref-Dush1923}{}%
+Dushman, S., 1923. Electron emission from metals as a function of temperature. Physical Review 21, 623--636. \url{https://doi.org/10.1103/PhysRev.21.623}
+
+\leavevmode\hypertarget{ref-Eden03}{}%
+Eden, J.G., others, 2003. Microplasma devices fabricated in silicon, ceramic, and metal/polymer structures: Arrays, emitters and photodetectors. J. Phys. D: Appl. Phys. 36, 2869--2877. \url{https://doi.org/10.1088/0022-3727/36/23/001}
+
+\leavevmode\hypertarget{ref-Eich05}{}%
+Eichler, M., Thomas, M., Mewes, H., Klages, C.-P., 2005. {Ortsselektive Atmosph?rendruck-Plasmavorbehandlung f?r das Direkt-Wafer-Bonden bei niedrigen Temperaturen}.
+
+\leavevmode\hypertarget{ref-Elia1991}{}%
+Eliasson, B., Kogelschatz, U., 1991. Modeling and applications of silent discharge plasmas. IEEE Trans. Plasma Sci. 19, 309--323. \url{https://doi.org/10.1109/27.106829}
+
+\leavevmode\hypertarget{ref-Klei03}{}%
+F.Kleinschmidt, K.S., U.St?hr, others, 2003. NMR spectroscopy characterization and self-diffusion study of partially swollen polymer networks. Macromol. Chem. Phys. 204, F24--F25.
+
+\leavevmode\hypertarget{ref-Fahl01}{}%
+Fahland, M., Charton, C., Kirchhoff, V., St?hr, U., 2001. Deposition of multilayer optical coatings onto plastic webs by pulse magnetron sputtering; challenges and opportunities, in: Proceedings 6th. International Symposium on Sputtering and Plasma Processes (ISSP), p. 189, Kanazawa, Japan.
+
+\leavevmode\hypertarget{ref-FIDICrainbow}{}%
+FIDIC, 2008. FIDIC rainbow suite. FIDIC, Paris.
+
+\leavevmode\hypertarget{ref-FIDICyellow}{}%
+FIDIC, 2007. FIDIC yellow book. FIDIC, Paris.
+
+\leavevmode\hypertarget{ref-FIDICgreen}{}%
+FIDIC, 2005a. FIDIC green book. FIDIC, Paris.
+
+\leavevmode\hypertarget{ref-FIDICred}{}%
+FIDIC, 2005b. FIDIC red book. FIDIC, Paris.
+
+\leavevmode\hypertarget{ref-Flac02}{}%
+Flack, W.W., Nguyen, H.A., Capsuto, E., 2002. Characterization of a novel photoresist redistribution material for advanced packaging applications. \url{https://doi.org/10.1117/12.474198}
+
+\leavevmode\hypertarget{ref-Forb1999}{}%
+Forbes, R.G., 1999. Refining the application of fowler-nordheim theory. Ultramicroscopy 79, 11--23. \url{https://doi.org/10.1016/S0304-3991(99)00097-2}
+
+\leavevmode\hypertarget{ref-Fowl1928}{}%
+Fowler, R.H., Nordheim, L., 1928. Electron emission in intense electric fields. Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character 119, 173--181.
+
+\leavevmode\hypertarget{ref-Gabo1993}{}%
+Gaboury, S.R., Urban, M.W., 1993. Microwave plasma reactions of solid monomers with silicone elastomer surfaces: A spectroscopic study. Langmuir 9, 3225--3233. \url{https://doi.org/10.1021/la00035a076}
+
+\leavevmode\hypertarget{ref-GEKA}{}%
+GEKA~mbH, n.d. Destroying chemical warfare agents and contaminated military waste.
+
+\leavevmode\hypertarget{ref-Gerb03}{}%
+Gerbracht, M., 2003. {Trocknung dicker Photoresistschichten mittels unterschiedlicher Trocknungsverfahren} (Diplomarbeit). Fachhochschule D?sseldorf.
+
+\leavevmode\hypertarget{ref-Filament}{}%
+Golubovskii, Yu.B., n.d.
+
+\leavevmode\hypertarget{ref-Golub02-2}{}%
+Golubovskii, Yu.B., J. Behnke, V.A.M. v, Behnke, J.F., 2002a. Stability of the barrier discharge relative to the filamentation, in: Proc. Of 16th ESCAMPIG/5th ICRP (Grenoble, France, 14-18 July 2002), Vol. 1, p. 235-236.
+
+\leavevmode\hypertarget{ref-Golub03}{}%
+Golubovskii, Yu.B., Maiorov, V.A., Behnke, J., Behnke, J.F., 2003. Modelling of the homogeneous barrier discharge in helium at atmospheric pressure. J. Phys. D: Appl. Phys. 36, 39--49. \url{https://doi.org/10.1088/0022-3727/36/1/306}
+
+\leavevmode\hypertarget{ref-Golub02}{}%
+Golubovskii, Yu.B., Maiorov, V.A., Behnke, J., Behnke, J.F., 2002b. Some aspects of the modeling of an uniform barrier discharge in nitrogen, in: Proc. Of 16th ESCAMPIG/5th ICRP (Grenoble, France, 14-18 July 2002), Vol. 1, p. 233-234.
+
+\leavevmode\hypertarget{ref-Golub01}{}%
+Golubovskii, Yu.B., Maiorov, V.A., Behnke, J., Behnke, J.F., 2001. The role of emission from the dielectric surface in a homogeneous barrier discharge in nitrogen, in: Proc. Of 15th Int. Symp. On Plasma Chemistry (Orl?ans, France, 10-13 July 2001) Vol VIII p 3239-3244.
+
+\leavevmode\hypertarget{ref-GolubWeb}{}%
+Golubovskii, Yu.B., others, n.d. Homogeneous barrier discharge.
+
+\leavevmode\hypertarget{ref-Goos1998}{}%
+Goossens, A., Maloney, E.L., Schoonman, J., 1998. Gas-phase synthesis of nanostructured anatase \(\mathrm{TiO_2}\). Chemical Vapor Deposition 4, 109--114. \url{https://doi.org/10.1002/(SICI)1521-3862(199805)04:03\%3C109::AID-CVDE109\%3E3.0.CO;2-U}
+
+\leavevmode\hypertarget{ref-Graz08}{}%
+Graz, I., Ebner, A., Bauer, S., Romanin, C., Gruber, H., 2008. Micropatterned atmospheric pressure discharge surface modification of fluorinated polymer films for mammalian cell adhesion and protein binding. Appl. Phys. A 92, 547--555. \url{https://doi.org/10.1007/s00339-008-4614-z}
+
+\leavevmode\hypertarget{ref-Han04}{}%
+Han, M., Lee, W., Lee, S.-K., Lee, S.S., 2003. {3D microfabrication with inclined/rotated UV lithography}. Sensors and Actuators A 111, 14--20. \url{https://doi.org/10.1016/j.sna.2003.10.006}
+
+\leavevmode\hypertarget{ref-Hand00}{}%
+Handique, K., Burke, D.T., Mastrangelo, C.H., Burns, M.A., 2000. {Nanoliter liquid metering in microchannels using hydrophobic patterns}. Anal. Chem. 72, 4100--4109. \url{https://doi.org/10.1021/ac000064s}
+
+\leavevmode\hypertarget{ref-Hei04}{}%
+Heise, M., Neff, W., Franken, O., Muranyi, P., Wunderlich, J., 2004. Sterilization of polymer foils with dielectric barrier discharges at atmospheric pressure. Plasmas polym. 9, 23--33. \url{https://doi.org/10.1023/B:PAPO.0000039814.70172.c0}
+
+\leavevmode\hypertarget{ref-Hens07}{}%
+Hensel, K., others, 2007. Electrical and optical properties of {AC} microdischarges in porous ceramics. Plasma Process. Polym. 4, 682--693. \url{https://doi.org/10.1002/ppap.200700022}
+
+\leavevmode\hypertarget{ref-Heul04}{}%
+Heule, M., Sch?nholzer, U.P., Gauckler, L.J., 2003. Patterning colloidal suspensions by selective wetting of microcontact-printed surfaces. J. Eur. Ceram. Soc. 24, 2733--2739. \url{https://doi.org/10.1016/j.jeurceramsoc.2003.09.011}
+
+\leavevmode\hypertarget{ref-Heusch1998}{}%
+Heuschkel, M.O., Gu?rin, L., Buisson, B., Bertrand, D., Renaud, P., 1998. Buried microchannels in photopolymer for delivering of solutions to neurons in a network. Sensors and Actuators B 48, 356--361. \url{https://doi.org/10.1016/S0925-4005(98)00071-9}
+
+\leavevmode\hypertarget{ref-Ho04}{}%
+Ho, K.H., Newman, S.T., Rahimifard, S., Allen, R.D., 2004. State of the art in wire electrical discharge machining {(WEDM)}. Int. J. Mach. Tool. Manufact. 44, 1247--1259. \url{https://doi.org/10.1016/j.ijmachtools.2004.04.017}
+
+\leavevmode\hypertarget{ref-incoterm2010}{}%
+ICC, 2010. INCOTERM. International Chember of Commerce, Paris.
+
+\leavevmode\hypertarget{ref-Inag1998}{}%
+Inagaki, N., Tasaka, S., Makino, M., 1998. Plasma polymer deposition from mixture of tetramethoxysilane and oxygen on {PET} films and their oxygen gas barrier properties. J. Appl. Polym. Sci. 64, 1031--1039. \url{https://doi.org/10.1002/\%28SICI\%291097-4628\%2819970509\%2964\%3A6\%3C1031\%3A\%3AAID-APP1\%3E3.0.CO\%3B2-M}
+
+\leavevmode\hypertarget{ref-publicprocurementact}{}%
+India, 2012. Public procurement act bill.
+
+\leavevmode\hypertarget{ref-ISO10780}{}%
+{ISO}~10780:1994, stationary source emissions -- measurement of velocity and volume flowrate of gas streams in ducts, n.d. ISO.
+
+\leavevmode\hypertarget{ref-ISO4003}{}%
+{ISO}~4003:1977, permeable sintered metal materials -- determination of bubble test pore size, n.d. ISO.
+
+\leavevmode\hypertarget{ref-ISO4287}{}%
+{ISO}~4287~(1997), geometrical product specifications surface texture profile method terms, definitions and surface texture parameters, n.d. ISO.
+
+\leavevmode\hypertarget{ref-Ito07}{}%
+Ito, T., others, 2007. Characterization of a microfluidic device fabricated using a photosensitive sheet. J. Micromech. Microeng. 17, 432--438. \url{https://doi.org/10.1088/0960-1317/17/3/003}
+
+\leavevmode\hypertarget{ref-Jack01}{}%
+Jackman, R.J., Floyd, T.M., Ghodssi, R., Schmidt, M.A., Jensen, K.F., 2001. Microfluidic systems with on-line UV detection fabricated in photodefinable epoxy. J. Micromech. Microeng. 11, 1--8. \url{https://doi.org/10.1088/0960-1317/11/3/316}
+
+\leavevmode\hypertarget{ref-Jens03}{}%
+Jensen, K.L., 2003. Electron emission theory and its application: Fowler--nordheim equation and beyond. J. Vac. Sci. Technol. B 21(4), 1528--1544. \url{https://doi.org/10.1116/1.1573664}
+
+\leavevmode\hypertarget{ref-Jens02}{}%
+Jensen, K.L., 2002. Theory of field emission. Vacuum Microelectronics Chapter 3, 33--104. \url{https://doi.org/10.1002/0471224332.ch3}
+
+\leavevmode\hypertarget{ref-Jide06}{}%
+Jidenko, N., Petit, M., Borra, J.P., 2006. Electrical characterization of microdischarges produced by dielectric barrier discharge in dry air at atmospheric pressure. J. Phys. D: Appl. Phys. 39, 281--293. \url{https://doi.org/10.1088/0022-3727/39/2/008}
+
+\leavevmode\hypertarget{ref-Jigu06}{}%
+Jigueta, S., Judelewicza, M., Mischlerb, S., Bertchc, A., Renaudc, P., 2006. Effect of filler behavior on nanocomposite {SU8} photoresist for moving micro-parts. Microelectron. Eng. 83, 1273--1276. \url{https://doi.org/10.1016/j.mee.2006.01.068}
+
+\leavevmode\hypertarget{ref-Kang03}{}%
+Kang, W.S., Park, J.M., Kim, Y., Hong, S.H., 2003. Numerical study on influences of barrier arrangements on dielectric barrier discharge characteristics. IEEE Trans. Plasma Sci. 31, 504--510. \url{https://doi.org/10.1109/TPS.2003.815469}
+
+\leavevmode\hypertarget{ref-Kawa1969}{}%
+Kawauchi, H., Tuzimura, K., Maeda, H., Ishida, N., 1969. Reaction of fluorescein-isothiocyanate with proteins and amino acids: {II.} Preparation of FIuorescein-thiohydantoin amino acids and their thin-layer chromatography. Journal of Biochemistry 66, 783--789.
+
+\leavevmode\hypertarget{ref-Kien04}{}%
+Kieninger, J., Jobst, G., Igel, G., Moser, I., Urban, G., 2004. {3D} polymer microstructures by laminating {SU-8} films, in: {Proceedings of {}TAS 2004}. pp. 363--365.
+
+\leavevmode\hypertarget{ref-Kim04}{}%
+Kim, K., others, 2004. {A tapered hollow metallic microneedle array using backside exposure of SU-8}. J. Micromech. Microeng. 14, 597--603. \url{https://doi.org/10.1088/0960-1317/14/4/021}
+
+\leavevmode\hypertarget{ref-Kim03}{}%
+Kim, S.-O., Eden, J.G., 2005. Arrays of microplasma devices fabricated in photodefinable glass and excited {AC or DC} by interdigitated electrodes. IEEE Photonics Technology Letters 17, 1543--1545. \url{https://doi.org/10.1109/LPT.2005.848260}
+
+\leavevmode\hypertarget{ref-Kim08}{}%
+Kim, Y.K., Kim, D.J., 2008. Deposition of super hydrophobic {a-C:F} films by dielectric barrier discharge at atmospheric pressure, in: Book of Abstract of 11th International Conference on Plasma Surface Engineering PSE 2008.
+
+\leavevmode\hypertarget{ref-Klag07-2}{}%
+Klages, C.P., Berger, C., Eichler, M., Thomas, M., 2007. Microplasma-based treatment of inner surfaces in microfluidic devices. Contributions to Plasma Physics 47, 49--56. \url{https://doi.org/10.1002/ctpp.200710008}
+
+\leavevmode\hypertarget{ref-Klag00}{}%
+Klages, C.P., H?pfner, K., Kl?ke, N., Thyen, R., 2000. Surface functionalization at atmospheric pressure by {DBD}-based pulsed plasma polymerization. Plasmas and Polymers 5, 79--89. \url{https://doi.org/10.1023/A:1009583815474}
+
+\leavevmode\hypertarget{ref-Klag07}{}%
+Klages, C.P., others, 2007. Surface technology with cold microplasmas. Plasma Process. Polym. 4, 208--218. \url{https://doi.org/10.1002/ppap.200600116}
+
+\leavevmode\hypertarget{ref-Kogel03}{}%
+Kogelschatz, U., 2003. Dielectric-barrier discharges: Their history, discharge physics, and industrial applications. Plasma Chem. Plasma Process. 23, 1--46. \url{https://doi.org/10.1023/A:1022470901385}
+
+\leavevmode\hypertarget{ref-Kogel02}{}%
+Kogelschatz, U., 2002. Filamentary, patterned, and diffuse barrier discharges. IEEE Trans. Plasma Sci. 30, 1400--1408. \url{https://doi.org/10.1109/TPS.2002.804201}
+
+\leavevmode\hypertarget{ref-Koid07}{}%
+Koida, T., Fujiwara, H., Kondo, M., 2007. Hydrogen-doped \(\mathrm{In_{2}O_{3}}\) as high-mobility transparent conductive oxide. Jpn. J. Appl. Phys. 46, L685--L687. \url{https://doi.org/10.1143/JJAP.46.L685}
+
+\leavevmode\hypertarget{ref-Kozl05}{}%
+Kozlov, K.V., others, 2005. Barrier discharges in {N2/O}2 mixtures. J. Phys. D: Appl. Phys. 38, 518--529. \url{https://doi.org/10.1088/0022-3727/38/4/003}
+
+\leavevmode\hypertarget{ref-Krei05}{}%
+Kreitz, S., Penache, C., Thomas, M., Klages, C.-P., 2005. Patterned {DBD} treatment for area-selective metallization of polymers-plasma printing. Surf. Coat. Technol. 200, 676--679. \url{https://doi.org/10.1016/j.surfcoat.2005.01.085}
+
+\leavevmode\hypertarget{ref-Kukh03}{}%
+Kukharenka, E., Farooqui, M.M., Grigore, L., Kraft, M., Hollinshead, N., 2003. Electroplating moulds using dry film thick negative photoresist. J. Micromech. Microeng. 13, S67--S74. \url{https://doi.org/10.1088/0960-1317/13/4/311}
+
+\leavevmode\hypertarget{ref-gopal2014}{}%
+Kumar, G., 2014. Master compendium of useful information. None so far.
+
+\leavevmode\hypertarget{ref-Kunh00}{}%
+Kunhardt, E.E., 2000. Generation of large-volume, atmospheric-pressure, nonequilibrium plasmas. IEEE Trans. Plasma Sci. 28, 189--200. \url{https://doi.org/10.1109/27.842901}
+
+\leavevmode\hypertarget{ref-Kwak03}{}%
+Kwak, M.G., others, 2003. Improvement of luminance efficiency in xenon dielectric barrier discharge flat lamp. IEEE Trans. Plasma Sci. 31, 176--178. \url{https://doi.org/10.1109/TPS.2003.808867}
+
+\leavevmode\hypertarget{ref-Lang05}{}%
+Langowski, B.A., Uhrich, K.E., 2005. Microscale plasma-initiated patterning ({PIP}). Langmuir 21, 10509--10514. \url{https://doi.org/10.1021/la052222m}
+
+\leavevmode\hypertarget{ref-Lede08}{}%
+Ledernez, L., Olcaytug, F., Urban, G., Yasuda, H., n.d. Influence of the electrode material on the electrical breakdown of argon.
+
+\leavevmode\hypertarget{ref-Leve1944}{}%
+Levenberg, K., 1944. A method for the solution of certain non-linear problems in least squares. Q. Appl. Math 2, 164--168.
+
+\leavevmode\hypertarget{ref-CRC07}{}%
+Lide, D.R. (Ed.), 2007. CRC handbook of chemistry and physics, 87th ed. Taylor; Francis.
+
+\leavevmode\hypertarget{ref-Lu08}{}%
+Lu, M., Park, S.-J., Cunningham, B.T., Eden, J.G., 2008. Low temperature plasma channels generated in microcavity trenches with widths of 20 - 150 {}m and aspect ratios as large as 10\textsuperscript{4} : 1. Appl. Phys. Lett. 92, 1397--1402. \url{https://doi.org/10.1063/1.2827197}
+
+\leavevmode\hypertarget{ref-Lu07}{}%
+Lu, M., Park, S.-J., Cunningham, B.T., Eden, J.G., 2007. Microcavity plasma devices and arrays fabricated by plastic-based replica molding. J. Microelectromech. Syst. 16, 1397--1402. \url{https://doi.org/10.1109/JMEMS.2006.886034}
+
+\leavevmode\hypertarget{ref-Luca09}{}%
+Lucas, N., 2009. Microplasma stamps - an atmospheric-pressure plasma source for the area-selective modification of surfaces (PhD thesis). Institute for Microtechnology, TU Braunschweig.
+
+\leavevmode\hypertarget{ref-Luca08-2}{}%
+Lucas, N., Ermel, V., Kurrat, M., B?ttgenbach, S., 2008a. Microplasma stamps for selective surface modification: Design and characterization. J. Phys. D: Appl. Phys. 41, 215202 (7pp). \url{https://doi.org/10.1088/0022-3727/41/21/215202}
+
+\leavevmode\hypertarget{ref-Luca08-1}{}%
+Lucas, N., Hinze, A., Klages, C.-P., B?ttgenbach, S., 2008b. Design and optimization of dielectric barrier discharge microplasma stamps. J. Phys. D: Appl. Phys. 41, 194012 (5pp). \url{https://doi.org/10.1088/0022-3727/41/19/194012}
+
+\leavevmode\hypertarget{ref-Muel1999}{}%
+M?ller, I., Punset, C., Ammelt, E., Purwins, H.-G., Boeuf, J.P., 1999. Self-organized filaments in dielectric barrier glow discharges. IEEE Trans. Plasma Sci. 27, 20--21. \url{https://doi.org/10.1109/27.763004}
+
+\leavevmode\hypertarget{ref-Malk08}{}%
+Malkov, G.S., others, 2008. Pulsed-plasma-induced micropatterning with alternating hydrophilic and hydrophobic surface chemistries. Plasma Process. Polym. 5, 129--145. \url{https://doi.org/10.1002/ppap.200700118}
+
+\leavevmode\hypertarget{ref-Marq1963}{}%
+Marquardt, D.W., 1963. An algorithm for least-squares estimation of nonlinear parameters. SIAM Journal on Applied Mathematics 11, 431--441. \url{https://doi.org/10.1137/0111030}
+
+\leavevmode\hypertarget{ref-Mart04}{}%
+Martin, C.R., Aksay, I.A., 2004. Submicrometer-scale patterning of ceramic thin films. J. of Electroceramics 12, 53--68. \url{https://doi.org/10.1023/B:JECR.0000034001.15359.98}
+
+\leavevmode\hypertarget{ref-Mart1997}{}%
+Martinet, C., Paillard, V., Gagnaire, A., Joseph, J., 1997. Deposition of \(\mathrm{SiO_2}\) and \(\mathrm{TiO_2}\) thin films by plasma enhanced chemical vapor deposition for antireflection coating. J. Non-Cryst. Solids 216, 77--82. \url{https://doi.org/10.1016/S0022-3093(97)00175-0}
+
+\leavevmode\hypertarget{ref-Mass01}{}%
+Massines, F., others, 2001. The role of dielectric barrier discharge atmosphere and physics on polypropylene surface treatment. Plasmas and Polymers 6, 35--49. \url{https://doi.org/10.1023/A:1011365306501}
+
+\leavevmode\hypertarget{ref-Masu1998}{}%
+Masuzawa, T., Takawashi, T., 1998. {Recent trends in EDM/ECM technologies in Japan}. VDI BERICHTE 1405, 1--16.
+
+\leavevmode\hypertarget{ref-Mata06}{}%
+Mata, A., Fleischmann, A.J., Roy, S., 2006. Fabrication of multi-layer {SU-8} microstructures. J. Micromech. Microeng. 16, 276--284. \url{https://doi.org/10.1088/0960-1317/16/2/012}
+
+\leavevmode\hypertarget{ref-Melz1996}{}%
+Melzak, K.A., Sherwood, C.S., Turner, R.F.B., Haynes, C.A., 1996. Driving forces for {DNA} adsorption to silica in perchlorate solutions. J. Colloid Interface Sci. 181, 635--644. \url{https://doi.org/10.1006/jcis.1996.0421}
+
+\leavevmode\hypertarget{ref-Menz02}{}%
+Menz, W., F?rster, R., Schoth, A., M?ller, C., 2002. Non-conventional machining for microsystems.
+
+\leavevmode\hypertarget{ref-PurchaseManualGOI2006}{}%
+Ministry of Finance, G. of I., 2006. MANUAL ON POLICIES AND PROCEDURES FOR PURCHASE OF GOODS.
+
+\leavevmode\hypertarget{ref-Mira00}{}%
+Mirala?, S.F., others, 2000. Electrical and optical diagnostics of dielectric barrier discharges {(DBD) in He and N2} for polymer treatment. Plasmas and Polymers 5, 63--77. \url{https://doi.org/10.1023/A:1009531831404}
+
+\leavevmode\hypertarget{ref-TOK06}{}%
+Misumi, K., others, 2006. Faster sensitivity and non-antimonite permanent photoresist for {MEMS}, in: Lin, Q. (Ed.), Advances in Resist Technology and Processing XXIII, Proceedings of SPIE. SPIE, p. 61534F. \url{https://doi.org/10.1117/12.656249}
+
+\leavevmode\hypertarget{ref-TOK06-2}{}%
+Misumi, K., Saito, K., Yamanouchi, A., Senzaki, T., Honma, H., 2006. Minute tunnel structure formation with permanent film photoresist. J. Photopolym. Sci. Technol. 19, 57--62. \url{https://doi.org/10.2494/photopolymer.19.57}
+
+\leavevmode\hypertarget{ref-Mull1988}{}%
+Mullins, W.M., Averbach, B.L., 1988. Surface properties of silicon and aluminum oxide powders. Surface Science 206, 41--51. \url{https://doi.org/10.1016/0039-6028(88)90013-1}
+
+\leavevmode\hypertarget{ref-Murp1956}{}%
+Murphy, E.L., Good, Jr., R.H., 1956. Thermionic emission, field emission, and the transition region. Phys. Rev. 102, 1464--1473. \url{https://doi.org/10.1103/PhysRev.102.1464}
+
+\leavevmode\hypertarget{ref-Naka01}{}%
+Nakajima, A., Hashimoto, K., Watanabe, T., 2001. Recent studies on super-hydrophobic films. Monatshefte f?r Chemie / Chemical Monthly 132, 31--41. \url{https://doi.org/10.1007/s007060170142}
+
+\leavevmode\hypertarget{ref-Niem1995}{}%
+Niemeyer, L., 1995. A generalized approach to partial discharge modeling. IEEE Transactions on Dielectrics and Electrical Insulation 2, 510--528. \url{https://doi.org/10.1109/94.407017}
+
+\leavevmode\hypertarget{ref-Noes04}{}%
+Noeske, M., Degenhardt, J., Strudthoff, S., Lommatzsch, U., 2004. Plasma jet treatment of five polymers at atmospheric pressure: Surface modifications and the relevance for adhesion. International Journal of Adhesion \& Adhesives 24, 171--177. \url{https://doi.org/10.1016/j.ijadhadh.2003.09.006}
+
+\leavevmode\hypertarget{ref-Nord1928}{}%
+Nordheim, L., 1928. Zur theorie der thermischen emission und der reflexion von elektronen an metallen. Zeitschrift f?r Physik A Hadrons and Nuclei 46, 833--855. \url{https://doi.org/10.1007/BF01391020}
+
+\leavevmode\hypertarget{ref-Nuss09}{}%
+Nu?baum, D., Herrmann, D., Knoll, T., Velten, T., 2009. Micromixing structures for lab-on chip applications: Fabrication and simulation of 90? Zigzag microchann els in dry film resist. \url{https://doi.org/10.1243/17547164C0012009041}
+
+\leavevmode\hypertarget{ref-Obri01}{}%
+O'Brien, J., 2001. Advanced photoresist technologies for microsystems. J. Micromech. Microeng. 11, 353--358. \url{https://doi.org/10.1088/0960-1317/11/4/312}
+
+\leavevmode\hypertarget{ref-Ohl1999}{}%
+Ohl, A., Schr?der, K., 1999. Plasma-induced chemical micropatterning for cell culturing applications: A brief review. Surf. Coat. Technol. 116, 820--830. \url{https://doi.org/10.1016/S0257-8972(99)00150-4}
+
+\leavevmode\hypertarget{ref-Olss1998}{}%
+Olsson, A., 1998. Valve-less diffuser micropumps (PhD thesis). School of Electrical Engineering, Royal Institute of Technology, Stockholm, Sweden.
+
+\leavevmode\hypertarget{ref-Pan02}{}%
+Pan, C.-T., Yang, H., Shen, S.-C., Chou, M.-C., Chou, H.-P., 2002. A low-temperature wafer bonding technique using patternable materials. J. Micromech. Microeng. 12, 611--615. \url{https://doi.org/10.1088/0960-1317/12/5/315}
+
+\leavevmode\hypertarget{ref-Park01}{}%
+Park, J., Henins, I., Herrmann, H.W., Selwyn, G.S., 2001. Discharge phenomena of an atmospheric pressure radio-frequency capacitive plasma source. J. Appl. Phys. 89, 20--28. \url{https://doi.org/10.1063/1.1323753}
+
+\leavevmode\hypertarget{ref-Park05}{}%
+Park, S.-J., Kim, K.S., Eden, J.G., 2005. Nanoporous alumina as a dielectric for microcavity plasma devices: Multilayer {Al/AlO} structures. Appl. Phys. Lett. 86, 221501. \url{https://doi.org/10.1063/1.1923747}
+
+\leavevmode\hypertarget{ref-Pasc1889}{}%
+Paschen, F., 1889. {Ueber die zum Funken?bergang in Luft, Wasserstoff und Kohlens?ure bei verschiedenen Drucken erforderliche Potentialdifferenz}. Annalen der Physik 273, 69--96. \url{https://doi.org/10.1002/andp.18892730505}
+
+\leavevmode\hypertarget{ref-Payn02}{}%
+Payne, W.G., James, B.W., Falconer, I.S., 2002. The growth and decay of miniature dielectric barrier discharges in helium, neon, and argon. IEEE Trans. Plasma Sci. 30, 170--171. \url{https://doi.org/10.1109/TPS.2002.1003978}
+
+\leavevmode\hypertarget{ref-PCI}{}%
+PCI-SIG, n.d. {PCI} conventional specifications.
+
+\leavevmode\hypertarget{ref-Pena04}{}%
+Penache, C., Gessner, C., Betker, T., Bartels, V., Klages, C.-P., 2004. Plasma printing: Patterned surface functionalisation and coating at atmospheric pressure. IEE Proc.-Nanobiotechnol. 151, 139--144. \url{https://doi.org/10.1049/ip-nbt:20040836}
+
+\leavevmode\hypertarget{ref-Phel1999}{}%
+Phelps, A.V., Petrovic, Z.Lj., 1999. Cold-cathode discharges and breakdown in argon: Surface and gas phase production of secondary electrons. Plasma Sources Sci. Technol. 8, 21--44. \url{https://doi.org/10.1088/0963-0252/8/3/201}
+
+\leavevmode\hypertarget{ref-Rada07}{}%
+Radadia, A.D., Cao, L., Jeong, H.-K., Shannon, M.A., Masel, R.I., 2007. A {3D} micromoxer fabricated with dry film resist, in: Proc. Of MEMS 2007. pp. 361--364. \url{https://doi.org/10.1109/MEMSYS.2007.4433110}
+
+\leavevmode\hypertarget{ref-Radm07}{}%
+Radmilovic-Radjenovic, M., Petrovic, Z.L., Radjenovic, B., 2007. Modelling of breakdown behavior by {PIC/MCC} code with improved secondary emission models. J. Phys.: Conf. Ser. 71, 012007. \url{https://doi.org/10.1088/1742-6596/71/1/012007}
+
+\leavevmode\hypertarget{ref-Radu03}{}%
+Radu, I., Bartnikas, R., Czeremuszkin, G., Wertheimer, M.R., 2003. Diagnostics of dielectric barrier discharges in noble gases: Atmospheric pressure glow and pseudoglow discharges and spatio-temporal patterns. IEEE Trans. Plasma Sci. 31, 411--421. \url{https://doi.org/10.1109/TPS.2003.811647}
+
+\leavevmode\hypertarget{ref-Radu05}{}%
+Radu, I., Bartnikas, R., Wertheimer, M.R., 2005. Diagnostics and modelling of noble gas atmospheric pressure dielectric barrier discharges in homogeneous or diverging electric fields. J. Phys. D: Appl. Phys. 38, 539--546. \url{https://doi.org/10.1088/0022-3727/38/4/005}
+
+\leavevmode\hypertarget{ref-Rao05}{}%
+Rao, R.B., Krafcik, K.L., Morales, A.M., Lewis, J., 2005. Microfabricated deposition nozzles for direct-write assembly of three-dimensional periodic structures. Adv. Mater. 17, 289--293. \url{https://doi.org/10.1002/adma.200400514}
+
+\leavevmode\hypertarget{ref-Rich1921}{}%
+Richardson, O.W., 1921. The emission of electricity from hot bodies. Longmans, Green; co.
+
+\leavevmode\hypertarget{ref-SOP2013RITES}{}%
+RITES, 2013. SOP2013, 2013th ed. RITES Limited, RITES Bhawan, Plot 1, Sector 29, Gurgaon.
+
+\leavevmode\hypertarget{ref-Sarr06}{}%
+Sarra-Bournet, C., Turgeon, S., Mantovani, D., Laroche, G., 2006. A study of atmospheric pressure plasma discharges for surface functionalization of {PTFE} used in biomedical applications. J. Phys. D: Appl. Phys. 39, 3461--3469. \url{https://doi.org/10.1088/0022-3727/39/16/S03}
+
+\leavevmode\hypertarget{ref-Sawa1995}{}%
+Sawada, Y., Ogawa, S., Kogoma, M., 1995. Synthesis of plasma-polymerized tetraethoxysilane and hexamethyldisiloxane films prepared by atmospheric pressure glow discharge. J. Phys. D: Appl. Phys. 28, 1661--1661. \url{https://doi.org/10.1088/0022-3727/28/8/015}
+
+\leavevmode\hypertarget{ref-Scho1999}{}%
+Sch?nholzer, U.P., Gauckler, L.J., 1999. Ceramic parts patterned in the micrometer range. Adv. Mater. 11, 630--632.
+
+\leavevmode\hypertarget{ref-Sche07}{}%
+Schenk, A., others, 2007. Microstructured electrode arrays: Optical analysis of the glow discharge in a magnified electrode gap. Plasma Process. Polym. 4, S927--S930. \url{https://doi.org/10.1002/ppap.200732301}
+
+\leavevmode\hypertarget{ref-Scho04}{}%
+Schoenbach, K.H., Moselhy, M., Shi, W., 2004. Self-organization in cathode boundary layer microdischarges. Plasma Sources Sci. Technol. 13, 177--185. \url{https://doi.org/10.1088/0963-0252/13/1/023}
+
+\leavevmode\hypertarget{ref-Smit00}{}%
+Smith, R.C., others, 2000. Chemical vapour deposition of the oxides of titanium, zirconium and hafnium for use as high-k materials in microelectronic devices. A carbon-free precursor for the synthesis of hafnium dioxide. Adv. Mater. Opt. and Electron. 10, 105--114. \url{https://doi.org/10.1002/1099-0712(200005/10)10:3/5\%3C105::AID-AMO402\%3E3.0.CO;2-J}
+
+\leavevmode\hypertarget{ref-Socr1994}{}%
+Socrates, G., 1994. Infrared and raman characteristic group frequencies: Tables and charts, 2nd ed. John Wiley \& Sons.
+
+\leavevmode\hypertarget{ref-Lightning}{}%
+Southern, J.R., n.d. Toronto thunderstorm.
+
+\leavevmode\hypertarget{ref-Stoe10}{}%
+St?hr, U., others, 2010. Porous photoresist stamps for selective plasma treatment. Plasma Processes Polym. 7, 9--15. \url{https://doi.org/10.1002/ppap.200900063}
+
+\leavevmode\hypertarget{ref-Stoe09}{}%
+St?hr, U., others, 2009. Multilayer photoresist stamps for selective plasma treatment in micrometer scales. Plasma Process. Polym. 6, 228--233. \url{https://doi.org/10.1002/ppap.200800217}
+
+\leavevmode\hypertarget{ref-Stoe08}{}%
+St?hr, U., Vulto, P., Hoppe, P., Urban, G., Reinecke, H., 2008. High-resolution permanent photoresist laminate for microsystem applications. J. Micro/Nanolith. MEMS MOEMS 7, 033009. \url{https://doi.org/10.1117/1.2964217}
+
+\leavevmode\hypertarget{ref-Stal07}{}%
+Stalter, O., Burger, B., Lehrmann, S., 2007. {Silicon Carbide (SiC) D-MOS for grid-feeding solar-inverters}. \url{https://doi.org/10.1109/EPE.2007.4417654}
+
+\leavevmode\hypertarget{ref-Star06}{}%
+Starikovskaia, S.M., 2006. Plasma assisted ignition and combustion. J. Phys. D: Appl. Phys. 39, R265--R299. \url{https://doi.org/10.1088/0022-3727/39/16/R01}
+
+\leavevmode\hypertarget{ref-Step07}{}%
+Stephan, K., others, 2007. Fast prototyping using a dry film photoresist: Microfabrication of soft-lithography masters for microfluidic structures. J. Micromech. Microeng. 17, N69--N74. \url{https://doi.org/10.1088/0960-1317/17/10/N01}
+
+\leavevmode\hypertarget{ref-Suk07}{}%
+Suk, J.W., Cho, J., 2007. Capillary flow control using hydrophobic patterns. J. Micromech. Microeng. 17, N11--N15. \url{https://doi.org/10.1088/0960-1317/17/4/N01}
+
+\leavevmode\hypertarget{ref-Tan06}{}%
+Tan, H.M.L., Akagi, T., Ichiki, T., 2006. Localized plasma treatment of poly(dimethylsiloxane) surfaces and its application to controlled cell cultivation. J. Photopolym. Sci. Technol. 19, 245--250. \url{https://doi.org/10.2494/photopolymer.19.245}
+
+\leavevmode\hypertarget{ref-LyX}{}%
+The LyX Team, n.d. LyX 1.6.x.
+
+\leavevmode\hypertarget{ref-Ther03}{}%
+Therriault, D., White, S.R., Lewis, J.A., 2003. Chaotic mixing in three-dimensional microvascular networks fabricated by direct-write assembly. Nature Materials 2, 265--271. \url{https://doi.org/10.1038/nmat863}
+
+\leavevmode\hypertarget{ref-Thom06}{}%
+Thomas, M., Eichler, M., Klages, C.-P., 2006. Coating with atmospheric pressure plasma processes: From large area to {}-structures, in: 49th Annual Technical Conference Proceedings. Society of Vacuum Coaters.
+
+\leavevmode\hypertarget{ref-Thom07}{}%
+Thomas, M., Hausen, M. von, Klages, C.-P., Baumhof, P., 2007. Generation of stable coatings with carboxylic groups by copolymerization of {MAA} and {VTMS} using {DBD} at atmospheric pressure. Plasma Process. Polym. 4, S475--S481. \url{https://doi.org/10.1002/ppap.200731210}
+
+\leavevmode\hypertarget{ref-Town1915}{}%
+Townsend, J.S., 1915. Electricity in gases. Clarendon Press.
+
+\leavevmode\hypertarget{ref-Town1910}{}%
+Townsend, J.S., 1910. The theory of ionization of gases by collision. Constable.
+
+\leavevmode\hypertarget{ref-Tsai06-2}{}%
+Tsai, Y.-C., Jen, H.-P., Lin, K.-W., Hsie, Y.-Z., 2006a. Fabrication of microfluidic devices using dry film photoresist for microchip capillary electrophoresis. J. Chromatogr. A 1111, 267--271. \url{https://doi.org/0.1016/j.chroma.2005.12.003}
+
+\leavevmode\hypertarget{ref-Tsai06-1}{}%
+Tsai, Y.-C., Yang, S.-J., Lee, H.-T., Jen, H.-P., Hsieh, Y.-Z., 2006b. Fabrication of a flexible and disposable microreactor using a dry film photoresist. J. Chin. Chem. Soc. 53, 683--688.
+
+\leavevmode\hypertarget{ref-Uden1972}{}%
+Udenfriend, S., others, 1972. Fluorescamine: A reagent for assay of amino acids, peptides, proteins, and primary amines in the picomole range. Science 178, 871--872. \url{https://doi.org/10.1126/science.178.4063.871}
+
+\leavevmode\hypertarget{ref-Velt05}{}%
+Velten, T., others, 2005. Packaging of bio-MEMS: Strategies, technologies, and applications. IEEE trans. adv. packag. 28, 533--546. \url{https://doi.org/10.1109/TADVP.2005.858427}
+
+\leavevmode\hypertarget{ref-Vora05}{}%
+Vora, K.D., Shew, B.Y., Harvey, E.C., Hayes, J.P., Peele, A.G., 2005. {Specification of mechanical support structures to prevent SU-8 stiction in high aspect ratio structures}. J. Micromech. Microeng. 15, 978--983. \url{https://doi.org/10.1088/0960-1317/15/5/012}
+
+\leavevmode\hypertarget{ref-Vult07}{}%
+Vulto, P., Igel, G., Urban, G.A., 2007. Full wafer fabrication process for microfluidic glass chips with electroplated electrodes. Solid-State Sensors, Actuators and Microsystems Conference, 2007. TRANSDUCERS 2007. \url{https://doi.org/10.1109/SENSOR.2007.4300085}
+
+\leavevmode\hypertarget{ref-Vult06-2}{}%
+Vulto, P., Klaunick, C., Igel, G., Urban, G., 2006. {tmRNA} purification by electrophoretic filtration for genomic identification of bacteria on-a-chip, in: Proceedings of {}TAS 2006. pp. 377--379.
+
+\leavevmode\hypertarget{ref-Vult06}{}%
+Vulto, P., others, 2006. Selective sample recovery of DEP-separated cells and particles by phaseguide-controlled laminar flow. J. Micromech. Microeng. 16, 1847--1853. \url{https://doi.org/10.1088/0960-1317/16/9/013}
+
+\leavevmode\hypertarget{ref-Vult05}{}%
+Vulto, P., others, 2005. Microfluidic channel fabrication in dry film resist for production and prototyping of hybrid chips. Lab on a Chip 5, 158--162. \url{https://doi.org/10.1039/b411885e}
+
+\leavevmode\hypertarget{ref-Wang06}{}%
+Wang, C., He, X., 2006. Polypropylene surface modification model in atmospheric pressure dielectric barrier discharge. Surface \& Coatings Technology 201, 3377--3384. \url{https://doi.org/10.1016/j.surfcoat.2006.07.205}
+
+\leavevmode\hypertarget{ref-Wash05}{}%
+Washio, Y., others, 2005. Multilayer ultra thick resist development for {MEMS}. \url{https://doi.org/10.1117/12.600227}
+
+\leavevmode\hypertarget{ref-Will04}{}%
+Williams, J.D., Wang, W., 2004. Microfabrication of an electromagnetic power relay using {SU-8 based UV-LIGA} technology. Microsystem Technologies 10, 699--705. \url{https://doi.org/10.1007/s00542-004-0396-1}
+
+\leavevmode\hypertarget{ref-xie2015}{}%
+Xie, Y., 2015. Dynamic documents with {R} and knitr, 2nd ed. Chapman; Hall/CRC, Boca Raton, Florida.
+
+\leavevmode\hypertarget{ref-Xu07}{}%
+Xu, X., Li, L., Wang, S., Zhao, L., Ye, T., 2007. Deposition of \(\mathrm{SiO_x}\) films with a capacitively-coupled plasma at atmospheric pressure. Plasma Sources Sci. Technol. 16, 372--376. \url{https://doi.org/10.1088/0963-0252/16/2/021}
+
+\leavevmode\hypertarget{ref-Yama1996}{}%
+Yamada, K., Haraguchi, T., Kajiyama, T., 1996. Plasma-graft polymerization of vinyl monomers with reactive groups onto a surface of poly (p-phenylene terephthalamide) fiber. J. Appl. Polym. Sci. 60, 1847--1853. \url{https://doi.org/10.1002/(SICI)1097-4628(19960613)60:11\%3C1847::AID-APP8\%3E3.0.CO;2-L}
+
+\leavevmode\hypertarget{ref-Yasu05}{}%
+Yasuda, H., 2005. Luminous chemical vapor deposition and interface engineering, 1st ed, Surfactant science series. Marcel Dekker.
+
+\leavevmode\hypertarget{ref-Yu06}{}%
+Yu, L., others, 2006. Adhesive bonding with SU-8 at wafer level for microfluidic devices. J. Phys.: Conf. Ser. 34, 776--781. \url{https://doi.org/10.1088/1742-6596/34/1/128}
+
+\leavevmode\hypertarget{ref-Zhan04}{}%
+Zhang, J., Chan-Park, M.B., Conner, S.R., 2004. Effect of exposure dose on the replication fidelity and profile of very high aspect ratio microchannels in {SU-8}. Lab on a Chip 4, 646--653. \url{https://doi.org/10.1039/b403304c}
+
+\leavevmode\hypertarget{ref-Zhan1995}{}%
+Zhang., J., Kato, K., Uyama, Y., Ikada, Y., 1995. Surface graft polymerization of glycidyl methacrylate onto polyethylene and the adhesion with epoxy resin. J. Polymer Sci. Polymer Chem. 33, 2629--2638. \url{https://doi.org/10.1002/pola.1995.080331509}
+
+\leavevmode\hypertarget{ref-Zhao1999}{}%
+Zhao, Y., Urban, M.-W., 1999. Spectroscopic studies of microwave plasma reactions of maleic anhydride on poly (vinylidene fluoride) surfaces: Crystallinity and surface reactions. Langmuir 15, 3538--3544. \url{https://doi.org/10.1021/la981310m}
+
+\leavevmode\hypertarget{ref-Zou01}{}%
+Zou, X.P., Kang, E.T., Neoh, K.G., Cui, C.Q., Lim, T.B., 2001. Surface modification of poly (tetrafluoroethylene) films by plasma polymerization of glycidyl methacrylate for adhesion enhancement with evaporated copper. Polymer 42, 6409--6418. \url{https://doi.org/10.1016/S0032-3861(01)00113-6}
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 \end{CSLReferences}
 

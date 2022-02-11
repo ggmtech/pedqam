@@ -1,3 +1,48 @@
+
+###############################################
+###############################################
+# see https://r-posts.com/survcart-constructing-survival-tree-in-r/
+install.packages("LongCART")
+library(LongCART)
+
+
+
+library(speff2trial)
+data("ACTG175", package = "speff2trial")
+adata<- reshape(data    = ACTG175[,!(names(ACTG175) %in% c("cd80", "cd820"))],
+                varying = c("cd40", "cd420", "cd496"),  
+                v.names = "cd4",
+                  idvar = "pidnum", 
+              direction = "long", 
+                  times = c(0, 20, 96) )
+
+adata <- adata[order(adata$pidnum, adata$time),]
+
+adata
+
+data(GBSG2) #  included in LongCART
+out1<- StabCat.surv( data=GBSG2, timevar="time", censorvar="cens", 
+                                     splitvar="horTh", time.dist="exponential", 
+                                     event.ind=1) 
+out1$pval
+
+# The p-value is 0.00343 suggesting the influence of hormonal therapy on RFS. Here we considered Exponential distribution for RFS, but the following distributions can be specified as well: "weibull", "lognormal" or "normal". 
+
+# see https://r-posts.com/survcart-constructing-survival-tree-in-r/
+
+
+
+
+
+
+
+
+
+
+
+###############################################
+
+
 # survival
 data <- data.frame(  x = runif(20),  
                      y = runif(20),   

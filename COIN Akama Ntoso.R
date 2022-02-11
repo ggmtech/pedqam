@@ -7,10 +7,10 @@ print(class(ASEM))
 View(ASEM)
 
 COINr::plotframework(ASEM)  # nice pie !
-COINr::indDash(ASEM)        # simply displays illustrative distributions of existing indicators.
+COINr::indDash(ASEM)        # simply displays illustrative distributions of existing indicators
 
 # get stats
-ASEM <- COINr::getStats(ASEM, dset = "Raw", out2 = "COIN") # getStats() returns statistics
+ASEM <- COINr::getStats(ASEM, dset = "Raw", out2 = "COIN")    # getStats() returns statistics
 
 stat_tab <- ASEM$Analysis$Raw$StatTable[1:8]  # display stats table, first few columns/rows only
 roundDF(head(stat_tab, 5))
@@ -45,3 +45,4 @@ COINr::plotSA(SAresults, ptype = "bar")
 # plot bar chart
 COINr::plotSA(SAresults, ptype = "pie") + ggplot2::theme(text = ggplot2::element_text(size = 10))
 COINr::plotSA(SAresults, ptype = "box") + ggplot2::theme(text = ggplot2::element_text(size = 8))
+

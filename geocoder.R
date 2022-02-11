@@ -1,4 +1,4 @@
-# tidydeocoder Tidygeocoder 1.0.4
+# tidydeocoder Tidygeocoder 1.0.4  also osmextract
 # Combining Multiple Queries from multiple servers using geocode_combine() and geo_combine()
 # install.packages('tidygeocoder')  # or #devtools::install_github("jessecambon/tidygeocoder")
 
@@ -49,7 +49,7 @@ some_addresses <- tribble(
 some_addresses
 # geocode the addresses  not worked
 lat_longs <- some_addresses %>%  geocode(addr, method = 'osm', lat = latitude , long = longitude)
-
+lat_longs
 
 # Plot
 library(ggplot2)
@@ -67,4 +67,16 @@ reverse <- lat_longs %>%
   reverse_geocode(lat = latitude, long = longitude, method = 'osm',
                   address = address_found, full_results = TRUE) %>%
   select(-addr, -licence)
+
+
+#############################
+#############################
+#############################
+library(osmextract)
+library(sf)
+
+Delhi <- oe_get("Lucknow")
+oe_match("Lucknow, India") # ? No exact match found for place = Lucknow, India and provider = geofabrik.
+oe_match_pattern("Delhi")
+oe_match_pattern("Lucknow") # Null
 
