@@ -2,7 +2,7 @@
 #install.packages(alluvial)
 library(tidyverse)    # for %>%
 library(alluvial)
-# 
+#
 # tidyr::replace_na(): Missing values turns into a value (NA –> -99)
 # naniar::replace_with_na(): Value becomes a missing value (-99 –> NA)
 
@@ -16,18 +16,18 @@ tit %>% View()
 alluvial(  tit[,1:4],   freq   = tit$Freq  )
 
 # or with bells
-alluvial(tit[,1:4], 
+alluvial(tit[,1:4],
          freq   = tit$Freq,
          col    = ifelse(tit$Survived == "Yes", "red", "blue"),
          border = ifelse(tit$Survived == "Yes", "blue", "grey"),
          hide   = tit$Freq < 100, #uncomplicate by ignoring small
          cex    = 0.7 ,    #font size
-         alpha  = 0.4 ,   
+         alpha  = 0.4 ,
          # blocks=FALSE   # for merging
          gap.width = 0.1,
          cw = 0.1         # colomn width
-         # other options ..layer order, gap.width, xw,cw,blocks, 
-         # ordering,axis_lables, 
+         # other options ..layer order, gap.width, xw,cw,blocks,
+         # ordering,axis_lables,
         )
 
 # alluvial(..., freq, col = "gray", border = 0, layer, hide = FALSE,
@@ -46,12 +46,12 @@ alluvial(  tit2d[,1:2], freq=tit2d$n  )
 
 #same
 tit %>% group_by(Class, Survived)       %>%
-        summarise(  n = sum(Freq)  )    %>% 
+        summarise(  n = sum(Freq)  )    %>%
         select(1,2)                     %>%
         alluvial(   freq=tit2d$n   )
 
 #Three variables Sex, Class, and Survived:
-    
+
 # Survival status, Sex, and Class
 tit %>% group_by(Sex, Class, Survived) %>%
         summarise(n = sum(Freq)) -> tit3d
@@ -60,10 +60,10 @@ alluvial(   tit3d[,1:3],    freq=tit3d$n)
 
 # Customizing colors
 # Colors of the alluvia can be customized with col, border and alpha arguments. For example:
-    
+
 alluvial(    tit3d[,1:3],   freq=tit3d$n,
              col = ifelse( tit3d$Sex == "Female",  "pink",  "lightskyblue"),
-             border = "green",  
+             border = "green",
             # blocks=FALSE,
              alpha = 0.7
     )
@@ -88,7 +88,7 @@ d
 
 
 #As there are three rows, we will have three alluvia:
-    
+
 alluvial(  d[,1:2],       freq=d$freq, col=1:3, alpha=1)
 # Reversing the order
 alluvial(  d[ 3:1, 1:2 ], freq=d$freq, col=3:1, alpha=1)
@@ -121,13 +121,13 @@ alluvial(    tit[,c(4,2,3)],  freq=tit$Freq,
 library(ggalluvial)
 
 ggplot(as.data.frame(Titanic),
-       aes( y = Freq, 
-            axis1 = Survived, 
-            axis2 = Sex, 
+       aes( y = Freq,
+            axis1 = Survived,
+            axis2 = Sex,
             axis3 = Class)  )      +
     geom_alluvium( aes(fill = Class),
-                   width = 0, 
-                   knot.pos = 0, 
+                   width = 0,
+                   knot.pos = 0,
                    reverse = FALSE) +
     guides(fill = FALSE) +
     geom_stratum(width = 1/8, reverse = FALSE) +
@@ -145,7 +145,7 @@ ggplot(data = titanic_wide,
         scale_x_discrete(  limits = c("Class", "Sex", "Age"), expand = c(.1, .05)   ) +
         xlab("Demographic") +
         geom_alluvium(aes(fill = Survived)) +
-        geom_stratum() + 
+        geom_stratum() +
         geom_text(stat = "stratum", label.strata = TRUE) +
         theme_minimal() +
         ggtitle("passengers on  Titanic", "stratified by demographics and survival")
@@ -172,11 +172,11 @@ nodes = data.frame("name" =    c("Node A",       # Node 0
                                 "Node C",        # Node 2
                                 "Node D",        # Node 3
                                 "Nodes E"
-                                ))       
+                                ))
 
-links = as.data.frame(  
+links = as.data.frame(
     matrix(      c(  0, 1, 5,           # Each row represents a link. The first number
-                     0, 2, 20,          # represents the node being conntected from. 
+                     0, 2, 20,          # represents the node being conntected from.
                      1, 3, 30,          # the second number represents the node connected to.
                      2, 3, 40,          # The third number is the value of the node
                      3, 4, 25),
@@ -186,13 +186,13 @@ names(links) = c("source", "target", "value")
 
 links
 
-sankeyNetwork( Links = links, 
+sankeyNetwork( Links = links,
                Nodes = nodes,
-               Source = "source", 
+               Source = "source",
                Target = "target",
-               Value = "value", 
+               Value = "value",
                NodeID = "name",
-               fontSize= 18, 
+               fontSize= 18,
                nodeWidth = 30  )
 
 
@@ -202,43 +202,44 @@ sankeyNetwork( Links = links,
 
 data(majors)
 # omit missing lodes and incident flows
+majors
 ggplot(majors,
        aes(x = semester, stratum = curriculum, alluvium = student)) +
        geom_alluvium(fill = "darkgrey", na.rm = TRUE) +
        geom_stratum(aes(fill = curriculum), color = NA, na.rm = TRUE) +
-       #scale_y_reverse() + 
+       #scale_y_reverse() +
        #geom_flow(stat = "alluvium", lode.guidance = "rightleft", color = "black")
        theme_bw()
 
 
-## Not run: 
+## Not run:
 # Recreate Bostock Sankey diagram: http://bost.ocks.org/mike/sankey/
 # Load energy projection data
 URL <- paste0('https://cdn.rawgit.com/christophergandrud/networkD3/' , 'master/JSONdata/energy.json')
 energy <- jsonlite::fromJSON(URL)
 str(energy) # a List of 2
-unnest(energy)
+unnest(energy)  # now error ver
 # Plot
-sankeyNetwork(Links = energy$links, 
-              Nodes = energy$nodes, 
+sankeyNetwork(Links = energy$links,
+              Nodes = energy$nodes,
               Source = 'source',
-              Target = 'target', 
-              Value = 'value', 
+              Target = 'target',
+              Value = 'value',
               NodeID = 'name',
-              units = 'TWh', 
-              fontSize = 12, 
+              units = 'TWh',
+              fontSize = 12,
               nodeWidth = 30)
 
 # Colour links
 energy$links$energy_type <- sub(' .*', '', energy$nodes[energy$links$source + 1, 'name'])
 
-sankeyNetwork(  Links = energy$links, 
-                Nodes = energy$nodes, 
+sankeyNetwork(  Links = energy$links,
+                Nodes = energy$nodes,
                 Source = 'source',
-                Target = 'target', 
-                Value = 'value', 
+                Target = 'target',
+                Value = 'value',
                 NodeID = 'name',
-                LinkGroup = 'energy_type', 
+                LinkGroup = 'energy_type',
                 NodeGroup = NULL             )
 
 
@@ -250,7 +251,7 @@ library(ggalluvial)
 
 titanic_wide <- data.frame(Titanic)
 ggplot(data = titanic_wide,
-       aes(axis1 = Class, axis2 = Sex, axis3 = Age,    y = Freq)) +
+       aes(axis1 = Class, axis2 = Sex, axis3 = Age,   y = Freq)) +
     scale_x_discrete(limits = c("Class", "Sex", "Age"), expand = c(.1, .05)) +
     xlab("Demographic") +
     geom_alluvium(aes(fill = Survived)) +
@@ -261,8 +262,8 @@ ggplot(data = titanic_wide,
             "stratified by demographics and survival") +
     theme(legend.position = 'bottom')
 
-## 
-ggplot(titanic_wide,
+##
+ggplot(titanic_wide,  # not working?
        aes( axis1 = Survived, axis2 = Sex, axis3 = Class,  y = Freq )) +
        geom_alluvium(aes(fill = Class), width = 0, knot.pos = 0, reverse = FALSE) +
        guides(fill = FALSE) +
@@ -276,17 +277,15 @@ ggplot(titanic_wide,
 
 ##################################
 library(googleVis)
-df=data.frame(country = c("US", "GB", "BR"),  
-              val1 = c(10,13,14),   
-              val2 = c(23,12,32)           )
+df=data.frame(country = c("US", "GB", "BR"),    val1 = c(10,13,14),    val2 = c(23,12,32)           )
 # Line <- gvisLineChart(df)
 # plot(Line)
 
-Bubble <- gvisBubbleChart(Fruits, 
-                          idvar="Fruit", 
-                          xvar ="Sales", 
+Bubble <- gvisBubbleChart(Fruits,
+                          idvar="Fruit",
+                          xvar ="Sales",
                           yvar="Expenses",
-                          colorvar="Year", 
+                          colorvar="Year",
                           sizevar="Profit",
                           options=list( hAxis='{minValue:75, maxValue:125}')      )
 # plot(Bubble)

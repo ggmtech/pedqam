@@ -1,3 +1,51 @@
+
+
+# Install these packages if you have not already
+install.packages(c('DBI', 'RSQLite'))
+con <- DBI::dbConnect(
+  RPostgres::Postgres(),
+  dbname = 'ivelasq3',
+  host = 'db.bit.io',
+  port = 5432,
+  user = 'ivelasq3_demo_db_connection',
+  password = Sys.getenv('BITIO_KEY') # insert your password here
+)
+
+library(DBI)
+# Create an ephemeral in-memory RSQLite database
+con <- dbConnect(RSQLite::SQLite(), ":memory:")
+
+dbListTables(con)
+
+
+library(DBI)
+# Create an ephemeral in-memory RSQLite database
+con <- dbConnect(RSQLite::SQLite(), ":memory:")
+
+dbListTables(con)
+## character(0)
+dbWriteTable(con, "mtcars", mtcars)
+dbListTables(con)
+## [1] "mtcars"
+dbListFields(con, "mtcars")
+##  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"
+## [11] "carb"
+dbReadTable(con, "mtcars")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # QA data union
 packages <- c("tidyverse",   "magrittr",  "here", "devtools",
               "lubridate", "anytime", "googlesheets4", "readxl", "DT", "knitr",

@@ -26,6 +26,7 @@ usethis::create_project("~/gkgit/myppt")
 ###################
 ###################
 ###################
+
 #install.packages("promotionImpact") #devtools::install_github("ncsoft/promotionImpact")
 library(promotionImpact)
 promotionImpact::sim.data  # daily simulated sales data

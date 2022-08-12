@@ -16,13 +16,6 @@ output:
   pdf_document:
     toc: true
     toc_depth: 2
-  slidy_presentation:
-    highlight: tango
-    incremental: yes
-  ioslides_presentation: 
-    highlight: tango
-    incremental: yes
-    #logo: ~/36.1.-5.65.png
   revealjs::revealjs_presentation:
     reveal_options:
       chalkboard:
@@ -31,6 +24,13 @@ output:
       menu:
         numbers: yes
     self_contained: no
+  slidy_presentation:
+    highlight: tango
+    incremental: yes
+  ioslides_presentation: 
+    highlight: tango
+    incremental: yes
+    #logo: ~/36.1.-5.65.png
 institute: $^1$QA(Mech)
 header-includes:
 - \usepackage{xcolor}
@@ -49,7 +49,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # The meeting agenda
 
+```{r }
+library(tidyverse)
+library(googlesheets4)
+ws = "https://docs.google.com/spreadsheets/d/1p0HLzHs5TP-U9RJ1ujaWG-Zzhc19wu5ocpxUjeBzP8o"
+ws = ""
 
+
+```
 
 
 # Performance Statistics 

@@ -45,8 +45,8 @@
 }
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -97,13 +97,13 @@
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{xcolor}
 \usepackage{framed}
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
 \title{The Diesel Loco Performance}
 \author{Gopal Kumar\(^1\)}
-\date{2022-01-05}
+\date{2022-07-08}
 \institute{\(^1\)CMPE(Diesel)}
 
 \begin{document}

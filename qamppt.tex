@@ -45,8 +45,8 @@
 }
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -91,14 +91,14 @@
 \usepackage{xcolor}
 \usepackage{framed}
 \usepackage{pdfpages}
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
 \title{Upgradtation of Vendors in RDSO}
 \subtitle{RDSO ISO QO-D-8.1-11 Vendor - Changes in approved status}
 \author{QA\(^1\)}
-\date{2022-01-31}
+\date{2022-07-08}
 \institute{\(^1\)QA(Mech)}
 
 \begin{document}
@@ -110,8 +110,24 @@
 \begin{frame}
 \end{frame}
 
-\begin{frame}{The meeting agenda}
+\begin{frame}[fragile]{The meeting agenda}
 \protect\hypertarget{the-meeting-agenda}{}
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.6     v purrr   0.3.4
+## v tibble  3.1.7     v dplyr   1.0.9
+## v tidyr   1.2.0     v stringr 1.4.0
+## v readr   2.1.2     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
 \end{frame}
 
 \begin{frame}{Performance Statistics}
@@ -170,7 +186,7 @@ Black text with a darker red background.
 \begin{quote}
 Criteria i) The vendor should have supplied minimum specified quantity
 (N) of material as specified by the concerned Design/QA directorate as a
-List of RDSO Vendors for developmental order" posted on RDSO website
+List of RDSO Vendors for developmental order'' posted on RDSO website
 vendor To be in service for a minimum period of one year. or 15 months
 from the date of issue of last inspection certificate.
 \end{quote}
@@ -186,7 +202,7 @@ be considered as qualifying criteria for upgradation.
 If ``N'' is the minimum specified quantity then minimum Equipment Months
 for upgradation from date of in service = 12 N or Minimum Equipment
 Months for up-gradation from date of issue of inspection certificate =
-15 N However, for up-gradation under ii) on basis of Equipment Months"
+15 N However, for up-gradation under ii) on basis of Equipment Months''
 shall not be given before 15 months from date of issue of inspection
 certificate for N/2th item.
 \end{quote}
