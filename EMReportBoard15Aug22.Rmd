@@ -1,38 +1,25 @@
 ---
-title: EM pads status
-subtitle: Analysis of Failures of EM Pads to Specs. WD-20-MISC-95(Revision-03)
-author: Rob J Hyndman
-institute: Centre for Modern Beamer Themes
-date: \today   # "`r Sys.Date()`"
-#classoption: compress
-toc: true
-#output: binb::monash
-#output: binb::metropolis
-output:
-#  xaringan::moon_reader
-#  tint::tintBook: default
-#  pdf_document: default
-#  word_document: default
-  officedown::rpptx_document
-#   toc: true
-#    toc_float: true
-#    toc_depth: 2
+title: 'EM Pads failures '
+subtitle: Failures of EM Pads
+#author: "Gopal Kumar"
+date: "`r Sys.Date()`"
 always_allow_html: true
+output:
+  tint::tintBook: default
+#  tufte::tufte_book: default
+#  tufte::tufte_handout: default
+#  tufte::tufte_html: default
+#  word_document: default
+
+#  pdf_document: default
 bibliography: skeleton.bib
 link-citations: yes
-classoption: "aspectratio=169"
-fontsize: 12pt
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, fig.cap = TRUE, message=FALSE, warning=FALSE, cache=TRUE, dev.args=list(bg=grey(0.9), pointsize=11))
-library(tidyverse)
-library(officedown)
-library(ggplot2)
-library(rvg)
-#r setup, include=FALSE,  echo=FALSE, message = FALSE, warning=TRUE, error= TRUE, tidy=FALSE, cache=TRUE}
-#knitr::opts_chunk$set(echo = FALSE) #verbose = TRUE
-#knitr::opts_chunk$set(echo = FALSE, comment = '', fig.width = 6, fig.height = 6,  fig.cap = TRUE, message=FALSE, warning=FALSE, cache=TRUE, dev.args=list(bg=grey(0.9), pointsize=11))
+
+```{r setup, include=FALSE,  echo=FALSE, message = FALSE, warning=TRUE, error= TRUE, cache=TRUE}
+knitr::opts_chunk$set(echo = FALSE, comment = '') 
+#verbose = TRUE , fig.width = 6, fig.height = 6
 # results='asis', hide (or FALSE) or hold;
 #strip.white: (TRUE; logical) Whether to remove blank lines
 #size: ('normalsize'; character) Font size 
@@ -45,30 +32,71 @@ library(rvg)
 # hold: Hold aat end of a code chunk. animate: Concatenate all plots into an animation ; hide: 
 # fig.dim = c(5, 7) is a shorthand of fig.width = 5, fig.height = 7. 
 #child: (NULL; character) A character vector of paths of child documents 
-# scale_color_viridis_c(option = "C")
+# newthought()
+# ```{marginfigure} anything in its chunk 
+# fig.margin = TRUE, 
+# option marginfigure and inlline with margin_note()
+#  fig.fullwidth = TRUE. #option fig.fullwidth = TRUE.
+# : [@someone:1984]. Alternatively, standard natbib as \citet{}, \citep{} and more.
+# a footnote will automatically be converted to a sidenote but u can use  margin_note()
+# knitr::kable(mtcars[1:6, 1:6], caption = 'A subset of mtcars.')
+
+```
+
+```{r loadallpackages, include=FALSE,  eval=TRUE, echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, cache=TRUE }
+packages <- c("tidyverse", "lubridate", "readxl", "writexl","stringr", 
+              "here", 
+              "cowplot", # "ggpubr", 
+              "scales", 
+              "summarytools",  
+              "googledrive",  "googlesheets4", 
+              "knitr",  "kableExtra",
+              "fuzzyjoin",
+              "alluvial", "ggalluvial")
+
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+
+lapply(packages, library, character.only = TRUE) # %>% invisible()
+library(tidyverse)
+library(kableExtra)
+
+## options(kableExtra.auto_format = FALSE) # disable globle default
+#options(knitr.table.format = "latex")
+
+#library(formattable) # for pretty html tables
+#install.packages("googlesheets4")
+#library(googledrive) # googledrive::drive_get("gapminder") %>% read_sheet()
+library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
+#lsf.str("package:googlesheets4")
+#ls("package:googlesheets4")
+#help(package = dplyr) # even if not loaded
+
+
+
+
+#library(fuzzyjoin)
+
+#sheet <- tibble::tibble( Company = c("Apple Inc", "Apple Incorp", "Microsoft", "Google","Facebook")  )
+#main  <- tibble::tibble( Company = c("Apple Inc", "Microsoft", "Google", "Facebook Inc"   ),  Value = c(300,200,100,50)  )
+
+#left_join(sheet, main,   by = "Company")  # no fuzzy does not join all
+
+#stringdist_left_join(sheet,main, by = "Company",   max_dist = 5)
 ```
 
 
-## gktest
 
-<!--
-output:
-  pdf_document: default
-#      number_sections: true
-  word_document: default
--->
-
-No. QAM/RDSO/Vendor policy                                                   	Dated: 
 
 <!---
-> Sub: Failures of EM Pads.
+No. QAM/RDSO/Vendor policy                                                   	Dated: 
+
 
 > Ref: (i) DO letter no. 2014/M(N)/9516/Pt.I dated 22.09.2020.
 > (ii) Board’s letters of even number dated 17.07.2020 & 01.09.2020.
 > (iii) Board’s letter no. 2000/RSG/379/2 dated 28.04.2016.
 > (iv) Board’s letter no. 2017/M(N)/951/25 dated 19.12.2017.
 >(v) RDSO’s letters no. COMP/6/1.55.07.01 dated 13.06.2017 & 24.11.2017.
-
 
 Ref: (i) Railway, letter no.M.145/C&W/Wagon Detachments /268, dated: 08.07.2020.  
 (ii) Railway’s, letter no. M/CDO/Guanda/Warranty claim/22/20, dated: 10.07.2020.  
@@ -85,7 +113,7 @@ Ref: (i) Railway, letter no.M.145/C&W/Wagon Detachments /268, dated: 08.07.2020.
 
 --->
 
-## Introduction 
+# Introduction 
 
 During the Covid19 lockdown, Railways reported increased failures of EM pads [@EMPad20] in the fields which affected the freight train operations. The issue was then examined to address the quality issues.
 
@@ -113,241 +141,36 @@ Sr. No   |  Firm Name   | Total supply  | Total Failure  | Percentage
 
 ```{r echo=FALSE, message = FALSE, fig.align="center", fig.cap = "The surface treatment for Spring", fig.width=1.5, fig.height=1.5, out.width = '80%',  dpi= 300, cache=TRUE}
 
-#knitr::include_graphics("gopalkumar.jpg") 
-
-```
-
-
-
-## R Markdown
-
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-```{r layout='Two Content', ph=officer::ph_location_right()}
-head(iris)
-```
-
-## Slide with Plot
-This is text below
-
-### Thi is tird level heading
-
-#### This is fourth level heding
-
-This is fourth level text
-
-
-## Slide with ggplot
-
-```{r layout='Title and Content', ph=officer::ph_location_type(type="body")}
-mygg <- ggplot(pressure, aes(x = temperature, y = pressure)) +
-  geom_point()
-dml(ggobj = mygg)
-```
-
-## Slide with ggplot
-
-```{r ph=officer::ph_location_fullsize()}
-mygg <- ggplot(pressure, aes(x = temperature, y = pressure)) +
-  geom_point()
-dml(ggobj = mygg)
-``` 
-
-
-## ggplot in right column
-
-
-- Some
-- Bullets
-
-```{r ph=officer::ph_location_right()}
-mygg <- ggplot(pressure, aes(x = temperature, y = pressure)) +
-  geom_point()
-dml(ggobj = mygg)
-``` 
-
-## ggplot in both columns
-
-
-```{r ph=officer::ph_location_left()}
-dml(ggobj = mygg)
-``` 
-
-```{r ph=officer::ph_location_right()}
-dml(ggobj = mygg)
-``` 
-
-
-## custom plot locations
-
-
-```{r ph=officer::ph_location(width = 2, height = 2, left = 2, top = 2)}
-dml(plot(pressure))
-```
-
-```{r ph=officer::ph_location(width = 3, height = 3, left = 4, top = 4)}
-dml(plot(pressure))
-```
-
-## Non-editable plot
-
-
-```{r}
-dml(plot(pressure), editable = FALSE)
-```
-
-
-## Slide with Bullets
-
-
-## Table
-
-```{r layout='Two Content', ph=officer::ph_location_left()}
-head(cars)
-```
-
-```{r layout='Two Content', ph=officer::ph_location_right()}
-head(iris)
-```
-
-## Slide with Plot
-This is text below
-
-### Thi is tird level heading
-
-#### This is fourth level heding
-
-This is fourth level text
-
-```{r plot11}
-dml(plot(pressure))
-```
-
-## Slide with ggplot
-
-```{r layout='Title and Content', ph=officer::ph_location_type(type="body")}
-mygg <- ggplot(pressure, aes(x = temperature, y = pressure)) +
-  geom_point()
-dml(ggobj = mygg)
-```
-
-## Slide with ggplot
-
-```{r ph=officer::ph_location_fullsize()}
-mygg <- ggplot(pressure, aes(x = temperature, y = pressure)) +
-  geom_point()
-dml(ggobj = mygg)
-``` 
-
-
-## ggplot in right column
-
-
-- Some
-- Bullets
-
-```{r ph=officer::ph_location_right()}
-mygg <- ggplot(pressure, aes(x = temperature, y = pressure)) +
-  geom_point()
-dml(ggobj = mygg)
-``` 
-
-## ggplot in both columns
-
-
-```{r ph=officer::ph_location_left()}
-dml(ggobj = mygg)
-``` 
-
-```{r ph=officer::ph_location_right()}
-dml(ggobj = mygg)
-``` 
-
-
-## custom plot locations
-
-
-```{r ph=officer::ph_location(width = 2, height = 2, left = 2, top = 2)}
-dml(plot(pressure))
-```
-
-```{r ph=officer::ph_location(width = 3, height = 3, left = 4, top = 4)}
-dml(plot(pressure))
-```
-
-## Non-editable plot
-
-
-```{r}
-dml(plot(pressure), editable = FALSE)
-```
-
-
-
-## R Markdown
-
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-```{r layout='Two Content', ph=officer::ph_location_right()}
-head(iris)
-```
-
-## Slide with Plot
-This is text below
-
-### Thi is tird level heading
-
-#### This is fourth level heding
-
-This is fourth level text
-
-
-
-```{r echo=FALSE, message = FALSE, fig.align="center", fig.cap = "The surface treatment for Spring", fig.width=1.5, fig.height=1.5, out.width = '80%',  dpi= 300, cache=TRUE}
-
-#knitr::include_graphics("gopalkumar.jpg") 
+knitr::include_graphics("Flowery.png") 
 
 ```
 
 
 <!--- 
-sheet_write() (over)writes a whole data frame into a (work)sheet within a (spread)Sheet.
-head(mtcars) %>%   sheet_write(ss, sheet = "autos")
-
-gs4_create() creates a brand new Google Sheet and can optionally send some initial data.
-(ss <- gs4_create("fluffy-bunny", sheets = list(flowers = head(iris) ) ) )
- also use sheet_write() to replace the data in an existing sheet.
+sheet_write() (over)write head(mtcars) %>%   sheet_write(ss, sheet = "autos")
+gs4_create() new Google Sheet  optionally send some initial data.
+(ss <- gs4_create("EMpadsAug22", sheets = list(flowers = head(iris) ) ) )
 sheet_write(data.frame(x = 4:10, letters[4:10]), ss, sheet = "df")
-
 sheet_append() rows to an existing sheet.
 ss %>% sheet_append(data.frame(x = 11, letters[11]), sheet = "df")
-  --->
+--->
 
 
 <!--- 
- superscript^2^
- ~~strikethrough~~
+ superscript^2^   ~~strikethrough~~ _italic_ aka *em* and **strong** `code`
  [link](www.rstudio.com)
- [][] 
- _italic_ aka *em* and **strong** annotations for text, as well as `code` snippets.
-
- {r fig-nocap-margin-first, fig.width=8, fig.height=4, fig.margin=FALSE, cache=TRUE, echo=FALSE} 
- {r fig-fullwidth,          fig.width=10, fig.height=2, fig.fullwidth = TRUE, fig.cap = "A full width figure.",     warning=FALSE, cache=TRUE}
- margin figure use `fig.margin = TRUE` 
- use `tint::newthought()`
- footnote will automatically converted to a sidenote. ^[Footnote on sidenote as default] 
- inline R  r margin note ( This is a margin note with no number preceding the note.   
- cite R here [@R-base]. To enable this feature, you must set `link-citations: yes` in the YAML
+{r fig-nocap-margin-first, fig.width=8, fig.height=4, fig.margin=FALSE, cache=TRUE, echo=FALSE} 
+{r fig-fullwidth,  fig.width=10, fig.height=2, fig.fullwidth = TRUE, fig.cap = "my full figure",  warning=FALSE, cache=TRUE}
+ 
+ use `tint::newthought()`  margin figure use `fig.margin = TRUE` 
+ footnote  autoconverted to sidenote. ^[Footnote on sidenote as default] 
+ cite e [@R-base].  must set `link-citations: yes` in the YAML
  knitr::kable( mtcars[1:6, 1:6], caption = 'A subset of mtcars.' )
- To right-aligned footer quote,   `r tint::quote_footer('--- Joe Martin')`
+ Right-aligned footer quote,   `r tint::quote_footer('--- Joe Martin')`
  
  Two plots in one figure environment chunk option `fig.show = 'hold'`
  {r fig-two-together, fig.cap="Two plots in one figure environment.", fig.show='hold', cache=TRUE}
- two plots in separate figure environments   `fig.show = 'asis' now default option
+`fig.show = 'asis' now default option
 
  {r fig-two-separate, ref.label='fig-two-together', fig.cap=sprintf("Two plots in separate figure environments (the  %s plot).", c("first", "second")), cache=TRUE}
  italics in  block quote > r quote_footer   ( '--- Dave Barry')
@@ -355,7 +178,7 @@ ss %>% sheet_append(data.frame(x = 11, letters[11]), sheet = "df")
  Phrase links: RStudio's [R Markdown page](https://rmarkdown.rstudio.com/).
  ![R Markdown image](https://www.dataquest.iomarkdown-1536x976.jpg)
  
-  kbl(caption = "Recreating booktabs style table") %>% kable_classic(full_width = F, html_font = "Cambria")
+kbl(caption = "Recreating booktabs style table") %>% kable_classic(full_width = F, html_font = "Cambria")
  %>%   kable_classic(full_width = F, html_font = "Cambria") or kable_classic_2(full_width = F)
  
  kable  %>% column_spec(5:7, bold = T) %>%
@@ -371,75 +194,31 @@ ss %>% sheet_append(data.frame(x = 11, letters[11]), sheet = "df")
 
   kbl(spk_dt, escape = F) %>%   kable_paper(full_width = F)
   
-\label{marker}
-\ref{marker} reference an object
-\pageref{marker}
-See figure~\ref{fig:test} on page~\pageref{fig:test}.
-ch:	chapter
-sec:	section
-subsec:	subsection
-fig:	figure
-tab:	table
-eq:	equation
-lst:	code listing
-itm:	enumerated list item
-alg:	algorithm
-app:	appendix subsection
-\usepackage{caption} 
-\autoref{sec:intro}  autoref package
-\nameref{sec:marker} referes the section name
-
 --->
 
 
+```{r}
 
-```{r loadallpackages, include=FALSE,  eval=TRUE, echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, cache=TRUE }
-packages <- c("tidyverse", "lubridate", "readxl","stringr", 
-              "here", 
-              "cowplot", # "ggpubr", 
-              "scales", 
-              "summarytools",  
-              "googledrive",  "googlesheets4", 
-              "knitr",  "kableExtra",
-              "fuzzyjoin",
-              "alluvial", "ggalluvial")
-
-# if not Instaled 
-installed_packages <- packages %in% rownames(installed.packages())
-if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
-
-lapply(packages, library, character.only = TRUE) # %>% invisible()
-
-
-
-
-## options(kableExtra.auto_format = FALSE) # disable globle default
-#options(knitr.table.format = "latex")
-
-#library(formattable) # for pretty html tables
-#install.packages("googlesheets4")
-#library(googledrive) # googledrive::drive_get("gapminder") %>% read_sheet()
-library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
-#lsf.str("package:googlesheets4")
-#ls("package:googlesheets4")
-#help(package = dplyr) # even if not loaded
-
-#library(timetk)  #time series plots in single lines
-
-#library(fuzzyjoin)
-
-#sheet <- tibble::tibble( Company = c("Apple Inc", "Apple Incorp", "Microsoft", "Google","Facebook")  )
-#main  <- tibble::tibble( Company = c("Apple Inc", "Microsoft", "Google", "Facebook Inc"   ),  Value = c(300,200,100,50)  )
-
-#left_join(sheet, main,   by = "Company")  # no fuzzy does not join all
-
-#stringdist_left_join(sheet,main, by = "Company",   max_dist = 5)
+# simplified Cause effect Diagram # Create the cause-and-effect diagram
+SixSigma::ss.ceDiag( "Cause To Explaint",
+                     
+                      c("Personnel", "Weather", "Suppliers", "Planning", "testingdata"),
+                      
+                      c(  c("Training", "Inadequate"), 
+                          c("Rain", "Temperature", "Wind"), 
+                          c("Materials", "Delays", "Rework"), 
+                          c("Customer", "Permissions", "Errors"), 
+                          c("evenwithoutit", "Permissions", "Errors") 
+                        ),
+                        
+                      main = "Cause-and-Effect Diagram for EM Pads)",
+                      sub = "capyion Construction Example"
+                     )
 ```
 
 
-
-```{r getdatas, include=TRUE, eval=TRUE, echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7 , cache=TRUE}
-
+```{r getdatas, eval=TRUE, include=TRUE,  echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7 , cache=TRUE}
+library(kableExtra)
 #ss2 = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
 #ss1 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
 #ss5 = "https://rdso.ggn.rcil.gov.in/qamvr/REPORT_STAGE_WISE_CASES.aspx?S=1"
@@ -448,26 +227,34 @@ library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
 #itemmaster
 # newvendors <- read_sheet("https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=526290481", sheet = 7 )
 
+ss2 = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
+ss1 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
+
+ss5 = "https://rdso.ggn.rcil.gov.in/qamvr/REPORT_STAGE_WISE_CASES.aspx?S=1"
+# need rvest opencases = read_sheet(ss5)
+
+# itemmaster <- googlesheets4::read_sheet(ss2, 2) #"ItemMaster2021"  ##???????????
+# itemmaster
+
+# newvendors <- read_sheet("https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=526290481", sheet = 7 )
+
+# str(newvendors)
+# newvendors[1]
+
+# ss = "https://docs.google.com/spreadsheets/d/1OP0aNwFMiZYemSFtXVS2m3y4p-W9CBI2/edit#gid=827113392"
+# sheet = 1
+
 ss <- "https://docs.google.com/spreadsheets/d/10aeSJpy43V-Ou2caF5cl5njxjV7bxkZXIFaUz6F3W0Q/edit#gid=80354961"
-sheet = 1
-empaddata1 <- read_sheet(   ss,   "MCtests",    #sheet = NULL,  
-                           skip = 1, range = NULL,
-                           col_names = TRUE,  col_types = NULL, trim_ws = TRUE,
-                           na        = " ",     
-                          .name_repair = "unique" 
-                        )
 
-empaddata2 <- read_sheet(ss, 2)  
-empaddata3 <- read_sheet(ss, 3) 
-empaddata4 <- read_sheet(ss, 4) 
-empaddata5 <- read_sheet(ss, 5) 
+empaddata <- read_sheet(   ss,   sheet = NULL,  range = NULL,  skip = 0,
+                           col_names = TRUE, col_types = NULL,
+                            na = "",  trim_ws = TRUE,
+                           .name_repair = "unique" 
+                                                   )
 
-
-```
-
-```{r printable1, include=TRUE, eval=FALSE, echo=FALSE, message = FALSE,  warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7, cache=TRUE}
-
-empaddata1  %>%
+empaddata
+#View(empaddata)
+empaddata  %>%
   kbl(caption = "Recreating booktabs style table") %>%
 #  kable_classic(full_width = F) %>%
   kable_paper(full_width = F) %>%
@@ -476,31 +263,79 @@ empaddata1  %>%
 
 ```
 
-```{r printable2, include=TRUE, eval=FALSE, echo=FALSE, message = FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
 
-empaddata2  %>%
-  kbl(caption = "Recreating booktabs style table") %>%
-#  kable_classic(full_width = F) %>%
-  kable_paper(full_width = F) %>%
-  column_spec(1, bold = T, border_right = T) %>%
-  column_spec(2, width = "10em")
+
+
+
+```{r  inspectdftest, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE  }
+
+library(inspectdf) 
+
+
+#oldGrades   <- allGrades %>%   filter(Grade > 5)
+#youngGrades <- allGrades %>%   filter(Grade < 6)
+
+#View the distribution of grade to ensure it was split properly
+#ggplot(oldGrades, aes(x=Grade)) + geom_histogram()
+#ggplot(youngGrades, aes(x=Grade)) + geom_histogram()
+
+# inspect_types() command to very easily see a breakdown of character vs numeric variables
+#inspectdf::inspect_types(allGrades)
+#inspectdf::inspect_types(youngGrades, oldGrades)
+
+#data("starwars", package = "dplyr")
+
+starwars <- empaddata 
+
+# Horizontal bar plot for categorical column composition
+x <- inspectdf::inspect_cat(starwars) 
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_cor(starwars) # Correlation betwee numeric columns + confidence intervals
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_imb(starwars)# Bar plot of most frequent category for each categorical column
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_mem(starwars) # Bar plot showing memory usage for each column
+inspectdf::show_plot(x)
+x <- inspect_na(starwars) # Occurence of NAs in each column ranked in descending order
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_num(starwars) # Histograms for numeric columns
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_types(starwars) # Barplot of column types
+inspectdf::show_plot(x)
+
+inspectdf::inspect_na(starwars) %>% inspectdf::show_plot()
+#star_1 <- starwars %>% sample_n(50)
+#star_2 <- starwars %>% sample_n(50) %>% select(-1, -2)
+#inspectdf::inspect_na(star_1, star_2) %>% inspectdf::show_plot()
+
 
 ```
 
-```{r printable3, include=FALSE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
 
+
+
+
+
+
+```{r printable3, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE} 
+# , fig.width=7, fig.height=7
 
 empaddata3  %>%
   kbl(caption = "Recreating booktabs style table") %>%
-  kable_classic(full_width = F) %>%
+#  kable_classic(full_width = F) %>%
   kable_paper(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "10em")
 
+mtcars2 <- mtcars
 
+mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+              geom_point() + geom_smooth() +
+              theme(legend.position = 'bottom')
 ```
 
-```{r printableland, include=FALSE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+```{r printableland, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
 
 landscape(knitr::kable(head(mtcars), "latex"))
 
@@ -509,16 +344,15 @@ landscape(knitr::kable(head(mtcars), "latex"))
 ```{r printable4, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
 
 
-empaddata4  %>%
-  kbl(caption = "Recreating booktabs style table") %>%
-  kable_classic(full_width = F) %>%
+empaddata4  %>%  kbl( caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
   kable_paper(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "10em")
 
 ```
 
-```{r printable5, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+```{r printable5, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
 
 
 empaddata5  %>%
@@ -728,8 +562,87 @@ Since, all the EM Pads vendors have clearly failed in critical parameters to var
  
 
 
+
 GOPAL KUMAR
 (SR ED/QAM/RDSO/HQ)
 
+
+```{r getdatastest, include=TRUE, eval=TRUE, echo=TRUE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, cache=TRUE}
+# , fig.width=7, fig.height=7 
+
+ss2 = "1l6j00fZoQkJvl2150r75BtGTVxYnmEgC7hgeOU3_KNE"
+#googlesheets4::sheet_names(ss2)
+
+googlesheets4::read_sheet(ss2, sheet = "LongTable", range = "LongTable!A1:M987" , skip =0 , col_names=TRUE, col_types = "c" , na = "", 
+                          trim_ws = TRUE,  .name_repair = "unique")  ->    DepotVerified
+
+# DepotVerified
+
+```
+
+
+```{r printable51, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE}
+library(tidyverse)
+library(kableExtra)
+DepotVerified  %>%  kbl(caption = "Table of Varification of EM pads in Depots",
+                        longtable = T, booktabs = T   ) %>%
+                  kable_styling(latex_options = "striped") %>%
+   kable_classic(full_width = F)# %>%
+#  kable_paper(full_width = F)    # %>%
+#  column_spec(1, bold = T, border_right = T) %>%
+#  column_spec(2, width = "10em")
+
+# landscape(knitr::kable(head(DepotVerified), "latex"))
+
+# mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
+# ggplot(mtcars2, aes(hp, mpg, color = am)) +   geom_point() + geom_smooth() +  theme(legend.position = 'bottom')
+```
+
+
+
+```{r taxtabletest , fig.fullwidth = TRUE, echo = FALSE,  message=FALSE,  warning=FALSE, error=FALSE, cache=TRUE}
+# rmarkdown::pandoc_convert("test.md",    to = "latex",  output = "out.tex",  options = "--standalone" )
+# render("test.Rmd", output_format = "latex_document")
+
+library(googlesheets4)
+ss <- "https://docs.google.com/spreadsheets/d/1p0HLzHs5TP-U9RJ1ujaWG-Zzhc19wu5ocpxUjeBzP8o/edit?pli=1#gid=1552687662"
+sheet = "toxicity"
+
+n_max = 100
+
+mygsheet <- read_sheet(
+  ss,
+  sheet = sheet,
+  range = "A1:D11", #NULL,
+  col_names = TRUE,
+  col_types = NULL,
+  na = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  .name_repair = "unique"
+)
+
+
+# options(knitr.table.format = "pdf") #html") not required
+library(kableExtra)
+long_dt <- mygsheet  #rbind(mtcars, mtcars)
+
+kbl( long_dt, longtable = T, booktabs = T, 
+      caption = "Longtable"                                              ) %>%
+      kable_styling(latex_options = "striped")  %>%  #, stripe_index = c(1,2, 5:6)), 
+                         #, "hold_position"
+                         # , "scale_down"  - but manual with longtable = T
+   #  add_header_above(  c(" ", "Group 1" = 5, "Group 2" = 6)    ) %>%
+     kable_styling(full_width = T) %>%
+     column_spec(1, width = "1cm") %>%
+     column_spec(2, width = "8cm") %>%
+     # kable_styling(font_size = 7) %>%
+     #  kable_styling(position = "float_right") %>% text wrap
+     kable_styling(latex_options = c("repeat_header")) %>%
+     kable_styling(position = "center")
+
+```
 
 

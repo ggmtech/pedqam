@@ -75,14 +75,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Upgradtation of Vendors in RDSO},
-  pdfauthor={QA\^{}1},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \newif\ifbibliography
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
@@ -94,11 +86,19 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Upgradtation of Vendors in RDSO},
+  pdfauthor={QA\^{}1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{Upgradtation of Vendors in RDSO}
 \subtitle{RDSO ISO QO-D-8.1-11 Vendor - Changes in approved status}
 \author{QA\(^1\)}
-\date{2022-07-08}
+\date{2022-08-16}
 \institute{\(^1\)QA(Mech)}
 
 \begin{document}

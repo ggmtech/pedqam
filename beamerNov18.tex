@@ -75,14 +75,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={The Diesel Loco Performance},
-  pdfauthor={Gopal Kumar\^{}1},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \newif\ifbibliography
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
@@ -100,10 +92,18 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={The Diesel Loco Performance},
+  pdfauthor={Gopal Kumar\^{}1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{The Diesel Loco Performance}
 \author{Gopal Kumar\(^1\)}
-\date{2022-07-08}
+\date{2022-08-16}
 \institute{\(^1\)CMPE(Diesel)}
 
 \begin{document}
@@ -176,20 +176,20 @@ Black text with a red background.
 \protect\hypertarget{direct-pl-100mlmonth-apr-sept}{}
 \begin{longtable}[]{@{}lrrr@{}}
 \caption{Direct PL /100ML/Month Apr-Sept.}\tabularnewline
-\toprule
+\toprule()
 Shed & 2016 & 2017 & \% improvement \\
-\midrule
+\midrule()
 \endfirsthead
-\toprule
+\toprule()
 Shed & 2016 & 2017 & \% improvement \\
-\midrule
+\midrule()
 \endhead
 TKD & 12.6 & 7.2 & 42.9 \\
 LDH & 8.0 & 5.5 & 31.8 \\
 LKO & 17.9 & 12.3 & 31.3 \\
 NR & 12.2 & 8.0 & 34.4 \\
 IR & 9.2 & 7.7 & 16.7 \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 \end{block}
 
@@ -197,20 +197,20 @@ IR & 9.2 & 7.7 & 16.7 \\
 \protect\hypertarget{loco-under-condemnation}{}
 \begin{longtable}[]{@{}llll@{}}
 \caption{Loco under condemnation}\tabularnewline
-\toprule
+\toprule()
 Shed & Underage & Overage & Total \\
-\midrule
+\midrule()
 \endfirsthead
-\toprule
+\toprule()
 Shed & Underage & Overage & Total \\
-\midrule
+\midrule()
 \endhead
 TKD & 1 & 0 & 1 \\
 LDH & 0 & 18 & 18 \\
 LKO & 1 & 1 & 2 \\
 SSB & 0 & 4 & 4 \\
 NR & 2 & 23 & 25 \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 \end{block}
 
@@ -218,19 +218,19 @@ NR & 2 & 23 & 25 \\
 \protect\hypertarget{sfc-hsd1000gtkm---coaching}{}
 \begin{longtable}[]{@{}lrrr@{}}
 \caption{SFC HSD/1000GTKM - Coaching}\tabularnewline
-\toprule
+\toprule()
 Shed & 2016 & 2017 & \% improvement \\
-\midrule
+\midrule()
 \endfirsthead
-\toprule
+\toprule()
 Shed & 2016 & 2017 & \% improvement \\
-\midrule
+\midrule()
 \endhead
 TKD & 3.43 & 3.42 & 0.30 \\
 LDH & 3.43 & 3.43 & \\
 LKO & 3.42 & 3.43 & \\
 NR & 3.43 & 3.43 & \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 \end{block}
 
@@ -238,32 +238,32 @@ NR & 3.43 & 3.43 & \\
 \protect\hypertarget{sfc-hsd1000gtkm---goods}{}
 \begin{longtable}[]{@{}llll@{}}
 \caption{SFC HSD/1000GTKM - Goods}\tabularnewline
-\toprule
+\toprule()
 Shed & 2016 & 2017 & \% improvement \\
-\midrule
+\midrule()
 \endfirsthead
-\toprule
+\toprule()
 Shed & 2016 & 2017 & \% improvement \\
-\midrule
+\midrule()
 \endhead
 TKD & 1.83 & 1.83 & \\
 LDH & 1.84 & 1.84 & \\
 LKO & 1.83 & 1.82 & \\
 NR & 1.83 & 1.83 & \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 
 \begin{block}{Punctuality loss casses - running account}
 \protect\hypertarget{punctuality-loss-casses---running-account}{}
 \begin{longtable}[]{@{}lllllll@{}}
 \caption{Punctuality loss cases - running account}\tabularnewline
-\toprule
+\toprule()
 Shed & DLI & UMB & FZR & MB & LKO & Total \\
-\midrule
+\midrule()
 \endfirsthead
-\toprule
+\toprule()
 Shed & DLI & UMB & FZR & MB & LKO & Total \\
-\midrule
+\midrule()
 \endhead
 Apr 17 & 0 & 0 & 0 & 2 & 4 & 6 \\
 May 17 & 0 & 0 & 1 & 1 & 11 & 13 \\
@@ -272,7 +272,7 @@ July 17 & 1 & 0 & 0 & 0 & 9 & 10 \\
 Aug 17 & 4 & 0 & 0 & 1 & 7 & 12 \\
 Sept 17 & 3 & 2 & 0 & 1 & 7 & 13 \\
 Apr-Sept'17 & 49 & 3 & 6 & 7 & 46 & 111 \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 \end{block}
 \end{block}
@@ -392,9 +392,9 @@ not being recorded in ME-175
 \begin{frame}{loco holding heading}
 \protect\hypertarget{loco-holding-heading}{}
 \begin{longtable}[]{@{}llll@{}}
-\toprule
+\toprule()
 Loco Shed & Holding & Passenger Links & Goods Outage \\
-\midrule
+\midrule()
 \endhead
 TKD & 166 & 129 & 14 \\
 LDH & 166 & 129 & 14 \\
@@ -402,7 +402,7 @@ AMV & 166 & 129 & 14 \\
 SSB & 166 & 129 & 14 \\
 ---------------------------------------------------- & & & \\
 Total & 166 & 129 & 14 \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 
 \begin{block}{Performance 2015-16 vs 2016-17}
@@ -599,9 +599,9 @@ GJ : Maintenance Shed 20 + Acres
 \begin{frame}{Accounting Year Number of Locomotives to be supplied}
 \protect\hypertarget{accounting-year-number-of-locomotives-to-be-supplied}{}
 \begin{longtable}[]{@{}lll@{}}
-\toprule
+\toprule()
 Year of supply & Locomotive 4500 & Locomotive 6000 \\
-\midrule
+\midrule()
 \endhead
 First Year of Supply & 2 & 0 \\
 Second Year of Supply & 96 & 2 \\
@@ -614,7 +614,7 @@ Eighth Year of Supply & 60 & 40 \\
 Ninth Year of Supply & 60 & 40 \\
 Tenth Year of Supply & 57 & 43 \\
 Eleventh Year of Supply & 55 & 45 \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 
 Total 700 of 4500 HP and 300 of 6000 HP locos
@@ -820,9 +820,9 @@ Total 700 of 4500 HP and 300 of 6000 HP locos
 \begin{block}{Leading data}
 \protect\hypertarget{leading-data}{}
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule()
 item & Provided \\
-\midrule
+\midrule()
 \endhead
 Horse Power(Gross) & 4500 HP \\
 Horse Power(Traction) & 4261 HP \\
@@ -835,16 +835,16 @@ Maximum tractive effort & 54.59t \\
 Maximum continuous Tractive Effort & 405 KN \\
 Gear Ratio & 85:18 \\
 Maximum braking effort & 27,09t \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 \end{block}
 
 \begin{block}{Dimentions}
 \protect\hypertarget{dimentions}{}
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule()
 item & Provided \\
-\midrule
+\midrule()
 \endhead
 Major Dimensions & \\
 Length (Over couplers) & 22567 mm \\
@@ -855,7 +855,7 @@ Coupled Pair & 174 m (570 ft.) radius \\
 Driving Wheel Diameter(new) & 1092 mm \\
 Minimum Wheel Diameter & 1016 mm \\
 Maximum CG height from rail level : & not exceeding 1830mm \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 
 \colorlet{shadecolor}{red!90}
@@ -870,16 +870,16 @@ Black text with a darker red background.
 \begin{block}{Consumables}
 \protect\hypertarget{consumables}{}
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule()
 item & Provided \\
-\midrule
+\midrule()
 \endhead
 Fuel Tank(usable) & 6000 L \\
 Coolant & 1249 L \\
 Lubricating Oil & 1030 L \\
 Sand & 4 sand boxes of 85 L each \\
 Maintenance periodicity & 90 days \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 \end{block}
 \end{frame}
