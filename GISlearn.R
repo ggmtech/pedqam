@@ -1,43 +1,7 @@
-GIS
+## GIS
 
 
 ###########3
-
-# load rmapzen and run provider set-up functions
-library(rmapzen)
-mz_set_tile_host_nextzen()  # set source
-mz_set_search_host_geocode.earth()
-
-oakland_public <- mz_search("Oakland Public Library Branch", 
-                            size = 5,
-                            focus.point = mz_geocode("Oakland, CA"),
-                            boundary.country = mz_countries$USA)
-oakland_public
-
-
-uninstall.packages  ("rmapzen")
-
-
-##############
-##############
-
-
-
-
-
-# Plot india wrongmap
-library("ggmap")
-us <- c(left = -125, bottom = 25.75, right = -67, top = 49)
-get_stamenmap(us, zoom = 5, maptype = "toner-lite") %>% ggmap() 
-#  Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.
-#  
-India <- c(left = 63, bottom = 5, right = 100, top = 40)
-get_stamenmap(India, zoom = 5, maptype = "toner-lite") %>% ggmap() 
-#  Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.
-
-
-
-
 
 
 
@@ -87,6 +51,29 @@ library(naniar)
 gg_miss_var(task$data(), show_pct = TRUE)
 gg_miss_var(mtcars)
 data
+
+
+
+##############
+##############
+
+
+
+
+
+# Plot india wrongmap
+library("ggmap")
+us <- c(left = -125, bottom = 25.75, right = -67, top = 49)
+get_stamenmap(us, zoom = 5, maptype = "toner-lite") %>% ggmap() 
+#  Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.
+#  
+India <- c(left = 63, bottom = 5, right = 100, top = 40)
+get_stamenmap(India, zoom = 5, maptype = "toner-lite") %>% ggmap() 
+#  Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.
+
+
+
+
 ################
 # Installing spatial R packages on Ubuntu Robin Lovelace 30 March 2020
 # installing gis in ubuntu
@@ -823,8 +810,18 @@ world
 
 ######
 library(raster)
+library(rgdal)
 #polygon_areas <- raster::shapefile("C:/yourshapefile.shp")
 polygon_areas <- raster::shapefile("~/Desktop/gktex/GIS India district/IND_adm1.shp")
+
+
+myshapefile <- "C:/Users/Lenovo/Desktop/Administrative Boundary Database/STATE_BOUNDARY.shp"
+polygon_areas <- raster::shapefile("/Users/Lenovo/Desktop/Administrative Boundary Database/STATE_BOUNDARY.shp")
+polygon_areas <- raster::shapefile("/Users/Lenovo/Desktop/Administrative Boundary Database/DISTRICT_BOUNDARY.shp")  
+plot(polygon_areas)
+
+
+
 polygon_areas
 crop_save <- function(origin_folder, pattern, destination_folder, name_sub_folder, crop_areas, name_crop_areas){
     file_list <- list.files(path = origin_folder, pattern)

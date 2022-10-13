@@ -142,5 +142,16 @@ Note: Where minimum specified in service period specified is more than mentioned
 
 > N and T specified by directorate
 
-\includepdf[pages={-}]{remotereview.pdf}
+# new page
 
+```{tex}
+\includepdf[pages={-}]{remotereview.pdf}
+```
+
+# new page 2
+
+```{r }
+
+# \include_image{remotereview.pdf}
+
+```

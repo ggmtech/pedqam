@@ -887,6 +887,12 @@ EMpadFDread %>%     #glimpse()   # All chr  # MakeDate: POSIXct[1:19746],  lifed
   )  -> EMpadFD
 
 EMpadFD %>% glimpse()
+library(vtree)
+
+vtree::vtree(EMpadFD, "Make YearFail",sameline=T)
+vtree::vtree(EMpadFD, "Make YearFail YearMade", sameline=T)
+
+vtree(FakeData,"Severity Sex",sameline=T)
 
 # install.packages("gtsummary")
 library(gtsummary)

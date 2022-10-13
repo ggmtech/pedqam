@@ -4,21 +4,21 @@ author: "Gopal Kumar$^1$"
 date: '`r Sys.Date()`'
 always_allow_html: true
 output:
-  ioslides_presentation: 
-    highlight: tango
-    incremental: yes
-    #logo: ~/36.1.-5.65.png
-  slidy_presentation:
-    highlight: tango
-    incremental: yes
-  revealjs::revealjs_presentation:
-    reveal_options:
-      chalkboard:
-        theme: chalkboard
-        toggleNotesButton: yes
-      menu:
-        numbers: yes
-    self_contained: no
+  # ioslides_presentation: 
+  #   highlight: tango
+  #   incremental: yes
+  #   #logo: ~/36.1.-5.65.png
+  # slidy_presentation:
+  #   highlight: tango
+  #   incremental: yes
+  # revealjs::revealjs_presentation:
+  #   reveal_options:
+  #     chalkboard:
+  #       theme: chalkboard
+  #       toggleNotesButton: yes
+  #     menu:
+  #       numbers: yes
+  #   self_contained: no
   beamer_presentation:
     colortheme: dolphin
     fonttheme: structurebold

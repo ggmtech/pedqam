@@ -1,16 +1,19 @@
 ---
 title: 'EM Pads failures '
-subtitle: QAM RDSO
+subtitle: Failures of EM Pads
+#author: "Gopal Kumar"
 date: "`r Sys.Date()`"
-
+always_allow_html: true
 output:
   tint::tintBook: default
-  html_document:
-    df_print: paged
-  word_document: default
-  pdf_document: default
-link-citations: yes
+#  tufte::tufte_book: default
+#  tufte::tufte_handout: default
+#  tufte::tufte_html: default
+#  word_document: default
+
+#  pdf_document: default
 bibliography: skeleton.bib
+link-citations: yes
 ---
 
 <!--
@@ -20,11 +23,30 @@ output:
   word_document: default
 -->
 
-```{r setup, include=FALSE, cache=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-\newfontfamily\Roboto{Roboto}
-#library(rgl)
-#knitr::knit_hooks$set(webgl = hook_webgl)
+```{r setup, include=FALSE,  echo=FALSE, message = FALSE, warning=TRUE, error= TRUE, cache=TRUE}
+knitr::opts_chunk$set(echo = FALSE, comment = '') 
+#verbose = TRUE , fig.width = 6, fig.height = 6
+# results='asis', hide (or FALSE) or hold;
+#strip.white: (TRUE; logical) Whether to remove blank lines
+#size: ('normalsize'; character) Font size 
+#background: ('#F7F7F7'; character)
+#indent: (character) A string to be added to each line of the chunk output.
+#cached chunks are skipped (unless they have been modified)
+#fig.path: ('figure/'; character) A prefix to be used to generate figure file paths.
+#fig.keep: ('high'; character) How plots in chunks should be kept. high , none, all,first,last
+# fig.show: show/arrange the plots. asis: Show plots exactly in places where they were generated
+# hold: Hold aat end of a code chunk. animate: Concatenate all plots into an animation ; hide: 
+# fig.dim = c(5, 7) is a shorthand of fig.width = 5, fig.height = 7. 
+#child: (NULL; character) A character vector of paths of child documents 
+# newthought()
+# ```{marginfigure} anything in its chunk 
+# fig.margin = TRUE, 
+# option marginfigure and inlline with margin_note()
+#  fig.fullwidth = TRUE. #option fig.fullwidth = TRUE.
+# : [@someone:1984]. Alternatively, standard natbib as \citet{}, \citep{} and more.
+# a footnote will automatically be converted to a sidenote but u can use  margin_note()
+# knitr::kable(mtcars[1:6, 1:6], caption = 'A subset of mtcars.')
+
 ```
 
 
@@ -50,6 +72,8 @@ installed_packages <- packages %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
 
 lapply(packages, library, character.only = TRUE) # %>% invisible()
+library(tidyverse)
+library(kableExtra)
 
 #  options(kableExtra.auto_format = FALSE) # disable globle default
 #  options(knitr.table.format = "latex")
@@ -161,7 +185,76 @@ knitr::include_graphics("flowery.png") #honeybee.png")
 
 ```{r getdatas,  eval=FALSE, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 
-ss1 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg"
+<!--- 
+ superscript^2^   ~~strikethrough~~ _italic_ aka *em* and **strong** `code`
+ [link](www.rstudio.com)
+{r fig-nocap-margin-first, fig.width=8, fig.height=4, fig.margin=FALSE, cache=TRUE, echo=FALSE} 
+{r fig-fullwidth,  fig.width=10, fig.height=2, fig.fullwidth = TRUE, fig.cap = "my full figure",  warning=FALSE, cache=TRUE}
+ 
+ use `tint::newthought()`  margin figure use `fig.margin = TRUE` 
+ footnote  autoconverted to sidenote. ^[Footnote on sidenote as default] 
+ cite e [@R-base].  must set `link-citations: yes` in the YAML
+ knitr::kable( mtcars[1:6, 1:6], caption = 'A subset of mtcars.' )
+ Right-aligned footer quote,   `r tint::quote_footer('--- Joe Martin')`
+ 
+ Two plots in one figure environment chunk option `fig.show = 'hold'`
+ {r fig-two-together, fig.cap="Two plots in one figure environment.", fig.show='hold', cache=TRUE}
+`fig.show = 'asis' now default option
+
+ {r fig-two-separate, ref.label='fig-two-together', fig.cap=sprintf("Two plots in separate figure environments (the  %s plot).", c("first", "second")), cache=TRUE}
+ italics in  block quote > r quote_footer   ( '--- Dave Barry')
+ Direct in-line links: <https://rmarkdown.rstudio.com/>.
+ Phrase links: RStudio's [R Markdown page](https://rmarkdown.rstudio.com/).
+ ![R Markdown image](https://www.dataquest.iomarkdown-1536x976.jpg)
+ 
+kbl(caption = "Recreating booktabs style table") %>% kable_classic(full_width = F, html_font = "Cambria")
+ %>%   kable_classic(full_width = F, html_font = "Cambria") or kable_classic_2(full_width = F)
+ 
+ kable  %>% column_spec(5:7, bold = T) %>%
+           row_spec(3:5, bold = T, color = "white", background = "#D7261E")
+  kbl(dt) %>% kable_classic() %>%
+  add_header_above(c(" " = 1, "Group 1" = 2, "Group 2" = 2, "Group 3" = 2)) #combined
+  add_header_above(c(" ", "Group 6" = 6))  # again continue to add above all
+  pack_rows("Group 1", 4, 7) %>%
+  pack_rows("Group 2", 8, 10)   # group row under groups 2
+  library(sparkline)
+  sparkline(0)
+  spk_dt <- data.frame( var = c("mpg", "wt"), sparkline = c(spk_chr(mtcars$mpg), spk_chr(mtcars$wt)) )
+
+  kbl(spk_dt, escape = F) %>%   kable_paper(full_width = F)
+  
+--->
+
+
+```{r}
+
+# simplified Cause effect Diagram # Create the cause-and-effect diagram
+SixSigma::ss.ceDiag( "Cause To Explaint",
+                     
+                      c("Personnel", "Weather", "Suppliers", "Planning", "testingdata"),
+                      
+                      c(  c("Training", "Inadequate"), 
+                          c("Rain", "Temperature", "Wind"), 
+                          c("Materials", "Delays", "Rework"), 
+                          c("Customer", "Permissions", "Errors"), 
+                          c("evenwithoutit", "Permissions", "Errors") 
+                        ),
+                        
+                      main = "Cause-and-Effect Diagram for EM Pads)",
+                      sub = "capyion Construction Example"
+                     )
+```
+
+
+```{r getdatas, eval=TRUE, include=TRUE,  echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7 , cache=TRUE}
+library(kableExtra)
+#ss2 = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
+#ss1 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
+#ss5 = "https://rdso.ggn.rcil.gov.in/qamvr/REPORT_STAGE_WISE_CASES.aspx?S=1"
+# need rvest opencases = read_sheet(ss5)
+#itemmaster <- read_sheet(ss1, "ItemMaster2021")
+#itemmaster
+# newvendors <- read_sheet("https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=526290481", sheet = 7 )
 
 ss2 = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
 
@@ -190,6 +283,14 @@ empaddata <- read_sheet(   ss,   sheet ,
                         )
 empaddata  %>% kable()
 
+empaddata
+#View(empaddata)
+empaddata  %>%
+  kbl(caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "10em")
 
 empaddata1 <- read_sheet(ss, 2)  
 
@@ -197,6 +298,66 @@ empaddata1 %>% kable()
 
 
 
+
+```{r  inspectdftest, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE  }
+
+library(inspectdf) 
+
+
+#oldGrades   <- allGrades %>%   filter(Grade > 5)
+#youngGrades <- allGrades %>%   filter(Grade < 6)
+
+#View the distribution of grade to ensure it was split properly
+#ggplot(oldGrades, aes(x=Grade)) + geom_histogram()
+#ggplot(youngGrades, aes(x=Grade)) + geom_histogram()
+
+# inspect_types() command to very easily see a breakdown of character vs numeric variables
+#inspectdf::inspect_types(allGrades)
+#inspectdf::inspect_types(youngGrades, oldGrades)
+
+#data("starwars", package = "dplyr")
+
+starwars <- empaddata 
+
+# Horizontal bar plot for categorical column composition
+x <- inspectdf::inspect_cat(starwars) 
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_cor(starwars) # Correlation betwee numeric columns + confidence intervals
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_imb(starwars)# Bar plot of most frequent category for each categorical column
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_mem(starwars) # Bar plot showing memory usage for each column
+inspectdf::show_plot(x)
+x <- inspect_na(starwars) # Occurence of NAs in each column ranked in descending order
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_num(starwars) # Histograms for numeric columns
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_types(starwars) # Barplot of column types
+inspectdf::show_plot(x)
+
+inspectdf::inspect_na(starwars) %>% inspectdf::show_plot()
+#star_1 <- starwars %>% sample_n(50)
+#star_2 <- starwars %>% sample_n(50) %>% select(-1, -2)
+#inspectdf::inspect_na(star_1, star_2) %>% inspectdf::show_plot()
+
+
+```
+
+
+
+
+
+
+
+```{r printable3, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE} 
+# , fig.width=7, fig.height=7
+
+empaddata3  %>%
+  kbl(caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "10em")
 
 mtcars2 <- mtcars
 
@@ -206,7 +367,50 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
               theme(legend.position = 'bottom')
 ```
 
+```{r printableland, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
 
+landscape(knitr::kable(head(mtcars), "latex"))
+
+```
+
+```{r printable4, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+
+
+empaddata4  %>%  kbl( caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "10em")
+
+```
+
+```{r printable5, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+
+
+empaddata5  %>%
+  kbl(caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "10em")
+
+
+# mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
+# ggplot(mtcars2, aes(hp, mpg, color = am)) +   geom_point() + geom_smooth() +  theme(legend.position = 'bottom')
+```
+
+
+```{r printablelandwrong5, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+kableExtra::kbl(dt, caption = "Demo Table (Landscape)[note]", booktabs = T) %>%
+kable_styling(latex_options = c("hold_position")) %>%
+add_header_above(c(" ", "Group 1[note]" = 3, "Group 2[note]" = 3)) %>%
+add_footnote(c("This table is from mtcars",
+"Group 1 contains mpg, cyl and disp",
+"Group 2 contains hp, drat and wt"),
+notation = "symbol") %>%
+pack_rows("Group 1", 4, 5) %>%
+landscape()
+```
 
 
 On Examination of above details of warranty claims as reported by zonal Railways  for EM pads supplied by the firm during year 2017 to 2020 till date, following is revealed:
@@ -418,6 +622,16 @@ EMpadlife3 %>% summarytools::dfSummary( #plain.ascii = FALSE,
                         )
 
 
+```{r printable51, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE}
+library(tidyverse)
+library(kableExtra)
+DepotVerified  %>%  kbl(caption = "Table of Varification of EM pads in Depots",
+                        longtable = T, booktabs = T   ) %>%
+                  kable_styling(latex_options = "striped") %>%
+   kable_classic(full_width = F)# %>%
+#  kable_paper(full_width = F)    # %>%
+#  column_spec(1, bold = T, border_right = T) %>%
+#  column_spec(2, width = "10em")
 
 #EMpadlife3 %>% summarytools::dfSummary( #plain.ascii = FALSE, 
 #                         style = "grid",  graph.magnif = 0.75, valid.col = FALSE, tmp.img.dir = "/tmp"      ) %>% 
@@ -466,8 +680,19 @@ nb.cols <- 18  # Define the number of colors you want
 mycolors <- colorRampPalette(brewer.pal(8, 'Dark2'))(nb.cols)
 #xdisplay.brewer.pal(n = 8, name = 'Dark2')
 
-# dev.off()
-# lifetable3 <-  
+mygsheet <- read_sheet(
+  ss,
+  sheet = sheet,
+  range = "A1:D11", #NULL,
+  col_names = TRUE,
+  col_types = NULL,
+  na = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  .name_repair = "unique"
+)
 
 lifefit3 %>%        
     ggsurvplot(
@@ -528,7 +753,23 @@ lifefit3 %>%
         #risk.table.y.text = FALSE # show bars instead of names in text annotations in legend of risk table.
     )  
 
+# options(knitr.table.format = "pdf") #html") not required
+library(kableExtra)
+long_dt <- mygsheet  #rbind(mtcars, mtcars)
 
+kbl( long_dt, longtable = T, booktabs = T, 
+      caption = "Longtable"                                              ) %>%
+      kable_styling(latex_options = "striped")  %>%  #, stripe_index = c(1,2, 5:6)), 
+                         #, "hold_position"
+                         # , "scale_down"  - but manual with longtable = T
+   #  add_header_above(  c(" ", "Group 1" = 5, "Group 2" = 6)    ) %>%
+     kable_styling(full_width = T) %>%
+     column_spec(1, width = "1cm") %>%
+     column_spec(2, width = "8cm") %>%
+     # kable_styling(font_size = 7) %>%
+     #  kable_styling(position = "float_right") %>% text wrap
+     kable_styling(latex_options = c("repeat_header")) %>%
+     kable_styling(position = "center")
 
 ```
 
