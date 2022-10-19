@@ -1,8 +1,8 @@
 ---
-title:     "Untitled"
+title:     "Rolling Stock "
 subtitle:  Identifies the subtitle of the document.
 date:      27 Sept 2022	
-author:    Gopal Kumar	
+author:    PED/RS	
 institute: RDSO Lucknow	
 thanks: DG RDSO, MoR
 
@@ -19,7 +19,7 @@ format:
     keep-md: false	
     keep-ipynb: false
     toc: true
-#    toc-depth: 3
+    toc-depth: 3
 #    shift-heading-level-by: -1
 #    top-level-division: part # default, section, chapter, or part  
     #    toc-title: "Todays agenda points"
@@ -51,33 +51,14 @@ format:
 #    includes:
 #        in_header: nw_report_header.tex
     institute: RDSO
-    author affiliations: RDSO AND NER
-    logo: flowery.png
-    titlegraphic: dahlia.png
-    background-image: RDSO_Logo1.jpg
+    author affiliations: RDSO
+    logo: RDSO_Logo1.jpg #flowery.png
+    titlegraphic: RDSO_Logo1.jpg #flowery.png dahlia.png
+    background-image: "RDSO_Logo1.jpg"
     section-titles: true # false
     fig-align: right # (default, left, right, or center)
     fig-width: 4
     fig-height: 3
-header-includes: |
-  \usepackage{etoolbox}
-
-  \defbeamertemplate{background canvas}{mydefault}{%
-    \includegraphics[width=\paperwidth,height=\paperheight]{flowery.png} %RDSO_Logo1.jpg}
-  }
-  \defbeamertemplate{background canvas}{standout}{%
-    \includegraphics[width=\paperwidth,height=\paperheight,page=2]{flowery.png}
-  }
-
-  \BeforeBeginEnvironment{frame}{%
-    \setbeamertemplate{background canvas}[mydefault]%
-  }
-
-  \makeatletter
-  \define@key{beamerframe}{standout}[true]{%
-    \setbeamertemplate{background canvas}[standout]%
-  }
-  \makeatother
 #
 #  - \AtBeginDocument{\title{MWE}\titleframe}    
 #  - \AtEndDocument{\begin{closingframe}lalala\end{closingframe}}
@@ -93,6 +74,8 @@ editor: visual
 ---
 
 ## Quarto
+
+\section{}
 
 Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
 
@@ -202,6 +185,7 @@ The radius of the circle is $radius.
 )
 ```
 
+
 # Oher fu
 
 ```{python}
@@ -212,9 +196,9 @@ plt.plot([1,6,3,4])
 plt.show()
 ```
 
-# Demo dd
-
+# Demo dd 
 For a demonstration of a line plot on a polar axis, see @fig-polar.
+
 
 ## Full size image background {data-background="dahlia.png"}
 
@@ -236,9 +220,10 @@ ax.grid(True)
 plt.show()
 ```
 
+
 # latex toc
 
-```{=latex}
+``` {=latex}
 \end{frame}
 \tocframe
 \begin{frame}
