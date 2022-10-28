@@ -1,9 +1,9 @@
 ---
-title: "Traction (Diesel) Presention हिन्दी   "
-subtitle: "Loco Reliability and issues"
-author: "Diesel Wing गोपाल कुमार "
-institute: "Northern Railway, Baroda House, New Delhi."
-date: "2019-05-5 (updated: `r Sys.Date()`)"
+title: "वेन्डोर प्रबंधन "
+subtitle: "सतर्कता पाक्षिक के प्रीपेक्ष मे "
+author: " गोपाल कुमार , प्रमुख कार्यकारी निदेशक (रोलिंग स्टॉक) "
+institute: "RDSO, Lucknow"
+date: "2022-11-2 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -59,9 +59,14 @@ background-size: cover
 class: inverse middle
 class: center, middle
 
-# Diesel Loco Status in Present Day Traction in NR
+# प्रस्तुति का संक्षिप्त विवरण 
 
-# Daily KM earning 
+
+
+# वेन्डोर डेवलपमेंट 
+
+
+# वेन्डोर
 
 This **.red[simple]** .white.bg-purple[demo]
 _.orange[shows]_ the colors .green[in action].

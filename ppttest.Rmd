@@ -424,7 +424,7 @@ library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
 #ls("package:googlesheets4")
 #help(package = dplyr) # even if not loaded
 
-#library(timetk)  #time series plots in single lines
+# library(timetk)  #time series plots in single lines
 
 #library(fuzzyjoin)
 

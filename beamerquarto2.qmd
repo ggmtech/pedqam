@@ -200,8 +200,6 @@ plt.show()
 For a demonstration of a line plot on a polar axis, see @fig-polar.
 
 
-## Full size image background {data-background="dahlia.png"}
-
 ```{python}
 #| label: fig-polar
 #| fig-cap: "A line plot on a polar axis"
@@ -222,9 +220,3 @@ plt.show()
 
 
 # latex toc
-
-``` {=latex}
-\end{frame}
-\tocframe
-\begin{frame}
-```
