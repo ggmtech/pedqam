@@ -3,8 +3,9 @@ title: "The Diesel Loco Performance"
 author: "Gopal Kumar$^1$"
 date: "`r Sys.Date()`"
 output:
-  pdf_document:
-    toc: yes
+  beamer_presentation: 
+    incremental: yes
+    highlight: tango
   revealjs::revealjs_presentation:  #separate pkg
     toc: true
   word_document:
@@ -15,9 +16,8 @@ output:
   slidy_presentation:
     incremental: yes
     highlight: tango
-  beamer_presentation: 
-    incremental: yes
-    highlight: tango
+  pdf_document:
+    toc: yes
   html_document: default
   '': default
 institute: $^1$CMPE(Diesel)
@@ -95,20 +95,20 @@ QO-D-8.1-11 Vendor - Changes in approved status
 
 4.1.1 Prerequisites
 
- a) The vendor has applied in writing to RDSO for upgradation from “List of RDSO Vendors for developmental order‟ posted on RDSO website to “List of Approved Vendors‟. 
+ a) The vendor has applied in writing to RDSO for upgradation from "List of RDSO Vendors for developmental order" posted on RDSO website to "List of Approved Vendors". 
 
 b) The Vendor should meet either criteria i) or criteria ii) below: 
 
-Criteria i) The vendor should have supplied minimum specified quantity (N) of material as specified by the concerned Design/QA directorate as a ”List of RDSO Vendors for developmental order‟ posted on RDSO website vendor 
+Criteria i) The vendor should have supplied minimum specified quantity (N) of material as specified by the concerned Design/QA directorate as a ”List of RDSO Vendors for developmental order" posted on RDSO website vendor 
 To be in service for a minimum period of one year. or 15 months from the date of issue of last inspection certificate. 
 
 12/15 months from time  N Qty completed while him being dev vendor
 
 
-Criteria ii) “Equipment Months‟ on basis of in service period can also be considered as qualifying criteria for upgradation. 
+Criteria ii) “Equipment Months" on basis of in service period can also be considered as qualifying criteria for upgradation. 
 
-If “N‟ is the minimum specified quantity then minimum Equipment Months for upgradation from date of in service = 12 N or Minimum Equipment Months for up-gradation from date of issue of inspection certificate = 15 N
-However, for up-gradation under ii) on basis of „Equipment Months‟ shall not be given before 15 months from date of issue of inspection certificate for N/2th item.
+If “N" is the minimum specified quantity then minimum Equipment Months for upgradation from date of in service = 12 N or Minimum Equipment Months for up-gradation from date of issue of inspection certificate = 15 N
+However, for up-gradation under ii) on basis of „Equipment Months" shall not be given before 15 months from date of issue of inspection certificate for N/2th item.
 
 Criteria whichever is earlier complied with from i) or ii) above can be considered for up-gradation.
 
@@ -128,7 +128,7 @@ For certain critical & safety items where it is not possible to evaluate the per
 
 d) mandatory requirement :Vendor should possess valid ISO 9001 certificate for manufacture of same/similar item at his works address. 
 
-e) The name of the firm should appear in “List of Vendors for Development Orders‟. 
+e) The name of the firm should appear in “List of Vendors for Development Orders". 
 
 
 
@@ -141,7 +141,7 @@ FRPCPY = {(No. Of failures * 100*12) /(Population*Period in months)}
 
 The performance reports received through web portal of RDSO/through official email (no manual feedback should be asked for) up to the date of eligibility of the firm shall be taken as performance criteria for considering up gradation.  
 Directorate Head shall take up the issue with concerned PHODs of zonal Railways on regular basis. 
-(Reference: - DG/RDSO‟s DO No. 13/vig/Policy dated 13/11/2014 & CVO/RDSO‟s Note No. Comp/8.02.10 dated 31/03/2016)
+(Reference: - DG/RDSO"s DO No. 13/vig/Policy dated 13/11/2014 & CVO/RDSO"s Note No. Comp/8.02.10 dated 31/03/2016)
 
 g) In exceptional circumstances where waiver of laid down conditions for upgradation of firm is required, the same will require prior approval of Spl. DG/VD/RDSO.
 
@@ -149,11 +149,11 @@ g) In exceptional circumstances where waiver of laid down conditions for upgrada
 Note: 
 Many equipment/items which have RDSO specifications but vendor approval is not done by RDSO are procured by railways on their own. Inclusion of such items as identified by Railway Board in RDSO approved list shall be done by inviting EOI for vendor registration in which existing firms can also participate. 
 
-However, after approval of existing firms in “List of RDSO Vendors for developmental order‟ posted on RDSO website, the mandatory period of one year for upgradation of firm to “List of Approved Vendors‟ can be dispensed with in case firm has already supplied minimum quantity for upgradation from “List of RDSO Vendors for developmental order‟ posted on RDSO website to “List of Approved Vendors‟ and performance of product supplied earlier was satisfactory
+However, after approval of existing firms in “List of RDSO Vendors for developmental order" posted on RDSO website, the mandatory period of one year for upgradation of firm to “List of Approved Vendors" can be dispensed with in case firm has already supplied minimum quantity for upgradation from “List of RDSO Vendors for developmental order" posted on RDSO website to “List of Approved Vendors" and performance of product supplied earlier was satisfactory
 
 
 4.1.2 Time period for applying for upgradation 
-The firms classified as „List of RDSO Vendors for developmental order‟ posted on RDSO website on the vendor list can apply maximum six months in advance of the date due for upgradation. The applications which are received between three to six months in advance of the due date for upgradation shall be processed. However status shall be upgraded on the due date subject to the condition that all laid down criteria has been complied with. If any sample is under testing at RDSO, the result of the test shall be considered. 
+The firms classified as „List of RDSO Vendors for developmental order" posted on RDSO website on the vendor list can apply maximum six months in advance of the date due for upgradation. The applications which are received between three to six months in advance of the due date for upgradation shall be processed. However status shall be upgraded on the due date subject to the condition that all laid down criteria has been complied with. If any sample is under testing at RDSO, the result of the test shall be considered. 
 
 Applications received less than three months in advance of the due date of upgradation, shall be processed. However, delay if any in upgradation with respect to due date, shall be attributable to the late receipt of application.
 
@@ -163,7 +163,7 @@ Applications received less than three months in advance of the due date of upgra
 “On receipt of information at RDSO by the concerned directorate that a Developmental Vendor has fulfilled the upgradation criteria as stipulated at para 4.1.1 above, after completion of 5 years period from the date of entering into vendor directory as Developmental vendor (without any quantity restriction ), the Directorate will initiate, Suo moto the process of upgradation of the developmental vendor as Approved Vendor and informed the vendor to be in readiness for Bidding/Supplying larger quantities as expected from an Approved Vendor for that item. 
 
 Letter conveying enlistment as developmental vendor to every new firm henceforth will bear a validity of 05 years period. 
-After lapse of 4 year period from the registration , firm has to provide details to RDSO about efforts/ orders executed during the last 4 year period and based on the merit of the case, concerned Directorate may extend validity of the firm‟s status as Developmental source for further 02 years / may consider for upgrading as approved source.
+After lapse of 4 year period from the registration , firm has to provide details to RDSO about efforts/ orders executed during the last 4 year period and based on the merit of the case, concerned Directorate may extend validity of the firm"s status as Developmental source for further 02 years / may consider for upgrading as approved source.
 
 
 4.1.4: After seven-year period as Developmental Vendor status (without any quantity restriction), if the firm fails to comply with the stipulated upgradation requirements, the firm will be delisted from the list of developmental vendors. 

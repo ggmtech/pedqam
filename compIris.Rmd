@@ -1,0 +1,34 @@
+
+Data Comparison
+===============
+
+Date comparison run: 2022-10-05 14:19:06  
+Comparison run on R version 4.2.1 (2022-06-23)  
+With dataCompareR version 0.1.4  
+
+
+Meta Summary
+============
+
+
+|Dataset Name |Number of Rows |Number of Columns |
+|:------------|:--------------|:-----------------|
+|iris         |150            |6                 |
+|iris3        |50             |12                |
+
+
+Variable Summary
+================
+
+Number of columns in common: 0  
+Number of columns only in iris: 6  
+Number of columns only in iris3: 12  
+Number of columns with a type mismatch: 0  
+No match key used, comparison is by row
+
+
+Columns only in iris: IS_VERSICOLOR, PETAL.LENGTH, PETAL.WIDTH, SEPAL.LENGTH, SEPAL.WIDTH, SPECIES  
+Columns only in iris3: PETAL L..SETOSA, PETAL L..VERSICOLOR, PETAL L..VIRGINICA, PETAL W..SETOSA, PETAL W..VERSICOLOR, PETAL W..VIRGINICA, SEPAL L..SETOSA, SEPAL L..VERSICOLOR, SEPAL L..VIRGINICA, SEPAL W..SETOSA, SEPAL W..VERSICOLOR, SEPAL W..VIRGINICA  
+Columns in both :   
+
+No columns match, so no comparison could take place

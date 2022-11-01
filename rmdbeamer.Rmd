@@ -56,7 +56,7 @@ knitr::include_graphics("../flowery.png")
 ---
 
 ```{r export, eval = TRUE, include = TRUE, echo =FALSE}
-library(pdftools)
+#library(pdftools)
 #pdf_convert("rmdbeamer.pdf", format = "png", dpi = 200)
 #fns <- list.files(pattern = "rmdbeamer_")
 # purrr::walk(fns, ~{

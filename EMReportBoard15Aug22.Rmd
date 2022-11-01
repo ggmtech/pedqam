@@ -1,0 +1,647 @@
+---
+title: 'EM Pads failures '
+subtitle: Failures of EM Pads
+#author: "Gopal Kumar"
+date: "`r Sys.Date()`"
+always_allow_html: true
+output:
+#  tint::tintBook: default
+#  tufte::tufte_book: default
+#  tufte::tufte_handout: default
+#  tufte::tufte_html: default
+  word_document: default
+
+#  pdf_document: default
+bibliography: skeleton.bib
+link-citations: yes
+---
+
+
+```{r setup, include=FALSE,  echo=FALSE, message = FALSE, warning=TRUE, error= TRUE, cache=TRUE}
+knitr::opts_chunk$set(echo = FALSE, comment = '') 
+#verbose = TRUE , fig.width = 6, fig.height = 6
+# results='asis', hide (or FALSE) or hold;
+#strip.white: (TRUE; logical) Whether to remove blank lines
+#size: ('normalsize'; character) Font size 
+#background: ('#F7F7F7'; character)
+#indent: (character) A string to be added to each line of the chunk output.
+#cached chunks are skipped (unless they have been modified)
+#fig.path: ('figure/'; character) A prefix to be used to generate figure file paths.
+#fig.keep: ('high'; character) How plots in chunks should be kept. high , none, all,first,last
+# fig.show: show/arrange the plots. asis: Show plots exactly in places where they were generated
+# hold: Hold aat end of a code chunk. animate: Concatenate all plots into an animation ; hide: 
+# fig.dim = c(5, 7) is a shorthand of fig.width = 5, fig.height = 7. 
+#child: (NULL; character) A character vector of paths of child documents 
+# newthought()
+# ```{marginfigure} anything in its chunk 
+# fig.margin = TRUE, 
+# option marginfigure and inlline with margin_note()
+#  fig.fullwidth = TRUE. #option fig.fullwidth = TRUE.
+# : [@someone:1984]. Alternatively, standard natbib as \citet{}, \citep{} and more.
+# a footnote will automatically be converted to a sidenote but u can use  margin_note()
+# knitr::kable(mtcars[1:6, 1:6], caption = 'A subset of mtcars.')
+
+```
+
+```{r loadallpackages, include=FALSE,  eval=TRUE, echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, cache=TRUE }
+packages <- c("tidyverse", "lubridate", "readxl", "writexl","stringr", 
+              "here", 
+              "cowplot", # "ggpubr", 
+              "scales",  "timetk",
+              "summarytools",  
+              "googledrive",  "googlesheets4", 
+              "knitr",  "kableExtra",
+              "fuzzyjoin",
+              "alluvial", "ggalluvial")
+
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages(packages[!installed_packages]) }
+
+lapply(packages, library, character.only = TRUE) # %>% invisible()
+library(tidyverse)
+library(kableExtra)
+
+## options(kableExtra.auto_format = FALSE) # disable globle default
+#options(knitr.table.format = "latex")
+
+#library(formattable) # for pretty html tables
+#install.packages("googlesheets4")
+#library(googledrive) # googledrive::drive_get("gapminder") %>% read_sheet()
+library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
+#lsf.str("package:googlesheets4")
+#ls("package:googlesheets4")
+#help(package = dplyr) # even if not loaded
+
+#library(timetk)  #time series plots in single lines
+
+#library(fuzzyjoin)
+
+#sheet <- tibble::tibble( Company = c("Apple Inc", "Apple Incorp", "Microsoft", "Google","Facebook")  )
+#main  <- tibble::tibble( Company = c("Apple Inc", "Microsoft", "Google", "Facebook Inc"   ),  Value = c(300,200,100,50)  )
+
+#left_join(sheet, main,   by = "Company")  # no fuzzy does not join all
+
+#stringdist_left_join(sheet,main, by = "Company",   max_dist = 5)
+```
+
+
+
+
+<!---
+No. QAM/RDSO/Vendor policy                                                   	Dated: 
+
+
+> Ref: (i) DO letter no. 2014/M(N)/9516/Pt.I dated 22.09.2020.
+> (ii) Board’s letters of even number dated 17.07.2020 & 01.09.2020.
+> (iii) Board’s letter no. 2000/RSG/379/2 dated 28.04.2016.
+> (iv) Board’s letter no. 2017/M(N)/951/25 dated 19.12.2017.
+>(v) RDSO’s letters no. COMP/6/1.55.07.01 dated 13.06.2017 & 24.11.2017.
+
+Ref: (i) Railway, letter no.M.145/C&W/Wagon Detachments /268, dated: 08.07.2020.  
+(ii) Railway’s, letter no. M/CDO/Guanda/Warranty claim/22/20, dated: 10.07.2020.  
+(iii) Railway’s, letter no. M/362/18/wagon/Pt.V/RSM,dated:26.06.2020.  
+(iv) Railway’s, letter no.9.07(CWOTH), dated: 14.07.2020.  
+(v) Railway’s letter no.RS/2/Warranty/20, dated:22.06.2020  
+(vi) Railway’s letter no. WCR/M/N/116/Vol-III, dated:16.07.2020.  
+(vii) Railway’s letter no.RS/2/Warranty/20, dated:22.06.2020.  
+(viii) Railway’s letter no. RS/DRY/warranty/BOXNHL/DDU/19, dated: 25.01.20.  
+(ix) Railway’s letter no.802-M/10/warranty claim /Pt-I/MC- II, dated14.07.20  
+(x) This office even no. dated 31.08.2020  
+(xi) Railway Broad’s, D.O.No.2014/M(N)/9516/Pt.I, dated 22.september,2020.  
+(xii) Railway Board’s, letter no. 2014/(M(N)/951/6Pt.1, dated:20.07.2020.  
+
+--->
+
+# Introduction 
+
+During the Covid19 lockdown, Railways reported increased failures of EM pads [@EMPad20] in the fields which affected the freight train operations. The issue was then examined to address the quality issues.
+
+Initially the failure data within warranty was analysed based on the warranty failures reported by the Railways in RDSO portal and the Quantity of EM pads supplied by the Vendors to the Railways.
+
+The following figures were availabe in the RDSO warrenty reporing portal.
+
+Table:: Warranty failures report on RDSO Warrenty Portal  [@EMPad20]
+
+Sr. No   |  Firm Name   | Total supply  | Total Failure  | Percentage
+---------|--------------|---------------|----------------|----
+1	   |  VRC		| 132248  		|  1650  	|  1.25     
+2	| Bony  	| 245231		|   973	| 0.40 
+3	| TC		| 338806  |	  1272	 | 0.38   
+4	| Prag  |  229945  |  424  |  0.18  
+5	| FASL | 198646 | 1400 |0.70
+6	| Avadh | 139214 | 544 | 0.39
+7	| Aryan | 377600 | 3174 | 0.84
+8	|Basant| 136987 | 1618 | 1.18
+9	| HFL | 241141 |  655 | 0.27
+10	| MGM | 250205 | 2069 | 0.83
+11	| CFL |  282243 | 1146 | 0.40
+
+
+
+```{r echo=FALSE, message = FALSE, fig.align="center", fig.cap = "The surface treatment for Spring", fig.width=1.5, fig.height=1.5, out.width = '80%',  dpi= 300, cache=TRUE}
+
+knitr::include_graphics("Flowery.png") 
+
+```
+
+
+<!--- 
+sheet_write() (over)write head(mtcars) %>%   sheet_write(ss, sheet = "autos")
+gs4_create() new Google Sheet  optionally send some initial data.
+(ss <- gs4_create("EMpadsAug22", sheets = list(flowers = head(iris) ) ) )
+sheet_write(data.frame(x = 4:10, letters[4:10]), ss, sheet = "df")
+sheet_append() rows to an existing sheet.
+ss %>% sheet_append(data.frame(x = 11, letters[11]), sheet = "df")
+--->
+
+
+<!--- 
+ superscript^2^   ~~strikethrough~~ _italic_ aka *em* and **strong** `code`
+ [link](www.rstudio.com)
+{r fig-nocap-margin-first, fig.width=8, fig.height=4, fig.margin=FALSE, cache=TRUE, echo=FALSE} 
+{r fig-fullwidth,  fig.width=10, fig.height=2, fig.fullwidth = TRUE, fig.cap = "my full figure",  warning=FALSE, cache=TRUE}
+ 
+ use `tint::newthought()`  margin figure use `fig.margin = TRUE` 
+ footnote  autoconverted to sidenote. ^[Footnote on sidenote as default] 
+ cite e [@R-base].  must set `link-citations: yes` in the YAML
+ knitr::kable( mtcars[1:6, 1:6], caption = 'A subset of mtcars.' )
+ Right-aligned footer quote,   `r tint::quote_footer('--- Joe Martin')`
+ 
+ Two plots in one figure environment chunk option `fig.show = 'hold'`
+ {r fig-two-together, fig.cap="Two plots in one figure environment.", fig.show='hold', cache=TRUE}
+`fig.show = 'asis' now default option
+
+ {r fig-two-separate, ref.label='fig-two-together', fig.cap=sprintf("Two plots in separate figure environments (the  %s plot).", c("first", "second")), cache=TRUE}
+ italics in  block quote > r quote_footer   ( '--- Dave Barry')
+ Direct in-line links: <https://rmarkdown.rstudio.com/>.
+ Phrase links: RStudio's [R Markdown page](https://rmarkdown.rstudio.com/).
+ ![R Markdown image](https://www.dataquest.iomarkdown-1536x976.jpg)
+ 
+kbl(caption = "Recreating booktabs style table") %>% kable_classic(full_width = F, html_font = "Cambria")
+ %>%   kable_classic(full_width = F, html_font = "Cambria") or kable_classic_2(full_width = F)
+ 
+ kable  %>% column_spec(5:7, bold = T) %>%
+           row_spec(3:5, bold = T, color = "white", background = "#D7261E")
+  kbl(dt) %>% kable_classic() %>%
+  add_header_above(c(" " = 1, "Group 1" = 2, "Group 2" = 2, "Group 3" = 2)) #combined
+  add_header_above(c(" ", "Group 6" = 6))  # again continue to add above all
+  pack_rows("Group 1", 4, 7) %>%
+  pack_rows("Group 2", 8, 10)   # group row under groups 2
+  library(sparkline)
+  sparkline(0)
+  spk_dt <- data.frame( var = c("mpg", "wt"), sparkline = c(spk_chr(mtcars$mpg), spk_chr(mtcars$wt)) )
+
+  kbl(spk_dt, escape = F) %>%   kable_paper(full_width = F)
+  
+--->
+
+
+```{r}
+
+# simplified Cause effect Diagram # Create the cause-and-effect diagram
+SixSigma::ss.ceDiag( "Cause To Explaint",
+                     
+                      c("Personnel", "Weather", "Suppliers", "Planning", "testingdata"),
+                      
+                      c(  c("Training", "Inadequate"), 
+                          c("Rain", "Temperature", "Wind"), 
+                          c("Materials", "Delays", "Rework"), 
+                          c("Customer", "Permissions", "Errors"), 
+                          c("evenwithoutit", "Permissions", "Errors") 
+                        ),
+                        
+                      main = "Cause-and-Effect Diagram for EM Pads)",
+                      sub = "capyion Construction Example"
+                     )
+```
+
+
+```{r getdatas, eval=TRUE, include=TRUE,  echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, cache=TRUE}
+library(kableExtra)
+#ss2 = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
+#ss1 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
+#ss5 = "https://rdso.ggn.rcil.gov.in/qamvr/REPORT_STAGE_WISE_CASES.aspx?S=1"
+# need rvest opencases = read_sheet(ss5)
+#itemmaster <- read_sheet(ss1, "ItemMaster2021")
+#itemmaster
+# newvendors <- read_sheet("https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=526290481", sheet = 7 )
+
+ss2 = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
+ss1 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
+
+ss5 = "https://rdso.ggn.rcil.gov.in/qamvr/REPORT_STAGE_WISE_CASES.aspx?S=1"
+# need rvest opencases = read_sheet(ss5)
+
+# itemmaster <- googlesheets4::read_sheet(ss2, 2) #"ItemMaster2021"  ##???????????
+# itemmaster
+
+# newvendors <- read_sheet("https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=526290481", sheet = 7 )
+
+# str(newvendors)
+# newvendors[1]
+
+# ss = "https://docs.google.com/spreadsheets/d/1OP0aNwFMiZYemSFtXVS2m3y4p-W9CBI2/edit#gid=827113392"
+# sheet = 1
+
+ss <- "https://docs.google.com/spreadsheets/d/10aeSJpy43V-Ou2caF5cl5njxjV7bxkZXIFaUz6F3W0Q/edit#gid=80354961"
+
+empaddata <- read_sheet(   ss,   sheet = NULL,  range = NULL,  skip = 0,
+                           col_names = TRUE, col_types = NULL,
+                            na = "",  trim_ws = TRUE,
+                           .name_repair = "unique" 
+                                                   )
+
+empaddata
+#View(empaddata)
+empaddata  %>%
+  kbl(caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "10em")
+
+```
+
+
+
+
+
+```{r  inspectdftest, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE , fig.width=7, fig.height=7  }
+library(tidyverse)
+library(inspectdf) 
+library(grid)
+
+#oldGrades   <- allGrades %>%   filter(Grade > 5)
+#youngGrades <- allGrades %>%   filter(Grade < 6)
+
+#View the distribution of grade to ensure it was split properly
+#ggplot(oldGrades, aes(x=Grade)) + geom_histogram()
+#ggplot(youngGrades, aes(x=Grade)) + geom_histogram()
+
+# inspect_types() command to very easily see a breakdown of character vs numeric variables
+#inspectdf::inspect_types(allGrades)
+#inspectdf::inspect_types(youngGrades, oldGrades)
+
+#data("starwars", package = "dplyr")
+
+starwars <- empaddata 
+
+# Horizontal bar plot for categorical column composition
+x <- inspectdf::inspect_cat(starwars) 
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_cor(starwars) # Correlation betwee numeric columns + confidence intervals
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_imb(starwars)# Bar plot of most frequent category for each categorical column
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_mem(starwars) # Bar plot showing memory usage for each column
+inspectdf::show_plot(x)
+x <- inspect_na(starwars) # Occurence of NAs in each column ranked in descending order
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_num(starwars) # Histograms for numeric columns
+inspectdf::show_plot(x)
+x <- inspectdf::inspect_types(starwars) # Barplot of column types
+inspectdf::show_plot(x)
+
+inspectdf::inspect_na(starwars) %>% inspectdf::show_plot()
+#star_1 <- starwars %>% sample_n(50)
+#star_2 <- starwars %>% sample_n(50) %>% select(-1, -2)
+#inspectdf::inspect_na(star_1, star_2) %>% inspectdf::show_plot()
+
+
+```
+
+
+
+
+
+
+
+```{r printable3, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE} 
+# , fig.width=7, fig.height=7
+
+empaddata3  %>%
+  kbl(caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "10em")
+
+mtcars2 <- mtcars
+
+mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
+ggplot(mtcars2, aes(hp, mpg, color = am)) +
+              geom_point() + geom_smooth() +
+              theme(legend.position = 'bottom')
+```
+
+```{r printableland, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+
+landscape(knitr::kable(head(mtcars), "latex"))
+
+```
+
+```{r printable4, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+
+
+empaddata4  %>%  kbl( caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "10em")
+
+```
+
+```{r printable5, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+
+
+empaddata5  %>%
+  kbl(caption = "Recreating booktabs style table") %>%
+#  kable_classic(full_width = F) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "10em")
+
+
+# mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
+# ggplot(mtcars2, aes(hp, mpg, color = am)) +   geom_point() + geom_smooth() +  theme(legend.position = 'bottom')
+```
+
+
+```{r printablelandwrong5, include=TRUE, eval=FALSE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE, cache=TRUE, fig.width=7, fig.height=7}
+kableExtra::kbl(dt, caption = "Demo Table (Landscape)[note]", booktabs = T) %>%
+kable_styling(latex_options = c("hold_position")) %>%
+add_header_above(c(" ", "Group 1[note]" = 3, "Group 2[note]" = 3)) %>%
+add_footnote(c("This table is from mtcars",
+"Group 1 contains mpg, cyl and disp",
+"Group 2 contains hp, drat and wt"),
+notation = "symbol") %>%
+pack_rows("Group 1", 4, 5) %>%
+landscape()
+```
+
+
+On Examination of above details of warranty claims as reported by zonal Railways  for EM pads supplied by the firm during year 2017 to 2020 till date, following is revealed:
+
+  a.    Total number of warranty claims of EM pads against above firms reported by Zonal Railways for period 2017 to Oct 2020 was 14925.
+  b.    Total supply of EM pads for period 2017 to Oct 2020 was =2572266
+  c.    The warranty failure report was  0.58% (Warranty period taken as 30 months from date of manufacturing).
+  d.    Accordingly the following firms with higher than the average warrenty failure  total figure of 0.58% were identifited for special audit.
+
+SN | Name of firm
+----|----
+i)   |         VRC
+ii)  |          Basant
+iii) |         Aryan
+iv) |         MGM
+v)   |        FASL
+
+
+The above 5 firms were initially picked up for detailed out of turn quality audit and audit was also promptly carried out. However, later due to representations and from vendor and to later to maintain uniformity, all the regular 11 vendors were were picked up for the detailed out of turn quality audits. The data of the failures were also  requested from the Railways by updating the portal.
+
+
+# Action taken to Control and Improve the quality
+
+## Quality Audit of the firms
+
+All the 11 firms were audited. Though all the EM pads had passed the requisite tests in the vendors lab however, the quality audit of all the firms indicated varied levels of quality related issues in the process for which notice for rectification of the defects was given to the firms 
+
+## Joint Vendor web confrence:
+
+The increased failures were discussed with all the vendors through the video conference on date   … where all the vendor except ( ) attended the meeting.
+
+The vendors were explained about the increased failures and RDSO concern for the same and action plan for the quality improvement. However, most of the vendors essentially represented that the average speed of the train service has increased from around 25 KMPH to about 45 during the COVID lockdown and non stop through sustained run of freight trains and increased visibility of any incidences of the freight trains were the major reasons.
+
+The failure details reported by the Railway included the melting and even burning of the EM pads. It was also observed that the failure of the EM pads reported included the EM pads of various makes and also of the EM pads which have been running successfully for over 2 or three years.
+
+Later for maintaining uniformity and to avoid possibilities of complains, it ws decided as follow “Quality audit of all the remaining regular approved firms may be got carried out on priority”.
+
+To expedite the Out of turn Quality Audit of the five firms as per RDSO ISO Doc. No. QO-D-8.1-13, version No.1.2, para No.4.6 and testing of sample during process audit check was done in firm’s lab. 
+
+After compilation of Special Quality Audits of 11 firms,  SCNs were issued to all the firms. 
+
+Deficiencies have been complied by firms are placed alongside (CP-85-97).  The compliance of deficiencies verified by Mumbai & Delhi I&L/QAM office.
+ 
+## Sample Testing in RDSO labs
+ 
+To independently verify the quality levels,the Samples were picked up from following depot/workshops as per RDSO ISO doc. No. QO-D-8.1-11, Version: 1.5 Clause no. 5.0(CP-137)  and samples were suitably coded by QA/Design directorate to ensure that the identity of the unit/firm is not disclosed to the lab. Further samples of EM pads were sent to M&C Dte and fatigue lab for testing as per ISO doc. No. QO-D-8.1-11, Version: 1.5 Clause no. 5.1(CP-139)  
+ 
+table:: Location of collection of samples
+
+Sr. No  | Firms  Name  | Picked up samples from   Depots/workshops(Cp-410-426) 
+--------|--------------|-------------------------------------------------------
+1       | VRC          | Jagadhri workshop
+2       | Bony         | MGS depot
+3       | TC            | Wagon repair   shop/Izzatnagar
+4       | Prag        |  WAGON Depot kanpur
+5       | FASL        | Carriage &wagon /TKD
+6       | Avadh       | BCN ROH /UMB
+7       | Aryan       | Jhansi workshop
+8       | Basant      | DISEL SHED Sabermati
+9       | HFL        | Raipur work shop
+10      | MGM        | Wagon repair shop kota
+11      | CFL        | Raipur work shop
+
+ 
+
+As per ISO doc. No. QO-D-8.1-11, Version: 1.5 Clause no. 5.0(b), the **standby** samples have been kept in the designated as “STAND BY SAMPLE STORE” in RDSO. The ‘Standby’ sample shall be undertaken only with the approval of CVO/RDSO if deemed necessary, based on the compliant from Railway/Railway Board etc. or if directed by Spl. DG/VD/RDSO(CP-137)  
+
+ 
+Railway Board have also advised that-“Railway to ensure that all cases of warranty failure reporting to RDSO through the RDSO portal on warranty failure to ensure that the details are available with RDSO QAM dte for monitoring and ensuring compliance”. This updated  data has also been tabulated as below
+
+
+Table:: Updated Warranty failures report with RDSO - update??
+
+Sr. No   |  Firm Name   | Total supply  | Total Failure  | Percentage
+---------|--------------|---------------|----------------|----
+1	        |  VRC	    	| 132248  	    	|  ?1650  	|  1?.25     
+2	        | Bony      	| 245231		      |   ?973  	| ???0.40 
+3	        | TC		     | 338806           |	  1272	 | 0.38   
+4	        | Prag       |  229945          |  424     |  0.18  
+5	        | FASL       | 198646           | 1400    | 0.70
+6       	| Avadh       | 139214          | 544     | 0.39
+7	        | Aryan      | 377600           | 3174 |  0.84
+8	        |Basant      | 136987           | 1618 |  1.18
+9	        |  HFL       | 241141           |  655 |  0.27
+10         | MGM        | 250205          | 2069 |  0.83
+11        | CFL        |  282243         | 1146  | 0.40
+ 
+
+
+# B.   Test Reports in RDSO:
+
+ 
+
+### (a)  Visual examination and %Ash content and Specific gravity by M&C Directorate:
+
+Samples of EM pads were sent to M&C Dte for testing of visual examination, % Ash Content & Specific gravity as per Spec. No. WD-20Misc-95(Rev-3). 
+
+The test results and observation of M&C Dte are placed at ..????
+
+
+
+
+### (b)  Compressive load deflection & shear load deflection & Shear fatigue test(CP-161-409 ) by Testing Directorate
+
+Sample of EM pads were sent to fatigue lab for testing of Compressive, shear load deflection & shear fatigue test as per Spec. No. WD-20Misc-95(Rev-3). 
+
+The test results and observations of fatigue lab are placed at ...???
+
+
+
+## Action plan based on test results:
+
+Action to be taken based on test results as per ISO Doc. No. QO-D-8.1-1, version No.1.5, Clause no.5.1.3(b)(CP-140) 
+
+The RDSO ISO provides that :
+
+> “However, If the first sample fails following action to be taken:
+
+> (i) In case sample fails marginally in maximum two parameter by less than 5% from the prescribed values (i.e for example if prescribed limit is 5-10 then marginal failure limit shall be 4.75-10.5) then RDSO shall intimate the consignee/Inspecting agency to take action for rejection of lot as per clause 5.2 given below.
+
+> (ii) In case sample fails in more than two parameter or in two parameters by more than 5% from the prescribed values then besides action for rejection of lots as per para i above, PENAL action shall also be taken as per clause 4.2 of this document.
+
+> However, the severity of penal action shall be based on the degree of non-conformity i.e:
+
+Critically of the parameter in which sample failed.
+Percentage deviation of non-conformance from the acceptable limits in each failed parameter.
+Total number of parameters in which the samples failed.
+Past record of-number of consignee end samples inspected and % failed etc. shall be maintained and taken into consideration as it reflects the overall quality of the vendor over a wider time spectrum”.
+
+The deviations have to be correlated with percentage deviations as per the ISO apex document para 5.1.3.  The deviations in those parameters and percentage ,  to decide on the  severity of penal action based on the degree of non - conformity as per the provisions of the ISO apex document para 5.1.3 .
+
+Accordingly, the following information were referred to Wagon Directorate.
+
+ - The deviations in those parameters and percentage deviations as per the ISO apex para 5.1.3 is included & comprehensive sheets are  placed at Sr.No.427-434 .
+
+ - Warranty of EM pads is taken from RDSO warranty portal and complied data is placed at Sr. No.103-104 
+
+ - SCN of Quality audit reports are placed at Sr. No.85-89 
+
+
+
+Technical views from Wagon Directorate were taken which clearified that none of the firm is fully complying all the stipulated criteria mentioned in the specifications for these tests.
+Accordingly, the aciton has been iniitiated as per  RDSO Apex ISO provisions.
+
+In terms of ISO Doc. No. QO-D-8.1-1, version No.1.5, Clause no.5.1.3 (b), following is stipulated for perusal please
+
+> (i) All firms completely failed in two or more parameters by more than 5% from the prescribed values except MGM rubber which has failed in one parameter i.e shear fatigue test (placed at CP No.427 )
+
+> Further for deciding the severity of penal action shall be based on the degree of non-conformity   are given below:
+
+> Criticality of the parameter in which sample failed :- As per note#56 , wagon Dte has stated that-“The testing have been conducted for compressive Load Deflection Characteristics, Shear Load Deflection Characteristics and Shear Fatigue Test as per WD-20-Misc-95 (Rev.3). All three criteria are important   from performance point of view. No firm is fully complying all the stipulated criteria mentioned in the specification for these tests”.
+
+> Percentage deviations of non-conformance from the acceptable limits in each failed parameter: - For all 11 firms is placed at CP no.427 .
+
+> Total number of parameters in which the samples failed: - For all 11 firms is placed at CP No.427.
+Past record of number of consignee end samples inspected and % failed etc. shall be maintained and taken into consideration as it reflects the overall quality of the vendor over a wider time spectrum: - Past record of number of consignee end samples inspected and % failed of the 11 firms are taken from RDSO portal and placed at CP No.103 to104 .
+  
+Accordingly, a Notice for time bound reply for the show cause for Temporary de-listing has been issued to all vendors as per RDSO apex ISO provisions. Based on the complinece and test confirmation, the vendors shall be delisted *temporirily* at the first instance.
+
+ 
+GOPAL KUMAR
+(SR ED/QAM/RDSO/HQ)
+
+
+Criticality of the parameter in which sample failed :- As per note#56 , wagon Dte has stated that-“The testing have been conducted for compressive Load Deflection Characteristics, Shear Load Deflection Characteristics and Shear Fatigue Test as per WD-20-Misc-95 (Rev.3). All three criteria are important   from performance point of view. No firm is fully complying all the stipulated criteria mentioned in the specification for these tests”.
+Percentage deviations of non-conformance from the acceptable limits in each failed parameter: - For all 11 firms is placed at CP no.427 .
+
+Total number of parameters in which the samples failed: - **For all 11 firms is placed at ..... ?? **.
+
+Past record of number of consignee end samples inspected and % failed etc. shall be maintained and taken into consideration as it reflects the overall quality of the vendor over a wider time spectrum: - Past record of number of consignee end samples inspected and % failed of the 11 firms are taken from RDSO portal and placed at CP No.103 to104 .
+  
+
+Put up for your kind perusal & further decision in terms of ISO Doc. No. QO-D-8.1-1, version No.1.5, Clause no.5.1.3 & clause 4.2 Penal actions(CP.No.131 to 142 )
+
+ 
+Submitted for kind perusal and decision please in terms of Note#61 above in terms of ISO ISO Doc. No. QO-D-8.1-1, version No.1.5, Clause no.5.1.3 and QO-D-8.1-1, version No.1.5,  clause 4.2 for Penal actions.
+
+
+Since, all the EM Pads vendors have clearly failed in critical parameters to varying extents and none of them could be strictly considered marginal, a Notice for time bound reply for the show cause for Temporary de-listing is to be immediately issued to all vendors as per RDSO apex ISO provisions. 
+
+ 
+
+
+
+GOPAL KUMAR
+(SR ED/QAM/RDSO/HQ)
+
+
+```{r getdatastest, include=TRUE, eval=TRUE, echo=TRUE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, cache=TRUE}
+# , fig.width=7, fig.height=7 
+
+ss2 = "1l6j00fZoQkJvl2150r75BtGTVxYnmEgC7hgeOU3_KNE"
+#googlesheets4::sheet_names(ss2)
+
+googlesheets4::read_sheet(ss2, sheet = "LongTable", range = "LongTable!A1:M987" , skip =0 , col_names=TRUE, col_types = "c" , na = "", 
+                          trim_ws = TRUE,  .name_repair = "unique")  ->    DepotVerified
+
+# DepotVerified
+
+```
+
+
+```{r printable51, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE}
+library(tidyverse)
+library(kableExtra)
+DepotVerified  %>%  kbl(caption = "Table of Varification of EM pads in Depots",
+                        longtable = T, booktabs = T   ) %>%
+                  kable_styling(latex_options = "striped") %>%
+   kable_classic(full_width = F)# %>%
+#  kable_paper(full_width = F)    # %>%
+#  column_spec(1, bold = T, border_right = T) %>%
+#  column_spec(2, width = "10em")
+
+# landscape(knitr::kable(head(DepotVerified), "latex"))
+
+# mtcars2$am <- factor( mtcars$am, labels = c('automatic', 'manual')  )
+# ggplot(mtcars2, aes(hp, mpg, color = am)) +   geom_point() + geom_smooth() +  theme(legend.position = 'bottom')
+```
+
+
+
+```{r taxtabletest , fig.fullwidth = TRUE, echo = FALSE,  message=FALSE,  warning=FALSE, error=FALSE, cache=TRUE}
+# rmarkdown::pandoc_convert("test.md",    to = "latex",  output = "out.tex",  options = "--standalone" )
+# render("test.Rmd", output_format = "latex_document")
+
+library(googlesheets4)
+ss <- "https://docs.google.com/spreadsheets/d/1p0HLzHs5TP-U9RJ1ujaWG-Zzhc19wu5ocpxUjeBzP8o/edit?pli=1#gid=1552687662"
+sheet = "toxicity"
+
+n_max = 100
+
+mygsheet <- read_sheet(
+  ss,
+  sheet = sheet,
+  range = "A1:D11", #NULL,
+  col_names = TRUE,
+  col_types = NULL,
+  na = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  .name_repair = "unique"
+)
+
+
+# options(knitr.table.format = "pdf") #html") not required
+library(kableExtra)
+long_dt <- mygsheet  #rbind(mtcars, mtcars)
+
+kbl( long_dt, longtable = T, booktabs = T, 
+      caption = "Longtable"                                              ) %>%
+      kable_styling(latex_options = "striped")  %>%  #, stripe_index = c(1,2, 5:6)), 
+                         #, "hold_position"
+                         # , "scale_down"  - but manual with longtable = T
+   #  add_header_above(  c(" ", "Group 1" = 5, "Group 2" = 6)    ) %>%
+     kable_styling(full_width = T) %>%
+     column_spec(1, width = "1cm") %>%
+     column_spec(2, width = "8cm") %>%
+     # kable_styling(font_size = 7) %>%
+     #  kable_styling(position = "float_right") %>% text wrap
+     kable_styling(latex_options = c("repeat_header")) %>%
+     kable_styling(position = "center")
+
+```
+
+

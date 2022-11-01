@@ -1,0 +1,297 @@
+---
+title: "Cushioning Materials for IR"
+author: "Committee on Cushioning Materials"
+date: "18/03/2022"
+#output: powerpoint_presentation
+#output: beamer_presentation
+#output: revealjs::revealjs_presentation
+#output: ioslides_presentation
+output:
+  beamer_presentation:
+    slide_level: 2
+    theme: "AnnArbor"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+  #   
+  # powerpoint_presentation:
+  # reference_doc: my-styles.pptx  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## plot
+
+```{r, cars2, fig.cap="A scatterplot.", echo=FALSE}
+plot(cars)
+```
+
+
+## two column
+
+:::::: {.columns}
+::: {.column}
+Content of the left column.
+:::
+
+::: {.column}
+Content of the right column.
+:::
+::::::
+
+## Cushioning Materials
+- A material that provides support to the body and protects against impact. It is generally a softer material which when subjected to load will get pressed and regain the shape when the load is removed.
+- It makes the posture comfortable by way of supporting the body and distributing the weight such that the blood circulation to any part of the body is not adversely affected.
+
+
+## Cushioning Materials on IR : 1990-2000
+- PU Foam to RDSO Spec no. C-8914 was developed in early 2000 and first revision published in April 2002 .
+- C-8914 stipulated use of the material with fire barrier forsafety against fire hazard.
+- Physical and Performance related Properties: The materials were required to comply to the requirements given in IS 7888 for density, tensile strength, compression set, load quotient ,indentation hardness and fatigue.
+- Fire Resistant Properties: Flammability as per IS 7888 and Toxicity as per NCD 1409(Limit < 1) were inclded.
+
+
+## Cushioning Materials on IR : 2000-2010
+- Fire accidents in early 2000s led to a consultancy with SNCF. The recommendations made by SNCF led to inclusion of fire resistant properties defined in UIC 564-2. 
+- Specification no. RDSO/2007/CG-04 was developed in 2007 as an upgraded spec for PU Foam.
+- Physical and Performance related Properties: Tear Strength and Resilience were added to the properties defined in earlier spec C-8914 Rev 1.
+- Fire Resistant Properties: Resistance to Spread of Flame ,Deterioration of visibility due to smoke ( As per UIC 564-2) and Limiting Oxygen Index (As per IS13501) were added.
+
+## Cushioning Materials on IR : 2000-2010
+- Development of vendors complying to the specification of PU foam could not take place as the products developed were found to e more toxic than permissible.
+- It was noted that PU foam is used as Cushioning Material internationally in RDSO letter no.MC/CB/Cushion dtd.13.04.2006,however Toxicity of 1 could not be achieved on NCD 1409 scale. 
+- Specification no. C-K607 was developed in April’2006 for DTBPB after initial trials in 50 coaches during 2004-2006.
+- Physical and Performance related Properties: Same properties as defined for PU Foam.
+- Fire Resistant Properties: Same FST properties as defined for PU Foam.
+- This item met all the requirements of the specification and became regular cushioning material.
+
+## Cushioning Materials on IR : 2000-2010
+
+
+- Railways reported poor performance of DTBPB due to:
+ + Reduction in Cushioning Effect with time
+ + Permanent sagging
+ + Uneven density and hardness
+ + De-bonding and de-lamination of blocks.
+ 
+- Review of Specification was undertaken in 2009 and limits for tensile strength, tear strength ,load quotient were increased along with density (from 50 to 60 kg/m3 ) . Further the limits for humidity ageing, loss in indentation hardness during fatigue test were reduced. An amendment was issued to the specification.
+- Fire Resistant Properties: Same FST properties as defined earlier.
+
+
+## Cushioning Materials on IR : 2000-2010
+
+- Issues reported in use of DTBPB were addressed by revision in 2009 except for -   
+ + Uneven hardness and density
+ + Permanent set with usage particularly in GS Coaches
+- Revision of Specification was made in 2011 to address these issues and the following changes were made-
+ + Automated continuous line for consistent output
+ + Density for GS Coaches increased to 80 kg/m3
+ + De-lamination test as per ISO 8067 added   
+-These changes in the specification addressed most of the issues except for permanent set which continues to be reported albeit with lesser frequency.          
+
+
+---
+
+Railway Board vide letter no. 2006/M(C)/137/20 Vol.V(Part-I) dtd.06.0.2014, relaxation in toxicity of PU Foam  up to 2.5 when wrapped with Fire Barrier Cloth was provided for use in Chair Cars, Double-Deckers and Day Coaches.
+This relaxation was withdrawn vide RDSO letter no.MC/CB/Cushion/PU Foam dtd.29.12.2014.The reasons indicated were-
+The use of Cushioning Material as PU foam is highlighted in PIL of Hon’ble Supreme Court.
+ADG/RDSO noted that alternate Cushioning material such as Silicon Foam to be identified to overcome the problem of furnishing material.
+Instructions issued in same letter to switch over to Silicon Foam specially indigenously manufactured being lower in cost.
+
+---
+
+In 2011 during visit of MM to USA, M/s Rogers presented Silicon Foam as a Cushioning material having excellent fire resistance and comfort indices along with long life of 10 years.
+RDSO was directed vide Rly Board letter no.76/M(C)/137/31 dtd.30.11.2011 to take action on MM’s inspection note .
+RDSO developed specification for Silicon Foam in May 2014 RDSO/2013/CG-13 and trials were conducted in GS and LWACCN coaches. Based on trial results Railway Board directed to fit the item in 30% of Coaches manufactured at PUs vide letter no.76/M(C)/137/31 Vol(iii) dtd.16.03.2018
+                   
+                                                
+
+---
+
+In the meantime EN45545 was implemented in Europe. 
+During PCME’s conference held at Secunderabad in April, 2019 and PCME’s meeting on higher priority items held on 28-29th Aug, 2019 at New Delhi, it was decided to use PU foam complying to EN45545 in 70% of the coaches.
+This decision was forwarded to RDSO for technical scrutiny. RDSO vide letter no.MC/CB/Cushion/PU Foam dtd.16.08.2019 gave its agreement to the proposal.
+Railway Board vide letter no.2017/M(C)/142/4 pt.IV dtd.16.09.2019 issued instructions for use of Silicone foam on 30% coaches and PU Foam toEN45545 in 70% of the coaches.  MCF was directed to define physical and Performance related properties and make specification and also develop vendors.
+MCF issued the specification in October’2019 for PU Foam complying to EN45545.                                             
+
+---
+
+Vendor development activity was undertaken by MCF and M/s Metzler, Germany and M/s Sheela Foam were listed as Developmental Vendors in Feb’2020.
+Three more vendors were approved in Sep-Oct’2021-
+
+          1. M/s NTF (India) Pvt. Ltd., Gurgaon
+          2. M/s Oriental Rail Infrastructure Ltd., Thane
+          3. M/s Sukata Tractor Parts,Panchkula
+
+
+# Table properties
+SN | Material | Tensile Strength | Elongation at Break | Humidity Ageing-Hardness loss | Fatigue-Loss in thickness after 20000 cycles | Tear Strength | Resilience | Compression set
+-- | ----- | ------| ---- | ------ | ------ | ------ | ---- | ---
+1 | PU Foam to CG-04 | 1.1 Kg/cm2 | 100% | 25 % Max | 10% | 0.5 N/cm min | 50 % | 10% 
+
+
+2
+DTBPB
+2.5 Kg/cm2
+110%
+13 % Max
+10%
+1.5 min
+45%
+10%
+3
+Silicone Foam
+0.5 Kg/cm2
+50 % min
+10% max
+5% max
+0.5  kg/cm min
+50%
+5% max
+4
+PU Foam to MMDTS19020
+0.6 Kg/cm2
+45% min
+25% max
+5% max
+0.1 kg/cm min
+35% min
+10% max
+
+## Some more tables ..
+
+## Conclusions Drawn from Comparison
+
+PU Foam to CG-04:
+1. It is light weight and has good physical and comfort properties.
+2. The fire resistant properties are not good as its toxicity is found to be around 2.5 and it does not meet HRR requirements.
+DTBPB:
+1. It has good fire resistant properties and physical properties are reasonable.
+2. It loses comfort index with time and acquires permanent set.
+Silicone Foam:
+1. It has best fire resistance amongst available options and has good physical properties except for density which is quite high compared to other options.
+2. The comfort related properties are very good and it has maximum warranty.
+PU Foam to MMDTS19020:
+1. It has good physical and comfort properties.
+2. It meets the requirements of EN45545 in FST properties.
+It is seen that none of the options is an ideal one and an optimal solution needs to be arrived
+
+## Main Issues Raised in Complaints and on Social Media..1
+A large number of complaints have been received against adoption of PU Foam as a Cushioning Material. The important points highlighted are:
+1.Toxicity values of PU foam complying to EN45545 are very high when measured as per NCD 1409 standard indicating dilution in acceptable toxicity values. This will compromise passenger safety.
+2.EN45545 standard includes analysis of only 8 gases against 14 in NCD1409.The gases left out are highly toxic and found in combustion products of PU foam.
+3.FST properties are not included in acceptance test which is in contravention to High Power Committee recommendations appointed in the case filed in Hon’ble Supreme Court.
+4.Resistance to spread of flame, deterioration in visibility due to smoke and limiting oxygen index are not included for testing to qualify a product, though these are important parameters and included in UIC564-2.
+5.Deterioration in thickness and hardness up to 20% and 30% in reserved and unreserved coaches has been allowed during warranty period which is in total contradiction to test values given in specification.
+6.PU foam with toxicity up to 2.5 was not being allowed, however , value of 7.27 is obtained for PU foam complying to EN45545;how can this be allowed.
+
+## Main Issues Raised in Complaints and on Social Media….2
+7. Why has this material been allowed without any trial even though all other materials have been tried out extensively before adoption.
+8. Why finance is not consulted while adopting this item when it was consulted for Silicon foam.
+9. A person can survive for 30 min if toxicity is less than 1, Will he survive for 5 min if toxicity is more than 7.
+10. Europen trains have less capacity, are not overcrowded and are ay trains; is it prudent to adopt their lenient standard on IR with entirely different conditions.
+11. Is it prudent to adopt EN45545-2 without adopting part 3,4 and 6.
+12. Indian Railways in their submission to Hon’ble Supreme Court in WP178 of 2014 submitted for toxicity limit of 1 as per NCD .With new material it is more than 7, doesn’t it contradict to the submission made.
+13. ISO 13571-Life threatening components of fire includes formaldehyde and acrylonitrile for measurement which are produced with PU foam but these gases are left out in EN45545.
+
+
+
+## Methodology to be followed
+### Methodology Suggested by Railway Board: 
+Railway Board suggested methodology is-
+- To study all available cushion materials and its specifications including various references received and issued from Board.
+- To draw random samples of materials being used in Railway Coaches as on date and getting it tested in reputed neutral labs and to examine its status vis-à-vis present specification.
+- To call for inputs as deemed fit from Zonal Railways.
+
+The testing alone needs about 4 weeks time. The test reports need to be evaluated , compared and field performance to be taken into account. We therefore request for extension of tenure of the committee b three months.
+
+
+
+
+
+
+# old ppt now IR : 2000-2010
+
++ kjgkjg
++ hgjk
+
+## Markdown Elements (1)  error on following blank line
+*italic*, **bold**, --strikeout--, super! ~subscript~, ^superscript^, [small caps]{.smallcaps}, `verbatim`
+
+<br>
+
+1. Ordered list item 1
+2. Ordered list item 2
+
+* Unordered list item 1
+* Unordered list item 2
+
+## Markdown Elements (2)
+<!-- Visit [Appsilon](https://appsilon.com/) for more  --->
+
+<br>
+
+> Appsilon builds the world’s most advanced enterprise R Shiny applications, with a specialization in enterprise Shiny dashboards.
+<br>
+
+$$ u = \frac{-b \pm \sqrt[]{b^2 - 4ac}}{2a} $$
+
+
+## Image
+<!-- ![Image 1 - A dog](https://images.unsplash.com/photo-1643644323421-7e1cfbb2f26d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80)
+--->
+
+## Table
+     species    sepal.length    sepal.width
+------------    -------------   ------------
+     setosa     5.1             3.5
+  virginica     7.4             2.8
+ versicolor     6.4             3.2
+
+## Multi-column Layout
+:::::::::::::: {.columns}
+::: {.column}
+This is the **first** column
+
+- List item 1
+- List item 2
+:::
+::: {.column}
+And this is the *second* column
+
+* Item
+* Item
+:::
+::::::::::::::
+
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+## Slide with Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+
