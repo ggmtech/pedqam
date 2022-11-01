@@ -1,0 +1,97 @@
+---
+title: "Untitled"
+subtitle: No subtitle for thsi project
+date: 26 Nov 2022
+#format: beamer
+format:
+#output:
+#  beamer_presentation:
+  beamer: 
+    toc: true
+#    aspectratio: 32
+    navigation: horizontal  # no # frame, vertical, horizontal
+    theme: AnnArbor # Warsaw Rochester PaloAlto Marburg JuanLesPins Berkeley Copenhagen
+    colortheme: beaver #lily wolverine seahorse crane
+    incremental: true  
+#    theme: "AnnArbor"
+#    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    #innertheme:
+    #outertheme:
+    #themeoptions:
+    aspectratio: 169
+    # beamerarticle # Article from Beamer
+    # beameroption # \setbeameroption{}
+    institute: RDSO
+    author affiliations: RDSO AND NER
+    logo: flowery.png
+    titlegraphic: dahlia.png
+    background-image: dahlia.png #RDSO_Logo1.jpg
+    section-titles: true # false
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+## Incremental also by this way
+
+::: incremental
+-   Eat spaghetti
+-   Drink wine
+:::
+
+::: nonincremental
+-   Eat spaghetti
+-   Drink wine
+:::
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Slide with a pause
+
+content before the pause
+
+. . .
+
+content after the pause
+
+## Multiple Columns
+
+use a native div container with class .columns, containing two or more div containers with class .column and a width attribute:
+
+::: columns
+::: {.column width="40%"}
+contents...
+:::
+
+::: {.column width="60%"}
+contents...
+:::
+:::
+
+## with optional align
+
+::: {.columns width="40%" align="center" totalwidth="8em"}
+::: {.column width="40%"}
+contents...
+:::
+
+::: {.column width="60%" align="bottom"}
+contents...
+:::
+:::
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
