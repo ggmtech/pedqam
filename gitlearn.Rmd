@@ -9,10 +9,11 @@ output: pdf_document
 #knitr::opts_chunkset(echo = TRUE)
 ```
 
-git config --list    # list everythnng !!
+xaringan::infinite_moon_reader()
 
-git config --list            # Show repository configuration:
-git config --local --list    #    --global ,  --system  
+git config --list    # list everythnng !!# Show repository configuration:
+          
+git config  --list  --local  #    --global ,  --system  
 git config --global user.name "[firstname lastname]"
 git config --global user.email "[valid-email]"
 git config --global color.ui auto # Set automatic command line coloring 
@@ -20,7 +21,7 @@ git config --global core.editor vi
 
 #Configuration Files
 /etc/gitconfig      ## - System-wide config file [--system]:
-~/.gitconfig        ## - User-specific config file [--global]:
+   ~/.gitconfig        ## - User-specific config file [--global]:
 <repo>/.git/config  ## - Repository specific config file [--local]:
 
 
@@ -28,6 +29,7 @@ git init
 git init <directory>
 git clone ssh://user@domain.com/repo.git
 git clone http://domain.com/user/repo.git
+
 
 git status
 git diff  Changes to tracked files:

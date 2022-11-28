@@ -12,17 +12,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 knitted_when <- format(Sys.Date())
 knitted_where <- knitr::current_input()
-knitted_with <- packageVersion("knitr")
-#knitted_doc_url <- downlit::autolink_url("knitr::knit()")
+knitted_with <- packageVersion("knitr") 
 ```
 
 
 <!---  Reported prepared on `r knitted_when` from `r knitted_where`
-with knitr version  
+with knitr version    r knitted_with r emo::ji('smile') . -->
 
- r knitted_with` `r emo::ji('smile')`. -->
 
-Read more about [`knitr::knit()`](`r knitted_doc_url`)`.
 
 
 "knitted_" %>% tab() # list autocomlete tabs
@@ -47,7 +44,7 @@ doc_url = downlit::autolink_url("knitr::knit()")
 
 Reported prepared on `r knitted$when` from ``r knitted$where``
 
-with knitr version `r knitted$with` `r emo::ji('happy')`.
+<!-- with knitr version `r knitted$with` `r emo::ji('happy')`. --->
 
 Read more about [`knitr::knit()`](`r knitted$doc_url`)`.
 

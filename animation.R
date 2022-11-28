@@ -66,8 +66,8 @@ print(paste("Store Number: ", top_grossing_store, sep = ""))
 
 
 # FIND WEEKLY SALES DATA FOR TOP GROSSING STORE (USING data.table) ----------
-top_store_weekly_sales <- walmart_store_sales_data[Store == eval(top_grossing_store), 
-                                                   .(Weekly_Sales = sum(Weekly_Sales, na.rm = TRUE)), 
+top_store_weekly_sales <- walmart_store_sales_data[Store == eval(top_grossing_store),
+                                                   .(Weekly_Sales = sum(Weekly_Sales, na.rm = TRUE)),
                                                    by = "Date"]
 
 
@@ -172,12 +172,12 @@ df = data.frame(Product=rep(sample(LETTERS[1:10],10), 10),
                 Sales=sample(1:100,100, replace = TRUE))
 head(df)
 # Ranking by Period and Sales
-df = df %>% 
-    arrange(Period, Sales) %>% 
+df = df %>%
+    arrange(Period, Sales) %>%
     mutate(order = 1:n())
 
 # Animation
-p = df %>% 
+p = df %>%
     ggplot(aes(order, Sales)) +
     geom_bar(stat = "identity", fill = "#ff9933") +
     labs(title='Total Sales in {closest_state}', x=NULL) +
@@ -189,3 +189,4 @@ p = df %>%
 
 animate(p, nframes=50, fps=4)
 anim_save("bar_animation.gif", p)
+

@@ -1,0 +1,36 @@
+---
+title: "Untitled"
+format: pdf
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+Julia_setup(JULIA_HOME = "C:/Users/James/Documents/Julia 1.5.1/bin")
+julia <- julia_setup()
+```
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+library(JuliaCall)
+## This is a R language chunk.
+## In the previous julia chunk, we define variable a,
+## we can use functions in JuliaCall to get access to it.
+julia_eval("a")
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).

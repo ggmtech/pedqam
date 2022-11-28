@@ -25,6 +25,12 @@ linestretch: 1.5
 geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
 # geometry:	margin=1in # options
 output:
+<<<<<<< HEAD
+  pdf_document:
+    toc: true
+    toc_depth: 2
+=======
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
   bookdown::pdf_document2:  # unicode need xeletex
     latex_engine: xelatex
     keep_tex: true
@@ -32,6 +38,9 @@ output:
     toc: true
     toc_depth: 3
     df_print: kable  # default table style
+<<<<<<< HEAD
+#    reference_docx: costingrmd.doc #pandoc_template.docx
+=======
 #    citation_package: biblatex #natbib #cause error
   officedown::rdocx_document:
     number_sections: true
@@ -41,6 +50,7 @@ output:
   html_document:
     number_sections: true
    # reference_docx: pandoc_template.docx
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
     tables:
       style: Table
       layout: autofit
@@ -81,11 +91,27 @@ output:
       footer: 0.5
       gutter: 0.5
     reference_num: true
+<<<<<<< HEAD
+#abstract: |
+# DG directed setting up of a committee of 3 PED’s to examine the recommended system improvement to examine the recommended system improvement at para “e” / NP3 , which is reproduced as: Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd. Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021. The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
+keywords:
+  - key, QAM, Railway, RDSO
+  - dictionary
+  - word
+linestretch: 1.5
+parms:
+  names:gopalkumar
+  position:pedqam
+geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
+bibliography: book.bib
+#bibliography: ../pedqam/GKBibMaster.bib
+=======
 abstract: |
  DG directed setting up of a committee of 3 PED’s to examine the recommended system improvement to examine the recommended system improvement at para “e” / NP3 , which is reproduced as: Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd. Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021. The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
 citation_package: biblatex # natbib or biblatex 
 #bibliography: ../gkbookdown/book.bib
 bibliography: ../pedqam/GKBibMaster.bib
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
 csl         : "etransportation.csl"
 nocite: |
   @*    # or   @item1, @item2 @* is a wildcard for all references.
@@ -121,35 +147,34 @@ knitr::opts_chunk$set(fig.retina=2)
 
 ```{r ipsumsetup , message=FALSE, warning=FALSE, cache=FALSE, echo=FALSE}
 library(hrbrthemes)
+#hrbrthemes::import_roboto_condensed()
 library(tidyverse)
 update_geom_font_defaults(font_rc)
 ```
 
 <!-- # Abstract {-} --->
 
+<<<<<<< HEAD
+```{r myimage, eval = TRUE, include=FALSE, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
+#knitr::include_graphics("RDSO_Logo1.jpg") #flowery.png")
+=======
 
 ```{r myimage, eval = TRUE, error =TRUE, include=FALSE, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
 #knitr::include_graphics("-/flowery.png") #RDSO_Logo1.jpg") #
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
 ```
 
 \tableofcontents
 
-
-
 # History of the case
 
-Based on a complaint by M/s Prag industries , Lucknow to Member(RS) Railway Board, and PED/Vigilance , Railway Board , etc, the case was investigated and Vigilance organisation recommended following system improvements. 
-
-> > Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd.
-
->> CVO view that indicative costing of the items should be done by concerned directorate with finance vetting by invoking book examination clause, if need be,, as a result of discrete value analysis to preclude the possibility of revenue loss. It is also hightime where RDSO may consider setting up of value analysis cell for this purpose,
-
-The committee noted that the then  DG/RDSO also  agreed on the recommendations
-
-DG directed setting up of a committee of 3 PED’s to examine the recommended system improvement to examine the recommended system improvement at para “e” / NP3 , which is reproduced as :
+Based on a complaint by M/s Prag industries , Lucknow to Member(RS) Railway Board, and PED/Vigilance , Railway Board , etc, the case was investigated and Vigilance organisation recommended following system improvements.
 
 > Whenever a new specification or a revision of specification is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with concurrence of Finance dte of RDSO and the same may be advised to Zonal Railways under the approval of rly.Bd.
 
+<<<<<<< HEAD
+> CVO view that indicative costing of the items should be done by concerned directorate with finance vetting by invoking book examination clause, if need be,, as a result of discrete value analysis to preclude the possibility of revenue loss. It is also hightime where RDSO may consider setting up of value analysis cell for this purpose,
+=======
 Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021
 
  * Gopal Kumar, PED/QA(Mech) - Convener
@@ -162,11 +187,195 @@ Accordingly, the committee of the following officers has been nominated by Spl.D
 The committee has also examined the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee.
 
 <!--- It is seen that DG/RDSO has already accepted the recommendations for working out financial  implications, including financial vetting of the costing at NP4 of the file RDSO/20/Vig/05/CT/39. 
+>>>>>>> 50329cc5becb6ea17df6d9830478bb37ee4b8a85
 
-Sheridan [@Brown14]: You know,
---->
+DG directed setting up of a committee of 3 PED's to examine the recommended system improvement to examine the recommended system improvement at para "e" / NP3 , which is reproduced as :
 
+> Whenever a *new specification* or a *revision of specification* is proposed in future by the wagons directorate , the costing of the final / new product along with the other financial implications involves should be worked out beforehand by the dte with *concurrence of Finance dte of RDSO* and the same may be advised to Zonal Railways under the approval of rly.Bd.
 
+Accordingly, the committee of the following officers has been nominated by Spl.DG/VD vide confidential note Ref.No.DG(Spl.)/VD/Vigilance dated 15.09.2021
+
+-   Gopal Kumar, PED/QA(Mech) - Convener
+-   Sunit Kumar, PED(EL)
+-   Alok Mathur, PED/QA(Elec)
+
+The committee has also gone through the case file RDSO/20/Vig/05/CT/39 sent along with the nomination of the committee. It is also noted that then then DG/RDSO had also already princiapally agreed with the recommendations for working out financial implications, including financial vetting of the costing at NP4 of the file RDSO/20/Vig/05/CT/39 and the costing is thus essentially required to be worked out by RDSO.
+
+# Deliberations of committee
+
+Committee discussed the issue and also invited suggestions from the vendor dealing directorates in the WA group.
+
+Committee examined the various methods for estimating the cost in the existing codes and practices.
+
+## Estimation of manufacturing cost as per IR Rolling Stock Code:
+
+Since, the costing has to be vetted, the finance is likely to vet against the standard policy issued in this regard. One such source is Indian Railway Rolling Stock code which has a chapter on the costing of Indian Railway workshop manufactured item - job costing system as explained in para 603 onwards.
+
+<https://indianrailways.gov.in/railwayboard/uploads/codesmanual/MechDept/Final_6_DME.PDF> para 603 Job Costing System, (For Shop manufactured items),
+
+> 605. Features of Job Costing System a For each item of manufacture there is Allowed time against each process of work. b Standard quantity of raw material to be drawn with the specification is also given. c The unit cost of manufacture is arrived from cost sheet for the particular work order wherein, all elements of cost are charged to that work order. d Total cost divided by the quantity completed for that work order will give the unit cost of item manufactured. e The standard fixed helps comparison of unit cost with other shops or with trade cost.
+
+This process does not appear feasible in RDSO as this process requires a detailed set up of production , planning and control with time studies and working out of overheads as per the codes. In the current industrial scenarios, the production of Railway items is not generally planned as a sole production line but as a flexible manufacturing system and it would be difficult to attribute the overhead costs and costing is likely to be based on business decision of the company and the competitive environment of the industry.
+
+## Manual for Procurement of Goods 2017
+
+Manual for Procurement of Goods 2017 Ministry of Finance 16 Chapter -- 2 Need assessment, formulation of Specifications and Procurement Planning
+
+The following is the para on the estimation of cost:
+
+> e)  Estimation of Cost:
+
+1.  The estimated cost in the indent is a vital element in various procurement processes, approvals and establishing reasonableness of prices at the time of evaluation of the bids. Therefore, it should be worked out in a realistic and objective manner. The prevailing market price ascertained through a market survey or budgetary quotations from one or more prospective suppliers or published catalogues/Maximum Retail Price (MRP) printed on the item is the main source for establishing the estimated cost of items for which there no historic data available. It may be noted that MRPs usually include significant margins for distributors, wholesalers and retailers;
+
+2.  For equipment/craft which are uniquely custom-built to buyer's specifications, the best way to get a fair assessment of costs is by obtaining budgetary quotes from potential parties. Ideally, there should be three quotes. However, there is need to have a time schedule for receipt of quotes to ensure some timeframe for this activity. Thus:
+
+    a)  An attempt should be made to obtain as many budgetary quotes as possible from reputed/potential firms and a time of 21 (twenty-one) days be indicated therefore. In the event of receipt of less than three budgetary quotes, two extensions of up to 10 (ten) days each may be considered; and
+    b)  In the event of non-availability of three quotes within the above extended period, the estimates should be prepared on the basis of the number of budgetary quote(s) received, which may even be one; and where more than one budgetary quote is received, the estimate should be framed on an average of the quotes which will reduce variations and fluctuations;
+
+3.  In addition, wherever they are available Directorate General of Supplies and Disposals (DGS&D) rates should be considered. Likewise rates should be compared with recent orders/purchases of similar equipment by other states/ Departments. Other methods for establishing the estimated cost in the indent and tender evaluation are:
+
+    a)  Estimated rate in past indents of the same goods;
+    b)  Last purchase price of this or similar or nearly equivalent requirements;
+    c)  Costing analysis based on costs of various components/raw materials of the item;
+    d)  Rough assessment from the price of the assembly/machine of which the item is a part or vice versa;
+    e)  Through the internal or external expert costing agencies; and
+    f)  As a last resort, rough assessment from the opportunity cost of not using this item at all;
+
+    ```{=html}
+    <!-- -->
+    ```
+    iv) These methods are not mutually exclusive and can be supplemented with escalations to cater for inflation, price increases of raw materials, labour, energy, statutory changes, price indices, and so on, to make them usable in conditions prevailing currently. In case of foreign currencies, the rate should be reduced to a common denomination of Indian Rupees. Price indices can be obtained from the following websites. Some may require prior free registration and some paid subscription:
+
+        a)  For price indices of indigenous items: <http://www.eaindustry.nic.in/home.asp.in> (Ministry of Industry);
+        b)  For metals and other minerals: <http://www.mmronline.com/or> <http://www>. metalprices.com/index.asp or <http://www.asianmetal.com/>;
+        c)  For price trends of nonferrous details; London Metal Exchange - <https://www.lme>. com/gives price trends of nonferrous details, which often show volatile trends;
+        d)  Other useful sites: <http://www.tradeintelligence.com/and> <http://www.cmie>. com/. (Centre for Monitoring Indian Economy);
+        e)  For price trends of different countries: <http://www.imf.org/external/pubs/ft/> weo/2015/01/(International Monetary Fund); and
+        f)  For organisation/chambers of commerce such as the (Indian Electrical and Electronics Manufacturer's Association): www.ieema.org;
+
+## Provisions in existing RDSO ISO apex documents
+
+1.  No cost aspect in RDSO ISO QO-D-8.1-1 Creation of the New RDSO Standard. Further no standards making body is known to be doing it. BIS who made RDSO a SDO , is also not doing it
+
+2.  Old ISO: QO-D-8.1-1 Creation of new specification for items
+
+3.  Para 4.6 Approval for issue of specification The concerned officer dealing with the particular specification shall put up proposal for the new specification to directorate head for approval to initiate the creation. When putting up the file to the directorate head, the concerned officer shall prepare a self-contained note addressing the following questions.
+
+    -   Why the need for creation of new specification had arisen?
+
+        a)  Vendor base and action plan to develop new vendors.
+        b)  Pricing of the item. Some quantitative estimation of pricing of the item shall be indicated in note for information
+        c)  A feedback format indicating specific parameters (for which feedback shall be collected) shall be prescribed along with the option to offer -- "Any other remarks (other than those prescribed)"
+
+4.  RDSO ISO Apex Document no QO-D-8.1-5 Application for Registration of Vendor - No cost requirement
+
+RDSO has no role in deciding the cost of the item. It has to be justified by the TEC which is the basic function of TEC.
+
+*RDSO however can provide information which may be available at the best effort basis without involving in protracted correspondence from field offices , as this would lead wastage of limited resource available with RDSO as RDSO has not been able to delver any substantial good due to such wastage of resources.*
+
+# Costing in RDSO
+
+\#\# Costing for new items
+
+\#\# Costing for Improvement in existing specs:
+
+## Difficulties in estimation of cost
+
+Cost cannot be given because of the following issues
+
+-   Rapid change in pricing due to scale of manufacture
+-   Number of vendors / Scale of competition/ Cartel
+-   Differently optimised process for manufacture of the item.
+-   Proportion of overhead assigned by the company to the particular item
+-   Confusion and delays in procurement process in the Indian Railways due to excess variation in RDSO indicative rate and the rates received by the tendering agencies and excess work for RDSO in responding
+-   RDSO does not have any wherewithal for estimating the costing Costing of Signal and telecommunication and even in is even more difficult due to fast changing and niche technology.
+
+### Pitfalls in cost estimation and impact on industry
+
+Pitfalls in cost estimation and impact on industry is noted in annexure / para 7
+
+-   Fast change in technologies
+-   Delay in issue of specifications due to need for assessment of the cost impacts.
+-   The public agencies like audit and CVC may mistake the indicative cost with absolute cost.
+-   Quantity is not possible for all items
+-   Fast change of technology and process
+-   Specs developed with a wide consultative process including industry - hence costing not critical as the views of existing vendors have recourse with speaking orders. Final agreement by majority. Further uniform time for changeover is also given.
+
+The anexxure also list failures in Costing process in DFMA.
+
+## Suggestions for practical system of costing and its limitations
+
+Though through costing is not possible by RDSO , the following workable costing can be done by establishing the following capacities in the RDSO if the same is inescapably required.
+
+The committee is aware that even BIS is not doing any costing for their standards/ specifications. Now RDSO is also a standards making body approved by BIS.
+
+Costing may be required : - During product development - During review ( taking consequential / subsequent financial implications) and - product development stage - To check overpricing of RDSO controlled item.
+
+## The possible solutions:
+
+1.  Costing on pattern of Workshops / Production Units as given in Rolling code of Indian Railways alongwith costing standard cost estimating softwares ( eg...)
+
+2.  Outsourcing / Assigning the items for estimating to various Indian Railway workshops depending upon the core competencies of those workshops.
+
+3.  Hiring the service of consultants / chartered cost accountants / Engineering firms
+
+-   On retainership basis
+-   On specific costing works
+-   Budgetary quotations from prospective vendors during specs development/ post specs development.
+
+Only for items having likely financial impact of over Rs 5 Crores. On date, following items have ... expected values over Rs Annexure .... Excel table of values of RDSO controlled items. Cost of prototype sourced through GeM portal as the indicative cost.
+
+### Issue of PL Numbers and cost range
+
+Stores officer in RDSO to control and issue PL numbers Price List Numbers or PL Nos. and also to communicate on clarification on price and justifications so that design officers are free for regular design and development works.
+
+For items where it is possible to get specific rates, the RDSO may enter into rates contract that may be operated by the users as per GFR2017 This is in confirmity with GFR.
+
+> Rule 156 (1) Purchase of goods directly under Rate Contract. In case a Ministry or Department directly procures Central PurchaseOrganisation (e.g. DGS&D)rate contracted goods from suppliers, the prices to be paid for such goods shall not exceed those stipulated the rate contract and the other salient terms and conditions of the purchase should be in line with those specified in the RateContract.TheMinistry or Department shall make its own arrangement for inspection and testing of such goods whatever required
+
+> Rule 156 (2) The Central Purchase Organisation (e.g. DGS&D) should host the specifications, prices and other salient details of different rate contracted items, appropriately updated, on the web sitefor use by the procuring Ministry or Department
+
+> Rule 148 Rate Contract. DGS&D shall conclude rate contractswith the registeredsuppliers for suchgoods,whichare not available on GeM, and are identified as common use items and are needed on recurring basis by various Central GovernmentMinistries or Departments. DGS&Dwill furnish and update all the relevant details of the rate contractson itswebsite. TheMinistriesor Departments shall follow those rate contractsto the maximum extent possible
+
+> Rule 150 Registration of Suppliers (i) With a view to establishing reliable sources for procurement of goods commonly required for Government use, the Central Purchase Organisation (e.g. DGS&D) will prepare and maintain item-wise lists of eligible and capable suppliers. Such approved suppliers will be known as "RegisteredSuppliers". All Ministries or Departments may utilise these lists as and when necessary. Such registered suppliers are prima facie eligible for consideration for procurement of goods throug h LimitedTenderEnquiry.Theyare also ordinarily exempted from furnishing bid security along with their bids. A Headof Department May Also register suppliers of goods which are specifically required by that Department or Office, periodically. Registration of the supplier should be done following a fair, transparent and reasonable procedure and after giving due publicity. (ii) Credentials, manufacturing capability, quality control systems, past performance, after-sales service, financial background etc. of the supplier(s)should be carefully verified before registration. (iii) The supplier(s)will be registered for a fixed period (between 1 to 3 years) depending on the nature of the goods. At the end of this period, the registered supplier(s) willing to continue with registration are to apply afresh for renewal of registration. New supplier(s)may also be considered for registration at any time, provided they fulfil all the required conditions. (iv) Performance and conduct of every registered supplier is to be watched by the concerned Ministry Deportment. The registered supplier(s)are liable to be removed from the list of approved suppliers if they fail to abide by the terms and conditions of the registration or fail to supply the goods on time or supply substandard goods or make any false declaration to any Government Agency for any ground which, in the opinion of the Government,is not in public interest. (v) The list of registered suppliers for the subject matter of procurement be exhibited on the Central Public ProcurementPortaland websites of the Procuring Entity/ e-Procurementl portals.
+
+CRIS on UVAM portal to host all the items and the vendors should be enabled to keep their indicative rates published for a particular item as budgetary reference, in addition to the last purchase prices of the item.
+
+## Classify the modifications
+
+1 Minor impact or no impact or even reduction in cost due to change in specifications, and having an impact not more than +/-10% of the cost. For such item no cost estimation exercise or review is required.
+
+2.  Moderate impact with cost : For items expected to cause impacto of about 25% and total railway procurement cost is expected to cause a difference of over 1 Crores, then only departmental estimate may be required.
+
+3.  If the impact is likely to be more than Rs 5 Cores or over 25%, a through costing through the dedication system should be required as mentioned in the reference. .......
+
+# Conclusion:
+
+## Implementation of the costing system in RDSO
+
+1.  Budgetary quotation from vendors
+
+(Rolling stock code/Mechanical Finance code) cost process code Last purchase price after some time
+
+Purchase difficulties as RDSO may have to address various references from purchase officers. RDSO will not entertain any reference on costs from Indian Railways and any other agency does take any responsibility for the correctness beyond providing facts based on which cost was estimated in first place.
+
+2.  Revision in Specifications
+
+Specs -\> Budgetary quotations from at least 3 registered vendors / prospective vendors in that order/ cost request during specs uploading -\>
+
+This is only a ballpark estimate of the prices.
+
+# Reference
+
+1.  RDSO ISO
+2.  IR RS Code
+3.  GFR
+4.  BIS
+
+```{r bib, include=TRUE, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
+# KEEP AT END OF DOCUMENT TO GENERATE A LOCAL bib FILE FOR PKGS USED
+knitr::write_bib(sub("^package:", "", grep("package", search(), value=TRUE)), file='skeleton.bib')
+```
 
 <!-- # Figures  --->
 
@@ -184,10 +393,6 @@ ggplot(mtcars, aes(wt, mpg)) +
   labs(title="mtcars again, it seems") #+  theme_ipsum_rc(grid="XY" 
 ```
 
-
-
-
-
 ```{r, include=FALSE}
 # Set `BOSS_MODE` to `TRUE` if report for boss: conditional !!
 # Conditionally include the appendix:
@@ -202,216 +407,4 @@ BOSS_MODE <- FALSE
 # child=c('one.Rmd', 'two.Rmd')
 ```
 
-
-
-# Deliberations of committee
-
-Committee discussed the issue  and also invited suggestions from the vendor dealing directorates in the WA group.
-
-Committee examined the various methods for estimating the cost in the existing codes and practices.
-
-
-## Estimation of manufacturing cost as per IR Rolling Stock Code:
-
-Since, the costing has to be vetted, the finance is likely to vet against the standard policy issued in this regard. One such source is Indian Railway Rolling Stock code which has a chapter on the costing of Indian Railway workshop manufactured item - job costing system as explained in para 603 onwards. 
-
-https://indianrailways.gov.in/railwayboard/uploads/codesmanual/MechDept/Final_6_DME.PDF para 603 Job Costing System, (For Shop manufactured items),
-
-> 605. Features of Job Costing System a For each item of manufacture there is Allowed time against each process of work. b Standard quantity of raw material to be drawn with the specification is also given. c The unit cost of manufacture is arrived from cost sheet for the particular work order wherein, all elements of cost are charged to that work order. d Total cost divided by the quantity completed for that work order will give the unit cost of item manufactured. e The standard fixed helps comparison of unit cost with other shops or with trade cost. 
-
-This process does not appear feasible in RDSO as this process requires a detailed set up of production , planning and control with time studies and working out of overheads as per the codes.  In the current industrial scenarios, the production of Railway items is not generally planned as a sole production line but as a flexible manufacturing system and it would be difficult to attribute the overhead costs and costing is likely to be based on business decision of the company and the competitive environment of the industry.
-
-## Manual for Procurement of Goods 2017
-
-Manual for Procurement of Goods 2017 Ministry of Finance 16 Chapter – 2 Need assessment, formulation of Specifications and Procurement Planning
-
-The following is the para on the estimation of cost:
-
-> e) Estimation of Cost:
-
-1. The estimated cost in the indent is a vital element in various procurement processes, approvals and establishing reasonableness of prices at the time of evaluation of the bids. Therefore, it should be worked out in a realistic and objective manner. The prevailing market price ascertained through a market survey or budgetary quotations from one or more prospective suppliers or published catalogues/Maximum Retail Price (MRP) printed on the item is the main source for establishing the estimated cost of items for which there no historic data available. It may be noted that MRPs usually include significant margins for distributors, wholesalers and retailers; 
-
-2. For equipment/craft which are uniquely custom-built to buyer’s specifications, the best way to get a fair assessment of costs is by obtaining budgetary quotes from potential parties. Ideally, there should be three quotes. However, there is need to have a time schedule for receipt of quotes to ensure some timeframe for this activity. Thus: 
-      a) An attempt should be made to obtain as many budgetary quotes as possible from reputed/potential firms and a time of 21 (twenty-one) days be indicated therefore. In the event of receipt of less than three budgetary quotes, two extensions of up to 10 (ten) days each may be considered; and
-      b) In the event of non-availability of three quotes within the above extended period, the estimates should be prepared on the basis of the number of budgetary quote(s) received, which may even be one; and where more than one budgetary quote is received, the estimate should be framed on an average of the quotes which will reduce variations and fluctuations; 
-      
-3. In addition, wherever they are available Directorate General of Supplies and Disposals (DGS&D) rates should be considered. Likewise rates should be compared with recent orders/purchases of similar equipment by other states/ Departments. Other methods for establishing the estimated cost in the indent and tender evaluation are: 
-      a) Estimated rate in past indents of the same goods; 
-      b) Last purchase price of this or similar or nearly equivalent requirements; 
-      c) Costing analysis based on costs of various components/raw materials of the item; 
-      d) Rough assessment from the price of the assembly/machine of which the item is a part or vice versa; 
-      e) Through the internal or external expert costing agencies; and
-      f) As a last resort, rough assessment from the opportunity cost of not using this item at all; 
-      iv) These methods are not mutually exclusive and can be supplemented with escalations to cater for inflation, price increases of raw materials, labour, energy, statutory changes, price indices, and so on, to make them usable in conditions prevailing currently. In case of foreign currencies, the rate should be reduced to a common denomination of Indian Rupees. Price indices can be obtained from the following websites. 
-      Some may require prior free registration and some paid subscription: 
-          a) For price indices of indigenous items: http://www.eaindustry.nic.in/home.asp.in (Ministry of Industry); 
-          b) For metals and other minerals: http://www.mmronline.com/or http://www. metalprices.com/index.asp or http://www.asianmetal.com/;
-          c) For price trends of nonferrous details; London Metal Exchange - https://www.lme. com/gives price trends of nonferrous details, which often show volatile trends; 
-          d) Other useful sites: http://www.tradeintelligence.com/and http://www.cmie. com/. (Centre for Monitoring Indian Economy); 
-          e) For price trends of different countries: http://www.imf.org/external/pubs/ft/ weo/2015/01/(International Monetary Fund); and 
-          f) For organisation/chambers of commerce such as the (Indian Electrical and Electronics Manufacturer’s Association): www.ieema.org;
-
-
-## Provisions in existing RDSO ISO apex documents
-
-
-1.	No cost aspect in RDSO ISO QO-D-8.1-1 Creation of the New RDSO Standard. Further no standards making body is known to be doing it. BIS who made RDSO a SDO , is also not doing it
-
-2. Old ISO:  QO-D-8.1-1 Creation of new specification for items
-
-3. Para 4.6 Approval for issue of specification The concerned officer dealing with the particular specification shall put up proposal for the new specification to directorate head for approval to initiate the creation. When putting up the file to the directorate head, the concerned officer shall prepare a self-contained note addressing the following questions. 
-
-    - Why the need for creation of new specification had arisen? 
-      a) Vendor base and action plan to develop new vendors. 
-      b) Pricing of the item. Some quantitative estimation of pricing of the item shall be indicated in note for information 
-      c) A feedback format indicating specific parameters (for which feedback shall be collected) shall be prescribed along with the option to offer – “Any other remarks (other than those prescribed)”
-
-
-4. RDSO ISO Apex Document no QO-D-8.1-5 Application for Registration of Vendor - No cost requirement
-
-
-RDSO has no role in deciding the cost of the item. It has to be justified by the TEC which is the basic function of TEC.
-
-_RDSO however can provide information which may be available at the best effort basis without involving in protracted correspondence from field offices , as this would lead wastage of limited resource available with RDSO as RDSO has not been able to delver any substantial good due to such wastage of resources._
-
-# Costing in RDSO
-
- ## Costing for new items 
-
- ## Costing for Improvement in existing specs:
-
-
-## Difficulties in estimation of cost
-
-Cost cannot be given because of the following issues
-
-- Rapid change in pricing due to scale of manufacture 
-- Number of vendors / Scale of competition/ Cartel 
-- Differently optimised process for manufacture of the item.
-- Proportion of overhead assigned by the company to the particular item 
-- Confusion and delays in procurement process in the Indian Railways due to excess variation in RDSO indicative rate and the rates received by the tendering agencies and excess work for RDSO in responding
-- RDSO does not have any wherewithal for estimating the costing
-Costing of Signal and telecommunication and even in is even more difficult due to fast changing and niche technology.
-
-
-
-### Pitfalls in cost estimation and impact on industry 
-
-Pitfalls in cost estimation and impact on industry is noted in annexure / para 7
-
-- Fast change in technologies 
-- Delay in issue of specifications due to need for assessment of the cost impacts. 
-- The public agencies like audit and CVC may mistake the indicative cost with absolute  cost.
-- Quantity is not possible for all items
-- Fast change of technology and process
-- Specs developed with a wide consultative process including industry - hence costing not critical as the views of existing vendors have recourse with speaking orders. Final agreement by majority. Further uniform time for changeover is also given.
-
-
-The anexxure also list failures in Costing process 
-in DFMA.
-
-## Suggestions for practical system of costing and its limitations
-
-Though through costing is not possible by RDSO , the following workable costing can be done by establishing the following capacities in the RDSO if  the same is inescapably required. 
-
-The committee is aware that even BIS is not doing any costing for their standards/ specifications. Now RDSO is also a standards making body approved by BIS.
-
-Costing may be required :
-- During product development
-- During review ( taking consequential / subsequent financial implications) and 
-- product development stage
-- To check overpricing of RDSO controlled item.
-
-## The possible solutions:
-
-1. Costing on pattern of Workshops / Production Units as given in Rolling code of Indian Railways alongwith costing standard cost estimating softwares ( eg…)
-
-
-2. Outsourcing / Assigning the items for estimating to various Indian Railway workshops depending upon the core competencies of  those workshops.
-
-3. Hiring the service of consultants / chartered cost accountants / Engineering firms
-
-  - On retainership basis
-  - On specific costing works
-  - Budgetary quotations from prospective vendors during specs development/  post specs development.
-
-
-Only for items having likely financial impact of over Rs 5 Crores.
-On date, following items have … expected values over Rs  Annexure …. Excel table of values of RDSO controlled items.
-Cost of prototype sourced through GeM portal as the indicative cost.
-
-### Issue of PL Numbers and cost range
-
-Stores officer in RDSO to control and issue PL numbers Price List Numbers or PL Nos. and also to communicate on clarification on price and justifications so that design officers are free for regular design and development works.
-
-For items where it is possible to get specific rates, the RDSO may enter into rates contract that may be operated by the users as per GFR2017
-This is in confirmity with GFR.
-
-> Rule 156 (1) Purchase of goods directly under Rate Contract. 
-In case a Ministry or Department directly procures Central PurchaseOrganisation (e.g. DGS&D)rate contracted goods from suppliers, the prices to be paid for such goods shall not exceed those stipulated the rate contract and the other salient terms and conditions of the purchase should be in line with those specified in the RateContract.TheMinistry or Department shall make its own arrangement for inspection and testing of such goods whatever required
-
-> Rule 156 (2) The Central Purchase Organisation (e.g. DGS&D) should host the specifications, prices and other salient details of different rate contracted items, appropriately updated, on the web sitefor use by the procuring Ministry or Department
-
-
-> Rule 148 Rate Contract. DGS&D shall conclude rate contractswith the registeredsuppliers for suchgoods,whichare not available on GeM, and are identified as common use items and are needed on recurring basis by various Central GovernmentMinistries or Departments. DGS&Dwill furnish and update all the relevant details of the rate contractson itswebsite. TheMinistriesor Departments shall follow those rate contractsto the maximum extent possible
-
->Rule 150 Registration of Suppliers 
-  (i) With a view to establishing reliable sources for procurement of goods commonly required for Government use, the Central Purchase Organisation (e.g. DGS&D) will prepare and maintain item-wise lists of eligible and capable suppliers. Such approved suppliers will be known as "RegisteredSuppliers". All Ministries or Departments may utilise these lists as and when necessary. Such registered suppliers are prima facie eligible for consideration for procurement of goods throug h LimitedTenderEnquiry.Theyare also ordinarily exempted from furnishing bid security along with their bids. A Headof Department May Also register suppliers of goods which are specifically required by that Department or Office, periodically. Registration of the supplier should be done following a fair, transparent and reasonable procedure and after giving due publicity. 
-  (ii) Credentials, manufacturing capability, quality control systems, past performance, after-sales service, financial background etc. of the supplier(s)should be carefully verified before registration. 
-  (iii) The supplier(s)will be registered for a fixed period (between 1 to 3 years) depending on the nature of the goods. At the end of this period, the registered supplier(s) willing to continue with registration are to apply afresh for renewal of registration. New supplier(s)may also be considered for registration at any time, provided they fulfil all the required conditions. 
-  (iv) Performance and conduct of every registered supplier is to be watched by the concerned Ministry Deportment. The registered supplier(s)are liable to be removed from the list of approved suppliers if they fail to abide by the terms and conditions of the registration or fail to supply the goods on time or supply substandard goods or make any false declaration to any Government Agency for any ground which, in the opinion of the Government,is not in public interest. (v) The list of registered suppliers for the subject matter of procurement be exhibited on the Central Public ProcurementPortaland websites of the Procuring Entity/ e-Procurementl portals.
-
-CRIS on UVAM portal to host all the items and the vendors should be enabled to keep their indicative rates published for a particular item as budgetary reference, in addition to the last purchase prices of the item.
-
-
-
-## Classify the modifications 
-
-1	Minor impact or no impact or even reduction in cost due to change in specifications, and having an impact not more than +/-10% of the cost. For such item no cost estimation exercise or review is required.
-
-2. Moderate impact with cost : For items expected to cause impacto of about 25% and total railway procurement cost is expected to cause a difference of over 1 Crores, then only departmental estimate may be required.
-
-3. If the impact is likely to be more than Rs 5 Cores or over 25%, a through costing through the dedication system should be required as mentioned in the reference. ……. 
-
-
-
-
-
-# Conclusion:
-
-## Implementation of the costing system in RDSO
-
-
-
-1. Budgetary quotation from vendors
-
-(Rolling stock code/Mechanical Finance code) cost process code
-Last purchase price after some time
-
-Purchase difficulties as RDSO may have to address various references from purchase officers.
-RDSO will not entertain any reference on costs from Indian Railways and any other agency does take any responsibility for the correctness beyond providing facts based on which cost was estimated in first place.
-
-2. Revision in Specifications
-
-Specs -> Budgetary quotations from at least 3 registered vendors / prospective vendors in that order/  cost request during specs uploading  ->
-
-This is only a ballpark estimate of the prices.
-
-
-
-
-
-
-
-
-# Reference 
-
-1. RDSO ISO
-2. IR RS Code
-3. GFR
-4. BIS
-
-```{r bib, include=TRUE, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE, fig.height=1, fig.width=1}
-# KEEP AT END OF DOCUMENT TO GENERATE A LOCAL bib FILE FOR PKGS USED
-knitr::write_bib(sub("^package:", "", grep("package", search(), value=TRUE)), file='skeleton.bib')
-```
+\includepdf[pages={-}]{remotereview.pdf}

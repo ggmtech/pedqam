@@ -28,7 +28,7 @@ header-includes:
 - \usepackage{framed}
 ---
 
-```{r setup, include=FALSE}
+```{r setup}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 #<!---
@@ -41,6 +41,23 @@ You can change colors also within a frame.
 \setbeamercolor{block title}{use=structure,fg=black,bg=purple!55!black}
 \setbeamercolor{block body}{use=structure,fg=white,bg=blue!20!white}
 --->
+# ohter copy past
+
+```{python , include=TRUE, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+#| echo: false
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(subplot_kw={"projection": "polar"})
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
 
 # The meeting agenda
 

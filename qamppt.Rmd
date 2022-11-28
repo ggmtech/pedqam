@@ -1,0 +1,157 @@
+---
+title: "Upgradtation of Vendors in RDSO"
+subtitle: "RDSO ISO QO-D-8.1-11 Vendor - Changes in approved status"
+author: "QA$^1$"
+date: '`r Sys.Date()`'
+always_allow_html: true
+output:
+  beamer_presentation:
+    colortheme: dolphin
+    fonttheme: structurebold
+    highlight: tango
+    incremental: yes
+    keep_tex: yes
+    theme: AnnArbor
+    toc: yes
+  pdf_document:
+    toc: true
+    toc_depth: 2
+  revealjs::revealjs_presentation:
+    reveal_options:
+      chalkboard:
+        theme: chalkboard
+        toggleNotesButton: yes
+      menu:
+        numbers: yes
+    self_contained: no
+  slidy_presentation:
+    highlight: tango
+    incremental: yes
+  ioslides_presentation: 
+    highlight: tango
+    incremental: yes
+    #logo: ~/36.1.-5.65.png
+institute: $^1$QA(Mech)
+header-includes:
+- \usepackage{xcolor}
+- \usepackage{framed}
+- \usepackage{pdfpages}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+<!---
+\setbeamercolor{block title}{use=structure,fg=black,bg=purple!55!black}
+\setbeamercolor{block body}{use=structure,fg=white,bg=blue!20!white}
+--->
+
+# The meeting agenda
+
+```{r }
+library(tidyverse)
+library(googlesheets4)
+ws = "https://docs.google.com/spreadsheets/d/1p0HLzHs5TP-U9RJ1ujaWG-Zzhc19wu5ocpxUjeBzP8o"
+ws = ""
+
+
+```
+
+
+# Performance Statistics 
+
+\colorlet{shadecolor}{red!30} 
+\begin{shaded}
+Black text with a red background.
+\end{shaded}
+
+\colorlet{shadecolor}{red!20} 
+
+## Upgradation of Vendors in RDSO
+
+  
+
+  
+<!--
+\setbeamercolor{block title}{use=structure,fg=white,bg=purple!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=white!20!blue}
+--->
+
+### Cab changing issues
+<!--
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=blue!20!white}
+--->
+Upgradation3
+
+
+# Locomotives  holdings of Sheds
+
+<!--
+\setbeamercolor{block title}{use=structure,fg=white,bg=purple!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=blue!20!white}
+--->
+
+
+# some more {data-background=#ff00ff} 
+
+
+# CSS color background {data-background=#ff0000}
+
+CSS color background {data-background=#ff0000}
+
+<!--
+\setbeamercolor{block title}{use=structure,fg=black,bg=purple!55!black}
+\setbeamercolor{block body}{use=structure,fg=white,bg=blue!20!white}
+---->
+
+\colorlet{shadecolor}{red!90} 
+
+\begin{shaded}
+
+Black text with a darker red background.
+
+\end{shaded}
+
+
+
+# QO-D-8.1-11 Vendor - Changes in approved status
+
+## 4.1.1 Prerequisites
+
+a) The vendor has applied in writing to RDSO for upgradation from “List of RDSO Vendors for developmental order" posted on RDSO website to “List of Approved Vendors". 
+
+b) The Vendor should meet either criteria i) or criteria ii) below: 
+
+> Criteria i) The vendor should have supplied minimum specified quantity (N) of material as specified by the concerned Design/QA directorate as a List of RDSO Vendors for developmental order" posted on RDSO website vendor 
+To be in service for a minimum period of one year. or 15 months from the date of issue of last inspection certificate. 
+
+12/15 months from time  N Qty completed while him being dev vendor
+
+
+> Criteria ii) “Equipment Months" on basis of in service period can also be considered as qualifying criteria for upgradation. 
+
+> If “N" is the minimum specified quantity then minimum Equipment Months for upgradation from date of in service = 12 N or Minimum Equipment Months for up-gradation from date of issue of inspection certificate = 15 N
+> However, for up-gradation under ii) on basis of Equipment Months" shall not be given before 15 months from date of issue of inspection certificate for N/2th item.
+
+Criteria whichever is earlier complied with from i) or ii) above can be considered for up-gradation.
+
+
+Note: Where minimum specified in service period specified is more than mentioned in para (b) (i) above, the equipment months criteria shall be change accordingly e.g. if for an item minimum specified period is 18 months then equipment month will change by factor of 18/12 = 1.5 i.e. 12 N becomes 12X 1.5 = 18N and 15N becomes 15 X 1.2 = 22.5N.
+
+> N and T specified by directorate
+
+# new page
+
+```{tex}
+\includepdf[pages={-}]{remotereview.pdf}
+```
+
+# new page 2
+
+```{r }
+
+# \include_image{remotereview.pdf}
+
+```

@@ -4,9 +4,21 @@ author: "Gopal Kumar$^1$"
 date: '`r Sys.Date()`'
 always_allow_html: true
 output:
-  slidy_presentation:
-    highlight: tango
-    incremental: yes
+  # ioslides_presentation: 
+  #   highlight: tango
+  #   incremental: yes
+  #   #logo: ~/36.1.-5.65.png
+  # slidy_presentation:
+  #   highlight: tango
+  #   incremental: yes
+  # revealjs::revealjs_presentation:
+  #   reveal_options:
+  #     chalkboard:
+  #       theme: chalkboard
+  #       toggleNotesButton: yes
+  #     menu:
+  #       numbers: yes
+  #   self_contained: no
   beamer_presentation:
     colortheme: dolphin
     fonttheme: structurebold
@@ -15,18 +27,6 @@ output:
     keep_tex: yes
     theme: AnnArbor
     toc: yes
-  ioslides_presentation: 
-    highlight: tango
-    incremental: yes
-    #logo: ~/36.1.-5.65.png
-  revealjs::revealjs_presentation:
-    reveal_options:
-      chalkboard:
-        theme: chalkboard
-        toggleNotesButton: yes
-      menu:
-        numbers: yes
-    self_contained: no
 institute: $^1$CMPE(Diesel)
 header-includes:
 - \usepackage{xcolor}

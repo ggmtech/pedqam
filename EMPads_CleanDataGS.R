@@ -9,12 +9,12 @@
 # flights %>% select(ends_with("hour"))
 # flights %>% select(contains("hour"))
 mutate(origin = case_when(
-  (origin == "EWR") & dep_delay > 20 ~ "Newark International Airport - DELAYED",
-  (origin == "EWR") & dep_delay <= 20 ~ "Newark International Airport - ON TIME DEPARTURE", )) %>%
+  (origin == "EWR") & dep_delay >  20 ~ "Newark International Airport - DELAYED",
+  (origin == "EWR") & dep_delay <= 20 ~ "Newark International Airport - ON TIME DEPARTURE", ) ) %>%
 
 mutate(origin = str_replace_all(origin, c("^EWR$" = "Newark International",    
                                           "^JFK$" = "John F. Kennedy International"
-       ))) %>%
+             ))    )    %>%
 # 9. Filter groups without making a new column
 # flights_top_carriers <- flights %>%  group_by(carrier) %>% filter(n() >= 10000) %>% ungroup() 
   
@@ -24,6 +24,12 @@ mutate(origin = str_replace_all(origin, c("^EWR$" = "Newark International",
     customer_channel = c("Bus", "Car"),
     customer_status = c("New", "Repeat"),
     spend_range = c("$0-$10", "$10-$20", "$20-$50", "$50+"))
+
+
+
+
+
+
   
 ###############################################################################################
 ###############################################################################################
@@ -867,7 +873,7 @@ EMpadlife  %>% googlesheets4::sheet_write( ss = sslife, sheet = "EMpadFail")
 ###### Read curated EM pad failure data from google sheet ##############
 EMpadFDread <-  googlesheets4::read_sheet(  ss = sslife, sheet =  "EMpadFail", skip = 0, trim_ws = TRUE,
                                             col_names = TRUE,  col_types = "c" ,  na = "NA")  # col_types = "cDDcccildd" 
-
+library(tidyverse)
 EMpadFDread %>%     #glimpse()   # All chr  # MakeDate: POSIXct[1:19746],  lifedays:
   mutate(Rly      = as_factor(Rly),
          Make     = as_factor(Make),
@@ -881,6 +887,59 @@ EMpadFDread %>%     #glimpse()   # All chr  # MakeDate: POSIXct[1:19746],  lifed
   )  -> EMpadFD
 
 EMpadFD %>% glimpse()
+library(vtree)
+
+vtree::vtree(EMpadFD, "Make YearFail",sameline=T)
+vtree::vtree(EMpadFD, "Make YearFail YearMade", sameline=T)
+
+vtree(FakeData,"Severity Sex",sameline=T)
+
+# install.packages("gtsummary")
+library(gtsummary)
+
+trial2 <- trial %>% select(trt, age, grade)
+EMpadFD %>% tbl_summary()%>%    add_n() # %>% add_overall() 
+
+EMpadFD %>% tbl_summary() %>% add_p()
+trial2 <- trial %>% select(trt, age, grade)
+trial2
+trial2 %>%  tbl_summary(
+    by = trt,
+    statistic = list(all_continuous()  ~ "{mean} ({sd})",
+                     all_categorical() ~ "{n} / {N} ({p}%)" ),
+    digits = all_continuous() ~ 2,
+    label = grade ~ "Tumor Grade",
+    missing_text = "(Missing)"
+  )
+
+
+library(gt)
+library(tidyverse)
+library(glue)
+EMpadFD %>% glimpse()
+EMpadFD %>% gt() %>%  tab_header(   title = "S&P 500",  subtitle = "dlkfjdlakjsdfjk"  ) #glue("{MakeDate} to {FailDate}")
+
+
+# NOT RUN {
+require("survival")
+require("survminer")
+model <- coxph( Surv(time, status) ~ sex + rx + adhere,          
+                data = colon )
+ggforest(model)
+
+colon <- within(colon, {
+  sex <- factor(sex, labels = c("female", "male"))
+  differ <- factor(differ, labels = c("well", "moderate", "poor"))
+  extent <- factor(extent, labels = c("submuc.", "muscle", "serosa", "contig."))
+})
+bigmodel <- coxph(Surv(time, status) ~ sex + rx + adhere + differ + extent + node4,
+        data = colon )
+ggforest(bigmodel)
+
+
+model <- coxph( Surv(time, status) ~ sex + rx + adhere,          
+                data = colon )
+ggforest(model)
 
 
 ##############################################################

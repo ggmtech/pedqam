@@ -53,6 +53,7 @@ solarized_dark(
 
 ---
 layout: true
+
 Traction Diesel
 <div class="my-header"> 
 <span> &emsp; Gopal Kumar  &emsp;   </span>      
@@ -127,11 +128,9 @@ background-size: cover
 xaringanExtra::use_panelset()
 library(ggplot2)
 ```
-.panelset[
-  .panel[.panel-name[Code]
+.panelset[ .panel[.panel-name[Code]
 
-ggplot2::ggplot(mpg, aes(displ, hwy, colour = class)) +
-  ggplot2::geom_point()
+ggplot2::ggplot(mpg, aes(displ, hwy, colour = class)) + ggplot2::geom_point()
   ]
 
 .panel[.panel-name[Plot]

@@ -1,4 +1,23 @@
 
+#install.packages("exams", dependencies = TRUE)
+library("exams")
+exams_skeleton(markup = "markdown", encoding = "UTF-8",
+               writer = c("exams2html", "exams2pdf", "exams2moodle"))
+# This copies all R/Markdown files to the pwd along with demo script demo ofexams2html() and exams2pdf() for customizable HTML and PDF output, respectively, along with Moodle output via exams2moodle().
+dir()
+## [1] "demo-all.R"    "demo-html.R"   "demo-moodle.R" "demo-pdf.R"
+## [5] "exercises"     "templates"
+# Simply open the demo script demo-all.R for the first steps and then continue with more details in demo-html.R, demo-pdf.R, or demo-moodle.R, respectively. More information about all the exercises can be found in the exercise template gallery online.
+
+
+#exams2html("swisscapital.Rmd")
+exams2pdf("swisscapital.Rmd")
+
+getwd()
+dir()
+
+
+
 getwd()
 setwd("/Users/gk/gkgit")
 
@@ -7,19 +26,20 @@ usethis::create_project("~/gkgit/myppt")
 ###################
 ###################
 ###################
+
 #install.packages("promotionImpact") #devtools::install_github("ncsoft/promotionImpact")
 library(promotionImpact)
 promotionImpact::sim.data  # daily simulated sales data
 promotionImpact::sim.promotion # simulated promotion schedule data
 
 # add the dummy variable of the first day of each month as shown below. as maney
-sim.data <- promotionImpact::sim.data %>% 
+sim.data <- promotionImpact::sim.data %>%
   dplyr::mutate(month_start = ifelse(substr(as.character(dt),9,10) == '01', 1, 0))
 
 #Now, create the model as shown below.
-pri1 <- promotionImpact::promotionImpact(data=promotionImpact::sim.data, 
-                                         promotion=promotionImpact::sim.promotion, 
-                        time.field = 'dt', target.field = 'simulated_sales', 
+pri1 <- promotionImpact::promotionImpact(data=promotionImpact::sim.data,
+                                         promotion=promotionImpact::sim.promotion,
+                        time.field = 'dt', target.field = 'simulated_sales',
                         dummy.field = 'month_start',
                         trend = T, period = 30.5, trend.param = 0.02, period.param = 2,
                         logged = TRUE, differencing = TRUE, synergy.promotion = FALSE,
@@ -40,10 +60,10 @@ tab(forcats::gss_cat, marital, race, pct = "row", na = "drop", subtext = gss,
 
 
 
-# With several tab_vars, it makes a subtable for each combination of their levels. 
+# With several tab_vars, it makes a subtable for each combination of their levels.
 # By default, with color = "diff", colors are based on the differences between a cell and it’s related total (
-data <- forcats::gss_cat %>% 
-  dplyr::filter(year %in% c(2000, 2006, 2012), 
+data <- forcats::gss_cat %>%
+  dplyr::filter(year %in% c(2000, 2006, 2012),
                 !marital %in% c("No answer", "Widowed") )
 
 gss2 <- "Source: General social survey 2000, 2006 and 2012"
@@ -84,7 +104,7 @@ library(tidyverse)
 #devtools::install_github("Harrison4192/presenter")
 library(presenter) # wrapper functions using packages openxlsx, flextable, and officer to create highly formatted MS office friendly output of your data frames.
 # make_simple_excel and make_powerpoint can accept single tables or lists of tables, which will be given separate sheets
-# 
+#
 make_excel(df = iris, header_word = c("Sepal", "Petal"),
 last_id_col = NULL)
 set.seed(1)
@@ -95,19 +115,19 @@ set.seed(1)
 make_excel_wb(wb = NULL,
               object = iris,
               last_id_col = NULL,
-              header_word = c("Sepal", "Petal")) %>% 
+              header_word = c("Sepal", "Petal")) %>%
   make_excel_wb(object = anscombe,
                 last_id_col = NULL,
-                header_word = NULL) %>% 
+                header_word = NULL) %>%
   finish_excel_wb(wb_name = "data_workbook")
 
 
 iris %>%  make_simple_excel() # simple excel
 
 
-iris %>% 
-  relocate("Species") %>% 
-  sample_n(10) %>% 
+iris %>%
+  relocate("Species") %>%
+  sample_n(10) %>%
   arrange(Species) -> iris_slice
 
 header_words <- c("Sepal", "Petal")
@@ -123,16 +143,16 @@ tibble::tibble(my_letters = sample(letters[1:4], 100, T),
                my_numbers = sample(1:4, 100, T)) -> cross_table
 
 
-#  theme = zebra_blue (default),vanilla, booktabs, alafoli, zebra_gold,     "tron" , vader, 
-cross_table %>% 
+#  theme = zebra_blue (default),vanilla, booktabs, alafoli, zebra_gold,     "tron" , vader,
+cross_table %>%
   make_pivot_table(my_letters, my_numbers, theme = "zebra_gold") -> tron_cross_table
 
 tron_cross_table
 
 # good auto formated cross tab
-iris %>% 
-  dplyr::mutate(Species1 = stringr::str_c(Species, " very good")) %>% 
-  make_pivot_table(Species1, Species, show_percentages = "none", tbl_nm = "gold table", theme = "zebra_gold") -> tbl 
+iris %>%
+  dplyr::mutate(Species1 = stringr::str_c(Species, " very good")) %>%
+  make_pivot_table(Species1, Species, show_percentages = "none", tbl_nm = "gold table", theme = "zebra_gold") -> tbl
 
 tbl
 
@@ -152,13 +172,13 @@ sumr0
 
 # wide format
 
-iris %>%  group_by(Species) %>% 
+iris %>%  group_by(Species) %>%
   summarize(across(where(is.numeric), mean), .groups = "drop") -> sumr1
 sumr1
 sumr1 %>%  pivot_summary(Species)
 
 
-### 
+###
 library(presenter)
 library(dplyr)
 library(ggplot2)
@@ -166,26 +186,26 @@ library(stringr)
 # Custom formatting
 # create a header word using dplyr::rename_with
 # format percentages with presenter::format_percent
-diamonds %>% 
-  select(-clarity) %>% 
-  mutate(relative_price = price / max(price), .before = "x") %>% 
-  group_by(across(where(is.ordered))) %>% 
-  summarize(across(where(is.double), mean), .groups = "drop") %>% 
-  format_percent(relative_price) %>% 
-  rename_with(~str_c("category_", .), cut:color) %>% 
-  rename_with(~str_c("property_", .), carat:table) %>% 
+diamonds %>%
+  select(-clarity) %>%
+  mutate(relative_price = price / max(price), .before = "x") %>%
+  group_by(across(where(is.ordered))) %>%
+  summarize(across(where(is.double), mean), .groups = "drop") %>%
+  format_percent(relative_price) %>%
+  rename_with(~str_c("category_", .), cut:color) %>%
+  rename_with(~str_c("property_", .), carat:table) %>%
   rename_with(~str_c("dimension_", .), x:z) -> diamonds_summary
 
 diamonds_summary %>% head
 
 diamonds_summary %>%  make_flextable(last_id_col = 2,
-                 # header_words = c("category", "property", "dimension"), 
+                 # header_words = c("category", "property", "dimension"),
                  theme = "zebra_gold")
 
 # Automatic coloring
-tibble(x = letters[1:10], y = -5:4, z = -c(-.5, -.2, -.1, 0, .1, .2, .3, .4, .6, .9)) %>% 
-  format_percent(z) %>% 
-  rename_with(~str_c("sample_", .)) %>% 
+tibble(x = letters[1:10], y = -5:4, z = -c(-.5, -.2, -.1, 0, .1, .2, .3, .4, .6, .9)) %>%
+  format_percent(z) %>%
+  rename_with(~str_c("sample_", .)) %>%
   make_flextable()
 
 ####################
@@ -200,8 +220,8 @@ library(sweep)
 library(forecast)
 # Forecasting Sales of Beer, Wine, and Distilled Alcohol Beverages
 # tidyquant package to get the US alcohol sales from the FRED data base ( one of the 80+ data sources FRED connects to). The FRED code is “S4248SM144NCEN” and the data set  found here.
-alcohol_sales_tbl <- tq_get("S4248SM144NCEN", 
-                            get  = "economic.data", 
+alcohol_sales_tbl <- tq_get("S4248SM144NCEN",
+                            get  = "economic.data",
                             from = "2007-01-01",
                             to   = "2016-12-31")
 alcohol_sales_tbl
@@ -220,7 +240,7 @@ alcohol_sales_tbl %>%
 # Step 2: Apply a model (or set of models)
 # Step 3: Forecast the models (similar to predict)
 # Step 4: Use sw_sweep() to tidy the forecast.
-# Step 1  forecast package uses the ts data structure with tk_ts() from the timetk package. 
+# Step 1  forecast package uses the ts data structure with tk_ts() from the timetk package.
 # # The start and freq variables are required for the regularized time series (ts) class
 alcohol_sales_ts <- tk_ts(alcohol_sales_tbl, start = 2007, freq = 12, silent = TRUE)
 alcohol_sales_ts
@@ -243,7 +263,7 @@ augment_fit_ets %>%
   geom_point(color = palette_light()[[1]], alpha = 0.5) +
   geom_smooth(method = "loess") +
   scale_x_yearmon(n = 10) +
-  labs(title = "US Alcohol Sales: ETS Residuals", x = "") + 
+  labs(title = "US Alcohol Sales: ETS Residuals", x = "") +
   theme_tq()
 
 
@@ -289,7 +309,7 @@ chickwts_diff[sample(1:nrow(chickwts), 30),sample(1:ncol(chickwts), 2)] <- NA
 vis_compare(chickwts_diff, chickwts)
 
 ###################
-# interactionR is implemented in the R statistical software environment; 
+# interactionR is implemented in the R statistical software environment;
 
 ###################
 # trackdown # offers different functions to manage this workflow:
@@ -370,23 +390,23 @@ scatterPlotMatrix(iris, zAxisDim = "Species", distribType = 1)
 # ie,  just give  package a name, and a version number, like 0.1 in a file DESCRIPTION
 #  proper R package also documentation,  NAMESPACE file etc
 #  Then, to build the package, type devtools::build()
-#  
-#  
-#  Start by opening a new .R file. 
+#
+#
+#  Start by opening a new .R file.
 #  Make sure your default directory is clear by typing rm(list = ls())
-#  Write the code for your functions in this .R files 
+#  Write the code for your functions in this .R files
 #  install.packages('devtools'))   # or try devtools::build github devtools()
-#  Rstudio ‘File’ -> ‘New Project.’ -> ‘New Directory,’ ->‘R Package’ 
-#  Type name of new package, then upload the .R files  under 
+#  Rstudio ‘File’ -> ‘New Project.’ -> ‘New Directory,’ ->‘R Package’
+#  Type name of new package, then upload the .R files  under
 #  ‘Create package based on source files’. -> ‘Create project.’
-#  “R documentation” files"  .Rd 
-#  If the ‘man’ folder already contains .Rd files, open each file, add a title heading-> save # needed to compile your package. 
+#  “R documentation” files"  .Rd
+#  If the ‘man’ folder already contains .Rd files, open each file, add a title heading-> save # needed to compile your package.
 #  Roxygen2 package more useful for automating  generating .Rd (and even NAMESPACE) files.
 
 
 
 # JS python HTML CSS  Java  SQL, NoSQL, Rust, pearl,go
-# 
+#
 #  bookdown::render_book("foo.Rmd", bookdown::pdf_book(keep_tex = TRUE))
 
 
@@ -401,10 +421,10 @@ install.packages("fusen")
 # Run the following code to transform the flat Rmd as an inflated package
 # This will open the vignette created and check the package
 # fusen::inflate(
-#            flat_file = "dev/flat_teaching.Rmd", 
+#            flat_file = "dev/flat_teaching.Rmd",
 #            vignette_name = "Get started",   check = TRUE  )
-# 
-# 
+#
+#
 
 
 # Fix dates
@@ -471,7 +491,7 @@ table2 <-  tbl_summary( trial2, by = trt, # split table by group
   add_n() %>% # add column with total number of non-missing observations
   add_p() %>% # test for a difference between groups
   modify_header(label = "**Variable**") %>% # update the column header
-  bold_labels() 
+  bold_labels()
 table2
 
 mod1 <- glm(response ~ trt + age + grade, trial, family = binomial)
@@ -484,7 +504,7 @@ library(survival)
 t2 <-  coxph(Surv(ttdeath, death) ~ trt + grade + age, trial) %>%
        tbl_regression(exponentiate = TRUE)
 
-# merge tables 
+# merge tables
 tbl_merge_ex1 <-  tbl_merge( tbls = list(t1, t2),
                       tab_spanner = c("**Tumor Response**", "**Time to Death**")
                           )
@@ -650,7 +670,7 @@ pressure2[5,1]
 compPressure <- rCompare(pressure, pressure2, keys = 'temperature')
 # Check the results - use print for a quick summary
 print(compPressure)
-# We can also extract the mismatching data to explore futher using generateMismatchData which 
+# We can also extract the mismatching data to explore futher using generateMismatchData which
 #  generates a list containing two data frames, each having the missing rows from the comparison.
 
 # use generateMismatchData to pull out the mismatching rows from each table
@@ -683,7 +703,7 @@ myaluvialdata <- mtcars
 vtree::vtree(myaluvialdata, "Directorate")
 vtree::vtree(myaluvialdata, "CCA_done")
 vtree::vtree(myaluvialdata, c("CCA_done", "Directorate" ) )
-vtree::vtree(myaluvialdata, c( "Directorate" , "CCA_done") , 
+vtree::vtree(myaluvialdata, c( "Directorate" , "CCA_done") ,
              #horiz=FALSE,
              sameline=TRUE,   # % on same line
              prunesmaller=15 ,
@@ -692,7 +712,7 @@ vtree::vtree(myaluvialdata, c( "Directorate" , "CCA_done") ,
              #keep=list(Severity="Moderate"),
              #prunebelow=list(Severity=c("Mild","Moderate"))
              #targeted pruning, and the parameters tprune, tkeep, tprunebelow, and tfollow
-             
+
              #labelnode=list(Sex=c(Male="M",Female="F"))
              ) # only show with node above value
 
@@ -708,7 +728,7 @@ vtree(myaluvialdata, "Directorate",
 # vtree package uses markdown-style codes for text formatting. I
 # \n	insert a line break
 # \n*l	make the preceding line left-justified and insert a line break
-# *...*	 italics,  **...** bold,  ^...^	superscript ,  ~...~	subscript 
+# *...*	 italics,  **...** bold,  ^...^	superscript ,  ~...~	subscript
 # %%red ...%%	 text in [red] color etc
 
 
@@ -729,26 +749,26 @@ forcats::gss_cat %>% tabxplor::tab( marital, race)
 
 gss  <- "Source: General social survey 2000-2014"
 
-forcats::gss_cat %>% tabxplor::tab( marital, race, 
-                                    pct = "row", 
-                                    na = "drop", 
+forcats::gss_cat %>% tabxplor::tab( marital, race,
+                                    pct = "row",
+                                    na = "drop",
                                     subtext = gss,
-                                    rare_to_other = TRUE, 
-                                    n_min = 1000, 
+                                    rare_to_other = TRUE,
+                                    n_min = 1000,
                                     other_level = "Custom_other_level_name",
-                                    color = "diff" # diff betweencell and it’s total 
+                                    color = "diff" # diff betweencell and it’s total
                                     )
 
 # When a third variable is provided, tab makes a table with as many subtables as it has levels
 
 
-data <- forcats::gss_cat %>% 
+data <- forcats::gss_cat %>%
        dplyr::filter(year %in% c(2000, 2006, 2012), !marital %in% c("No answer", "Widowed"))
 gss2 <- "Source: General social survey 2000, 2006 and 2012"
 
-data %>% tabxplor::tab(race, marital, year, 
-                       subtext = gss2, 
-                       pct = "row", 
+data %>% tabxplor::tab(race, marital, year,
+                       subtext = gss2,
+                       pct = "row",
                        color = "diff") %>%  tab_kable()  # for printing
 # set options(tabxplor.print = "kable") # default options(tabxplor.print = "console")
 
@@ -798,6 +818,7 @@ paletteer_c("scico::berlin", n = 10)
 ggplot2::ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
   geom_point() +
   scale_color_paletteer_d("nord::aurora")
+>>>>>>> b289e0b6ca49947a675168849f1f5431a59faa32
 
 # biber  external programs to process bibliography info from .bib file for LaTeX document.
 # biblatex LaTeX packages  format citations and bibliographies;  both bibtex and biber.
@@ -867,7 +888,7 @@ library(officedown)
 
 
 title: |
-  ![ ](logo.jpg){width=1in}  
+  ![ ](logo.jpg){width=1in}
 Adding a Logo to LaTeX Title
 
 
@@ -878,14 +899,14 @@ Adding a Logo to LaTeX Title
 ---
 
 roxygen comment is an R comment that starts with #'
-  
-chunc header  #+  knitr chunk header. For example, knitr::spin() will translate the comment #+ label, fig.width=5 to the chunk header ```{r label, fig.width=5} in R Markdown. 
-R code of the form {{ code }} is translated to an inline R expression  
-Any text between /* and */ will be ignored 
-  
-  
-citations 
-bibliography: references.bib  
+
+chunc header  #+  knitr chunk header. For example, knitr::spin() will translate the comment #+ label, fig.width=5 to the chunk header ```{r label, fig.width=5} in R Markdown.
+R code of the form {{ code }} is translated to an inline R expression
+Any text between /* and */ will be ignored
+
+
+citations
+bibliography: references.bib
 csl: biomed-central.csl  # we recommend using the Zotero Style Repository,
 
 ---
@@ -893,16 +914,16 @@ csl: biomed-central.csl  # we recommend using the Zotero Style Repository,
   @item1, @item2
 ---
 
-With @R-base. To put citations in parentheses, use [@key]. 
+With @R-base. To put citations in parentheses, use [@key].
 To cite multiple entries, separate the keys by semicolons, e.g., [@key-1; @key-2; @key-3].
 To suppress the mention of the author, add a minus sign before @, e.g., [-@R-base].
 
 
 
-install.packages('blogdown', 
+install.packages('blogdown',
                  repos = c( rstudio = 'https://rstudio.r-universe.dev',
                              CRAN = 'https://cloud.r-project.org'         ))
-  
+
 ##
 
 library(tidyverse)
@@ -1523,7 +1544,7 @@ library(caret)
 library(pROC)
 library(tree)
 # Getting Data -Email Spam Detection
-str(spam7) 
+str(spam7)
 mydata <- spam7
 # Data Partition
 set.seed(1234)
@@ -1574,7 +1595,7 @@ printcp(tree)
 rpart(formula = medv ~ ., data = train)
 
 rpart.rules(tree)
-medv     
+medv
 plotcp(tree)
 
 p <- predict(tree, train)

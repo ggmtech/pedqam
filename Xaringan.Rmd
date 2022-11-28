@@ -7,8 +7,8 @@ date: "2019-05-5 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["gk_css.css", "default", "rladies", "rladies-fonts", #"chocolate",
-     "chocolate-fonts", "xaringan-themer.css" ]
+    css: ["gk_css.css", "default", "rladies", "rladies-fonts",  #"chocolate",
+         "chocolate-fonts", "xaringan-themer.css" ]
     nature:
       ratio: '16:9'
       slideNumberFormat: '%current%' 
@@ -29,13 +29,23 @@ library(tidyverse)
 
 ```{r xaringan-themer, eval=FALSE, include = FALSE}
 library(xaringanthemer)
-mono_light(
-  base_color = "#1c5253",
-  header_font_google = google_font("Josefin Sans"),
-  text_font_google   = google_font("Montserrat", "300", "300i"),
-  code_font_google   = google_font("Droid Mono")
+# mono_light(
+#   base_color = "#1c5253",
+#   header_font_google = google_font("Josefin Sans"),
+#   text_font_google   = google_font("Montserrat", "300", "300i"),
+#   code_font_google   = google_font("Droid Mono")  
+# )
+
+style_duo_accent(
+  primary_color = "#035AA6",        # blue
+  secondary_color = "#03A696",      # sea green
+  header_font_google = google_font("Amatic SC"),
+  text_font_google = google_font("Crete Round"),
+  header_h1_font_size = "3.5rem",
+  header_h2_font_size = "2.75rem"
 )
 ```
+
 
 background-image: url(https://akm-img-a-in.tosshub.com/indiatoday/images/story/201810/indian-railway_650_020315033408.jpeg?Fuh6JGGRTy0dVPl8FfSKjGMuKgPUzZaK)
 
@@ -51,7 +61,11 @@ class: center, middle
 
 # Diesel Loco Status in Present Day Traction in NR
 
-## Daily KM earning 
+# Daily KM earning 
+
+This **.red[simple]** .white.bg-purple[demo]
+_.orange[shows]_ the colors .green[in action].
+
 
 ### Pass KM
 
@@ -61,6 +75,8 @@ class: center, middle
 class: inverse, center, middle
 
 # Get Started
+This **.red[simple]** .white.bg-purple[demo]
+_.orange[shows]_ the colors .green[in action].
 
 ---
 

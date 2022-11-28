@@ -38,6 +38,8 @@ class: middle center bg-main1
 
 <img src="images/kunoichi.svg" width="40%">
 
+devtools::install_github('emitanaka/anicon')
+
 ---
 
 class: middle bg-main1

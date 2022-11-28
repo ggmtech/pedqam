@@ -19,4 +19,5 @@ library(modeltime)
 exp_imp_tbl <- read_csv("data/data_comexstat.csv") %>% mutate_if(is.character, as_factor)
 
 
-skim(exp_imp_tbl) 
+skim(exp_imp_tbl)
+

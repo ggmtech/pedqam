@@ -1,0 +1,224 @@
+\usepackage{forloop} % for loop
+%\usepackage{amsmath,amssymb}
+\usepackage{graphicx}      % Allows including images
+\usepackage{booktabs}      % 
+\usepackage[final]{pdfpages}
+\mode<presentation>{
+  \usetheme{AnnArbor}\setbeamercovered{transparent}  }
+%\usetheme{PaloAlto}\setbeamercovered{transparent}  }
+%\usetheme{CambridgeUS}\setbeamercovered{transparent}  } %red plain
+%\usetheme{Antibes}\setbeamercovered{transparent}  } 
+%AnnArbor, PaloAlto, CambridgeUS
+%\mode<presentation>{\usetheme{?}\setbeamercovered{transparent}  }
+%\mode<presentation>{\usetheme{Berkeley}\setbeamercovered{transparent}  }
+%\mode<presentation>{\usetheme{Warsaw}\setbeamercovered{transparent}  }
+%\mode<presentation>{\usetheme{Antibes}\setbeamercovered{transparent}  }
+%\mode<presentation>{\usetheme{Berkeley}\setbeamercovered{transparent}  }
+%mytheamlist =AnnArbor   Antibes  Berkeley  CambridgeUS
+%Copenhagen Madrid  Warsaw  JuanLesPins
+%Goettingen   Hannover  Marburg  PaloAlto Marburg 
+
+%\usecolortheme{beaver}
+%\usecolortheme{albatross} %wolverine}
+%albatross(blue), beaver(red),crane(yellow),whale(blue),wolverine(yellow)
+%\usecolortheme{seagull} %for black and white grey
+%\usecolortheme{spruce}  %light green
+
+%\usetheme[options]{name list} %sameas \usepackage for style file 
+% named beamerthemename.sty for each name in the name list.
+%\usecolortheme[options]{name list} Same as \usetheme for colours%
+  % % Color style files are named beamercolorthemename.sty.
+
+%\setbeamercolor{normal text}{bg=red!20}
+%\setbeamercolor{background canvas}{bg=}  %good idea bg background
+
+\graphicspath{  {img/},  {./}  {/chp} }
+%%%%%%%%%%%
+
+\usepackage[many]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing} % logo seal
+\usetikzlibrary{shadows}
+\usetikzlibrary{decorations.text} % for spiral text 
+\definecolor{paper}{RGB}{239,227,157}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %\begin{frame}<handout:0> %n for n frames, 0 suppress frame in handout
+
+\usepackage{lipsum}
+\usepackage{verbatim}
+
+\usepackage{chronosys}
+
+\usepackage{graphics}
+\usepackage{graphicx} % default in beamer
+\usepackage{pdfpages}
+
+\usetikzlibrary{arrows}
+\usepackage{fancybox}  %unessential
+
+\usepackage{caption}
+%\usepackage{subcaption}
+%\usepackage{subfigure}   %causing errors
+
+%\usepackage{pgfplots}
+%\pgfplotsset{compat=newest}% <-moves axis labels near ticklabels 
+
+
+%\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{shapes} %,snakes}
+\usetikzlibrary{spy,calc}
+%\usepackage{decorations}
+\usetikzlibrary{decorations, decorations.text} %tried logo
+
+%\usepackage{pgfornament}
+%\usepackage[object=vectorian]{pgfornament}
+% \usepackage{tikz, pgfornament, tikzrput}
+
+\usepackage{overpic}      %put command under picture envoir
+%\usepackage{tikzrput}    %rput under \begin{tikzpicture}
+
+
+%\usepackage[hyperref]{beamerarticle}
+\usepackage{hyperref}
+
+%\usepackage{amsmath,amssymb}
+
+%\usepackage{tikz,times}
+%\usepackage[paperwidth=25cm,paperheight=22cm,left=1cm,top=1cm]{geometry}
+\usetikzlibrary{mindmap,backgrounds}
+%\pagestyle{empty}
+
+\newtcolorbox{tornpage}{enhanced jigsaw, 
+  breakable, % allow page breaks
+  frame hidden, % hide the default frame
+  overlay={%
+    \draw [
+      fill=paper, % fill paper
+      draw=paper!30!black, % boundary colour
+      decorate, % decoration
+      decoration={random steps,segment length=5pt,amplitude=5pt},  %amplitude=2pt size of waviness, ,segment length=2pt
+      drop shadow, % shadow
+    ]
+    (frame.north west)--(frame.north east)--		% top line
+    (frame.north east)--(frame.south east)--		% right line
+    (frame.south east)--(frame.south west)--		% bottom line
+    (frame.south west)--(frame.north west);		    % left line
+  },
+  parbox=false,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useinnertheme[shadow=true]{rounded}
+
+\usepackage{etoolbox}
+
+\setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
+
+\setbeamercolor{block title example}{use=example text,fg=example text.fg,bg=example text.fg!20!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!50!bg}
+
+\addtobeamertemplate{proof begin}{%
+  \setbeamercolor{block title}{fg=black,bg=red!50!white}
+  \setbeamercolor{block body}{fg=red, bg=red!30!white}
+}{}
+
+\BeforeBeginEnvironment{theorem}{
+  \setbeamercolor{block title}{fg=black,bg=orange!50!white}
+  \setbeamercolor{block body}{fg=orange, bg=orange!30!white}
+}
+\AfterEndEnvironment{theorem}{
+  \setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
+  \setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg, fg=black}
+}
+
+\BeforeBeginEnvironment{definition}{%
+  \setbeamercolor{block title}{fg=black,bg=pink!50!white}
+  \setbeamercolor{block body}{fg=pink, bg=pink!30!white}
+}
+\AfterEndEnvironment{definition}{
+  \setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
+  \setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg, fg=black}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subject{RDSO RS Presentation } % for info catalog.
+\title[Review of Vendor Process ]{Review of Vendor Process}
+
+%\subtitle[QA Improvements]{System Improvements in QA Working }
+\author[ PED/RS/RDSO ]{
+  %	         \includegraphics[height=2cm]{img/IRlogored.png}\\ 
+  All Vendor Dealing Directorates,\\     RDSO, Lucknow }
+%\date[LKO:\today]{LKO :\today}     % or \date[GKevent2016]{STACS Conference, 2003}.
+\date[\today]{Lucknow :\today} 
+%\author[Gopal Kumar, otherP]{GopalKumar\inst{1} \and OtherPerson\inst{2}}
+%\institute[Expotech]{\inst{1}GGM/Expotech,\\ Expotech Division   
+  %\and 	
+  %\inst{2}GM/Expotech,\\ Expotech Division  }    
+
+\pgfdeclareimage[height=01.5cm, width=01.5cm]{mylogo}{img/RDSO_Logo1.jpg} %img/IRlogored.png} %logo
+\logo{\pgfuseimage{mylogo}}
+
+\titlegraphic{\pgfuseimage{mylogo}}  
+%Set canvas global, better use second tikspicture Opacity
+%\setbeamertemplate{background canvas}
+%{\includegraphics[width=0.5\paperwidth,height=0.5\paperheight]{RITESlogo.pdf}}
+\setbeamertemplate{backgroundcanvas}{\begin{tikzpicture}
+  \node[opacity=.1]{\includegraphics[width=\paperwidth]{img/RDSO_Logo1.jpg}}; %IRLogored.png}};
+\end{tikzpicture} }
+
+# added gk
+\usebackgroundtemplate{%
+\tikz[overlay,remember picture] \node[opacity=0.3, at=(current page.center)] {
+   \includegraphics[height=\paperheight,width=\paperwidth]{example-image-a}};
+}
+
+%%%%%%%%%%%%%%%%
+  %\setbeamercolor{frametitle}{bg={}}   % transparent background bg={}; use {} to limit \setbeamercolor and \usebackgroundtemplate  
+  %%%%%%%%%%%%%%%
+  
+  
+  % toc to pop up at each section:
+    %\AtBeginSection[]{\begin{frame}<beamer>{Outline} \tableofcontents[currentsection] \end{frame}   } % toc at each Subsections
+  %\AtBeginSubsection[]{ \begin{frame}<beamer>{Outline} \tableofcontents[currentsection,currentsubsection] \end{frame}   }
+  
+  %%\beamerdefaultoverlayspecification{<+->}  %uncover all step-wise
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%use \lecture with options: \AtBeginLecture, \includeonlylecturelecture label etc
+  %% use with hyperlink additional slides \appendix<mode specification>
+    %% use \againframe<overlay spec>[<def ovlay specs>][options]{name} resume!!
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \setbeamertemplate{background canvas}{ %
+    \begin{tikzpicture}\node[opacity=.05]{
+      \includegraphics[width=\paperwidth]{IRlogored.png}};
+    \end{tikzpicture} }
+  %\setbeamertemplate{background}{\includegraphics[width=\paperwidth]{example-image.pdf}}
+  %\setbeamercolor{frametitle}{bg={}}   % transparent background bg={}; use {} to limit \setbeamercolor and \usebackgroundtemplate  
+  
+  %%%%%%%%%%%Define box and box title style
+  \tikzstyle{mybox}      =[draw=red,fill=blue!20,very thick,rectangle, rounded  corners, inner sep=10pt, inner ysep=20pt]
+  \tikzstyle{fancytitle}  =[fill=red, text=white]
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \usetikzlibrary{shadows}
+  \usepackage{lipsum}
+  
+  \usepackage{xparse}
+  %\usepackage{punk}  %for punky fonts!
+    
+    \definecolor{myyellow}{RGB}{242,226,149}
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \NewDocumentCommand\StickyNote{O{2.5cm}mO{3.5cm}}{
+    \begin{tikzpicture}
+    \node[drop shadow={shadow xshift=2pt,shadow yshift=-4pt},
+          inner xsep=7pt,inner ysep=10pt,fill=myyellow,xslant=-0.1,yslant=0.1]{\parbox[t][#1][c]{#3}{#2}};
+            \end{tikzpicture}   }
+    
+    %\pgfplotset{compat= 1.14}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    

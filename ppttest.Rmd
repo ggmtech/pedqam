@@ -394,10 +394,10 @@ app:	appendix subsection
 
 
 ```{r loadallpackages, include=FALSE,  eval=TRUE, echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, cache=TRUE }
-packages <- c("tidyverse", "lubridate", "readxl", "writexl","stringr", 
+packages <- c("tidyverse", "lubridate", "readxl","stringr", 
               "here", 
               "cowplot", # "ggpubr", 
-              "scales",  "timetk",
+              "scales", 
               "summarytools",  
               "googledrive",  "googlesheets4", 
               "knitr",  "kableExtra",
@@ -424,7 +424,7 @@ library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
 #ls("package:googlesheets4")
 #help(package = dplyr) # even if not loaded
 
-#library(timetk)  #time series plots in single lines
+# library(timetk)  #time series plots in single lines
 
 #library(fuzzyjoin)
 

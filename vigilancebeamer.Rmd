@@ -1,16 +1,16 @@
 ---
 title: Presentation on Vendor Management
-subtitle: "Vigilance week lecture"
+subtitle: "Vigilance awareness week lecture"
 author: Gopal Kumar, PED/RS
 institute: RDSO, Lucknow
-date: "`r Sys.Date()`" # date: "30th June 2020"
+date: "`r Sys.Date()`" # date: "30th Oct 2022"
 fontsize: 10pt
 mathspec: true # for metropolis theme
-aspectratio: 169 # 16:9
+aspectratio: 43 # 169, 1610, 149, 141 for 1.41:1, 32, 43, 54,  
 #classoption: handout
 output:
  beamer_presentation:
-   theme: PaloAlto #"Copenhagen"  
+   theme:  PaloAlto # Warsaw #CambridgeUS #AnnArbor #"Copenhagen"  
    # AnnArbor, PaloAlto, CambridgeUS, Antibes, 
    # %mytheamlist =AnnArbor   Antibes  Berkeley  CambridgeUS %Copenhagen Madrid  Warsaw
    # JuanLesPins %Goettingen   Hannover  Marburg  PaloAlto Marburg 
@@ -24,21 +24,132 @@ output:
    latex_engine: xelatex # for metropolis theme
    toc: true
    slide_level: 2
-   keep_tex: true
-#   logo: RDSO_Logo1.jpg #flowery.png
-#   titlegraphic: dahlia.png
-#   background-image: dahlia.png #RDSO_Logo1.jpg
-   #includes:
-   #   in_header: preamble.tex
+   keep_tex: true  # saved compilable tex
+   # add extra beamer option with \setbeameroption{}
+   # navigation : no # frame, vertical, and horizontal
+   # section-titles : TRUE
+   # themeoptions : options for LaTeX beamer themes (a list).
+#   includes:
+#     in_header: gkheaderbeamer.tex
+#   logo: RDSO_Logo1.jpg #flowery.png # works byt see below opacity
+# logo: dahlia.png #flowery.png #RDSO_Logo1.jpg #flowery.png Too big??
+titlegraphic: dahlia.png
+#background-image: dahlia.png #RDSO_Logo1.jpg # works byt see below opacity
+
 header-includes:
+  - \logo{ \includegraphics[width=1cm]{flowery.png} }  # works good
+  - \usepackage{amsmath,amssymb}
+#  - \input{gkheaderbeamer.tex}
   - \usepackage{fancyvrb}
+  - \usepackage{tikz}
+  - \usetikzlibrary{shapes} 
+  - \usetikzlibrary{spy,calc}
+  - \usetikzlibrary{decorations, decorations.text} 
+  - \usebackgroundtemplate{\tikz\node[opacity=0.1]{\includegraphics[height=\paperheight,width=\paperwidth]{dahlia.png}};}   # worked background opacity
+  - \setbeamertemplate{background}{\tikz[overlay,remember picture]\node[opacity=0.4]at (current page.center){\includegraphics[width=2cm]{RDSO_Logo1.jpg}};}
+
+
 ---
 
 # Introduction
+    
+\centering
+\resizebox{0.95\textheight}{!}{%
+\begin{tikzpicture} %[scale=0.2]
 
-## What is Vendor Management
+\node[anchor=north east,xshift=0.8pt,yshift=2pt, opacity=0.3] at (current page.north east) {\includegraphics[width=0.2\paperwidth]{IRlogored.png}};
 
-### > Make or buy decision ->
+\draw[line width=2 mm] circle[radius=7.4 cm];    % outer circle
+\draw[ultra thick] circle[radius=6 cm] circle[radius=7 cm];
+		
+\path[%rotate=-15.2,
+postaction={decoration={ text along path, text format delimiters={|}{|},
+	  text={	|\Huge| WELCOME DG and Spl.DG(VD)
+				%{ \pgfornament[scale=.4, ydelta=-9 pt]{15} }
+				},  text align=center, reverse path }, 	decorate  }
+		] (-27:6.2cm) arc (-27:210:6.2cm);   
+		\path [postaction={decorate,decoration={text along path, text align=fit to path,text={|\Huge| AND ALL OFFICERS }}}] (209:6.8cm) arc (209:330:6.8cm);
+		
+\node[] at (0,0.0){\includegraphics[height=11.8cm,width=11.8cm]{IRlogored.png}};
+\end{tikzpicture}
+}
+
+
+# do copy old good print
+
+Markdown allows you to format text with 
+*emphasis* and **strong emphasis**. You can 
+also add superscripts^2^, subscripts~2~, and
+display code `verbatim`. Little known fact:
+you can also ~~strikethrough~~ text and 
+present it in [small caps]{.smallcaps}.
+
+You can embed [links with names](https://quarto.org/),
+direct urls like <https://quarto.org/>, and links to 
+[other places](#inline-elements-text-formatting) in 
+the document. The syntax is similar for embedding an
+inline image: ![render icon](flowery.png).
+
+The area of a circle is $A = \pi r^2$,where
+$r$ is the radius and $\pi$ is the constant
+$3.141592\ldots$.
+
+# What is Vendor Management
+
+Here is a short note.^[Small enough to fit inline.]
+
+Here is a longer footnote[^1]
+
+[^1]: This footnote can be placed in a separate block.
+The identifier can be any alphanumeric string.
+
+# Orger
+
+Unordered list:
+
+* red
+* green
+* blue
+
+Ordered list:
+
+1. First item...
+
+   ...Continued.
+
+1. Second item 
+
+   # header
+   
+1. Third item
+
+A larger equation:
+
+$$ 
+f(x)={\sqrt{\frac{\tau}{2\pi}}}
+      e^{-\tau (x-\mu )^{2}/2}
+$$
+
+
+
+This breaks it:
+
+$$
+\bar{x} = \sum_{i=i}^n x_1
+$$
+
+
+# ithtt
+
+Images on their own line become a block:
+
+![Elephant](flowery.png)
+
+or do they?
+
+
+
+### Make or buy decision
 
 - We outsource certain products or services as partner vendors can offer better service/product or a better economy.
 - Businesses rarely have all the resources to execute projects and fulfill business objectives on their own. 
@@ -53,34 +164,44 @@ header-includes:
 ### Vendor Management 
 
 - Complete process of acquiring and managing several suppliers 
+=======
+- within the Government rules of constitutional equality among persons/business entities 
+
+## Vendor management : conception to disposal
+
+### Vendor Management 
+
+- Complete process of acquiring and managing suppliers 
 - with different points of contact, rates, and contract terms 
 - in complex and highly dynamic buyer-vendor ecosystem.
 
 
 ### General key points in Vendor selection
 
-- Select vendors that present greatest value to get better services at the lowest expenditure.
-- Interact with mission-critical vendor for their concerns and relationship.
-- Building trust and mutual support is Important
-- Needs to fit into our overall delivery of service and corporate strategy 
-- Understand vendor’s business model as bottom line for Vendor is important and cost and delivery pressure on them will likely see a commensurate reduction in service/product quality.
+
+- Select vendors that present greatest value  at the least viable expenditure.
+- Mission-critical vendor associate for their concerns and relationship.
+- Building long term trust and mutual support is Important
+- Needs to fit into overall delivery of service and corporate strategy 
+- Understand vendor’s business model as bottom line for Vendor is and important and cost and delivery pressure on them will likely see a commensurate reduction in service/product quality.
 
 
 # Vendor development in Railways
 
 ### Vendor development in Railways 
 
-- Most aspect of vendor management by Stores department 
-- technical and usage feedback report and demand by user departments
+
+- Most aspect of vendor management handled by Stores department 
+- Item demands, technical requirements and usage feedback performance report by user departments
 
 ### For safety critical items - vendor pre approval
 
-- For safety and critical items , vendors are pre-approved by RDSO/PU
-- RDSO  approval for items assigned specifically by Railway Board
-- RDSO vendor management in RDSO is only a limited part of vendor management 
-
+- For safety and critical items, vendors are pre-approved by RDSO/PU
+- RDSO  approve vendors for for items assigned by Railway Board
+- RDSO vendor development and management is only a limited part of entire vendor management 
 
 # RDSO vendor development system 
+
 
 The presentation will cover few key points of vendor registration process
 
@@ -93,6 +214,20 @@ The presentation will cover few key points of vendor registration process
 4. Application handling on UVAM portal including capabilities verification
 5. Inspection of more critical items assigned as category 2
 6. Follow up failure reporting and surveillance audit and regular audits 
+=======
+The presentation will cover few key points of `RDSO vendor registration process`
+
+
+### RDSO vendor management activities
+
+1. Item identified and assigned by Railway Board 
+2. RDSO develop Specification including STR and indicative costing
+3. RDSO Solicit vendors interest
+4. Entire Vendor Application processing on RDSO UVAM portal at ireps.gov.in
+5. Undertake Inspection of classified Category-II critical items 
+6. Evaluate Vendor performance for up-gradation and corrective actions
+7. Failure reporting monitoring and regular and special audits 
+
 
 ## RDSO Vendor Development process and monitoring
 
@@ -100,14 +235,14 @@ The presentation will cover few key points of vendor registration process
 
 - RDSO follow the basic principles of WTO-TBT ‘Code of Good Practice for the Preparation, Adoption and Application of Standards’. 
 
-- The six principles of standardization:
-+ a) Transparency 
-+ b) Openness 
-+ c) Impartiality and Consensus 
-+ d) Effectiveness and Relevance
-+ e) Coherence 
-+ f) Development Dimension
 
+- The six principles of standardisation:
+     a) Transparency 
+     b) Openness 
+     c) Impartiality and Consensus 
+     d) Effectiveness and Relevance
+     e) Coherence 
+     f) Development Dimension
 
 ## Standards
 
@@ -118,13 +253,14 @@ These could be specifications, procedures and guidelines to ensure that products
 
 
 ### Development of Specifications 
-- Product conception 
-- Overall functional requirement of the product
-- Who can make it best - myself or other person (vendor)
-- Most of the cases, Vendor Detailed specifications in consultation with stakeholders for optimum cost and functionality 
-- without costly frills
 
-## RDSO process for New / Change in Standards
+- Product conceptualisation  
+- Overall functional requirement specifications of the product
+- Who can make it best - ourself or other person (vendor)
+- Mostly, Vendor specifications made in consultation with stakeholders for optimum cost and functionality 
+
+
+## Standards development process of RDSO
 
 ### Justificatons for New specifications/STR
 a) Why the need for creation of new Standard has arisen? 
@@ -138,19 +274,20 @@ a) Why the need for Change has arisen?
 b) parameters likely to be affected?
 c) Effect of change on the existing vendor base?
 d) Effect of the change on the pricing of the item.
-e) Whether result in increase the service life of component/equipment ?
-f) Mechanisms for effective monitoring the above parameters
+e) Effect on service life of component/equipment.
+f) Mechanisms for effective monitoring those parameters
 g) Any other remarks 
 
 
 
+# RDSO Vendor registraion basics and process
 
-# Vendor registraion basics and process
+- RDSO only register OEMs 
 
-- RDSO only register OEMs  
 - No Traders or resellers permitted. 
 - Must have ISO 9000 certification for manufacturing the item classes
 - Overseas OEM's may appoint Indian agent but approval to OEM only.
+
 
 Registration brief follows ->
 
@@ -382,6 +519,7 @@ checks/Quality audit on their QAM including M&P, man-power, sources and their ow
 - Vendor responsible to immediately inform full technical details of any changes about Bill of Material, plant & machinery and Quality Assurance Plan  (para 4.3 )
 - In case the approved vendor fails to comply with the above provision, his name may be deleted/temporarily withdrawn 
 
+<<<<<<< HEAD
 # Evaluation of performance
 
 ## Evaluation of performance
@@ -389,6 +527,22 @@ checks/Quality audit on their QAM including M&P, man-power, sources and their ow
 - based on feedback from user as available in the directorate during quality audit. 
 -  Refusal to Quality Audit Date of Quality Audit shall be intimated to the firm through email/fax at least 30 days in advance. (Para 4.5) 
 - In case date not accepted, Next final date fixed by RDSO at least 30 days in advance and intimated to firm . 
+=======
+
+
+
+# Vendor Monitoring and performance evaluation
+
+## Performance Feedback reports from user Railways
+
+1. RDSO web portal hosted on railnet website 10.100.12.19
+2. Feed back from Railways (Discouraged as subjective)
+3. Online failure reporting work flow from Freight Maintenance Management (FMM)/CMM/WMS (better system to be formalised)
+
+## Evaluation of performance (para 4.4 )
+- Based on feedback from user as available in the directorate during quality audit. 
+- Refusal to Quality Audit Date of Quality Audit intimated to firm through email/fax at least 30 days in advance. (Para 4.5) 
+- In case date not accepted, next and final date after 30 days intimation to firm 
 - In case approved vendor refuses to quality audit or does not allow RDSO to perform quality audit, vendor temporarily delisted till  quality audit is successfully done.
 
 ## Quality and performance deterioration
@@ -406,12 +560,24 @@ Deterioration of performance & out of turn Quality Audit (Para 4.6 )
 ## Vendor monitoring: 
 
 
-## Inspections (suggestions) 
+- ED decide out of turn quality audit for further continuance of approval/ temporary delisting/ delisting.
+- ED/ PED may decide to  stop the inspection temporarily considering seriousness 
+- Audit Report communicated and  vendor status be updated on website (Para 4.7 )
+- Discrepancies during Quality Audits be taken up with show cause notice to comply deficiencies , and implementing CAPA within 30 days. This shall be verified. (Para 4.8)
+
+- If the firm fails to comply, firm be temporary delisted 
+
+
+## Inspections ( Suggestions) 
 
 - Inspection - Adds no values to quality, waste of resource but essential under mistrusted vendors
 
 - Better develop strong and trusted vendors with lasting relationships with suppliers.
 - Firms WTC may be considered depending on robustness of firms QAP and mitigation activities
+
+
+
+- Private sector insists on process monitoring from its manufacturers. Instead of checking a complete lot and then rejecting it, we need to look into that aspect. That brings quality and eases inspection for the supplier
 
 ## Quality key items to consider (suggestions)
 
@@ -428,6 +594,7 @@ Solves about ~ 95% of all company problems
 
 Vendors following above likely to have robust internal quality control system
 
+
 ### Vendor supplies performance monitoring: 
 
 - Warranty portal and in future FMM/CMM/WMS in mech deptt 
@@ -435,8 +602,40 @@ Vendors following above likely to have robust internal quality control system
 - Consider Total effective life cycle cost
 - Good vendors are assets  and proved values to the business
 
+=======
+## Few Suggestions for discussions
+
+### Documentation and legal compliances 
+- Based on certificate from statutory charted accountant
+- All CCA compliance by chartered engineering firms
+- RDSO can always verify and cross check certificates
+- like system of Advocates in Court, CA for company accounts, CHA for export
+
+- Ways to incentivise vendors meeting better process capabilties (Cp)
+
 
 
 ## Thank you very much
 ### Thank you very much
 Thank you
+
+# test columns with 4 colans in html
+
+
+:::: {.columns align=center totalwidth=8em}
+
+The div containers with classes columns and column can optionally have an align attribute. The class columns can optionally have a totalwidth attribute or an onlytextwidth class.
+
+Vertical with the values top, top-baseline, center and bottom to vertically align the columns
+
+class columns can optionally have a totalwidth attribute or an onlytextwidth class.
+
+::: {.column width="40%"}
+contents...
+:::
+
+::: {.column width="60%" align=bottom}
+contents...
+:::
+
+:::: 
