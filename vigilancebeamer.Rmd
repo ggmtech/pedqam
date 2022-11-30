@@ -10,9 +10,9 @@ aspectratio: 43 # 169 # 16:9
 #classoption: handout
 output:
  beamer_presentation:
-   theme: PaloAlto # Warsaw #CambridgeUS #AnnArbor #"Copenhagen"  
+   theme: Antibes #PaloAlto # Warsaw #CambridgeUS #AnnArbor #"Copenhagen"  
    # AnnArbor, PaloAlto, CambridgeUS, Antibes, 
-   # %mytheamlist =AnnArbor   Antibes  Berkeley  CambridgeUS %Copenhagen Madrid  Warsaw
+   # %mytheamlist =AnnArbor   Antibes  Berkeley  CambridgeUS %Copenhagen Madrid Warsaw
    # JuanLesPins %Goettingen   Hannover  Marburg  PaloAlto Marburg 
    # https://deic-web.uab.cat/~iblanes/beamer_gallery/index_by_theme.html
    #theme: "metropolis" # special
@@ -27,14 +27,70 @@ output:
    keep_tex: true
    # includes:
    #    in_header: header.tex
-#logo: flowery.png #RDSO_Logo1.jpg #flowery.png
+logo: flowery.png #RDSO_Logo1.jpg #flowery.png
 #titlegraphic: dahlia.png
 #background-image: dahlia.png #RDSO_Logo1.jpg # works
 header-includes:
   - \usepackage{fancyvrb}
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+         echo = TRUE,
+        comment=NA)
+```
+
+
+```{r , results= 'hide', message=FALSE, warning=FALSE}
+source(here::here("gktestinclude.R") )
+library(tidyverse)
+library(ggplot2)
+```
+
+
 # Introduction
+ First test external code
+ 
+# test external code method 1
+
+```{r, code = readLines("gktestinclude.R")}  
+# better wy
+```
+
+## Method 2 not worked
+
+```{r, include=TRUE}
+source( here::here("gktestinclude.R") ) #,  local = knitr::knit_global() )
+# or sys.source("your-script.R", envir = knitr::knit_global())
+```
+
+## method 3
+```{r shared-code}
+source(here::here("gktestinclude.R") )
+
+```
+
+```{r shared-code , include=FALSE }
+#source(here::here("gktestinclude.R"))
+source( "gktestinclude.R" ) #,  local = knitr::knit_global() )
+
+```
+
+
+```{r}
+source("gktestinclude.R", echo = TRUE,  prompt.echo = "", spaced = F)
+## it is good  comment = NA,
+```
+
+## Header in child document
+
+### Text in child document.
+
+```{r testchild, child = "gktestinclude.Rmd" }
+# this works !!
+```
+
+
 
 ## What is Vendor Management
 
@@ -423,13 +479,13 @@ Deterioration of performance & out of turn Quality Audit (Para 4.6 )
 
 ## Quality key items to consider (suggestions)
 
-### 7 QC tools -  Ishikawa,professor, Tokyo Uni,  influencer of W. Edwards Deming 
-Solves about ~ 95% of all company problems 
+### 7 QC tools -  Prof. Ishikawa, Tokyo Univ 
+Solves about ~ 95% of problems 
 
 1. Pareto Chart
 2. Run Chart - run-sequence plot
 3. Histogram - underlying distribution - process capability
-4. Cause-and-effect diagram - Ishikawa fishbone diagram : root causes for an effect into six Ms: measurement, material, machine, method, manpower and mother nature.  Brainstorming "why does this happen?" 
+4. Cause-and-effect diagram - Ishikawa fishbone diagram : root causes effect into six Ms: measurement, material, machine, method, manpower and mother nature.  Brainstorming "why does this happen?" 
 5. Scatter plots : X-Y graph data relationship but no  causation
 6. Control charts : processes variation from specs.( x-bar ,  R , S , c , u , np and p chart)
 7. Check Sheets : defect concentration diagram, structured forms
@@ -453,7 +509,7 @@ Vendors following above likely to have robust internal quality control system
 - RDSO can always verify and cross check certificates
 - like system of Advocates in Court, CA for company accounts, CHA for export
 
-- Ways to incentivise vendors meeting better process capabilties (Cp)
+- Ways to incentivise vendors meeting better process capabilities (Cp)
 
 
 ## Thank you very much
