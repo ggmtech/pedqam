@@ -1,0 +1,196 @@
+---
+title: "Sidenotes"
+format: pdf
+  # pdf:
+  #   include-in-header: 
+  #     text: |
+  #       \usepackage{mdframed}
+editor: visual
+jupyter: python3
+---
+
+![Elephant](flowery.png){fig-env="mdframed"}
+
+# Other figure printing
+
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+
+# code chunk with R
+
+```{r}
+#| label: fig-airquality
+#| fig-cap: Temperature and ozone level.
+#| warning: false
+
+library(ggplot2)
+
+ggplot(airquality, aes(Temp, Ozone)) + 
+  geom_point() + 
+  geom_smooth(method = "loess")
+```
+
+# chunks using observaljs
+
+Not done so far with ojs
+
+
+# Julia code block test  Parametric Plots
+
+Plot function pair (x(u), y(u)). 
+See @fig-parametric for an example.
+
+```{julia}
+#| label: fig-parametric
+#| fig-cap: "Parametric Plots"
+
+using Plots
+
+plot(sin, 
+     x->sin(2x), 
+     0, 
+     2π, 
+     leg=false, 
+     fill=(0,:lavender))
+```
+
+
+# Links and figures
+
+This is ursl link <https://quarto.org>
+
+[Quarto](https://quarto.org)
+
+
+![Caption](flowery.png)
+
+
+[![Caption](flowery.png)](https://quarto.org)
+
+
+[![Caption](flowery.png)](https://quarto.org "An elephant")
+
+[![](flowery.png){fig-alt="Alt text"}](https://quarto.org)
+
+
+# language syntex highlihting
+
+```python  
+1 + 1
+```
+
+# Lists
+
+* unordered list
+    + sub-item 1
+    + sub-item 2
+        - sub-sub-item 1
+        
+
+(@)  A list whose numbering
+
+continues after
+
+(@)  an interruption
+
+# Page brake test
+
+page 1
+
+{{< pagebreak >}}
+
+page 2
+
+::: border
+This content can be styled with a border
+:::
+
+# fenced blocks
+
+::::: {#special .sidebar}
+
+::: {.warning}
+Here is a warning.
+:::
+
+More content.
+:::::
+
+# Table test
+
+| Default | Left | Right | Center |
+|---------|:-----|------:|:------:|
+| 12      | 12   |    12 |   12   |
+| 123     | 123  |   123 |  123   |
+| 1       | 1    |     1 |   1    |
+
+: Demonstration of pipe table syntax
+
+# Test mermaid diagrams
+
+```{mermaid}
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+
+# Include video
+
+{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
+
+
+# Call outs
+
+:::{.callout-note}
+Note that there are five types of callouts, including: 
+`note`, `tip`, `warning`, `caution`, and `important`.
+:::
+
+:::{.callout-caution}
+Note that there are five types of callouts, including: 
+`note`, `tip`, `warning`, `caution`, and `important`.
+:::
+
+:::{.callout-important}
+Note that there are five types of callouts, including: 
+`note`, `tip`, `warning`, `caution`, and `important`.
+:::
+
+# Other blocks
+
+> Blockquote fir indented text
+
+
+::: {.classname}
+Div
+:::
+
+| Line Block
+|   Spaces and newlines
+|   are preserved
+
+
+endash: --
+
+
+emdash: ---
+

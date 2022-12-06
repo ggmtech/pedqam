@@ -1,5 +1,5 @@
 #devtools::install_github("daheelee/timelineS")
-
+7 + 9
 library(timelineS) # 5 fn: timelineS, timelineG, durPlot, durCalc, durSummary
 mj_life
 timelineS(  mj_life,    main = "Life of Michael Jackson" )   ## simplest !
