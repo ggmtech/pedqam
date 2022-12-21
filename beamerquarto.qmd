@@ -19,7 +19,7 @@ format:
     keep-md: false	
     keep-ipynb: false
     toc: true
-#    toc-depth: 3
+    toc-depth: 3
 #    shift-heading-level-by: -1
 #    top-level-division: part # default, section, chapter, or part  
     #    toc-title: "Todays agenda points"
@@ -52,19 +52,20 @@ format:
 #        in_header: nw_report_header.tex
     institute: RDSO
     author affiliations: RDSO AND NER
-    logo: flowery.png
+#    logo: IRlogored.png #flowery.png
     titlegraphic: dahlia.png
-#    background-image: dahlia.png #RDSO_Logo1.jpg
-    background-image: RDSO_Logo1.jpg
+    background-image: dahlia.png #RDSO_Logo1.jpg
+#    background-image: RDSO_Logo1.jpg
     section-titles: true # false
     fig-align: right # (default, left, right, or center)
     fig-width: 4
     fig-height: 3
 header-includes: |
+  \titlegraphic{\includegraphics[width=0.1\paperwidth]{IRlogored.png}}
   \usepackage{etoolbox}
 
   \defbeamertemplate{background canvas}{mydefault}{%
-    \includegraphics[width=\paperwidth,height=\paperheight]{flowery.png} %RDSO_Logo1.jpg}
+    \includegraphics[width=\paperwidth,height=\paperheight]{flowery.png}
   }
   \defbeamertemplate{background canvas}{standout}{%
     \includegraphics[width=\paperwidth,height=\paperheight,page=2]{flowery.png}
@@ -98,7 +99,36 @@ engine: python
 
 Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
 
+## Parametric Plots
+
+
+
+Plot function pair (x(u), y(u)) in julia. 
+
+#See @fig-parametric for an example.
+
+#```{julia}
+#| label: fig-parametric
+#| fig-cap: "Parametric Plots"
+<!-- installed julia and plot import Pkg; Pkg.add("Plots") library  but still failed-->
+# using Plots
+# 
+# plot(sin, 
+#      x->sin(2x), 
+#      0, 
+#      2π, 
+#      leg=false, 
+#      fill=(0,:lavender))
+#```
+
+
+
+# about rdso
+
+{{< include aboutrdso.qmd >}}
+
 # The first level testing
+
 
 ## Incremental also by this way
 
@@ -123,7 +153,7 @@ When you click the **Render** button a document will be generated that includes:
 
 content before the pause
 
----
+------------------------------------------------------------------------
 
 content after the pause
 
@@ -153,7 +183,6 @@ contents...
 :::
 :::
 
-
 ## Code
 
 # the first level notes
@@ -167,7 +196,6 @@ When you click the **Render** button a presentation will be generated that inclu
 ```{r}
 1 + 1
 ```
-
 
 ## Slide with speaker notes
 
@@ -196,27 +224,12 @@ plt.show()
 
 # other points in Julia
 
-```{julia}
-#| echo: false
-
-radius = 10
-using Markdown
-Markdown.parse(
-"""
-The radius of the circle is $radius.
-"""
-)
-```
 
 # Julio plots etc
-```{julia}
-import Pkg; Pkg.add("Plots")
-using Plots
-gr()
-## Plots.GRBackend()
-plot(Plots.fakedata(50,5),w=3)
-```
 
+
+
+## Some problem
 
 # Oher fu
 
@@ -259,4 +272,3 @@ plt.show()
 \tocframe
 \begin{frame}
 ```
-

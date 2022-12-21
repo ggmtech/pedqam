@@ -46,9 +46,7 @@ header-includes:
   - \usetikzlibrary{spy,calc}
   - \usetikzlibrary{decorations, decorations.text} 
   - \usebackgroundtemplate{\tikz\node[opacity=0.1]{\includegraphics[height=\paperheight,width=\paperwidth]{dahlia.png}};}   # worked background opacity
-  - \setbeamertemplate{background}{\tikz[overlay,remember picture]\node[opacity=0.4]at (current page.center){\includegraphics[width=2cm]{RDSO_Logo1.jpg}};}
-
-
+  - \setbeamertemplate{background}{\tikz[overlay,remember picture]\node[opacity=0.4]at (current page.center){\includegraphics[width=2cm]{owl.png}};}
 ---
 
 # Introduction
@@ -77,22 +75,18 @@ postaction={decoration={ text along path, text format delimiters={|}{|},
 
 # do copy old good print
 
-Markdown allows you to format text with 
-*emphasis* and **strong emphasis**. You can 
-also add superscripts^2^, subscripts~2~, and
-display code `verbatim`. Little known fact:
-you can also ~~strikethrough~~ text and 
-present it in [small caps]{.smallcaps}.
+Markdown allows you to format text with  *emphasis* and **strong emphasis**. You can also add superscripts^2^, subscripts~2~, and display code `verbatim`. Little known fact:
+you can also ~~strikethrough~~ text and present it in [small caps]{.smallcaps}.
 
-You can embed [links with names](https://quarto.org/),
-direct urls like <https://quarto.org/>, and links to 
-[other places](#inline-elements-text-formatting) in 
-the document. The syntax is similar for embedding an
-inline image: ![render icon](flowery.png).
+You can embed [links with names](https://quarto.org/),direct urls like <https://quarto.org/>, and links to [other places](#inline-elements-text-formatting) in the document. The syntax is similar for embedding an inline image: ![render icon](flowery.png).
 
 The area of a circle is $A = \pi r^2$,where
 $r$ is the radius and $\pi$ is the constant
 $3.141592\ldots$.
+
+
+<!-- some problem code
+
 
 # What is Vendor Management
 
@@ -103,7 +97,10 @@ Here is a longer footnote[^1]
 [^1]: This footnote can be placed in a separate block.
 The identifier can be any alphanumeric string.
 
-# Orger
+
+--->
+
+# Orgenisation str
 
 Unordered list:
 
@@ -119,8 +116,6 @@ Ordered list:
 
 1. Second item 
 
-   # header
-   
 1. Third item
 
 A larger equation:
@@ -130,8 +125,6 @@ f(x)={\sqrt{\frac{\tau}{2\pi}}}
       e^{-\tau (x-\mu )^{2}/2}
 $$
 
-
-
 This breaks it:
 
 $$
@@ -139,14 +132,16 @@ $$
 $$
 
 
-# ithtt
+# ithtt test 
+
+Images on their own line ![Elephant](flowery.png) or do they?
+
 
 Images on their own line become a block:
 
 ![Elephant](flowery.png)
 
 or do they?
-
 
 
 ### Make or buy decision
@@ -164,7 +159,7 @@ or do they?
 ### Vendor Management 
 
 - Complete process of acquiring and managing several suppliers 
-=======
+
 - within the Government rules of constitutional equality among persons/business entities 
 
 ## Vendor management : conception to disposal
@@ -214,7 +209,8 @@ The presentation will cover few key points of vendor registration process
 4. Application handling on UVAM portal including capabilities verification
 5. Inspection of more critical items assigned as category 2
 6. Follow up failure reporting and surveillance audit and regular audits 
-=======
+
+
 The presentation will cover few key points of `RDSO vendor registration process`
 
 
@@ -527,7 +523,7 @@ checks/Quality audit on their QAM including M&P, man-power, sources and their ow
 - based on feedback from user as available in the directorate during quality audit. 
 -  Refusal to Quality Audit Date of Quality Audit shall be intimated to the firm through email/fax at least 30 days in advance. (Para 4.5) 
 - In case date not accepted, Next final date fixed by RDSO at least 30 days in advance and intimated to firm . 
-=======
+
 
 
 
@@ -602,7 +598,7 @@ Vendors following above likely to have robust internal quality control system
 - Consider Total effective life cycle cost
 - Good vendors are assets  and proved values to the business
 
-=======
+
 ## Few Suggestions for discussions
 
 ### Documentation and legal compliances 

@@ -124,7 +124,7 @@ background-size: cover
 
 
 ```{r echo = FALSE}
-# remotes::install_github("gadenbuie/xaringanExtra")
+#remotes::install_github("gadenbuie/xaringanExtra")
 xaringanExtra::use_panelset()
 library(ggplot2)
 ```
