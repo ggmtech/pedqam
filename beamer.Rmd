@@ -74,6 +74,10 @@ plt.show()
 - Quality issues of OFF POH/IOH locos & action plan for improvement.
 - Cleanliness drives & action taken for improving cleanliness  standards of Sheds & locos  
 
+## Example Slide
+
+- Some text which will be followed by a citation \begingroup \tiny\color{gray} [e.g., Grey shortname] \endgroup
+- Some more text, now without a citation 
 
 # Performance Statistics 
 
