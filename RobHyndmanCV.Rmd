@@ -25,18 +25,19 @@ library(tidyverse)
 library(RefManageR)
 library(googlesheets4)
 library(vitae)
-source("functions.R")
+
+#source("functions.R")
 
 # Update list of R packages I've coauthored
-source("R_packages.R")
+#source("R_packages.R")
 
 # Read any bib files
-pubs <- bibliography_entries("rjhpubs.bib")
-reports <- bibliography_entries("rjhreports.bib")
-packages <- bibliography_entries("Rpackages.bib")
+# pubs <- bibliography_entries("rjhpubs.bib")
+# reports <- bibliography_entries("rjhreports.bib")
+# packages <- bibliography_entries("Rpackages.bib")
 
 # Read grants file
-grants <- read_csv("Grant_income.csv")
+#grants <- read_csv("Grant_income.csv")
 ```
 
 # Education and qualifications
@@ -47,8 +48,7 @@ tribble(
     "B.Sc.(Hons)", "University of Melbourne", 1988,
     "Ph.D.", "University of Melbourne", 1992,
     "A.Stat.", "Statistical Society of Australia", 2000
-  ) %>%
-  baretable()
+  ) %>% baretable()
 ```
 
 # Fellowships

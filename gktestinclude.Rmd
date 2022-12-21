@@ -1,0 +1,8 @@
+<!-- sample file for inclusion -->
+## this test is from included file gktestinclude.Rmd
+
+Thjs is test heading III
+
+## Yes it is included and everything appears ok
+
+This is test subheading III

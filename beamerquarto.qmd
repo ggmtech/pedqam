@@ -110,6 +110,51 @@ Quarto enables you to weave together content and executable code into a finished
 -   Drink wine
 :::
 
+
+## observables Mike Bostock (also authored D3)
+An Observable notebook consists of independent editable and observable cells snippet of JavaScript. 
+
+```{ojs}
+Observable Grammar
+
+Cell :
+    ImportCell
+    NamedCell
+    Block
+    Expression
+
+ImportCell :
+    import NamedImports from ModuleSpecifier
+    import NamedImports with NamedImports from ModuleSpecifier
+
+NamedCell :
+    Identifier = Block
+    Identifier = Expression
+    FunctionExpression
+    ClassExpression
+
+Identifier :
+    IdentifierName
+    viewof IdentifierName
+    mutable IdentifierName 
+{ const local = "I am a local variable."; }
+```
+
+
+```{ojs}
+viewof bill_length_min = Inputs.range(
+  [32, 50], 
+  {value: 35, step: 1, label: "Bill length (min):"}
+)
+viewof islands = Inputs.checkbox(
+  ["Torgersen", "Biscoe", "Dream"], 
+  { value: ["Torgersen", "Biscoe"], 
+    label: "Islands:"
+  }
+)
+```
+
+
 ## Bullets
 
 When you click the **Render** button a document will be generated that includes:

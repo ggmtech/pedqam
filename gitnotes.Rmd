@@ -16,6 +16,17 @@ knitted_with <- packageVersion("knitr")
 ```
 
 
+
+
+
+library(tinytex)
+tlmgr_search('/times.sty')   # search for times.sty
+tlmgr_install('psnfss')      # install the psnfss package
+tlmgr_update()               # update everything
+
+or 
+tinytex::reinstall_tinytex()
+
 <!---  Reported prepared on `r knitted_when` from `r knitted_where`
 with knitr version    r knitted_with r emo::ji('smile') . -->
 
@@ -47,6 +58,14 @@ Reported prepared on `r knitted$when` from ``r knitted$where``
 <!-- with knitr version `r knitted$with` `r emo::ji('happy')`. --->
 
 Read more about [`knitr::knit()`](`r knitted$doc_url`)`.
+
+
+
+# Learing git
+
+## Git communicate with a remote server using HTTPS or SSH
+HTTPS, we will use a personal access token (PAT)
+
 
 
 

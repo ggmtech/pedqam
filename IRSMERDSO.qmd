@@ -1,0 +1,37 @@
+---
+title: "IRSME cadre in RDSO"
+format: pdf
+editor: visual
+---
+
+## Status of positing of JA.SG grage IRSME officer 
+
+```{r}
+#| echo: false
+
+# importing the ggplot2 library
+library(ggplot2)
+library(googlesheets4)
+
+
+# creating data set columns
+x <- c(12,23,43,61,78,54,34,76,58,103,39,46,52,33,11)
+y <- c(12,54,34,76,54,23,43,61,78,23,12,34,56,98,67)
+r <- c(1,5,13,8,12,3,2,16,7,40,23,45,76,8,7)
+  
+color <- c(rep("color1", 1), rep("color2", 2),
+           rep("Color3", 3), rep("color4", 4),
+           rep("color5", 5))
+sizeRange <- c(2,18)
+  
+# creating the dataframe from the above 
+# columns
+data <- data.frame(x, y, r, color)
+  
+# importing the ggplot2 library
+library(ggplot2)
+  
+ggplot(data, aes(x = x, y = y,size = r, color=color)) + geom_point(alpha = 0.7) + 
+  scale_size(range = sizeRange, name="index")
+```
+

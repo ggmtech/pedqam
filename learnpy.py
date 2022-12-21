@@ -11,16 +11,12 @@
     using three "s, and are often used  as documentation.
 """
 35 / 5  # => 7.0
-10.0 / 3  # => 3.3333333333333335  # The result of division is always a float
-7 % 3  # => 1   # Modulo operation
-(1 + 3) * 2**3  # => 32
+(6 + 4.00)**3 / 3  # => 3.3333333333333335  # The result of division is always a float
+7 % 3  # => 1   # Modulo operation - Remainder
 
-# negate with not
-not False  # => True
-
-# Boolean Operators
+not False  # => True  # negate with not
+# Boolean Operators # True and False are actually 1 and 0 
 True and False  # => False # Note "and" and "or" are case-sensitive
-# True and False are actually 1 and 0 but with different keywords
 True + True + True # => 3
 # Comparison operators look at the numerical value of True and False
 0 == False  # => True
@@ -955,3 +951,54 @@ Official Style Guide for Python
 Python 3 Computer Science Circles
 Dive Into Python 3
 A Crash Course in Python for Scientists
+
+
+
+
+# Numpy module
+import numpy as np
+np.__version__
+
+# ndarray is a generic multidimensional container for homogenous data.
+# vectorized arithmetic operations and sophisticated broadcasting capabilities
+# 2 properties: shape and dtype. 
+# shape is a tuple providing the dimension of the array 
+# dtype provides you the datatype of the array.
+
+nparray = np.array([1,2,3])
+nparray
+nparray.dtype # datatype  dtype('int32')
+nparray.size  #  3  or (3,)
+
+# itemsize provides the size of a single item in the array while nbytes returns the size of the entire array.
+nparray.itemsize
+nparray.nbytes
+# timing ??
+timeit pythonList = [i for i in range(10000)]
+timeit npList = np.arange(10000)
+
+## Generating data with numpy
+np.arange(10)
+
+np.linspace(0, 10, 5) # linearly-spaced n=5 items within the range ( 0-10)passed as input.
+np.zeros(5)
+np.ones(5)
+np.empty(5)  # garbage value array
+np.eye(5)  # create Identity matrix I
+
+
+#Indexing
+nparray[1]  # second like python normal
+nparray[-1] # like
+
+nparray[1:2]
+largeArray = np.arange(100) #>> 
+largeArray[::20]  ## array([ 0, 20, 40, 60, 80])  
+largeArray[1:10:2] ## array([1, 3, 5, 7, 9])      
+largeArray[::-20] ## array([99, 79, 59, 39, 19])  
+largeArray[10:1:-2] ## array([10,  8,  6,  4,  2])  #
+
+# slices are essentially references(views) and hence, any changes to the sliced data will reflect in the parent
+#  use copy() method instead of such views
+
+

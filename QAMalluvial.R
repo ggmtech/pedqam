@@ -1,44 +1,61 @@
-# alluvial daiagram
 #install.packages(alluvial)
-library(tidyverse)    # for %>%
+library(tidyverse)#
 library(readxl)
-# library(xlsx)   # neds java
-library(writexl)  # install.packages("writexl")
+#library(xlsx)    # needs java
+library(writexl)
 
 library(alluvial)
 library(ggalluvial)
-
-
-######################## to be used
-library(googledrive) # better  use  for files suggested by jenny bryon
 library(googlesheets4)
-drive_user()  # user authorised
-drive_auth()  # authorise user
-
-# faled ?? drive_find(n_max = 30) #??drive_find("Master") #??drive_find("MASTER VENDOR LIST March2020")
-# works with direct correct file name
-allvendorhandle   <-   gs_title("MASTER VENDOR LIST March2020")      # gs by title
-
-allvendorhandle
-# range = "R1C1:R4C3" | "B3:F80" | cell_cols(1:4) | cell_limits(  c(1, 4), c(5, NA) | cell_rows(1:1000) )
-# locale, trim_ws, na, comment, n_max
-RDSOmarch31           <-   gs_read(ss = allvendorhandle,   ws = 1 , skip = 2, col_names = TRUE,verbose = TRUE) # %>% rowid_to_column()
-RDSOmarch31  %>%   View()
-
 ##########################
-setwd("/Users/gk/Google Drive")   #  getwd()
-list.files("/Users/gk/Google Drive/")
 
-excel_sheets("/Users/gk/Google Drive/gkvdlist.xlsx")
+#setwd("/Users/gk/Documents")   #  
+list.files() 
+excel_sheets("QAMdays.xlsx")
 
-# To load all sheets in a workbook, use lapply
-#path <- excel_sheets("/Users/gk/Google Drive/gkvdlist.xlsx")
-#?lapply(read_xlsx(path), read_excel, path = path)
-#QAdata    <- readxl::read_xlsx("/Users/gk/Google Drive/gkvdlist.xlsx", sheet = 1)
-#QAdel     <- readxl::read_xlsx("/Users/gk/Google Drive/gkvdlist.xlsx", sheet = "Del132")
-#QAdatamix <- readxl::read_xlsx("/Users/gk/Google Drive/QAfull.xlsx", sheet = 1)
+QAdays    <- readxl::read_xlsx("QAMdays.xlsx", sheet = 1)   # sheet = "UVAMdays"
+QAdays  %>% names()  # names(QAdays)
+QAdays  %>% count(DTE)
+
+QAdays %>% DataExplorer::create_report()
+
+QAdays %>%  dplyr::group_by(DTE) %>%
+            dplyr::summarise_at( vars("Days Taken"), list(mean = mean,  min = min, maz = max, count = length ) ) %>% 
+  
+  
+      ggplot(mapping = aes(x =  fct_reorder(DTE , mean), 
+                           y = mean)       )   + 
+            geom_point(size = 14, color = "red", alpha = 0.75) + 
+            geom_segment( aes(x=fct_reorder(DTE , mean), 
+                              xend=fct_reorder(DTE , mean), 
+                              y=0, 
+                              yend=mean, 
+                              size = count), 
+                           colour = "red", 
+                           alpha = 0.3 ) + 
+            geom_text(aes(label =  round(mean,2)   )) + 
+            geom_text(y = -5  , aes(label =  count  )) + 
+     
+      theme_bw() + # coord_flip() +
+      labs(title = "Average days to dispose vendor registration case",
+           subtitle = "Cases handled and average time for disposal since April 2022 till Date",
+           x = "Directorate of RDSO",
+           y = "Avearge Number of days to dispose ",
+           caption = "Source = UVAM data from ED/Stores")
+
+
+
+
+
+
+
+
+
+
+
 
 excel_sheets("/Users/gk/Google Drive/QAsuperlist.xlsx")
+
 
 QAall <- readxl::read_xlsx("/Users/gk/Google Drive/QAsuperlist.xlsx", sheet = "VD638")
 QAall %>% View()
