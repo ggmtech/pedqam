@@ -1,4 +1,40 @@
 
+
+
+
+library(tidyverse)
+
+library(rvest)
+
+
+devtools::install_github("rstudio/rticles")
+
+
+my_session <- session("https://rdso.ggn.rcil.gov.in/qaop1/Default.aspx")
+
+log_in_form <- html_form(my_session)[[1]]
+
+fill_form <- set_values(log_in_form,
+                        txtUserName = "ped",
+                        txtPassword = "ped1234",
+                        txtCaptcha = ""   )
+
+fill_form$fields[[4]]$name <- "button" # 
+## http://optimumsportsperformance.com/blog/web-scraping-webpages-that-require-login-info/
+
+session_submit(my_session, fill_form)
+
+url <- session_jump_to(my_session,
+                       "https://rdso.ggn.rcil.gov.in/qaop1/")
+
+# scarp 
+tbl <- html_nodes(url, 'table')
+av_tbl <- html_table(tbl, fill = TRUE) %>% pluck(1)
+av_tbl %>% as.data.frame()
+
+
+
+
 # rvest vendors
 # https://stackabuse.com/web-scraping-the-java-way/  # better
 # https://www.webscrapingapi.com/java-web-scraping/

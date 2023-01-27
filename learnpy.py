@@ -334,6 +334,13 @@ filled_set | other_set  # => {1, 2, 3, 4, 5, 6}
 2 in filled_set   # => True
 10 in filled_set  # => False
 
+##################################
+# from other 
+List like array. In Python world, they call it as List. And they are ordered.
+
+numbers = ["one", "two", "three"]
+
+numbers[0] # one
 
 
 ####################################################
@@ -463,6 +470,33 @@ next(our_iterator)  # Raises StopIteration
 # You can grab all the elements of an iterator by calling list() on it.
 list(filled_dict.keys())  # => Returns ["one", "two", "three"]
 
+#################### from other site
+# Fill in the correct Python commands to put “This is fun!” onto the screen 5 times
+
+for i in range(5):
+  print("This is fun!")
+
+for i in range(10):
+  print(i, i*i, i*i*i )
+  
+price_for_each = 532
+print(f"Each person needs to pay: {price_for_each}")
+
+print("2 + 2 = " + str(2 + 2))
+
+
+# This function compares two numbers and returns them
+# in increasing order.
+def order_numbers(number1, number2):
+	if number2 > number1:
+		return number1, number2
+	else:
+		return number2, number1
+
+# 1) Fill in the blanks so the print statement displays the result
+#    of the function call
+smaller, bigger = order_numbers(100, 99)
+print(smaller, bigger)
 
 ####################################################
 ## 4. Functions
@@ -953,6 +987,24 @@ Dive Into Python 3
 A Crash Course in Python for Scientists
 
 
+# !pip install numpy
+# or
+# !conda install numpy
+
+
+import numpy as np
+np.__version__
+
+# Central object is the array
+a = np.array([1,2,3,4,5])
+a # [1 2 3 4 5]
+a.shape # shape of the array: (5,)
+a.dtype # type of the elements: int32
+a.ndim # number of dimensions: 1
+a.size # total number of elements: 5
+a.itemsize # the size in bytes of each element: 4
+
+
 
 
 # Numpy module
@@ -1001,4 +1053,74 @@ largeArray[10:1:-2] ## array([10,  8,  6,  4,  2])  #
 # slices are essentially references(views) and hence, any changes to the sliced data will reflect in the parent
 #  use copy() method instead of such views
 
+# define an array
+import numpy
+mylist = [1, 2, 3]
+myarray = numpy.array(mylist)
+print(myarray)
+print(myarray.shape)
 
+
+mylist = [[1, 2, 3], [3, 4, 5]]
+myarray = numpy.array(mylist)
+print(myarray)
+print(myarray.shape)
+print("First row: %s" % myarray[0])
+print("Last row: %s" % myarray[-1])
+print("Specific row and col: %s" % myarray[0, 2])
+print("Whole col: %s" % myarray[:, 2])
+
+myarray1 = numpy.array([2, 2, 2])
+myarray2 = numpy.array([3, 3, 3])
+print("Addition: %s" % (myarray1 + myarray2))
+print("Multiplication: %s" % (myarray1 * myarray2))
+
+
+#Line Plot  simple line plot from one-dimensional data.
+
+# basic line plot
+import matplotlib.pyplot as plt
+import numpy
+myarray = numpy.array([1, 2, 3])
+plt.plot(myarray)
+plt.xlabel('some x axis')
+plt.ylabel('some y axis')
+plt.show()
+
+# basic scatter plot
+x = numpy.array([1, 2, 3])
+y = numpy.array([2, 4, 6])
+plt.scatter(x,y)
+plt.xlabel('some x axis')
+plt.ylabel('some y axis')
+plt.show()
+
+
+# Pandas provides data structures and functionality to quickly manipulate and analyze data.
+#  understanding the Series and DataFrame data structures.
+
+# Series is a one-dimensional array where the rows and columns can be labeled.
+
+# series
+import numpy
+import pandas
+myarray = numpy.array([1, 2, 3])
+rownames = ['a', 'b', 'c']
+myseries = pandas.Series(myarray, index=rownames)
+print(myseries)
+
+print(myseries[0])
+print(myseries['a'])
+
+# DataFrame is a multi-dimensional array where the rows and the columns can be labeled.
+
+# dataframe
+import numpy
+import pandas
+myarray = numpy.array([[1, 2, 3], [4, 5, 6]])
+rownames = ['a', 'b']
+colnames = ['one', 'two', 'three']
+mydataframe = pandas.DataFrame(myarray, index=rownames, columns=colnames)
+print(mydataframe)
+print("one column: %s" % mydataframe['one'])
+print("one column: %s" % mydataframe.one)

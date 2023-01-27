@@ -47,13 +47,13 @@
 }
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \ifxetex
+  \ifXeTeX
     \usepackage{mathspec}
   \else
     \usepackage{unicode-math}
@@ -81,14 +81,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={The Power of R Markdown},
-  pdfauthor={Emi Tanaka},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \newif\ifbibliography
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -136,9 +128,17 @@
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{fancyvrb}
 \usepackage{graphicx}
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={The Power of R Markdown},
+  pdfauthor={Emi Tanaka},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{The Power of R Markdown}
 \subtitle{\texttt{rmarkdown::beamer\_presentation}}
@@ -187,14 +187,24 @@ each level in \texttt{cyl} .
 \end{verbatim}
 \end{frame}
 
+\begin{frame}[fragile]{Diagram}
+\protect\hypertarget{diagram}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flowchart LR}
+\NormalTok{  A[Hard edge] {-}{-}\textgreater{} B(Round edge)}
+\NormalTok{  B {-}{-}\textgreater{} C\{Decision\}}
+\NormalTok{  C {-}{-}\textgreater{} D[Result one]}
+\NormalTok{  C {-}{-}\textgreater{} E[Result two]}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
 \begin{frame}{R Markdown Motivation: More robust to modifications}
 \protect\hypertarget{r-markdown-motivation-more-robust-to-modifications}{}
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{verbatim}
-## Using poppler version 20.12.1
-\end{verbatim}
+\begin{frame}
 \end{frame}
 
 \end{document}

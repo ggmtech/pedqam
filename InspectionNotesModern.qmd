@@ -1,0 +1,32 @@
+---
+title: "RDSO"
+subtitle: "Inspection Note of Shri Gopal Kumar, PED/RDSO/Lucknow during his visit at M/s Modern Industries, Sahibabad on dated 23.12.2022" 
+format: "docx"
+#date: "`r Sys.Date()`"
+editor: visual
+---
+
+
+
+A)	Inspected manufacturing of BTPGLN, BOXNHL Wagons and CRF Section and found as under:-
+1)	Quality of Submerge Arc Welding of Barrel joints and Fit-UP of Barrel Shell joints found satisfactory.
+2)	Fitting of Underframe Assembly and Cradle Fit-Up on underframe was seen.
+3)	Furnace for Stress Reliving Process of Dishend & Barrel  was in working condition and being utilised.
+4)	Radiography Test Film of repaired welding joint of Barrel and Test Reports of Radiography Test, Ultrasonic Test, Stress Reliving, Hydraulic & Pneumatic Test, were checked & found satisfactory.
+5)	Colour coding of materials and marking on Steel plates is done at Steel Yard.
+6)	Prototype Wagon of BOXNHL was available in good condition.
+7)	Profile cutting of Wagon Components checked in CNC Department.
+8)	CRF Section of Wagon Components and Dimensions of End stanchion checked, found Ok.
+9)	Welders are trained and certified.
+10)	The finishing of Bogie No.7972 Side Frame supplied by M/s. Raneka Industries needs improvement.  The firm to be advised.
+11)	The drilling process of Centre Sill of BTPGLN Wagon and in-house fabrication of shop made components of Wagon was inspected.
+12)	Stacking of wagon components in the Bays and House Keeping need to improve.
+B)	General :-
+1)	The wagon production is quite less in last 2 months.  Firm was asked to expedite. Pending RSP orders are for 8065 BOXNHL, 677 BOBRN and 500 BCNA/HSMI.  
+2)	Proper use of PPE by staff/workers to be ensured.
+3)	Firm has pending NRC order for about 136 BTPGN  (M/s BPCL); and 630 BLCS (M/s Concor).
+4)	Firm is not able to dispatch BLCS for want of wheels which are to be supplied by M/s CONCOR.
+
+Gopal Kumar
+
+"`r Sys.Date()`" 

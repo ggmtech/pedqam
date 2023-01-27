@@ -1,3 +1,26 @@
+
+import openai
+
+openai.Completion.create(
+  engine="davinci",
+  prompt="Make a list of astronomical observatories:"
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Single line comments 
 """ Multiline strings can be written  using three "s, often for
     documentation.

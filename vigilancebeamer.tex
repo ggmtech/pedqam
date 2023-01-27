@@ -1,0 +1,1226 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  10pt,
+  ignorenonframetext,
+  aspectratio=43,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \ifXeTeX
+    \usepackage{mathspec}
+  \else
+    \usepackage{unicode-math}
+  \fi
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usetheme[]{PaloAlto}
+\usecolortheme{dolphin}
+\usefonttheme{structurebold}
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\newif\ifbibliography
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\usepackage[normalem]{ulem}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\logo{ \includegraphics[width=1cm]{flowery.png} }
+\usepackage{amsmath,amssymb}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{spy,calc}
+\usetikzlibrary{decorations, decorations.text}
+\usebackgroundtemplate{\tikz\node[opacity=0.1]{\includegraphics[height=\paperheight,width=\paperwidth]{dahlia.png}};}
+\setbeamertemplate{background}{\tikz[overlay,remember picture]\node[opacity=0.4]at (current page.center){\includegraphics[width=2cm]{RDSO_Logo1.jpg}};}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Presentation on Vendor Management},
+  pdfauthor={Gopal Kumar, PED/RS},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Presentation on Vendor Management}
+\subtitle{Vigilance awareness week lecture}
+\author{Gopal Kumar, PED/RS}
+\date{2022-11-10}
+\institute{RDSO, Lucknow}
+\titlegraphic{\includegraphics{dahlia.png}}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}[allowframebreaks]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\begin{frame}{Introduction}
+\centering
+\resizebox{0.95\textheight}{!}{%
+\begin{tikzpicture} %[scale=0.2]
+
+\node[anchor=north east,xshift=0.8pt,yshift=2pt, opacity=0.3] at (current page.north east) {\includegraphics[width=0.2\paperwidth]{IRlogored.png}};
+
+\draw[line width=2 mm] circle[radius=7.4 cm];    % outer circle
+\draw[ultra thick] circle[radius=6 cm] circle[radius=7 cm];
+        
+\path[%rotate=-15.2,
+postaction={decoration={ text along path, text format delimiters={|}{|},
+      text={    |\Huge| WELCOME DG and Spl.DG(VD)
+                %{ \pgfornament[scale=.4, ydelta=-9 pt]{15} }
+                },  text align=center, reverse path },  decorate  }
+        ] (-27:6.2cm) arc (-27:210:6.2cm);   
+        \path [postaction={decorate,decoration={text along path, text align=fit to path,text={|\Huge| AND ALL OFFICERS }}}] (209:6.8cm) arc (209:330:6.8cm);
+        
+\node[] at (0,0.0){\includegraphics[height=11.8cm,width=11.8cm]{IRlogored.png}};
+\end{tikzpicture}
+}
+\end{frame}
+
+\hypertarget{do-copy-old-good-print}{%
+\section{do copy old good print}\label{do-copy-old-good-print}}
+
+\begin{frame}[fragile]{do copy old good print}
+Markdown allows you to format text with \emph{emphasis} and
+\textbf{strong emphasis}. You can also add
+superscripts\textsuperscript{2}, subscripts\textsubscript{2}, and
+display code \texttt{verbatim}. Little known fact: you can also
+\sout{strikethrough} text and present it in \textsc{small caps}.
+
+You can embed \href{https://quarto.org/}{links with names}, direct urls
+like \url{https://quarto.org/}, and links to
+\protect\hyperlink{inline-elements-text-formatting}{other places} in the
+document. The syntax is similar for embedding an inline image:
+\includegraphics{flowery.png}.
+
+The area of a circle is \(A = \pi r^2\),where \(r\) is the radius and
+\(\pi\) is the constant \(3.141592\ldots\).
+\end{frame}
+
+\hypertarget{what-is-vendor-management}{%
+\section{What is Vendor Management}\label{what-is-vendor-management}}
+
+\begin{frame}{What is Vendor Management}
+Here is a short note.\footnote<.->{Small enough to fit inline.}
+
+Here is a longer footnote\footnote<.->{This footnote can be placed in a
+  separate block. The identifier can be any alphanumeric string.}
+\end{frame}
+
+\hypertarget{orger}{%
+\section{Orger}\label{orger}}
+
+\begin{frame}{Orger}
+Unordered list:
+
+\begin{itemize}
+\tightlist
+\item
+  red
+\item
+  green
+\item
+  blue
+\end{itemize}
+
+Ordered list:
+
+\begin{enumerate}
+\item
+  First item\ldots{}
+
+  \ldots Continued.
+\item
+  Second item
+
+  \hypertarget{header}{%
+  \section{header}\label{header}}
+\item
+  Third item
+\end{enumerate}
+
+A larger equation:
+
+\[ 
+f(x)={\sqrt{\frac{\tau}{2\pi}}}
+      e^{-\tau (x-\mu )^{2}/2}
+\]
+
+This breaks it:
+
+\[
+\bar{x} = \sum_{i=i}^n x_1
+\]
+\end{frame}
+
+\hypertarget{ithtt}{%
+\section{ithtt}\label{ithtt}}
+
+\begin{frame}{ithtt}
+Images on their own line become a block:
+
+\begin{figure}
+\centering
+\includegraphics{flowery.png}
+\caption{Elephant}
+\end{figure}
+
+or do they?
+
+\begin{block}{Make or buy decision}
+\protect\hypertarget{make-or-buy-decision}{}
+\begin{itemize}
+\tightlist
+\item
+  We outsource certain products or services as partner vendors can offer
+  better service/product or a better economy.
+\item
+  Businesses rarely have all the resources to execute projects and
+  fulfill business objectives on their own.
+\end{itemize}
+\end{block}
+
+\begin{block}{Vendor is a partner}
+\protect\hypertarget{vendor-is-a-partner}{}
+\begin{itemize}
+\tightlist
+\item
+  Vendor gives better technology or service /cost economies
+\item
+  must be nurtured
+\item
+  within the rules of constitutional equality among persons/business
+  entity
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Vendor management from conception to disposal}
+\protect\hypertarget{vendor-management-from-conception-to-disposal}{}
+\begin{block}{Vendor Management}
+\protect\hypertarget{vendor-management}{}
+\begin{itemize}
+\item ~
+  \hypertarget{complete-process-of-acquiring-and-managing-several-suppliers}{%
+  \section{Complete process of acquiring and managing several
+  suppliers}\label{complete-process-of-acquiring-and-managing-several-suppliers}}
+\item
+  within the Government rules of constitutional equality among
+  persons/business entities
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Vendor management : conception to disposal}
+\protect\hypertarget{vendor-management-conception-to-disposal}{}
+\begin{block}{Vendor Management}
+\protect\hypertarget{vendor-management-1}{}
+\begin{itemize}
+\tightlist
+\item
+  Complete process of acquiring and managing suppliers
+\item
+  with different points of contact, rates, and contract terms
+\item
+  in complex and highly dynamic buyer-vendor ecosystem.
+\end{itemize}
+\end{block}
+
+\begin{block}{General key points in Vendor selection}
+\protect\hypertarget{general-key-points-in-vendor-selection}{}
+\begin{itemize}
+\tightlist
+\item
+  Select vendors that present greatest value at the least viable
+  expenditure.
+\item
+  Mission-critical vendor associate for their concerns and relationship.
+\item
+  Building long term trust and mutual support is Important
+\item
+  Needs to fit into overall delivery of service and corporate strategy
+\item
+  Understand vendor's business model as bottom line for Vendor is and
+  important and cost and delivery pressure on them will likely see a
+  commensurate reduction in service/product quality.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\hypertarget{vendor-development-in-railways}{%
+\section{Vendor development in
+Railways}\label{vendor-development-in-railways}}
+
+\begin{frame}{Vendor development in Railways}
+\begin{block}{Vendor development in Railways}
+\protect\hypertarget{vendor-development-in-railways-1}{}
+\begin{itemize}
+\tightlist
+\item
+  Most aspect of vendor management handled by Stores department
+\item
+  Item demands, technical requirements and usage feedback performance
+  report by user departments
+\end{itemize}
+\end{block}
+
+\begin{block}{For safety critical items - vendor pre approval}
+\protect\hypertarget{for-safety-critical-items---vendor-pre-approval}{}
+\begin{itemize}
+\tightlist
+\item
+  For safety and critical items, vendors are pre-approved by RDSO/PU
+\item
+  RDSO approve vendors for for items assigned by Railway Board
+\item
+  RDSO vendor development and management is only a limited part of
+  entire vendor management
+\end{itemize}
+\end{block}
+\end{frame}
+
+\hypertarget{rdso-vendor-development-system}{%
+\section{RDSO vendor development
+system}\label{rdso-vendor-development-system}}
+
+\begin{frame}[fragile]{RDSO vendor development system}
+The presentation will cover few key points of vendor registration
+process
+
+\begin{block}{RDSO vendor activities}
+\protect\hypertarget{rdso-vendor-activities}{}
+\begin{enumerate}
+\item
+  Item identified and assigned by Railway Board
+\item
+  RDSO Specification development process including STR and indicative
+  costing
+\item
+  Soliciting vendors interest
+\item
+  Application handling on UVAM portal including capabilities
+  verification
+\item
+  Inspection of more critical items assigned as category 2
+\item ~
+  \hypertarget{follow-up-failure-reporting-and-surveillance-audit-and-regular-audits}{%
+  \section{Follow up failure reporting and surveillance audit and
+  regular
+  audits}\label{follow-up-failure-reporting-and-surveillance-audit-and-regular-audits}}
+
+  The presentation will cover few key points of
+  \texttt{RDSO\ vendor\ registration\ process}
+\end{enumerate}
+\end{block}
+
+\begin{block}{RDSO vendor management activities}
+\protect\hypertarget{rdso-vendor-management-activities}{}
+\begin{enumerate}
+\tightlist
+\item
+  Item identified and assigned by Railway Board
+\item
+  RDSO develop Specification including STR and indicative costing
+\item
+  RDSO Solicit vendors interest
+\item
+  Entire Vendor Application processing on RDSO UVAM portal at
+  ireps.gov.in
+\item
+  Undertake Inspection of classified Category-II critical items
+\item
+  Evaluate Vendor performance for up-gradation and corrective actions
+\item
+  Failure reporting monitoring and regular and special audits
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{RDSO Vendor Development process and monitoring}
+\protect\hypertarget{rdso-vendor-development-process-and-monitoring}{}
+\begin{block}{Specification development}
+\protect\hypertarget{specification-development}{}
+\begin{itemize}
+\item
+  RDSO follow the basic principles of WTO-TBT `Code of Good Practice for
+  the Preparation, Adoption and Application of Standards'.
+\item
+  The six principles of standardisation:
+
+  \begin{enumerate}
+  [a)]
+  \tightlist
+  \item
+    Transparency
+  \item
+    Openness
+  \item
+    Impartiality and Consensus
+  \item
+    Effectiveness and Relevance
+  \item
+    Coherence
+  \item
+    Development Dimension
+  \end{enumerate}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Standards}
+\protect\hypertarget{standards}{}
+\begin{block}{What are Standards}
+\protect\hypertarget{what-are-standards}{}
+\begin{quote}
+Document established by consensus amongst various stakeholders and
+provides for common and repeated use, rules, guidelines or
+characteristics for specific products or services and is aimed at
+achieving optimum degree of order in a given context. These could be
+specifications, procedures and guidelines to ensure that products,
+services and systems are safe, consistent and reliable.
+\end{quote}
+\end{block}
+
+\begin{block}{Development of Specifications}
+\protect\hypertarget{development-of-specifications}{}
+\begin{itemize}
+\tightlist
+\item
+  Product conceptualisation\\
+\item
+  Overall functional requirement specifications of the product
+\item
+  Who can make it best - ourself or other person (vendor)
+\item
+  Mostly, Vendor specifications made in consultation with stakeholders
+  for optimum cost and functionality
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Standards development process of RDSO}
+\protect\hypertarget{standards-development-process-of-rdso}{}
+\begin{block}{Justificatons for New specifications/STR}
+\protect\hypertarget{justificatons-for-new-specificationsstr}{}
+\begin{enumerate}
+[a)]
+\tightlist
+\item
+  Why the need for creation of new Standard has arisen?
+\item
+  What is the existing Vendor base and the action plan to develop new
+  vendors?
+\item
+  What will be the Pricing of the item? (Some indicative estimation of
+  pricing of the item shall be indicated in note for information)
+\end{enumerate}
+\end{block}
+
+\begin{block}{Changes in the Existing RDSO Standards}
+\protect\hypertarget{changes-in-the-existing-rdso-standards}{}
+Changes of raw material / process / testing /procedures / guidelines or
+validation of product or services.
+
+\begin{enumerate}
+[a)]
+\tightlist
+\item
+  Why the need for Change has arisen?
+\item
+  parameters likely to be affected?
+\item
+  Effect of change on the existing vendor base?
+\item
+  Effect of the change on the pricing of the item.
+\item
+  Effect on service life of component/equipment.
+\item
+  Mechanisms for effective monitoring those parameters
+\item
+  Any other remarks
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\hypertarget{rdso-vendor-registraion-basics-and-process}{%
+\section{RDSO Vendor registraion basics and
+process}\label{rdso-vendor-registraion-basics-and-process}}
+
+\begin{frame}{RDSO Vendor registraion basics and process}
+\begin{itemize}
+\item
+  RDSO only register OEMs
+\item
+  No Traders or resellers permitted.
+\item
+  Must have ISO 9000 certification for manufacturing the item classes
+\item
+  Overseas OEM's may appoint Indian agent but approval to OEM only.
+\end{itemize}
+
+Registration brief follows -\textgreater{}
+\end{frame}
+
+\begin{frame}{Prerequisite for application}
+\protect\hypertarget{prerequisite-for-application}{}
+\begin{block}{RDSO Prerequisite for application (ISO Para 4.3 )}
+\protect\hypertarget{rdso-prerequisite-for-application-iso-para-4.3}{}
+All applicants shall possess the following pre-requisites
+
+\begin{itemize}
+\tightlist
+\item
+  ISO9001 Certification (ISO para 4.3.1 )for manufacture of same/similar
+  item at his works address
+\item
+  ISO certificate agency accreditation verified at www.iaf.nu
+\item
+  Digital Signatures (ISO para 4.3.2 but optional? )
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Mandatory Declarations by Vendors (ISO para 4.2 )}
+\protect\hypertarget{mandatory-declarations-by-vendors-iso-para-4.2}{}
+\begin{itemize}
+\item
+  Document as per ISO apex QO-F-8.1-7 `List of documents to be sought
+  from the vendor at the time of fresh registration and Annexures/Forms'
+\item
+  Declaration for classifying Allied / Sister Concerns Declaration shall
+  be submitted in the format as per Annexure A-4 \& Annexures-1\&2 of
+  document QO-F-8.1-7 (ISO 4.2.1)
+\item
+  Undertaking to be submitted by the applicant in case of change of
+  status disclose to RDSO, any changes in the status i.e.~name, address,
+  work place etc., ( Annexure A-3 of document QO-F-8.1-7 ) (ISO 4.2.2 )
+\item
+  Undertaking for not changing M \& P (Annexure A-3 of document no.
+  QO-F-8.1- 7) without intimation to RDSO (fax/email even for repairs)
+  (ISO 4.2.3 )
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Mandatory Declarations by Vendors (ISO para 4.2 ) cont..}
+\protect\hypertarget{mandatory-declarations-by-vendors-iso-para-4.2-cont..}{}
+\begin{itemize}
+\item
+  documents digitally signed by the authorized representative plus
+  authorization letter (as per Ann A-5 of document no. QO-F-8.1-7) from
+  firms authorised signatory ( Director/Proprietor/Partner on behalf of
+  the firm.
+\item
+  Charges paid by all on UVAM Module of IREPS website.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Registration of Foreign Firms}
+\protect\hypertarget{registration-of-foreign-firms}{}
+\begin{itemize}
+\item
+  Registration of Foreign Firms ( Para 4.2.4)
+\item
+  Focus on Make in India
+\end{itemize}
+\end{frame}
+
+\hypertarget{vendor-application-processing}{%
+\section{Vendor Application
+Processing}\label{vendor-application-processing}}
+
+\begin{frame}{Vendor Application Processing}
+\begin{itemize}
+\item
+  QO-D-8.1-6 Vendor Application Processing
+\item
+  Only for items allotted to RDSO by Railway Board/ D.G., RDSO
+\item
+  Safekeeping of documents with IPR's (para 4.1 ) down loaded. ( Hard
+  copies can be kept in separate files by the respective Directorate.
+  (Is it required with UVAM?)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Entity change while applicaition processing}
+\protect\hypertarget{entity-change-while-applicaition-processing}{}
+(ISO para - 4.2 ) Not allowed but if unavoidable, for change of
+Ownership with name/without name, Merger, Take Over, Acquisition, Major
+Changes in Share Holding/ Directors of company, change in type of firm
+from Proprietorship/Partnership/Pvt. Limited etc. the same application
+can be processed.
+
+\begin{itemize}
+\item
+  no change in Work Address, Machinery \& Plant, Bill of Material,
+  Process defined in QAP etc. affecting the quality of product.
+\item
+  All revised declarations of QO-F-8.1-7 ``List of documents to be
+  sought from the vendor'' taken
+\item
+  For complex changes, firm to apply fresh.
+\item
+  Change of address of plant/works allowed till no visit made by RDSO to
+  vendor's works place.
+\end{itemize}
+\end{frame}
+
+\hypertarget{application-screening-clarifications}{%
+\section{Application Screening \&
+clarifications}\label{application-screening-clarifications}}
+
+\begin{frame}{Application Screening \& clarifications (ISO para 4.3)}
+\protect\hypertarget{application-screening-clarifications-iso-para-4.3}{}
+\begin{block}{Scrutinized in detail for}
+\protect\hypertarget{scrutinized-in-detail-for}{}
+\begin{itemize}
+\tightlist
+\item
+  adequacy in respect of the information sought.
+\item
+  Documents signed by an authorized signatory.
+\item
+  Inadequacy pin pointed and communicated to firm on line/ email and
+  Vendor to submit compliance online.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Screening for Sister / Allied concern (para 4.3.1)}
+\protect\hypertarget{screening-for-sister-allied-concern-para-4.3.1}{}
+The self-declaration received vide rec-ref-1 QO-F-8.1-7 be examined
+
+\begin{block}{Definition of Allied / Sister concern}
+\protect\hypertarget{definition-of-allied-sister-concern}{}
+\begin{itemize}
+\tightlist
+\item
+  Section 40A(2)(b) of Income-Tax Act and Section 370-1(B) of Companies'
+  Act and further modified to suit our requirements is as under -
+\item
+  4.3.1.1 Proprietary Firms - All the firms owned by same person are
+  allied / sister concerns.
+\item
+  4.3.1.2 Partnership Firms - All firms having the same set of partners.
+  If one or more partners with over 20\% profit sharing ratio of 20\%
+\item
+  4.3.1.3 Companies -
+\item
+  Companies having -- ``majority'' of Directors common
+\item
+  Common shareholder having 1/3rd shares or more.
+\item
+  One or more Directors or close relatives (degree defined) shareholding
+  over 1/3rd
+\item
+  4.3.1.4 Other Conditions - firms/companies operating from same office
+  or same works.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Undertaking for legal formalities and statutory
+compliances for vendor registration}
+\protect\hypertarget{undertaking-for-legal-formalities-and-statutory-compliances-for-vendor-registration}{}
+\begin{itemize}
+\item
+  Undertaking as per Annexure A-3 of document QO-F-8.1-7 abiding with
+  all legal formalities and statutory compliances and produce when
+  demanded. (Para 4.3.2.1)
+\item
+  Deficiency/ non-compliance at any stage can result delisting even
+  while the firm is listed on the RDSO's vendor list.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\hypertarget{technical-screening-para-4.3.3-of-iso}{%
+\section{Technical Screening (Para 4.3.3 of
+ISO)}\label{technical-screening-para-4.3.3-of-iso}}
+
+\begin{frame}{Technical Screening (Para 4.3.3 of ISO)}
+\begin{block}{Technical Screening}
+\protect\hypertarget{technical-screening}{}
+\begin{itemize}
+\item
+  A technical screening on the basis of information regarding
+  infrastructure \& manufacturing practices, QAP etc., firm can be
+  considered for a visit for CCA
+\item
+  Outsourcing of some minor activities at ED/PED and incorporated in QAP
+  and got to be verified during assessment of the firm.
+\item
+  Outsourcing to any sister concern permitted, subject to compliance of
+  specs/ STR/ ISO etc. by the sister concern. ( covered in QAP).\\
+\item
+  Non-compliance of any issue in sister concern, action against approved
+  vendor.
+\item
+  RDSO officials shall have to visit all outsourced work-places of
+  sister concern to certify compliance before approval
+\item
+  For overseas firms and their workplaces, Spl. DG/VD's dispensation can
+  be taken on case to case basis giving justification.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Manufacturing facilies at multiple location and
+outsourcing}
+\protect\hypertarget{manufacturing-facilies-at-multiple-location-and-outsourcing}{}
+\begin{block}{Manufacturing facilies at multiple location}
+\protect\hypertarget{manufacturing-facilies-at-multiple-location}{}
+Preferably manufacturing and testing facilities covered under STR at one
+premises. Facilities spread in more than one place provided they are
+under the same ownership with same name and activities are clearly spelt
+out in the QAP. ( termed as Ancillary units). (Para 4.3.3.3 )
+\end{block}
+\end{frame}
+
+\begin{frame}{Acceptance of application for CCA}
+\protect\hypertarget{acceptance-of-application-for-cca}{}
+\begin{itemize}
+\tightlist
+\item
+  Acceptance of application after scrutiny of the documents (status on
+  the UVAM Module) (Para 4.4 )
+\item
+  Capacity/ capability assessment even if minor deficiencies but
+  deficiencies have to be set right before approval (CCA).
+\item
+  Major deficiencies to be uploaded on UVAM firm will get one month time
+  to make good the deficiencies.
+\item
+  On Merit may be permitted maximum of three Months before the closure
+\item
+  Nevertheless, know that directorate head responsible for all delays
+  byeond 2 months
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Rejection of the Application}
+\protect\hypertarget{rejection-of-the-application}{}
+\begin{itemize}
+\item
+  Rejection of the Application shall be informed through IREPS, UVAM
+  Module about the deficiencies. The firm will have to apply afresh.
+  (Para 4.5 )
+\item
+  In case approved vendors \textless5, no registration fee if
+  reapplication done within six months ( a onetime exception).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Physical visit to firm's permises for CCA}
+\protect\hypertarget{physical-visit-to-firms-permises-for-cca}{}
+\begin{itemize}
+\item
+  Visit to firm's premises by RDSO official for STR and CCA
+\item
+  Digitally signed submitted documents be verified with originals.
+\item
+  Legal documents duly verified and all original taken to RDSO.
+\item
+  If visit waived off, then RDSO to collect documents from firm
+\item
+  Only two postponements else case be closed
+\item
+  Alternative Vendor remote inspection feasibility for STR /CCA
+  verification by remote means can also be used.
+\item
+  For overseas suppliers - through RA Berlin/DRA Paris/London or other
+  IR official abroad. Spl. DG/VD may approve case basis specific
+  arrangement
+\end{itemize}
+\end{frame}
+
+\hypertarget{capacity-cum-capability-assessment-cca-report}{%
+\section{Capacity cum Capability Assessment (CCA)
+Report}\label{capacity-cum-capability-assessment-cca-report}}
+
+\begin{frame}{CCA Report}
+\protect\hypertarget{cca-report}{}
+\begin{itemize}
+\item
+  CCA Report in standard format (document no. QO-F-8.1-8) in digitally
+  signed pdf through UVAM with his remarks (Para 4.7 )
+\item
+  Once deficiency found during CCA, case be CLOSED through UVAM.
+\item
+  Re Registration within 6 months, the case processed from the stage
+  where it was closed (as a onetime exception)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Approval by the ED/PED controlling the item (Para 4.8 )}
+\protect\hypertarget{approval-by-the-edped-controlling-the-item-para-4.8}{}
+On Successful verification for documents and CCA such Firms placed as
+Developmental Vendors for 24 months, with a check note subjected to: 1.
+Technical Clearance of Test Samples/Prototype by the RDSO. 2. Successful
+Field Trials of the Specified Quantity
+
+\begin{block}{Developmental Vendors Orders quantity}
+\protect\hypertarget{developmental-vendors-orders-quantity}{}
+\begin{itemize}
+\tightlist
+\item
+  Developmental Vendors item purchase ( Board's letter
+  99/RS(G)/709/1/Pt. dated 13.01.2015 para (3 A ii) ) permits qty.
+  ordered on developmental vendors in and outside the NPQ
+\item
+  Board's letter No: 2001/ RS(G)/779/7/Pt.2 dated 06.11.2018. Before
+  initiating the regular supplies - Technical Clearance of
+  Prototype/Test sample and successful field trials as specified for
+  item by RDSO is to be completed.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Vendor initiative sample/prototype testing}
+\protect\hypertarget{vendor-initiative-sampleprototype-testing}{}
+\begin{itemize}
+\item
+  Vendors can approach to the RDSO for sample/prototype testing,
+  irrespective of whether the vendor gets the order from Railway units
+  or not in order to expedite the approval process.
+\item
+  Check notes removed after Technical clearance of Test Samples/
+  Prototype/ Successful Field Trials of the Specified Quantity
+\item
+  If Technical clearance and field trials takes more than 24 months, ED
+  to decide whether to continue the firm in the list of Developmental
+  Vendor with check note as per procedure.
+\item
+  If Vendor gets orders and supply done/under process, the extra
+  validity upto two years.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{QAP}
+\protect\hypertarget{qap}{}
+\begin{block}{Approved and digitally signed copy of QAP}
+\protect\hypertarget{approved-and-digitally-signed-copy-of-qap}{}
+4.12 Approved and digitally signed copy of QAP with work address for the
+approved product to be sent to the vendor for implementation, duly
+stamped as `approved'.
+\end{block}
+
+\begin{block}{Review / Up-gradation of QAP}
+\protect\hypertarget{review-up-gradation-of-qap}{}
+4.13 Review / Up-gradation of QAP by \textgreater{} Jt. Director of the
+field unit in the light of fresh technical information received from
+Design Directorate \& Information Received after field trial from the
+Users.
+\end{block}
+\end{frame}
+
+\hypertarget{approval-of-vendor}{%
+\section{Approval of Vendor}\label{approval-of-vendor}}
+
+\begin{frame}{Communication of Vendor approval throuth UVAM}
+\protect\hypertarget{communication-of-vendor-approval-throuth-uvam}{}
+\begin{itemize}
+\tightlist
+\item
+  Communication of approval through a letter generated through `UVAM''
+  and status of automatically updated in respective `List of Vendors for
+  Development Orders'/ `List of Approved Vendors' on 'UVAM'' portal.
+  (4.14)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Relaxation of Vendor registration requirements (QO-D-8.1-7
+)}
+\protect\hypertarget{relaxation-of-vendor-registration-requirements-qo-d-8.1-7}{}
+\begin{itemize}
+\item
+  4.1 Relaxation for vendors with Railway PU Item transferred from PU
+  shall remain same but undertaking in. QO-F-8.1-7 be taken
+\item
+  Relaxation as provided under product development directive in (ref-11)
+  (see ISO 4.2 )
+\item
+  Procedure for approval of firms/vendors given IPR by the principal IPR
+  holder for manufacture in India as stated in para 4.3
+\item
+  Firms/vendors holding IPR of a proven product or firms/vendors duly
+  authorized to use the same by the principal IPR holder (for
+  manufacture in India inducted into the Approved List after capacity,
+  capability assessment including compliance to QAP \& STR for the given
+  product. (4.11.1.2 of QO-D-8.1-6.)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cross approvals}
+\protect\hypertarget{cross-approvals}{}
+\begin{itemize}
+\item
+  Applicants registered with reputed units like CPSU/Metro/Power Grid /
+  Ordinance Factories / DFCCL, for same item be done. (Para 4.4)
+\item
+  Para-wise compliance of specification and deviation if any with
+  mitigation measure/ alternate provision.
+\item
+  May waive prototype requirements and/or trial requirements in addition
+  to CCA and the vendor can be directly placed in developmental vendor
+  category.
+\item
+  In deserving cases, after recording reasons, especially if developed
+  vendors are less than three and such vendor considered capable based
+  on satisfactory supply performance in such PSUs.
+\item
+  Cross approval policy may be followed where it exists/applicable.
+\end{itemize}
+\end{frame}
+
+\hypertarget{quality-audit-of-approved-vendor}{%
+\section{Quality Audit of Approved
+Vendor}\label{quality-audit-of-approved-vendor}}
+
+\begin{frame}{Quality Audit of Approved Vendor}
+\begin{block}{QO-D-8.1-13 Quality Audit of Approved Vendor}
+\protect\hypertarget{qo-d-8.1-13-quality-audit-of-approved-vendor}{}
+\begin{itemize}
+\item
+  To ensure the quality of the material supplied by the firms
+  checks/Quality audit on their QAM including M\&P, man-power, sources
+  and their own internal quality checks to ensure they are in place as
+  per conditions laid down while approving the firm.
+\item
+  4.1 Periodicity between 3 to 5 years from last quality audit. Do it in
+  3 year
+\item
+  Quality Audit at officer's level. ED / PED may depute supervisors with
+  the approval of Spl. DG/VD citing specific reasons why quality audit
+  can't be postponed
+\item
+  Can follow special remote procedure if accepted by ED
+\item
+  4.2.1 Quality Audit Format in document no. QO-F-8.1 -9 to ED
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Changes in vendor facilites}
+\protect\hypertarget{changes-in-vendor-facilites}{}
+\begin{itemize}
+\tightlist
+\item
+  Vendor responsible to immediately inform full technical details of any
+  changes about Bill of Material, plant \& machinery and Quality
+  Assurance Plan (para 4.3 )
+\item
+  In case the approved vendor fails to comply with the above provision,
+  his name may be deleted/temporarily withdrawn
+\end{itemize}
+
+\textless\textless\textless\textless\textless\textless\textless{} HEAD
+\# Evaluation of performance
+\end{frame}
+
+\begin{frame}{Evaluation of performance}
+\protect\hypertarget{evaluation-of-performance}{}
+\begin{itemize}
+\item
+  Evaluation of performance (para 4.4 )
+\item
+  based on feedback from user as available in the directorate during
+  quality audit.
+\item
+  Refusal to Quality Audit Date of Quality Audit shall be intimated to
+  the firm through email/fax at least 30 days in advance. (Para 4.5)
+\item ~
+  \hypertarget{in-case-date-not-accepted-next-final-date-fixed-by-rdso-at-least-30-days-in-advance-and-intimated-to-firm-.}{%
+  \section{In case date not accepted, Next final date fixed by RDSO at
+  least 30 days in advance and intimated to firm
+  .}\label{in-case-date-not-accepted-next-final-date-fixed-by-rdso-at-least-30-days-in-advance-and-intimated-to-firm-.}}
+\end{itemize}
+\end{frame}
+
+\hypertarget{vendor-monitoring-and-performance-evaluation}{%
+\section{Vendor Monitoring and performance
+evaluation}\label{vendor-monitoring-and-performance-evaluation}}
+
+\begin{frame}{Performance Feedback reports from user Railways}
+\protect\hypertarget{performance-feedback-reports-from-user-railways}{}
+\begin{enumerate}
+\tightlist
+\item
+  RDSO web portal hosted on railnet website 10.100.12.19
+\item
+  Feed back from Railways (Discouraged as subjective)
+\item
+  Online failure reporting work flow from Freight Maintenance Management
+  (FMM)/CMM/WMS (better system to be formalised)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Evaluation of performance (para 4.4 )}
+\protect\hypertarget{evaluation-of-performance-para-4.4}{}
+\begin{itemize}
+\tightlist
+\item
+  Based on feedback from user as available in the directorate during
+  quality audit.
+\item
+  Refusal to Quality Audit Date of Quality Audit intimated to firm
+  through email/fax at least 30 days in advance. (Para 4.5)
+\item
+  In case date not accepted, next and final date after 30 days
+  intimation to firm
+\item
+  In case approved vendor refuses to quality audit or does not allow
+  RDSO to perform quality audit, vendor temporarily delisted till
+  quality audit is successfully done.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Quality and performance deterioration}
+\protect\hypertarget{quality-and-performance-deterioration}{}
+Deterioration of performance \& out of turn Quality Audit (Para 4.6 )
+
+\begin{itemize}
+\item
+  ED may decide out of turn quality audit for further continuance of
+  approval /temporary delisting/delisting .
+\item
+  Depending on the seriousness ED/ PED may decide to stop the inspection
+  temporarily
+\item
+  Communication of Audit Report and status of the vendor be updated on
+  the website (Para 4.7 )
+\item
+  Discrepancies during Quality Audits be taken up with show cause notice
+  to improve upon the performance by complying the deficiencies , and
+  implementing corrective \& preventive action within 30 days. This
+  shall be verified. (Para 4.8 )
+\item
+  If the firm fails to comply, firm be temporary delisted
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Vendor monitoring:}
+\protect\hypertarget{vendor-monitoring}{}
+\begin{itemize}
+\item
+  ED decide out of turn quality audit for further continuance of
+  approval/ temporary delisting/ delisting.
+\item
+  ED/ PED may decide to stop the inspection temporarily considering
+  seriousness
+\item
+  Audit Report communicated and vendor status be updated on website
+  (Para 4.7 )
+\item
+  Discrepancies during Quality Audits be taken up with show cause notice
+  to comply deficiencies , and implementing CAPA within 30 days. This
+  shall be verified. (Para 4.8)
+\item
+  If the firm fails to comply, firm be temporary delisted
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Inspections ( Suggestions)}
+\protect\hypertarget{inspections-suggestions}{}
+\begin{itemize}
+\item
+  Inspection - Adds no values to quality, waste of resource but
+  essential under mistrusted vendors
+\item
+  Better develop strong and trusted vendors with lasting relationships
+  with suppliers.
+\item
+  Firms WTC may be considered depending on robustness of firms QAP and
+  mitigation activities
+\item
+  Private sector insists on process monitoring from its manufacturers.
+  Instead of checking a complete lot and then rejecting it, we need to
+  look into that aspect. That brings quality and eases inspection for
+  the supplier
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Quality key items to consider (suggestions)}
+\protect\hypertarget{quality-key-items-to-consider-suggestions}{}
+\begin{block}{7 QC tools - Ishikawa,professor, Tokyo Uni, influencer of
+W. Edwards Deming}
+\protect\hypertarget{qc-tools---ishikawaprofessor-tokyo-uni-influencer-of-w.-edwards-deming}{}
+Solves about \textasciitilde{} 95\% of all company problems
+
+\begin{enumerate}
+\tightlist
+\item
+  Pareto Chart
+\item
+  Run Chart - run-sequence plot
+\item
+  Histogram - underlying distribution - process capability
+\item
+  Cause-and-effect diagram - Ishikawa fishbone diagram : root causes for
+  an effect into six Ms: measurement, material, machine, method,
+  manpower and mother nature. Brainstorming ``why does this happen?''
+\item
+  Scatter plots : X-Y graph data relationship but no causation
+\item
+  Control charts : processes variation from specs.( x-bar , R , S , c ,
+  u , np and p chart)
+\item
+  Check Sheets : defect concentration diagram, structured forms
+\end{enumerate}
+
+Vendors following above likely to have robust internal quality control
+system
+\end{block}
+
+\begin{block}{Vendor supplies performance monitoring:}
+\protect\hypertarget{vendor-supplies-performance-monitoring}{}
+\begin{itemize}
+\tightlist
+\item
+  Warranty portal and in future FMM/CMM/WMS in mech deptt
+\item
+  Reliability analyses and life tables statistical analysis with
+  censured data
+\item
+  Consider Total effective life cycle cost
+\item
+  Good vendors are assets and proved values to the business
+\end{itemize}
+
+======= \#\# Few Suggestions for discussions
+\end{block}
+
+\begin{block}{Documentation and legal compliances}
+\protect\hypertarget{documentation-and-legal-compliances}{}
+\begin{itemize}
+\item
+  Based on certificate from statutory charted accountant
+\item
+  All CCA compliance by chartered engineering firms
+\item
+  RDSO can always verify and cross check certificates
+\item
+  like system of Advocates in Court, CA for company accounts, CHA for
+  export
+\item
+  Ways to incentivise vendors meeting better process capabilties (Cp)
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Thank you very much}
+\protect\hypertarget{thank-you-very-much}{}
+\begin{block}{Thank you very much}
+\protect\hypertarget{thank-you-very-much-1}{}
+Thank you
+\end{block}
+\end{frame}
+
+\hypertarget{test-columns-with-4-colans}{%
+\section{test columns with 4 colans}\label{test-columns-with-4-colans}}
+
+\begin{frame}{test columns with 4 colans}
+\begin{columns}[c,totalwidth=8em]
+The div containers with classes columns and column can optionally have
+an align attribute. The class columns can optionally have a totalwidth
+attribute or an onlytextwidth class.
+
+Vertical with the values top, top-baseline, center and bottom to
+vertically align the columns
+
+\begin{column}{0.4\textwidth}
+contents\ldots{}
+\end{column}
+
+\begin{column}[b]{0.6\textwidth}
+contents\ldots{}
+\end{column}
+\end{columns}
+\end{frame}
+
+\end{document}

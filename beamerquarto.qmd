@@ -5,11 +5,11 @@ date:      27 Sept 2022
 author:    Gopal Kumar	
 institute: RDSO Lucknow	
 thanks: DG RDSO, MoR
-
 # beamerarticle: true
 # order:	Order for document when included in a website automatic sidebar menu.
 # resource-path: #List of paths to search for images and other resources
-
+#output:
+#  beamer_presentation:
 #format: beamer
 format: 
 #  pptx:    # works ok
@@ -45,7 +45,7 @@ format:
     #innertheme:
     #outertheme:
     #themeoptions:
-    aspectratio: 169
+    aspectratio: 169      #    aspectratio: 32
     # beamerarticle # Article from Beamer
     # beameroption # \setbeameroption{} #  (a list).
 #    includes:
@@ -54,6 +54,7 @@ format:
     author affiliations: RDSO AND NER
     logo: flowery.png
     titlegraphic: dahlia.png
+#    background-image: dahlia.png #RDSO_Logo1.jpg
     background-image: RDSO_Logo1.jpg
     section-titles: true # false
     fig-align: right # (default, left, right, or center)
@@ -90,6 +91,7 @@ header-includes: |
 abstract:	
   Summary of document
 editor: visual
+engine: python
 ---
 
 ## Quarto
@@ -166,7 +168,7 @@ When you click the **Render** button a document will be generated that includes:
 
 content before the pause
 
-. . .
+---
 
 content after the pause
 
@@ -196,6 +198,9 @@ contents...
 :::
 :::
 
+
+## Code
+
 # the first level notes
 
 ## Code {.fragile}
@@ -207,6 +212,7 @@ When you click the **Render** button a presentation will be generated that inclu
 ```{r}
 1 + 1
 ```
+
 
 ## Slide with speaker notes
 
@@ -298,3 +304,4 @@ plt.show()
 \tocframe
 \begin{frame}
 ```
+

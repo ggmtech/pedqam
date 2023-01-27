@@ -5,11 +5,19 @@ subtitle: Failures of EM Pads
 date: "`r Sys.Date()`"
 always_allow_html: true
 output:
+<<<<<<< HEAD
+#  tint::tintBook: default
+#  tufte::tufte_book: default
+#  tufte::tufte_handout: default
+#  tufte::tufte_html: default
+  word_document: default
+=======
   tint::tintBook: default
 #  tufte::tufte_book: default
 #  tufte::tufte_handout: default
 #  tufte::tufte_html: default
 #  word_document: default
+>>>>>>> 06bbd8512da6a9628cb12c6f0f4f4b680c6dc207
 
 #  pdf_document: default
 bibliography: skeleton.bib
@@ -47,7 +55,11 @@ knitr::opts_chunk$set(echo = FALSE, comment = '')
 packages <- c("tidyverse", "lubridate", "readxl", "writexl","stringr", 
               "here", 
               "cowplot", # "ggpubr", 
+<<<<<<< HEAD
+              "scales",  "timetk",
+=======
               "scales", 
+>>>>>>> 06bbd8512da6a9628cb12c6f0f4f4b680c6dc207
               "summarytools",  
               "googledrive",  "googlesheets4", 
               "knitr",  "kableExtra",
@@ -72,8 +84,12 @@ library(googlesheets4)  # read_sheet(), Read from URL, Sheet ID, a dribble
 #ls("package:googlesheets4")
 #help(package = dplyr) # even if not loaded
 
+<<<<<<< HEAD
+#library(timetk)  #time series plots in single lines
+=======
 
 
+>>>>>>> 06bbd8512da6a9628cb12c6f0f4f4b680c6dc207
 
 #library(fuzzyjoin)
 
@@ -217,7 +233,11 @@ SixSigma::ss.ceDiag( "Cause To Explaint",
 ```
 
 
+<<<<<<< HEAD
+```{r getdatas, eval=TRUE, include=TRUE,  echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, cache=TRUE}
+=======
 ```{r getdatas, eval=TRUE, include=TRUE,  echo=FALSE, message = FALSE, warning=FALSE, error= FALSE, tidy=FALSE, fig.width=7, fig.height=7 , cache=TRUE}
+>>>>>>> 06bbd8512da6a9628cb12c6f0f4f4b680c6dc207
 library(kableExtra)
 #ss2 = "1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
 #ss1 = "https://docs.google.com/spreadsheets/d/1FlEhwZ3Yn-lEs7Xb5qQXAlRQaqcQaKipK-XGU7wrHhg/edit#gid=488244084"
@@ -267,10 +287,17 @@ empaddata  %>%
 
 
 
+<<<<<<< HEAD
+```{r  inspectdftest, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE , fig.width=7, fig.height=7  }
+library(tidyverse)
+library(inspectdf) 
+library(grid)
+=======
 ```{r  inspectdftest, include=TRUE, eval=TRUE, echo=FALSE, warning=TRUE, error= FALSE, tidy=FALSE  }
 
 library(inspectdf) 
 
+>>>>>>> 06bbd8512da6a9628cb12c6f0f4f4b680c6dc207
 
 #oldGrades   <- allGrades %>%   filter(Grade > 5)
 #youngGrades <- allGrades %>%   filter(Grade < 6)

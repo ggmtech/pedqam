@@ -1,0 +1,13 @@
+# 
+# * Stereolithography(SLA)
+# * Selective Laser Sintering (SLS)
+# * Digital Light Processing(DLP)
+# * Selective laser melting (SLM)
+# * Fused deposition modeling (FDM)
+# * Electronic Beam Melting (EBM)
+# * Laminated object manufacturing (LOM)
+# 
+
+
+# Apache Spark is an open-source, distributed processing system used for big data workloads. It utilizes in-memory caching, and optimized query execution for fast analytic queries against data of any size. It provides development APIs in Java, Scala, Python and R, and supports code reuse across multiple workloads—batch processing, interactive queries, real-time analytics, machine learning, and graph processing.
+

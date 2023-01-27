@@ -1,0 +1,11 @@
+\frametitle{Diagram}
+\protect\hypertarget{diagram}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flowchart LR}
+\NormalTok{  A[Hard edge] {-}{-}\textgreater{} B(Round edge)}
+\NormalTok{  B {-}{-}\textgreater{} C\{Decision\}}
+\NormalTok{  C {-}{-}\textgreater{} D[Result one]}
+\NormalTok{  C {-}{-}\textgreater{} E[Result two]}
+\end{Highlighting}
+\end{Shaded}

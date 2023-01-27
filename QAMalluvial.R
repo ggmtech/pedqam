@@ -8,6 +8,20 @@ library(alluvial)
 library(ggalluvial)
 library(googlesheets4)
 ##########################
+library(ggpubr)
+library(jpeg)
+library(png)
+
+# Download and read sample image (readJPEG doesn't work with urls)
+#url <- "http://mathworld.wolfram.com/images/gifs/rabbduck.jpg"
+#download.file(url, destfile = "tiger.png")
+img <- readPNG("tiger.png")
+
+ggplot(iris, aes(Species, Sepal.Length)) +
+  background_image(img) +
+  geom_boxplot(aes(fill = Species))
+
+###########
 
 #setwd("/Users/gk/Documents")   #  
 list.files() 
@@ -24,7 +38,7 @@ QAdays %>%  dplyr::group_by(DTE) %>%
   
   
       ggplot(mapping = aes(x =  fct_reorder(DTE , mean), 
-                           y = mean)       )   + 
+                           y = mean)       )   +  background_image(img) +  # fill_palette("jco") +
             geom_point(size = 14, color = "red", alpha = 0.75) + 
             geom_segment( aes(x=fct_reorder(DTE , mean), 
                               xend=fct_reorder(DTE , mean), 
