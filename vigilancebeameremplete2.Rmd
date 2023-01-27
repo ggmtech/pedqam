@@ -223,7 +223,7 @@ or do they?
 ### Vendor Management 
 
 - Complete process of acquiring and managing several suppliers 
-=======
+
 - within the Government rules of constitutional equality among persons/business entities 
 
 ## Vendor management : conception to disposal
@@ -578,16 +578,6 @@ checks/Quality audit on their QAM including M&P, man-power, sources and their ow
 - Vendor responsible to immediately inform full technical details of any changes about Bill of Material, plant & machinery and Quality Assurance Plan  (para 4.3 )
 - In case the approved vendor fails to comply with the above provision, his name may be deleted/temporarily withdrawn 
 
-<<<<<<< HEAD
-# Evaluation of performance
-
-## Evaluation of performance
--  Evaluation of performance  (para 4.4 )
-- based on feedback from user as available in the directorate during quality audit. 
--  Refusal to Quality Audit Date of Quality Audit shall be intimated to the firm through email/fax at least 30 days in advance. (Para 4.5) 
-- In case date not accepted, Next final date fixed by RDSO at least 30 days in advance and intimated to firm . 
-=======
-
 
 
 # Vendor Monitoring and performance evaluation
@@ -653,6 +643,7 @@ Solves about ~ 95% of problems
 
 Vendors following above likely to have robust internal quality control system
 
+---
 
 ### Vendor supplies performance monitoring: 
 
@@ -661,7 +652,6 @@ Vendors following above likely to have robust internal quality control system
 - Consider Total effective life cycle cost
 - Good vendors are assets  and proved values to the business
 
-=======
 ## Few Suggestions for discussions
 
 ### Documentation and legal compliances 

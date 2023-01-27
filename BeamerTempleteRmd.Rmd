@@ -6,11 +6,12 @@ institute: RDSO, Lucknow
 date: "`r Sys.Date()`" # date: "30th Oct 2022"
 fontsize: 10pt
 mathspec: true # for metropolis theme
-aspectratio: 43 # 169 # 16:9
+aspectratio: 43 # 169, 1610, 149, 141 for 1.41:1, 32, 43, 54,  
 #classoption: handout
 output:
  beamer_presentation:
    theme: Antibes #PaloAlto # Warsaw #CambridgeUS #AnnArbor #"Copenhagen"  
+#   theme:  PaloAlto # Warsaw #CambridgeUS #AnnArbor #"Copenhagen"  
    # AnnArbor, PaloAlto, CambridgeUS, Antibes, 
    # %mytheamlist =AnnArbor   Antibes  Berkeley  CambridgeUS %Copenhagen Madrid Warsaw
    # JuanLesPins %Goettingen   Hannover  Marburg  PaloAlto Marburg 
@@ -24,14 +25,31 @@ output:
    latex_engine: xelatex # for metropolis theme
    toc: true
    slide_level: 2
-   keep_tex: true
-   # includes:
-   #    in_header: header.tex
-logo: flowery.png #RDSO_Logo1.jpg #flowery.png
-#titlegraphic: dahlia.png
-#background-image: dahlia.png #RDSO_Logo1.jpg # works
+   keep_tex: true  # saved compilable tex
+   # add extra beamer option with \setbeameroption{}
+   # navigation : no # frame, vertical, and horizontal
+   # section-titles : TRUE
+   # themeoptions : options for LaTeX beamer themes (a list).
+#   includes:
+#     in_header: gkheaderbeamer.tex
+#   logo: RDSO_Logo1.jpg #flowery.png # works byt see below opacity
+##logo: flowery.png #RDSO_Logo1.jpg #flowery.png
+# logo: dahlia.png #flowery.png #RDSO_Logo1.jpg #flowery.png Too big??
+titlegraphic: dahlia.png
+#background-image: dahlia.png #RDSO_Logo1.jpg # works byt see below opacity
 header-includes:
+  - \logo{ \includegraphics[width=1cm]{flowery.png} }  # works good
+  - \usepackage{amsmath,amssymb}
+#  - \input{gkheaderbeamer.tex}
   - \usepackage{fancyvrb}
+  - \usepackage{tikz}
+  - \usetikzlibrary{shapes} 
+  - \usetikzlibrary{spy,calc}
+  - \usetikzlibrary{decorations, decorations.text} 
+  - \usebackgroundtemplate{\tikz\node[opacity=0.1]{\includegraphics[height=\paperheight,width=\paperwidth]{dahlia.png}};}   # worked background opacity
+  - \setbeamertemplate{background}{\tikz[overlay,remember picture]\node[opacity=0.4]at (current page.center){\includegraphics[width=2cm]{RDSO_Logo1.jpg}};}
+
+
 ---
 
 ```{r setup, include=FALSE}
@@ -42,13 +60,17 @@ knitr::opts_chunk$set(
 
 
 ```{r , results= 'hide', message=FALSE, warning=FALSE}
-source(here::here("gktestinclude.R") )
+library(here)
+setwd("C:/Users/Lenovo/gkgit/pedqam")
+source(here::here("./gktestinclude.R") )
+source("./gktestinclude.R")
 library(tidyverse)
 library(ggplot2)
 ```
 
 
 # Introduction
+
  First test external code
  
 # test external code method 1
@@ -82,17 +104,109 @@ source("gktestinclude.R", echo = TRUE,  prompt.echo = "", spaced = F)
 ## it is good  comment = NA,
 ```
 
-## Header in child document
+## This works
 
-### Text in child document.
-
-```{r testchild, child = "gktestinclude.Rmd" }
-# this works !!
+```{r testchild2, child = "gktestinclude.Rmd" }
 ```
 
 
 
-## What is Vendor Management
+    
+\centering
+\resizebox{0.95\textheight}{!}{%
+\begin{tikzpicture} %[scale=0.2]
+
+\node[anchor=north east,xshift=0.8pt,yshift=2pt, opacity=0.3] at (current page.north east) {\includegraphics[width=0.2\paperwidth]{IRlogored.png}};
+
+\draw[line width=2 mm] circle[radius=7.4 cm];    % outer circle
+\draw[ultra thick] circle[radius=6 cm] circle[radius=7 cm];
+		
+\path[%rotate=-15.2,
+postaction={decoration={ text along path, text format delimiters={|}{|},
+	  text={	|\Huge| WELCOME DG and Spl.DG(VD)
+				%{ \pgfornament[scale=.4, ydelta=-9 pt]{15} }
+				},  text align=center, reverse path }, 	decorate  }
+		] (-27:6.2cm) arc (-27:210:6.2cm);   
+		\path [postaction={decorate,decoration={text along path, text align=fit to path,text={|\Huge| AND ALL OFFICERS }}}] (209:6.8cm) arc (209:330:6.8cm);
+		
+\node[] at (0,0.0){\includegraphics[height=11.8cm,width=11.8cm]{IRlogored.png}};
+\end{tikzpicture}
+}
+
+
+# do copy old good print
+
+Markdown allows you to format text with 
+*emphasis* and **strong emphasis**. You can 
+also add superscripts^2^, subscripts~2~, and
+display code `verbatim`. Little known fact:
+you can also ~~strikethrough~~ text and 
+present it in [small caps]{.smallcaps}.
+
+You can embed [links with names](https://quarto.org/),
+direct urls like <https://quarto.org/>, and links to 
+[other places](#inline-elements-text-formatting) in 
+the document. The syntax is similar for embedding an
+inline image: ![render icon](flowery.png).
+
+The area of a circle is $A = \pi r^2$,where
+$r$ is the radius and $\pi$ is the constant
+$3.141592\ldots$.
+
+# What is Vendor Management
+
+Here is a short note.^[Small enough to fit inline.]
+
+Here is a longer footnote[^1]
+
+[^1]: This footnote can be placed in a separate block.
+The identifier can be any alphanumeric string.
+
+# Orger
+
+Unordered list:
+
+* red
+* green
+* blue
+
+Ordered list:
+
+1. First item...
+
+   ...Continued.
+
+1. Second item 
+
+   # header
+   
+1. Third item
+
+A larger equation:
+
+$$ 
+f(x)={\sqrt{\frac{\tau}{2\pi}}}
+      e^{-\tau (x-\mu )^{2}/2}
+$$
+
+
+
+This breaks it:
+
+$$
+\bar{x} = \sum_{i=i}^n x_1
+$$
+
+
+# ithtt
+
+Images on their own line become a block:
+
+![Elephant](flowery.png)
+
+or do they?
+
+
 
 ### Make or buy decision
 
@@ -115,6 +229,7 @@ source("gktestinclude.R", echo = TRUE,  prompt.echo = "", spaced = F)
 
 ### General key points in Vendor selection
 
+
 - Select vendors that present greatest value  at the least viable expenditure.
 - Mission-critical vendor associate for their concerns and relationship.
 - Building long term trust and mutual support is Important
@@ -125,6 +240,7 @@ source("gktestinclude.R", echo = TRUE,  prompt.echo = "", spaced = F)
 # Vendor development in Railways
 
 ### Vendor development in Railways 
+
 
 - Most aspect of vendor management handled by Stores department 
 - Item demands, technical requirements and usage feedback performance report by user departments
@@ -138,6 +254,19 @@ source("gktestinclude.R", echo = TRUE,  prompt.echo = "", spaced = F)
 
 # RDSO vendor development system 
 
+
+The presentation will cover few key points of vendor registration process
+
+
+### RDSO vendor activities
+
+1. Item identified and assigned by Railway Board 
+2. RDSO Specification development process including STR and indicative costing
+3. Soliciting vendors interest 
+4. Application handling on UVAM portal including capabilities verification
+5. Inspection of more critical items assigned as category 2
+6. Follow up failure reporting and surveillance audit and regular audits 
+=======
 The presentation will cover few key points of `RDSO vendor registration process`
 
 
@@ -475,6 +604,8 @@ Deterioration of performance & out of turn Quality Audit (Para 4.6 )
 - Better develop strong and trusted vendors with lasting relationships with suppliers.
 - Firms WTC may be considered depending on robustness of firms QAP and mitigation activities
 
+
+
 - Private sector insists on process monitoring from its manufacturers. Instead of checking a complete lot and then rejecting it, we need to look into that aspect. That brings quality and eases inspection for the supplier
 
 ## Quality key items to consider (suggestions)
@@ -512,6 +643,28 @@ Vendors following above likely to have robust internal quality control system
 - Ways to incentivise vendors meeting better process capabilities (Cp)
 
 
+
 ## Thank you very much
 ### Thank you very much
 Thank you
+
+# test columns with 4 colans in html
+
+
+:::: {.columns align=center totalwidth=8em}
+
+The div containers with classes columns and column can optionally have an align attribute. The class columns can optionally have a totalwidth attribute or an onlytextwidth class.
+
+Vertical with the values top, top-baseline, center and bottom to vertically align the columns
+
+class columns can optionally have a totalwidth attribute or an onlytextwidth class.
+
+::: {.column width="40%"}
+contents...
+:::
+
+::: {.column width="60%" align=bottom}
+contents...
+:::
+
+:::: 
