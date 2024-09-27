@@ -4,6 +4,7 @@ subtitle: "&#x2694;&#xFE0F; xaringan +<br/>&#x1F60E; xaringanthemer"
 author: 
   - "Yihui Xie"
   - "Garrick Aden-Buie"
+  - "Gopal Kumar"
 date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
@@ -15,6 +16,7 @@ output:
       highlightLines: true
       ratio: 16:9
       countIncrementalSlides: true
+      autoplay: 3000
 ---
 
 ```{r setup, include=FALSE}
@@ -37,7 +39,27 @@ style_duo_accent(
   secondary_color = "#FF961C",
   inverse_header_color = "#FFFFFF"
 )
+#style_solarized_light()
+# style_solarized_dark()
+#style_duo(primary_color = "#1F4257", secondary_color = "#F97B64")
+
+# style_mono_accent(
+#   base_color = "#1c5253",
+#   header_font_google = google_font("Josefin Sans"),
+#   text_font_google   = google_font("Montserrat", "300", "300i"),
+#   code_font_google   = google_font("Fira Mono")
+# )
+
+#style_mono_light(base_color = "#23395b")
+#style_mono_dark() 
+
+
 ```
+
+
+
+
+
 
 ## Typography
 
@@ -59,11 +81,21 @@ Himenaeos suspendisse leo varius mus risus sagittis aliquet venenatis duis nec.
 
 ---
 name: colors
+background-image: url(https://images.pexels.com/photos/39024/lotus-nature-plants-flowers-39024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top: 1em;
+right: 1em;
+width: 110px;
+height: 128px;
+z-index: 0;
 
 ## Colors
 
 .left-column[
 Text color
+
 
 [Link Color](#3)
 
@@ -89,9 +121,17 @@ venenatis urna cursus eget nunc scelerisque viverra.
 
 ---
 
+class: center, middle
+background-image:url(https://images.pexels.com/photos/570041/pexels-photo-570041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1_)
+background-position: top right
+background-size: 310px 320px
+layout: true
+---
+
 # Big Topic or Inverse Slides `#`
 
 ## Slide Headings `##`
+
 
 ### Sub-slide Headings `###`
 
@@ -103,7 +143,53 @@ This is a normal paragraph text. Only use header levels 1-4.
 
 ###### Definitely don't use h6 `######`
 
+
 ---
+
+class: center, middle
+background-image: url("flowery.png")
+background-position: top right
+background-size: 110px 120px
+layout: true
+
+# yjod od dp,rpy f;lgkfd'
+
+## tj;ljfg lkfg
+But this page not breaking with --- why?
+
+---
+
+# repeast pics ?
+
+## This one does too
+
+But you can't add a new background image!
+
+---
+layout: false
+
+## This one doesn't have a logo :(
+
+---
+
+# This is my first level heading
+yes top level heading notes
+
+## This is my second level heading
+Some notes about seond levle heading
+
+### This is my third level heading
+Some note about third level heading
+
+#### This is my fourth level heading
+
+This is my real paragram
+
+---
+class: inverse center middle
+background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fflowers%2F&psig=AOvVaw13sI8rZ5cieQKS05_SG6Cb&ust=1671037557975000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCPikgpKK9_sCFQAAAAAdAAAAABAE")
+background-position: center <!-- center, left, right, top, middle, bottom --->
+background-size: contain
 
 # Left-Column Headings
 
@@ -117,7 +203,19 @@ This is a normal paragraph text. Only use header levels 1-4.
 
 .right-column[
 Dolor quis aptent mus a dictum ultricies egestas.
-
+```{r ggplottest, eval=TRUE, echo=FALSE, warning=FALSE}
+library(ggplot2)
+ggplot(diamonds) +
+  aes(cut, fill = cut) +
+  geom_bar(show.legend = FALSE) +
+  labs(
+    x = "Cut",
+    y = "Count",
+    title = "A Fancy diamonds Plot"
+  ) +
+  theme_xaringan(background_color = "#FFFFFF") +
+  scale_xaringan_fill_discrete()
+```
 Amet egestas neque tempor fermentum proin massa!
 
 Dolor elementum fermentum pharetra lectus arcu pulvinar.
@@ -125,6 +223,10 @@ Dolor elementum fermentum pharetra lectus arcu pulvinar.
 
 ---
 class: inverse center middle
+background-image: url(https://images.pexels.com/photos/5245339/pexels-photo-5245339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
+background-position: top right
+background-size: 1010px 1200px
+layout: true
 
 # Topic Changing Interstitial
 
@@ -292,7 +394,8 @@ layout: true
 - level 1 item (ul)
 
 ---
-layout: true
+class: center, middle
+background-image: url(https://images.pexels.com/photos/1532771/pexels-photo-1532771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
 
 ## Plots
 
@@ -355,9 +458,12 @@ layout: false
 </dl>
 
 ---
+
 class: center, middle
+background-image: url(https://images.pexels.com/photos/39517/rose-flower-blossom-bloom-39517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
 
 # Thanks!
+
 
 Slides created via the R packages:
 

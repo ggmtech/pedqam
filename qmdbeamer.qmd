@@ -8,7 +8,7 @@ fontsize: 10pt
 mathspec: true # for metropolis theme
 aspectratio: 169 # 16:9
 #classoption: handout
-format: beamer
+#format: beamer
 # beamer_presentation:
 #   theme: "Madrid" 
    # https://deic-web.uab.cat/~iblanes/beamer_gallery/index_by_theme.html
@@ -26,9 +26,15 @@ format: beamer
 #header-includes:
 #  - \usepackage{fancyvrb}
 #  - \usepackage{graphicx}
+format:
+  html:
+    code-fold: true
+##jupyter: julia-1.8
 ---
-# Power of R Markdown
-## Example: my fancy graph
-Behold! My plot that shows the linear trend!
 
-## Diagram
+## Parametric Plots
+
+Plot function pair (x(u), y(u)). 
+See @fig-parametric for an example.
+
+

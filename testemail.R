@@ -1,3 +1,37 @@
+
+
+
+
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+                  Postgres(),
+                  user = Sys.getenv("dbedu_usr"),
+                  password = Sys.getenv("dbedu_pwd"),
+                  dbname = "tradestatistics",
+                  host = "databases.pacha.dev"
+                )
+
+dbListTables(con)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 library(tidyverse)
 #install.packages("emayili") # or remotes::install_github("datawookie/emayili")
 library(emayili)

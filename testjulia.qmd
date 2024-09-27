@@ -1,0 +1,105 @@
+---
+title: "Plots Demo"
+author: "Norah Jones"
+date: "5/22/2021"
+format:
+  html:
+    code-fold: true
+#jupyter: julia-1.8.3
+---
+
+## Quarto
+
+
+# Installing julia Linux and FreeBSD from official page
+
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.3-linux-x86_64.tar.gz
+tar zxvf julia-1.8.3-linux-x86_64.tar.gz
+
+Running Julia in generic Linux and FreeBSD binaries do not require any special installation steps.
+Ensure system find the julia executable in path. The installed dir is referred as <Julia directory>.
+
+To run Julia, either:
+- Invoke the julia executable by using its full path: <Julia directory>/bin/julia
+- Create a symlink to julia inside a folder on your system PATH
+- Add Julia's bin folder with full path to your system PATH environment variable
+
+To add Julia's bin folder (with full path) to PATH environment variable, edit the ~/.bashrc (or ~/.bash_profile) file by adding a new line as follows:
+
+export PATH="$PATH:/path/to/<Julia directory>/bin"
+
+
+
+## Installing package of julia
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+ 
+Add Julia to Jupyter Notebook
+
+julia>using Pkg
+julia> Pkg.add("IJulia")
+
+Adding julia package : In julia prompt 
+julia> using Pkg
+julia> Pkg.add("Package Name")
+or add both on 
+
+## Render docs with embedded Julia code - install  components: IJulia,  Revise.jl, Jupyter Cache
+
+IJulia is a Julia-language execution kernel for Jupyter.
+install IJulia from within the Julia REPL as follows:
+using Pkg
+Pkg.add("IJulia")
+using IJulia
+notebook()
+
+
+The first time you run notebook(), it will prompt you for whether it should install Jupyter.
+Hit enter to have it use the Conda.jl package to install a minimal Python+Jupyter distribution (via Miniconda) that is private to Julia (not in your PATH). 
+
+On Linux, it defaults to looking for jupyter in your PATH first, and only asks to installs the Conda Jupyter if that fails.
+
+If you choose not to use Conda.jl to install Python and Jupyter you will need to make sure that you have another installation of it on your system (see the section on Installing Jupyter if you need help with this).
+Revise.jl
+
+In addition to IJulia, you’ll want to install Revise.jl and configure it for use with IJulia. Revise.jl is a library that helps you keep your Julia sessions running longer, reducing the need to restart when you make changes to code.
+
+Quarto maintains a persistent kernel daemon for each document to mitigate Jupyter start up time during iterative work. Revise.jl will make this persistent process robust in the face of package updates, git branch checkouts, etc. Install Revise.jl with:
+
+using Pkg
+Pkg.add("Revise")
+
+To configure Revise to launch automatically within IJulia, create a .julia/config/startup_ijulia.jl file with the contents:
+
+try
+  @eval using Revise
+catch e
+  @warn "Revise init" exception=(e, catch_backtrace())
+end
+
+
+
+## Parametric Plots
+
+Plot function pair (x(u), y(u)). 
+See @fig-parametric for an example.
+
+```{julia}
+#| label: fig-parametric
+#| fig-cap: "Parametric Plots"
+
+using Plots
+
+plot(sin, 
+     x->sin(2x), 
+     0, 
+     2π, 
+     leg=false, 
+     fill=(0,:lavender))
+```
+
+
+
+# Add notes on Julia
+
+useful notes on Julia
